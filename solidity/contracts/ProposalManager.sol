@@ -11,8 +11,8 @@ import "./Ownable.sol";
 /// @author Nikola Klipa @ Decenter
 contract ProposalManager is Ownable {
 
-    address constant NECTAR_TOKEN = 0x4c88D00971467aBd70381541AED6417B0e541C41;
-    address constant TOKEN_FACTORY = 0x0E59f06f597Af0a7c30d79B0a7988fa45eEaf292;
+    address constant NECTAR_TOKEN = 0xCc80C051057B774cD75067Dc48f8987C4Eb97A5e;
+    address constant TOKEN_FACTORY = 0x003ea7f54b6Dcf6cEE86986EdC18143A35F15505;
 
     struct Proposal {
         uint startBlock;
@@ -51,22 +51,15 @@ contract ProposalManager is Ownable {
         bytes32 _storageHash) public returns (uint _proposalId)
     {
 
+        uint amount = MiniMeToken(nectarToken).balanceOf(msg.sender);
+        assert(amount > 0); // user can't submit proposal if doesn't own any tokens
+
         _proposalId = proposals.length;
         proposals.length++;
 
         Proposal storage p = proposals[_proposalId];
         p.storageHash = _storageHash;
         p.duration = _duration * (1 days);
-        p.token = tokenFactory.createCloneToken(
-                nectarToken,
-                getBlockNumber(),
-                "NectarClone",
-                MiniMeToken(nectarToken).decimals(),
-                "NECC",
-                true);
-
-        uint amount = MiniMeToken(p.token).balanceOf(msg.sender);
-        assert(amount > 0); // user can't submit proposal if doesn't own any tokens
         
         NewProposal(_proposalId, _duration, _storageHash);
     }
@@ -80,6 +73,14 @@ contract ProposalManager is Ownable {
 
         // if not checked, admin is able to restart proposal
         require(!p.approved);
+
+        p.token = tokenFactory.createCloneToken(
+                nectarToken,
+                getBlockNumber(),
+                appendUintToString("NectarProposal-", _proposalId),
+                MiniMeToken(nectarToken).decimals(),
+                appendUintToString("NP-", _proposalId),
+                true);
 
         p.approved = true;
         p.startTime = now;
@@ -198,6 +199,31 @@ contract ProposalManager is Ownable {
         }
 
         return activeProposals;
+    }
+
+    function appendUintToString(string inStr, uint v) private pure returns (string str) {
+        uint maxlength = 100;
+        bytes memory reversed = new bytes(maxlength);
+        uint i = 0;
+        if (v==0) {
+            reversed[i++] = byte(48);  
+        } else { 
+            while (v != 0) {
+                uint remainder = v % 10;
+                v = v / 10;
+                reversed[i++] = byte(48 + remainder);
+            }
+        }
+        bytes memory inStrb = bytes(inStr);
+        bytes memory s = new bytes(inStrb.length + i);
+        uint j;
+        for (j = 0; j < inStrb.length; j++) {
+            s[j] = inStrb[j];
+        }
+        for (j = 0; j < i; j++) {
+            s[j + inStrb.length] = reversed[i - 1 - j];
+        }
+        str = string(s);
     }
 
     function nProposals() public view returns(uint) {

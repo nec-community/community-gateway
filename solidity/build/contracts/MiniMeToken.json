@@ -638,7 +638,7 @@
       },
       {
         "attributes": {
-          "SourceUnit": 1883,
+          "SourceUnit": 2030,
           "absolutePath": "/Users/nikolaklipa/Decenter/community-gateway/solidity/contracts/TokenController.sol",
           "file": "./TokenController.sol",
           "scope": 1112,
@@ -2035,7 +2035,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1886,
+                                  "referencedDeclaration": 2033,
                                   "type": "block",
                                   "value": "block"
                                 },
@@ -2206,7 +2206,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1897,
+                              "referencedDeclaration": 2044,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -2300,7 +2300,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1894,
+                                  "referencedDeclaration": 2041,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -2562,7 +2562,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1894,
+                                  "referencedDeclaration": 2041,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -2624,7 +2624,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 1897,
+                                      "referencedDeclaration": 2044,
                                       "type": "function (bool) pure",
                                       "value": "require"
                                     },
@@ -2684,7 +2684,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 1897,
+                                      "referencedDeclaration": 2044,
                                       "type": "function (bool) pure",
                                       "value": "require"
                                     },
@@ -2778,7 +2778,7 @@
                                                   "overloadedDeclarations": [
                                                     null
                                                   ],
-                                                  "referencedDeclaration": 1894,
+                                                  "referencedDeclaration": 2041,
                                                   "type": "msg",
                                                   "value": "msg"
                                                 },
@@ -2909,7 +2909,7 @@
                                               "overloadedDeclarations": [
                                                 null
                                               ],
-                                              "referencedDeclaration": 1894,
+                                              "referencedDeclaration": 2041,
                                               "type": "msg",
                                               "value": "msg"
                                             },
@@ -3409,7 +3409,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1897,
+                              "referencedDeclaration": 2044,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -3464,7 +3464,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 1886,
+                                      "referencedDeclaration": 2033,
                                       "type": "block",
                                       "value": "block"
                                     },
@@ -3520,7 +3520,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1897,
+                              "referencedDeclaration": 2044,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -3690,7 +3690,7 @@
                                               "overloadedDeclarations": [
                                                 null
                                               ],
-                                              "referencedDeclaration": 1911,
+                                              "referencedDeclaration": 2058,
                                               "type": "contract MiniMeToken",
                                               "value": "this"
                                             },
@@ -3822,7 +3822,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1886,
+                                  "referencedDeclaration": 2033,
                                   "type": "block",
                                   "value": "block"
                                 },
@@ -3873,7 +3873,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1897,
+                              "referencedDeclaration": 2044,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -4027,7 +4027,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 1897,
+                                      "referencedDeclaration": 2044,
                                       "type": "function (bool) pure",
                                       "value": "require"
                                     },
@@ -4071,7 +4071,7 @@
                                           "isPure": false,
                                           "lValueRequested": false,
                                           "member_name": "onTransfer",
-                                          "referencedDeclaration": 1870,
+                                          "referencedDeclaration": 2017,
                                           "type": "function (address,address,uint256) external returns (bool)"
                                         },
                                         "children": [
@@ -4101,7 +4101,7 @@
                                                   "overloadedDeclarations": [
                                                     null
                                                   ],
-                                                  "referencedDeclaration": 1882,
+                                                  "referencedDeclaration": 2029,
                                                   "type": "type(contract TokenController)",
                                                   "value": "TokenController"
                                                 },
@@ -4435,7 +4435,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1886,
+                                  "referencedDeclaration": 2033,
                                   "type": "block",
                                   "value": "block"
                                 },
@@ -4486,7 +4486,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1897,
+                              "referencedDeclaration": 2044,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -4992,7 +4992,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1886,
+                                  "referencedDeclaration": 2033,
                                   "type": "block",
                                   "value": "block"
                                 },
@@ -5163,7 +5163,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1897,
+                              "referencedDeclaration": 2044,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -5223,7 +5223,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1897,
+                              "referencedDeclaration": 2044,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -5391,7 +5391,7 @@
                                                       "overloadedDeclarations": [
                                                         null
                                                       ],
-                                                      "referencedDeclaration": 1894,
+                                                      "referencedDeclaration": 2041,
                                                       "type": "msg",
                                                       "value": "msg"
                                                     },
@@ -5558,7 +5558,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 1897,
+                                      "referencedDeclaration": 2044,
                                       "type": "function (bool) pure",
                                       "value": "require"
                                     },
@@ -5602,7 +5602,7 @@
                                           "isPure": false,
                                           "lValueRequested": false,
                                           "member_name": "onApprove",
-                                          "referencedDeclaration": 1881,
+                                          "referencedDeclaration": 2028,
                                           "type": "function (address,address,uint256) external returns (bool)"
                                         },
                                         "children": [
@@ -5632,7 +5632,7 @@
                                                   "overloadedDeclarations": [
                                                     null
                                                   ],
-                                                  "referencedDeclaration": 1882,
+                                                  "referencedDeclaration": 2029,
                                                   "type": "type(contract TokenController)",
                                                   "value": "TokenController"
                                                 },
@@ -5682,7 +5682,7 @@
                                               "overloadedDeclarations": [
                                                 null
                                               ],
-                                              "referencedDeclaration": 1894,
+                                              "referencedDeclaration": 2041,
                                               "type": "msg",
                                               "value": "msg"
                                             },
@@ -5813,7 +5813,7 @@
                                           "overloadedDeclarations": [
                                             null
                                           ],
-                                          "referencedDeclaration": 1894,
+                                          "referencedDeclaration": 2041,
                                           "type": "msg",
                                           "value": "msg"
                                         },
@@ -5936,7 +5936,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1894,
+                                  "referencedDeclaration": 2041,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -6390,7 +6390,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1897,
+                              "referencedDeclaration": 2044,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -6601,7 +6601,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1894,
+                                  "referencedDeclaration": 2041,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -6634,7 +6634,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1911,
+                              "referencedDeclaration": 2058,
                               "type": "contract MiniMeToken",
                               "value": "this"
                             },
@@ -6822,7 +6822,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1886,
+                                  "referencedDeclaration": 2033,
                                   "type": "block",
                                   "value": "block"
                                 },
@@ -8651,7 +8651,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 1886,
+                                      "referencedDeclaration": 2033,
                                       "type": "block",
                                       "value": "block"
                                     },
@@ -8791,7 +8791,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1911,
+                              "referencedDeclaration": 2058,
                               "type": "contract MiniMeToken",
                               "value": "this"
                             },
@@ -8950,7 +8950,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1894,
+                                  "referencedDeclaration": 2041,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -9401,7 +9401,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1897,
+                              "referencedDeclaration": 2044,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -9620,7 +9620,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1897,
+                              "referencedDeclaration": 2044,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -10347,7 +10347,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1897,
+                              "referencedDeclaration": 2044,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -10532,7 +10532,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1897,
+                              "referencedDeclaration": 2044,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -12870,7 +12870,7 @@
                                           "overloadedDeclarations": [
                                             null
                                           ],
-                                          "referencedDeclaration": 1886,
+                                          "referencedDeclaration": 2033,
                                           "type": "block",
                                           "value": "block"
                                         },
@@ -13113,7 +13113,7 @@
                                               "overloadedDeclarations": [
                                                 null
                                               ],
-                                              "referencedDeclaration": 1886,
+                                              "referencedDeclaration": 2033,
                                               "type": "block",
                                               "value": "block"
                                             },
@@ -14119,7 +14119,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1897,
+                              "referencedDeclaration": 2044,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -14218,7 +14218,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1897,
+                              "referencedDeclaration": 2044,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -14286,7 +14286,7 @@
                                           "isPure": false,
                                           "lValueRequested": false,
                                           "member_name": "proxyPayment",
-                                          "referencedDeclaration": 1859,
+                                          "referencedDeclaration": 2006,
                                           "type": "function (address) payable external returns (bool)"
                                         },
                                         "children": [
@@ -14316,7 +14316,7 @@
                                                   "overloadedDeclarations": [
                                                     null
                                                   ],
-                                                  "referencedDeclaration": 1882,
+                                                  "referencedDeclaration": 2029,
                                                   "type": "type(contract TokenController)",
                                                   "value": "TokenController"
                                                 },
@@ -14371,7 +14371,7 @@
                                           "overloadedDeclarations": [
                                             null
                                           ],
-                                          "referencedDeclaration": 1894,
+                                          "referencedDeclaration": 2041,
                                           "type": "msg",
                                           "value": "msg"
                                         },
@@ -14407,7 +14407,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 1894,
+                                      "referencedDeclaration": 2041,
                                       "type": "msg",
                                       "value": "msg"
                                     },
@@ -14659,7 +14659,7 @@
                                           "overloadedDeclarations": [
                                             null
                                           ],
-                                          "referencedDeclaration": 1911,
+                                          "referencedDeclaration": 2058,
                                           "type": "contract MiniMeToken",
                                           "value": "this"
                                         },
@@ -14884,7 +14884,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1911,
+                              "referencedDeclaration": 2058,
                               "type": "contract MiniMeToken",
                               "value": "this"
                             },
@@ -15822,7 +15822,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1913,
+                              "referencedDeclaration": 2060,
                               "type": "contract MiniMeTokenFactory",
                               "value": "this"
                             },
@@ -15995,7 +15995,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1894,
+                                  "referencedDeclaration": 2041,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -16068,5 +16068,5 @@
   },
   "networks": {},
   "schemaVersion": "1.0.1",
-  "updatedAt": "2018-03-02T11:34:27.777Z"
+  "updatedAt": "2018-03-04T10:24:49.925Z"
 }
