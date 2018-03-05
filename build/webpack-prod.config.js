@@ -5,7 +5,7 @@ const CleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-// const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './src/index.html',
@@ -76,11 +76,11 @@ module.exports = {
         NODE_ENV: '"production"',
       }
     }),
-    // new CopyWebpackPlugin([
-    //   {
-    //     from: './src/constants/ima/',
-    //     to: 'ima/',
-    //   }
-    // ])
+    new CopyWebpackPlugin([
+      {
+        from: './src/constants/ima/',
+        to: 'ima/',
+      }
+    ])
   ]
 };

@@ -1,0 +1,106 @@
+@import "../../common/text";
+@import "../../common/components";
+@import "../../common/variables";
+
+.vertical {
+  display: inline-block;
+  transform: rotate(90deg);
+  transform-origin: left top 0;
+  font-size: 12px;
+  //margin-top: 10px;
+  margin-left: 20px;
+}
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.landing-wrapper {
+  background-color: $color1;
+  section {
+    min-height: 90vh;
+  }
+  .hero {
+    padding: 40px 60px;
+    background: url(/images/landing-bg.png) center/contain no-repeat;
+    h1 {
+      font-size: 70px;
+      font-weight: normal;
+      margin: 130px 0;
+      b {
+        display: block;
+        font-size: 112px;
+      }
+    }
+    .hero-footer {
+      display: flex;
+      div {
+        flex: 1 1 100%;
+      }
+      h2 {
+        line-height: 29px;
+        font-size: 18px;
+        margin: 0;
+        font-weight: normal;
+      }
+    }
+  }
+  .statistics {
+    background: linear-gradient(117.02deg, #041824 9.23%, #07090D 91.6%);
+    padding: 100px 0;
+    h2 {
+      font-size: 48px;
+      margin: 0;
+    }
+    h3 {
+      font-size: 18px;
+      line-height: 29px;
+      font-weight: normal;
+      margin: 25px 50px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-gap: 10px;
+      line-height: 22px;
+      font-size: 14px;
+      font-weight: normal;
+      .token-supply {
+        grid-column: 3 / span 2;
+      }
+      .current-token {
+        grid-column: 3;
+      }
+      .trading-volume {
+        grid-column: 4;
+      }
+      > div {
+        padding: 20px;
+      }
+      .stat-wrapper {
+        border-top: 2px solid white;
+        display: inline-flex;
+        padding: 15px 0;
+        margin: 20px 0;
+        .stat {
+          font-weight: bold;
+          font-size: 40px;
+          line-height: 40px;
+        }
+        .stat-addon {
+          font-size: 14px;
+          line-height: 18px;
+          margin-left: 5px;
+          margin-top: 2px;
+          .secondary {
+            color: $color4;
+          }
+        }
+      }
+    }
+  }
+  .voting {
+    background-color: $color2;
+    padding: 100px 0;
+  }
+}

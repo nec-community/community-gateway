@@ -34,7 +34,7 @@ class App extends Component {
             <Link to="/tokens">Nectar Tokens</Link>
           </nav>
           {
-            this.props.accountError &&
+            this.props.accountError && false &&
             <h2 className="account-error-wrapper">Voting disabled - {this.props.accountError}</h2>
           }
           <Routes />

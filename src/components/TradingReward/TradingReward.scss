@@ -1,0 +1,40 @@
+@import "../../common/variables";
+
+.trading-reward-wrapper {
+  padding: 100px 0;
+  h2 {
+    font-size: 48px;
+    margin: 0;
+  }
+  p {
+    font-weight: normal;
+    margin: 25px 50px;
+    line-height: 23px;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    width: 350px;
+  }
+  h3 {
+    font-weight: bold;
+    font-size: 30px;
+    color: $color4;
+    width: 632px;
+    line-height: 10px;
+    float: right;
+    margin: 100px 0;
+    input {
+      margin: 10px;
+      padding: 3px;
+      width: 80px;
+      background: transparent;
+      border: 0;
+      font-weight: bold;
+      font-size: 30px;
+      color: white;
+      text-align: center;
+    }
+    b {
+      color: white;
+    }
+  }
+}

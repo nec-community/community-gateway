@@ -18,7 +18,7 @@ const getAccount = () => (
       if (!accounts.length) throw new Error('No accounts (Possibly locked)');
       resolve(accounts[0]);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       reject(err);
     }
   })
@@ -109,11 +109,18 @@ const getProposalDetails = async (id) => {
   const details = await proposalContract.methods.proposal(id).call();
   const storageHash = details._storageHash.substr(2, 40);
   // const storageHash = web3.utils.toAscii(details._storageHash).replace(/\u0000/g, '');
-  const description = await grenache.get(storageHash);
+  let description = await grenache.get(storageHash);
+  const title = description.substr(0, description.indexOf('\n'));
+  description = description.substr(description.indexOf('\n')).trim();
+  const yesPercentage = 100 * (parseInt(details._totalYes) / (parseInt(details._totalYes) + parseInt(details._totalNo)));
+  const noPercentage = 100 * (parseInt(details._totalNo) / (parseInt(details._totalYes) + parseInt(details._totalNo)));
   return {
     id,
     ...details,
+    title,
     description,
+    yesPercentage,
+    noPercentage,
     duration: details._duration / 24 / 60 / 60,
     startTime: new Date(parseInt(`${details._startTime}000`, 10)),
   };

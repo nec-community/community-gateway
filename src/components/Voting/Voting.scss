@@ -1,0 +1,72 @@
+@import "../../common/variables";
+
+.voting-wrapper {
+  display: flex;
+  > div {
+    flex: 1 1 100%;
+  }
+  .left {
+    h2 {
+      font-size: 48px;
+      margin: 0;
+    }
+    p {
+      font-weight: normal;
+      margin: 25px 50px;
+      line-height: 23px;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+      width: 350px;
+    }
+    .nav {
+      a {
+        display: block;
+        line-height: 57px;
+        font-size: 34px;
+        letter-spacing: 0.02em;
+        color: $color4;
+        cursor: pointer;
+        transition: .2s color;
+        &:hover {
+          color: white;
+        }
+        &:before {
+          content: '';
+          display: inline-block;
+          width: 30px;
+          height: 3px;
+          vertical-align: middle;
+          margin-right: 7px;
+        }
+        &.active {
+          font-weight: bold;
+          color: white;
+          &:before {
+            background-color: white;
+          }
+        }
+      }
+    }
+  }
+  .right {
+    max-height: calc(100vh - 200px);
+    overflow: auto;
+    .submit-wrapper {
+      h3 {
+        font-size: 24px;
+        letter-spacing: 0.02em;
+      }
+      p {
+        line-height: 20px;
+        font-size: 12px;
+        letter-spacing: 0.02em;
+      }
+      a {
+        font-weight: bold;
+        color: white;
+        font-size: 48px;
+        text-decoration: none;
+      }
+    }
+  }
+}

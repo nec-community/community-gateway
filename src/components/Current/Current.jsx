@@ -17,28 +17,34 @@ class Current extends Component {
   render() {
     return (
       <div className="current-proposals">
-        <h1>Currently Active Proposals</h1>
-        <div>
-          {
-            this.props.proposals.map(proposal => (
-              <div key={proposal._token} className="proposal-wrapper">
-                <p className="started">Started: {proposal.startTime.toISOString()}</p>
-                <p className="duration">Duration: {proposal.duration} days</p>
-                <p className="description">{proposal.description}</p>
-                <p className="vote-wrapper">
-                  Vote
-                  <a onClick={() => this.vote(proposal.id, true)}>Yes</a>
-                  <a onClick={() => this.vote(proposal.id, false)}>No</a>
-                </p>
-                <p>
-                  Results: <br />
-                  Yes: { proposal._totalYes } <br />
-                  No: { proposal._totalNo }
-                </p>
+        {
+          this.props.proposals.map(proposal => (
+            <div key={proposal._token} className="proposal-wrapper">
+              <p className="started">{proposal.startTime.toLocaleString()}</p>
+              <p className="title">{proposal.title}</p>
+              <p className="description">{proposal.description}</p>
+              <p className="duration">Duration: {proposal.duration} days</p>
+              <div className="results-wrapper">
+                <div className="yes">
+                  <span className="word">yes</span>
+                  <div className="bar">
+                    <div className="bar-yes" style={{ width: `${proposal.yesPercentage}%` }} />
+                  </div>
+                  <div className="number">{ proposal.yesPercentage }</div>
+                  <div className="votes-number">435 votes</div>
+                </div>
+                <div className="no">
+                  <span className="word">no</span>
+                  <div className="number">{ proposal.noPercentage }</div>
+                  <div className="votes-number">435 votes</div>
+                </div>
               </div>
-            ))
-          }
-        </div>
+              <p className="vote-wrapper">
+                Vote <a onClick={() => this.vote(proposal.id, true)}>Yes</a> <a onClick={() => this.vote(proposal.id, false)}>No</a>
+              </p>
+            </div>
+          ))
+        }
       </div>
     );
   }

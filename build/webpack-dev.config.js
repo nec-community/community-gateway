@@ -2,8 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-// const CopyWebpackPlugin = require('copy-webpack-plugin');
-// const WriteFilePlugin = require('write-file-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const WriteFilePlugin = require('write-file-webpack-plugin');
 // require("babel-polyfill");
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
@@ -73,14 +73,14 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     // new FaviconsWebpackPlugin(path.resolve('favicon.png')),
-    // new WriteFilePlugin({
-    //   test: /^images/,
-    // }),
-    // new CopyWebpackPlugin([
-    //   {
-    //     from: './src/constants/images/',
-    //     to: 'images/',
-    //   }
-    // ])
+    new WriteFilePlugin({
+      test: /^images/,
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: './src/constants/images/',
+        to: 'images/',
+      }
+    ])
   ]
 };

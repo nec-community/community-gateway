@@ -4,14 +4,14 @@
 
 * {
   box-sizing: border-box;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 html {
   font-size: 62.5%;
   min-height: 100%;
   width: 100%;
-  background-color: $color2;
+  background-color: $color1;
   color: white;
 }
 
@@ -25,6 +25,8 @@ body {
 nav {
   display: flex;
   justify-content: center;
+  position: absolute;
+  width: 100%;
   a {
     padding: 10px;
     color: $color4;
@@ -39,4 +41,12 @@ nav {
   margin: 20px auto;
   border-radius: 3px;
   font-size: 18px;
+}
+
+.right-align {
+  text-align: right;
+}
+
+.left-align {
+  text-align: left;
 }
