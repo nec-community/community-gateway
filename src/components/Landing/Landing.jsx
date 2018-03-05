@@ -36,7 +36,7 @@ class App extends Component {
                 claim a share of the fees collected on Ethfinex.
               </h2>
             </div>
-            <div></div>
+            <div />
           </div>
         </section>
 
@@ -94,7 +94,7 @@ class App extends Component {
 
         <section className="calculator">
           <div className="container">
-            <TradingReward/>
+            <TradingReward />
           </div>
         </section>
 

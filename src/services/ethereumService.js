@@ -7,10 +7,6 @@ const ProviderEngine = require('web3-provider-engine');
 const RpcSubprovider = require('web3-provider-engine/subproviders/rpc');
 const LedgerWalletSubproviderFactory = require('ledger-wallet-provider').default;
 
-
-const ledgerLogin = async () => {
-};
-
 const getAccount = () => (
   new Promise(async (resolve, reject) => {
     try {
@@ -82,6 +78,7 @@ const getTokenBalance = async (_account) => {
 const contribute = async () => {
   const controllerContract = await getControllerContract();
   const account = await getAccount();
+  log(`Contributing from account ${account}`);
   return controllerContract.methods.contributeForMakers(account).send({
     value: web3.utils.toWei('0.01', 'ether'),
     from: account,
@@ -112,8 +109,10 @@ const getProposalDetails = async (id) => {
   let description = await grenache.get(storageHash);
   const title = description.substr(0, description.indexOf('\n'));
   description = description.substr(description.indexOf('\n')).trim();
-  const yesPercentage = 100 * (parseInt(details._totalYes) / (parseInt(details._totalYes) + parseInt(details._totalNo)));
-  const noPercentage = 100 * (parseInt(details._totalNo) / (parseInt(details._totalYes) + parseInt(details._totalNo)));
+  const yesPercentage = 100 * (parseInt(details._totalYes, 10) /
+    (parseInt(details._totalYes, 10) + parseInt(details._totalNo, 10)));
+  const noPercentage = 100 * (parseInt(details._totalNo, 10) /
+    (parseInt(details._totalYes, 10) + parseInt(details._totalNo, 10)));
   return {
     id,
     ...details,
@@ -154,4 +153,3 @@ export default {
   vote,
 };
 
-setTimeout(ledgerLogin, 1000);

@@ -1,14 +1,14 @@
 {
-  "name": "TCGClient",
+  "name": "NectarCommunity",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/DecenterApps/TCGClient",
-  "author": "astankovic <aleksa.stankovic@berkeley.edu>",
+  "repository": "",
+  "author": "Nikola Vukovic <nvukovic@decenter.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack-dev-server --history-api-fallback --compress --config ./build/webpack-dev.config.js",
+    "dev": "webpack-dev-server --https --history-api-fallback --compress --config ./build/webpack-dev.config.js",
     "prod": "webpack --config ./build/webpack-prod.config.js",
-    "prod-serve": "webpack-dev-server --history-api-fallback --compress --config ./build/webpack-prod.config.js"
+    "prod-serve": "webpack-dev-server --https --history-api-fallback --compress --config ./build/webpack-prod.config.js"
   },
   "dependencies": {
     "autoprefixer-loader": "^3.2.0",

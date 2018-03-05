@@ -36,9 +36,11 @@ class TradingReward extends Component {
     return (
       <div className="trading-reward-wrapper">
         <h2>Earn by trading on Ethfinex</h2>
-        <p>You can earn new NEC tokens in proportion to your maker volume (matched limit orders).
+        <p>
+          You can earn new NEC tokens in proportion to your maker volume (matched limit orders).
           Tokens become harder to earn each month. Calculate how many you would earn
-          based on your trading volume.</p>
+          based on your trading volume.
+        </p>
         <h3>
           <label htmlFor="input">
             If your maker trading

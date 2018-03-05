@@ -40,7 +40,10 @@ class Current extends Component {
                 </div>
               </div>
               <p className="vote-wrapper">
-                Vote <a onClick={() => this.vote(proposal.id, true)}>Yes</a> <a onClick={() => this.vote(proposal.id, false)}>No</a>
+                {'Vote '}
+                <a onClick={() => this.vote(proposal.id, true)}>Yes</a>
+                {' '}
+                <a onClick={() => this.vote(proposal.id, false)}>No</a>
               </p>
             </div>
           ))

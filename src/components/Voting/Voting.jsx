@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 import Current from '../Current/Current';
 
@@ -30,12 +30,24 @@ class Voting extends Component {
         <div className="left">
           <h2>Voting</h2>
           <div className="nav">
-            <a className={`${this.state.shown === 'current' ? 'active' : ''}`}
-               onClick={() => this.switch('current')}>Current Votes</a>
-            <a className={`${this.state.shown === 'past' ? 'active' : ''}`}
-               onClick={() => this.switch('past')}>Past Votes</a>
-            <a className={`${this.state.shown === 'submit' ? 'active' : ''}`}
-               onClick={() => this.switch('submit')}>Submit Proposal</a>
+            <a
+              className={`${this.state.shown === 'current' ? 'active' : ''}`}
+              onClick={() => this.switch('current')}
+            >
+              Current Votes
+            </a>
+            <a
+              className={`${this.state.shown === 'past' ? 'active' : ''}`}
+              onClick={() => this.switch('past')}
+            >
+              Past Votes
+            </a>
+            <a
+              className={`${this.state.shown === 'submit' ? 'active' : ''}`}
+              onClick={() => this.switch('submit')}
+            >
+              Submit Proposal
+            </a>
           </div>
         </div>
         <div className="right">
