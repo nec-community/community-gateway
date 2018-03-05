@@ -1,0 +1,21 @@
+.current-proposals {
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px;
+
+  .proposal-wrapper {
+    margin: 30px 0;
+    .description {
+      white-space: pre-wrap;
+      background-color: rgba(white, .1);
+      border-radius: 3px;
+      padding: 10px;
+    }
+    .vote-wrapper {
+      a {
+        display: inline-block;
+        padding: 5px;
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "presets": [["env", {
+    "modules": false,
+    "targets": {
+      "node": "current"
+    }
+  }], "react"],
+  "plugins": ["transform-object-rest-spread", "transform-runtime"]
+}

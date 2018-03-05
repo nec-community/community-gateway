@@ -1,0 +1,35 @@
+
+.notification-wrapper {
+  position: fixed;
+  transform: translateY(-80px);
+  opacity: 0;
+  transition: all .3s;
+  text-align: center;
+  width: 100%;
+  pointer-events: none;
+  z-index: 1000000;
+  &.active {
+    transform: translateY(10px);
+    opacity: 1;
+  }
+  .notification-inner-wrapper {
+    display: inline-block;
+    width: 400px;
+    min-height: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 24px;
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 3px;
+    box-shadow: 0 2px 2px 0 rgba(black, .2);
+    &.success {
+      background-color: #4a9c20;
+      color: white;
+    }
+    &.error {
+      background-color: #d33133;
+      color: white;
+    }
+  }
+}

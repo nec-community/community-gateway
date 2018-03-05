@@ -1,0 +1,38 @@
+  .submit-proposal {
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px;
+  .form-wrapper {
+    label {
+      display: block;
+      margin: 20px 0;
+    }
+    input {
+      margin-left: 10px;
+    }
+    textarea {
+      display: block;
+      margin: 10px 0;
+      width: 100%;
+      min-height: 400px;
+      resize: vertical;
+      padding: 10px;
+      font-size: 14px;
+      line-height: 1.4em;
+    }
+    .info-tip {
+      padding: 10px;
+      border-radius: 3px;
+      background-color: rgba(white, .1);
+    }
+    button {
+      margin: 10px 0;
+    }
+    .submit-error {
+      padding: 10px;
+      border-radius: 3px;
+      background-color: #d33133;
+      color: white;
+    }
+  }
+}
