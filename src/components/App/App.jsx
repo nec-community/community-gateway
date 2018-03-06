@@ -14,7 +14,6 @@ class App extends Component {
     } else {
       window.web3 = new Web3('wss://mainnet.infura.io/ws');
     }
-    console.log('App mounted');
     this.props.checkAccount();
   }
 

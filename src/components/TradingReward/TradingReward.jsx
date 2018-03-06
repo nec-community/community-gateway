@@ -11,24 +11,30 @@ class TradingReward extends Component {
     super();
 
     this.state = {
-      input: 0,
+      input: 1000,
       calculated: 0,
     };
 
     this.calculate = this.calculate.bind(this);
   }
 
-  componentDidMount() {
-    this.props.getTokenBalance();
+  async componentWillMount() {
+    const calculated = await eth.calculateNecReward(1000);
+    const rounded = Math.floor(calculated * 1000) / 1000;
+    this.setState({
+      calculated: rounded,
+    });
   }
 
   async calculate(e) {
-    const input = parseInt(e.target.value, 10);
-    const calculated = await eth.estimatePayout(eth.ethToWei(input));
-    console.log(calculated);
+    if (e.target.value.length > 12) return;
+    let input = parseInt(e.target.value, 10);
+    if (isNaN(input)) input = 0;
+    const calculated = await eth.calculateNecReward(input);
+    const rounded = Math.floor(calculated * 1000) / 1000;
     this.setState({
       input,
-      calculated: eth.weiToEth(calculated),
+      calculated: rounded,
     });
   }
 
@@ -45,8 +51,8 @@ class TradingReward extends Component {
           <label htmlFor="input">
             If your maker trading
             <div className="right-align">volume is:
-              <input id="input" type="number" value={this.state.input} onChange={this.calculate} />
-              you earn <b>{this.state.calculated}</b><br />tokens
+              <input style={{ width: `${this.state.input.toString().length * 19 + 10}px` }} id="input" type="text" value={this.state.input} onChange={this.calculate} min="0" />
+              you earn<br /><b>{this.state.calculated}</b> tokens
             </div>
           </label>
         </h3>

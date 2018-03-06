@@ -22,6 +22,10 @@ module.exports = {
   },
   module: {
     loaders: [
+      {
+        test: /\.node$/,
+        use: 'raw-loader'
+      },
       { test: /\.(js|jsx)$/, loaders: ['babel-loader'], exclude: /node_modules/ },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,

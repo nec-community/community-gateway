@@ -16,6 +16,11 @@ module.exports = {
   // entry: ['babel-polyfill', './src/index.jsx'],
   entry: './src/index.jsx',
   devtool: 'inline-source-map',
+  node: {
+    fs: 'empty',
+    tls: 'empty',
+    net: 'empty',
+  },
   devServer: {
     hot: true,
   },

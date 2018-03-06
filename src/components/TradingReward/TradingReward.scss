@@ -18,13 +18,13 @@
     font-weight: bold;
     font-size: 30px;
     color: $color4;
-    width: 632px;
-    line-height: 10px;
+    width: 610px;
+    line-height: 20px;
     float: right;
     margin: 100px 0;
     input {
       margin: 10px;
-      padding: 3px;
+      padding: 0 3px;
       width: 80px;
       background: transparent;
       border: 0;
@@ -32,6 +32,11 @@
       font-size: 30px;
       color: white;
       text-align: center;
+      outline: none;
+      border-bottom: 2px solid transparent;
+      &:focus {
+        border-color: $color4;
+      }
     }
     b {
       color: white;

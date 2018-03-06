@@ -3,21 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { HashRouter, Link } from 'react-router-dom';
 import Web3 from 'web3';
-import TradingReward from '../TradingReward/TradingReward';
+import Calculator from '../Calculator/Calculator';
 import Voting from '../Voting/Voting';
 import { checkAccount } from '../../actions/accountActions';
 import './Landing.scss';
 
 class App extends Component {
-  componentWillMount() {
-    if (typeof web3 !== 'undefined') {
-      window.web3 = new Web3(web3.currentProvider);
-    } else {
-      window.web3 = new Web3('wss://mainnet.infura.io/ws');
-    }
-    console.log('App mounted');
-    this.props.checkAccount();
-  }
+  componentWillMount() {}
 
   render() {
     return (
@@ -94,7 +86,7 @@ class App extends Component {
 
         <section className="calculator">
           <div className="container">
-            <TradingReward />
+            <Calculator />
           </div>
         </section>
 

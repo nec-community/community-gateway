@@ -7,6 +7,8 @@ const ProviderEngine = require('web3-provider-engine');
 const RpcSubprovider = require('web3-provider-engine/subproviders/rpc');
 const LedgerWalletSubproviderFactory = require('ledger-wallet-provider').default;
 
+let ethPrice;
+
 const getAccount = () => (
   new Promise(async (resolve, reject) => {
     try {
@@ -33,7 +35,7 @@ const weiToEth = weiVal =>
   web3.utils.fromWei(new web3.utils.BN(`${weiVal}`));
 
 const ethToWei = ethVal =>
-  web3.utils.toWei(new web3.utils.BN(`${ethVal}`));
+  web3.utils.toWei(`${ethVal}`);
 
 const getBlockNumber = () => web3.eth.getBlockNumber();
 
@@ -139,6 +141,49 @@ const getActiveProposals = async () => {
   return proposalIDs.map(id => getProposalDetails(id));
 };
 
+const calculateNecReward = async (volume) => {
+  if (!ethPrice) {
+    const tickerRes = await fetch('https://api.bitfinex.com/v2/ticker/tETHUSD');
+    const ticker = await tickerRes.json();
+    ethPrice = ticker[6];
+  }
+  log(`Eth price ${ethPrice}`);
+  const volumeFee = volume * 0.001; // Assume fee is 0.1%
+  const feeInEth = volumeFee / ethPrice;
+  log(`Volume fee in eth ${feeInEth}`);
+  const controllerContract = await getControllerContract();
+  const necConversionRate = await controllerContract.methods.getFeeToTokenConversion(1).call();
+  const necReward = necConversionRate * feeInEth;
+  log(`NEC reward ${necConversionRate * feeInEth}`);
+  return necReward;
+};
+
+const burnNec = async (necTokens) => {
+  const account = await getAccount();
+  const tokenContract = await getTokenContract();
+  log(`Burning ${necTokens} NEC tokens`);
+  return tokenContract.methods.burnAndRetrieve(necTokens).send({
+    from: account,
+  });
+};
+
+const ledgerLogin = async () => {
+  const engine = new ProviderEngine();
+  const web3 = new Web3(engine);
+  window.web3 = web3;
+
+  LedgerWalletSubproviderFactory()
+    .then((ledgerWalletSubProvider) => {
+      engine.addProvider(ledgerWalletSubProvider);
+      engine.addProvider(new RpcSubprovider({ rpcUrl: 'https://ropsten.infura.io/SYGRk61NUc3yN4NNRs60' }));
+      engine.start();
+      web3.eth.getAccounts().then((account) => {
+        console.log(account);
+        contribute();
+      });
+    });
+};
+
 export default {
   getAccount,
   getBalance,
@@ -151,5 +196,6 @@ export default {
   getProposals,
   getActiveProposals,
   vote,
+  calculateNecReward,
+  burnNec,
 };
-

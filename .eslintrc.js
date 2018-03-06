@@ -29,10 +29,12 @@ module.exports = {
     'jsx-a11y/click-events-have-key-events': 0,
     'jsx-a11y/anchor-is-valid': 0,
     'no-shadow': 0,
-
-    // 'no-unused-vars': 1,
-    'no-unused-vars': 0,
-    'react/no-unused-prop-types': 0,
+    'prefer-destructuring': [1, {
+      "array": false,
+      "object": true
+    }],
+    'no-unused-vars': 1,
+    'react/no-unused-prop-types': 1,
   },
   globals: {
     web3: true,

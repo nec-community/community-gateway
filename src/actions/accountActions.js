@@ -34,7 +34,7 @@ export const checkAccount = () => async (dispatch, getState) => {
         dispatch(accountSuccess(account, balance));
       } else {
         log('Changed account');
-        window.location.reload();
+        // window.location.reload();
       }
     }
   } catch (err) {
