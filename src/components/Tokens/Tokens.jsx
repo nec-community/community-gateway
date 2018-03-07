@@ -35,7 +35,7 @@ class Tokens extends Component {
     } else {
       this.setState({
         input: val,
-        calculated: 'error',
+        // calculated: 'error',
       });
     }
   }
@@ -52,7 +52,7 @@ class Tokens extends Component {
         </p>
 
         <div className="redeem-wrapper">
-          <div className="step">
+          <div className={`step ${this.state.input ? '' : 'empty'}`}>
             <label htmlFor="input">
               NEC:
               <input style={{
@@ -69,14 +69,17 @@ class Tokens extends Component {
             </label>
             <p>Enter your NEC balance</p>
           </div>
-          <div className="step">
+          <div className={`step ${this.state.input ? '' : 'hidden'}`}>
             <label htmlFor="input">ETH:</label>
             <span className={`${this.state.calculated.length > 8 ? 'smaller' : ''}`}>
               {this.state.calculated}
             </span>
             <p>Your reward</p>
           </div>
-          <button className="step" onClick={() => eth.burnNec(eth.ethToWei(this.state.input))}>
+          <button
+            className={`step ${this.state.input ? '' : 'hidden'}`}
+            onClick={() => eth.burnNec(eth.ethToWei(this.state.input))}
+          >
             Transfer
           </button>
         </div>

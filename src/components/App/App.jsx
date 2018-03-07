@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { HashRouter, Link } from 'react-router-dom';
 import Web3 from 'web3';
 import Routes from '../../routes';
-import { checkAccount } from '../../actions/accountActions';
+import { checkAccount, fetchEthfinexData } from '../../actions/accountActions';
 import './App.scss';
 
 class App extends Component {
@@ -15,6 +15,7 @@ class App extends Component {
       window.web3 = new Web3('wss://mainnet.infura.io/ws');
     }
     this.props.checkAccount();
+    this.props.fetchEthfinexData();
   }
 
   render() {
@@ -62,4 +63,5 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   checkAccount,
+  fetchEthfinexData,
 })(App);

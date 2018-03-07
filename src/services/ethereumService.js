@@ -8,6 +8,10 @@ const RpcSubprovider = require('web3-provider-engine/subproviders/rpc');
 const LedgerWalletSubproviderFactory = require('ledger-wallet-provider').default;
 
 let ethPrice;
+let necPrice;
+let necConversionRate;
+let totalFee;
+let totalTokens;
 
 const getAccount = () => (
   new Promise(async (resolve, reject) => {
@@ -61,11 +65,13 @@ const totalSupply = async () => {
 };
 
 const estimatePayout = async (tokensToBurn) => {
-  const feeTotal = await totalPledgedFees();
-  log(`Total fees on contract ${weiToEth(feeTotal)}`);
-  const totalTokens = await totalSupply();
+  if(!totalFee)
+    totalFee = await totalPledgedFees();
+  log(`Total fees on contract ${weiToEth(totalFee)}`);
+  if(!totalTokens)
+    totalTokens = await totalSupply();
   log(`Total NEC supply on contract ${weiToEth(totalTokens)}`);
-  const feeValueOfTokens = (feeTotal * tokensToBurn) / totalTokens;
+  const feeValueOfTokens = (totalFee * tokensToBurn) / totalTokens;
   log(`Burning ${weiToEth(tokensToBurn)} tokens will pay out ${weiToEth(feeValueOfTokens)}`);
   return Math.floor(feeValueOfTokens);
 };
@@ -141,18 +147,28 @@ const getActiveProposals = async () => {
   return proposalIDs.map(id => getProposalDetails(id));
 };
 
+const getEthPrice = async () => {
+  const tickerRes = await fetch('https://api.bitfinex.com/v2/ticker/tETHUSD');
+  const ticker = await tickerRes.json();
+  return ticker[6];
+};
+
+const getNecPrice = async () => {
+  const tickerRes = await fetch('https://api.bitfinex.com/v2/ticker/tNECUSD');
+  const ticker = await tickerRes.json();
+  return ticker[6];
+};
+
 const calculateNecReward = async (volume) => {
-  if (!ethPrice) {
-    const tickerRes = await fetch('https://api.bitfinex.com/v2/ticker/tETHUSD');
-    const ticker = await tickerRes.json();
-    ethPrice = ticker[6];
-  }
+  if (!ethPrice) ethPrice = await getEthPrice();
   log(`Eth price ${ethPrice}`);
   const volumeFee = volume * 0.001; // Assume fee is 0.1%
   const feeInEth = volumeFee / ethPrice;
   log(`Volume fee in eth ${feeInEth}`);
-  const controllerContract = await getControllerContract();
-  const necConversionRate = await controllerContract.methods.getFeeToTokenConversion(1).call();
+  if(!necConversionRate) {
+    const controllerContract = await getControllerContract();
+    necConversionRate = await controllerContract.methods.getFeeToTokenConversion(1).call();
+  }
   const necReward = necConversionRate * feeInEth;
   log(`NEC reward ${necConversionRate * feeInEth}`);
   return necReward;
@@ -165,6 +181,22 @@ const burnNec = async (necTokens) => {
   return tokenContract.methods.burnAndRetrieve(necTokens).send({
     from: account,
   });
+};
+
+const fetchData = async () => {
+  ethPrice = await getEthPrice();
+  necPrice = await getNecPrice();
+  const controllerContract = await getControllerContract();
+  necConversionRate = await controllerContract.methods.getFeeToTokenConversion(1).call();
+  totalFee = await totalPledgedFees();
+  totalTokens = await totalSupply();
+  return {
+    ethPrice,
+    necPrice,
+    necConversionRate,
+    totalFee,
+    totalTokens,
+  };
 };
 
 const ledgerLogin = async () => {
@@ -198,4 +230,5 @@ export default {
   vote,
   calculateNecReward,
   burnNec,
+  fetchData,
 };

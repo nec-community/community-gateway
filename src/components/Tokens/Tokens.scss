@@ -45,22 +45,51 @@
   .redeem-wrapper {
     height: 100px;
     display: inline-flex;
-    box-shadow: 0px 0px 94px rgba(0, 0, 0, 0.38);
     .step {
       min-width: 250px;
       padding: 10px 20px;
       background-color: $color3;
       position: relative;
-      &:first-child:after {
-        content: '';
-        background-color: white;
-        display: inline-block;
-        width: 3px;
-        height: 50px;
-        margin: 25px 0;
-        position: absolute;
-        right: 0;
-        top: 0;
+      transition: all .3s;
+      box-shadow: 0px 0px 94px rgba(0, 0, 0, 0.38);
+      transition-delay: 0s;
+      z-index: 2;
+      &:last-child {
+        z-index: 1;
+        transition-delay: .1s;
+      }
+      &:first-child {
+        z-index: 3;
+        &:after {
+          content: '';
+          background-color: white;
+          display: inline-block;
+          width: 3px;
+          height: 50px;
+          margin: 25px 0;
+          position: absolute;
+          right: 0;
+          top: 0;
+          transition: all .3s;
+        }
+        &.empty:after {
+          width: 45px;
+          height: 100px;
+          margin: 0;
+          right: -45px;
+          background-color: $color4;
+        }
+      }
+      &.hidden {
+        transform: translateX(-100%);
+        opacity: 0;
+        pointer-events: none;
+        box-shadow: 0px 0px 94px rgba(0, 0, 0, 0);
+        transition-delay: .1s;
+        &:last-child {
+          transition-delay: 0s;
+          transform: translateX(-100%);
+        }
       }
       label {
         font-weight: bold;

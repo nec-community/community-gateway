@@ -2,6 +2,7 @@ import {
   GET_ACCOUNT_SUCCESS,
   GET_ACCOUNT_ERROR,
   TOKEN_BALANCE,
+  UPDATE_ETHFINEX_DATA,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -10,6 +11,13 @@ const INITIAL_STATE = {
   accountError: '',
   tokenBalance: 'loading',
   tokenPayout: 'loading',
+  ethfinexData: {
+    ethPrice: 0,
+    necPrice: 0,
+    necConversionRate: 0,
+    totalFee: 0,
+    totalTokens: 0,
+  }
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -33,6 +41,11 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         tokenBalance: action.balance,
         tokenPayout: action.payout,
+      };
+    case UPDATE_ETHFINEX_DATA:
+      return {
+        ...state,
+        ethfinexData: action.data,
       };
     default:
       return state;

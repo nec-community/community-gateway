@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { HashRouter, Link } from 'react-router-dom';
 import Web3 from 'web3';
 import Calculator from '../Calculator/Calculator';
+import Stats from '../Stats/Stats';
 import Voting from '../Voting/Voting';
 import { checkAccount } from '../../actions/accountActions';
 import './Landing.scss';
@@ -34,53 +35,7 @@ class App extends Component {
 
         <section className="statistics">
           <div className="container">
-            <h2>Statistics</h2>
-            <h3>Statistics subtitle statistics subtitle statistics subtitle statistics</h3>
-            <div className="stats-grid">
-              <div>
-                <div>Total fees pledged <br />to token holders:</div>
-                <div className="stat-wrapper">
-                  <div className="stat">4254.98</div>
-                  <div className="stat-addon">
-                    <div>ETH</div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div>Next token <br />distribution date:</div>
-                <div className="stat-wrapper">
-                  <div className="stat">15</div>
-                  <div className="stat-addon">
-                    <div className="secondary">th</div>
-                    <div>MARCH</div>
-                  </div>
-                </div>
-              </div>
-              <div className="token-supply">
-                <div>Token <br />total supply:</div>
-                <div className="stat-wrapper">
-                  <div className="stat">1,000,000,000</div>
-                </div>
-              </div>
-              <div className="current-token">
-                <div>Current <br />token value:</div>
-                <div className="stat-wrapper">
-                  <div className="stat">4213.93</div>
-                  <div className="stat-addon">
-                    <div>USD</div>
-                  </div>
-                </div>
-              </div>
-              <div className="trading-volume">
-                <div>Ethfinex 30-day <br />trading volume:</div>
-                <div className="stat-wrapper">
-                  <div className="stat">5436.21</div>
-                  <div className="stat-addon">
-                    <div>USD</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Stats />
           </div>
         </section>
 

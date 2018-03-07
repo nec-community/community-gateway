@@ -2,6 +2,7 @@ import {
   GET_ACCOUNT_SUCCESS,
   GET_ACCOUNT_ERROR,
   TOKEN_BALANCE,
+  UPDATE_ETHFINEX_DATA,
 } from './actionTypes';
 import ethService from '../services/ethereumService';
 import config from '../constants/config.json';
@@ -68,4 +69,16 @@ export const getTokenBalance = () => async (dispatch) => {
   const payout = await ethService.estimatePayout(balance);
   log(`Payout for balance ${balance} is ${payout}`);
   dispatch(tokenBalance(ethService.weiToEth(balance), ethService.weiToEth(payout)));
+};
+
+const updateEthfinexData = (data) => ({
+  type: UPDATE_ETHFINEX_DATA,
+  data,
+});
+
+export const fetchEthfinexData = () => async (dispatch) => {
+  const data = await ethService.fetchData();
+  log(data);
+  dispatch(updateEthfinexData(data));
+  setTimeout(() => fetchEthfinexData()(dispatch), 5 * 60 * 1000);
 };

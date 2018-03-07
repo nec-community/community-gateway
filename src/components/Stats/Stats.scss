@@ -1,0 +1,54 @@
+@import "../../common/variables";
+
+.stats-wrapper {
+  h2 {
+    font-size: 48px;
+    margin: 0;
+  }
+  h3 {
+    font-size: 18px;
+    line-height: 29px;
+    font-weight: normal;
+    margin: 25px 50px;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+    line-height: 22px;
+    font-size: 14px;
+    font-weight: normal;
+    .token-supply {
+      grid-column: 3 / span 2;
+    }
+    .current-token {
+      grid-column: 3;
+    }
+    .trading-volume {
+      grid-column: 4;
+    }
+    > div {
+      padding: 20px;
+    }
+    .stat-wrapper {
+      border-top: 2px solid white;
+      display: inline-flex;
+      padding: 15px 0;
+      margin: 20px 0;
+      .stat {
+        font-weight: bold;
+        font-size: 40px;
+        line-height: 40px;
+      }
+      .stat-addon {
+        font-size: 14px;
+        line-height: 18px;
+        margin-left: 5px;
+        margin-top: 2px;
+        .secondary {
+          color: $color4;
+        }
+      }
+    }
+  }
+}
