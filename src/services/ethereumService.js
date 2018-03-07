@@ -112,15 +112,21 @@ const vote = async (id, vote) => {
 const getProposalDetails = async (id) => {
   const proposalContract = await getProposalContract();
   const details = await proposalContract.methods.proposal(id).call();
+  console.log(details);
   const storageHash = details._storageHash.substr(2, 40);
   // const storageHash = web3.utils.toAscii(details._storageHash).replace(/\u0000/g, '');
   let description = await grenache.get(storageHash);
-  const title = description.substr(0, description.indexOf('\n'));
-  description = description.substr(description.indexOf('\n')).trim();
-  const yesPercentage = 100 * (parseInt(details._totalYes, 10) /
+  const separator = description.indexOf('\n') === -1
+    ? description.length
+    : description.indexOf('\n');
+  const title = description.substr(0, separator);
+  description = description.substr(separator).trim();
+  let yesPercentage = 100 * (parseInt(details._totalYes, 10) /
     (parseInt(details._totalYes, 10) + parseInt(details._totalNo, 10)));
-  const noPercentage = 100 * (parseInt(details._totalNo, 10) /
+  if (isNaN(yesPercentage)) yesPercentage = 0;
+  let noPercentage = 100 * (parseInt(details._totalNo, 10) /
     (parseInt(details._totalYes, 10) + parseInt(details._totalNo, 10)));
+  if (isNaN(noPercentage)) noPercentage = 0;
   return {
     id,
     ...details,

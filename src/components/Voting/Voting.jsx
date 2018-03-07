@@ -27,7 +27,7 @@ class Voting extends Component {
   render() {
     return (
       <div className="voting-wrapper">
-        <div className="left">
+        <div className="meta">
           <h2>Voting</h2>
           <div className="nav">
             <a
@@ -50,7 +50,7 @@ class Voting extends Component {
             </a>
           </div>
         </div>
-        <div className="right">
+        <div className="content">
           {
             this.state.shown === 'current' &&
             <Current />

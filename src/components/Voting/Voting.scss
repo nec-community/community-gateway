@@ -1,11 +1,7 @@
 @import "../../common/variables";
 
 .voting-wrapper {
-  display: flex;
-  > div {
-    flex: 1 1 100%;
-  }
-  .left {
+  .meta {
     h2 {
       font-size: 48px;
       margin: 0;
@@ -19,28 +15,24 @@
       width: 350px;
     }
     .nav {
+      border-bottom: 1px solid $color4;
       a {
-        display: block;
-        line-height: 57px;
-        font-size: 34px;
+        display: inline-block;
+        line-height: 60px;
+        font-size: 25px;
         letter-spacing: 0.02em;
         color: $color4;
         cursor: pointer;
         transition: .2s color;
+        border-bottom: 6px solid transparent;
+        margin: 0 40px -3px 0;
         &:hover {
           color: white;
-        }
-        &:before {
-          content: '';
-          display: inline-block;
-          width: 30px;
-          height: 3px;
-          vertical-align: middle;
-          margin-right: 7px;
         }
         &.active {
           font-weight: bold;
           color: white;
+          border-color: white;
           &:before {
             background-color: white;
           }
@@ -48,9 +40,9 @@
       }
     }
   }
-  .right {
-    max-height: calc(100vh - 200px);
-    overflow: auto;
+  .content {
+    //max-height: calc(100vh - 200px);
+    //overflow: auto;
     .submit-wrapper {
       h3 {
         font-size: 24px;

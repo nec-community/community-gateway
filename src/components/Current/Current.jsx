@@ -30,12 +30,12 @@ class Current extends Component {
                   <div className="bar">
                     <div className="bar-yes" style={{ width: `${proposal.yesPercentage}%` }} />
                   </div>
-                  <div className="number">{ proposal.yesPercentage }</div>
+                  <div className="number">{ `${proposal.yesPercentage}` }</div>
                   <div className="votes-number">435 votes</div>
                 </div>
                 <div className="no">
                   <span className="word">no</span>
-                  <div className="number">{ proposal.noPercentage }</div>
+                  <div className="number">{ `${proposal.noPercentage}` }</div>
                   <div className="votes-number">435 votes</div>
                 </div>
               </div>
