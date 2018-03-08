@@ -7,6 +7,7 @@ import { log } from './utils';
 import grenache from './grenacheService';
 
 let ledgerComm;
+const defaultPath = '44\'/60\'/0\'/0';
 
 let ethPrice;
 let necPrice;
@@ -220,14 +221,14 @@ const fetchData = async () => {
   };
 };
 
-const ledgerLogin = async () => {
+const ledgerLogin = async (path = defaultPath) => {
   if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
   const eth = new ledger.eth(ledgerComm);
   const account = await eth.getAddress_async(path);
   return account.address;
 };
 
-const signAndSendLedger = async (contractCall, value = 0, gasPrice = 5, path = '44\'/60\'/0\'/0') => {
+const signAndSendLedger = async (contractCall, value = 0, gasPrice = 5, path = defaultPath) => {
   if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
   const eth = new ledger.eth(ledgerComm);
   const account = await eth.getAddress_async(path);

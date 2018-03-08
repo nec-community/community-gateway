@@ -7,6 +7,7 @@ import {
 
 const INITIAL_STATE = {
   account: '',
+  accountType: '',
   accountBalance: '',
   accountError: '',
   tokenBalance: 'loading',
@@ -26,6 +27,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         account: action.account,
+        accountType: action.accountType,
         accountBalance: action.balance,
         accountError: '',
       };
@@ -33,6 +35,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         account: '',
+        accountType: '',
         accountBalance: '',
         accountError: action.error,
       };

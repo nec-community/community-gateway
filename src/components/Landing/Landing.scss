@@ -15,6 +15,42 @@
   margin: 0 auto;
 }
 
+@keyframes wave {
+  from {transform: translateX(0%)}
+  to {transform: translateX(-50%)}
+}
+
+.waves {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  &.reverse {
+    transform: scaleY(-1);
+  }
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    display: block;
+    height: 200px;
+    width: 200%;
+    background: url('/images/wave1.png');
+    animation: wave 20s infinite linear;
+  }
+  &:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    display: block;
+    height: 200px;
+    width: 200%;
+    background: url('/images/wave2.png');
+    animation: wave 30s infinite linear;
+  }
+}
+
 .landing-wrapper {
   background-color: $color1;
   section {

@@ -9,9 +9,10 @@ import config from '../constants/config.json';
 import { nameOfNetwork, log } from '../services/utils';
 import { notify } from './notificationActions';
 
-export const accountSuccess = (account, balance) => ({
+export const accountSuccess = (account, type, balance) => ({
   type: GET_ACCOUNT_SUCCESS,
   account,
+  accountType: type,
   balance,
 });
 
@@ -20,43 +21,52 @@ export const accountError = error => ({
   error,
 });
 
-export const checkAccount = () => async (dispatch, getState) => {
+export const loginMetamask = (silent) => async (dispatch, getState) => {
   try {
     const network = await ethService.getNetwork();
     if (config.network !== network) {
       throw new Error(`Wrong network - please set Metamask to ${nameOfNetwork(config.network)}`);
     }
-
     const account = await ethService.getAccount();
     if (getState().account.account !== account) {
-      if (getState().account.account === '') {
-        log('Unlocked or initially loaded account');
-        const balance = await ethService.getBalance(account);
-        dispatch(accountSuccess(account, balance));
-      } else {
-        log('Changed account');
-        // window.location.reload();
-      }
+      log(`Metamask account found ${account}`);
+      notify(`Metamask account found ${account}`, 'success')(dispatch);
+      const balance = await ethService.getBalance(account);
+      dispatch(accountSuccess(account, 'metamask', balance));
     }
   } catch (err) {
-    if (getState().account.accountError !== err.message) {
+    if(!silent) {
       dispatch(accountError(err.message));
-      // notify('No account found - voting disabled', 'error')(dispatch);
+      notify(err.message, 'error')(dispatch);
     }
   }
-
-  // setTimeout(() => checkAccount()(dispatch, getState), 1000);
 };
 
-export const getAccount = () => async (dispatch) => {
+export const loginLedger = (path) => async (dispatch, getState) => {
   try {
-    const account = await ethService.getAccount();
+    log(`Path ${path}`);
+    const account = await ethService.ledgerLogin(path);
+    log(`Ledger account found ${account}`);
     const balance = await ethService.getBalance(account);
-    dispatch(accountSuccess(account, balance));
+    dispatch(accountSuccess(account, 'ledger', balance));
+    notify(`Ledger account found ${account}`, 'success')(dispatch);
   } catch (err) {
-    dispatch(accountError(err.message));
+    if (err === 'Invalid status 6801')
+      err += ' - Ledger possibly locked';
+    dispatch(accountError(err));
+    notify(err, 'error')(dispatch);
   }
 };
+
+// export const getAccount = () => async (dispatch) => {
+//   try {
+//     const account = await ethService.getAccount();
+//     const balance = await ethService.getBalance(account);
+//     dispatch(accountSuccess(account, balance));
+//   } catch (err) {
+//     dispatch(accountError(err.message));
+//   }
+// };
 
 const tokenBalance = (balance, payout) => ({
   type: TOKEN_BALANCE,

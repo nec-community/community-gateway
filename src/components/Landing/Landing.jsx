@@ -6,7 +6,6 @@ import Web3 from 'web3';
 import Calculator from '../Calculator/Calculator';
 import Stats from '../Stats/Stats';
 import Voting from '../Voting/Voting';
-import { checkAccount } from '../../actions/accountActions';
 import './Landing.scss';
 
 class App extends Component {
@@ -45,11 +44,15 @@ class App extends Component {
           </div>
         </section>
 
+        <div className="waves" />
+
         <section className="voting">
           <div className="container">
             <Voting />
           </div>
         </section>
+
+        <div className="waves reverse" />
       </div>
     );
   }
@@ -61,7 +64,6 @@ App.propTypes = {
   notifType: PropTypes.string.isRequired,
   account: PropTypes.string.isRequired,
   accountError: PropTypes.string.isRequired,
-  checkAccount: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -72,6 +74,4 @@ const mapStateToProps = state => ({
   notifType: state.notification.type,
 });
 
-export default connect(mapStateToProps, {
-  checkAccount,
-})(App);
+export default connect(mapStateToProps, {})(App);

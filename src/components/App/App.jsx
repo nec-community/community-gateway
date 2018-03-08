@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { HashRouter, Link } from 'react-router-dom';
 import Web3 from 'web3';
 import Routes from '../../routes';
-import { checkAccount, fetchEthfinexData } from '../../actions/accountActions';
+import Login from '../../components/Login/Login';
+import { loginMetamask, fetchEthfinexData } from '../../actions/accountActions';
 import './App.scss';
 
 class App extends Component {
@@ -14,7 +15,7 @@ class App extends Component {
     } else {
       window.web3 = new Web3('wss://mainnet.infura.io/ws');
     }
-    this.props.checkAccount();
+    this.props.loginMetamask(true);
     this.props.fetchEthfinexData();
   }
 
@@ -38,6 +39,7 @@ class App extends Component {
             <h2 className="account-error-wrapper">Voting disabled - {this.props.accountError}</h2>
           }
           <Routes />
+          <Login />
         </div>
       </HashRouter>
     );
@@ -50,7 +52,7 @@ App.propTypes = {
   notifType: PropTypes.string.isRequired,
   account: PropTypes.string.isRequired,
   accountError: PropTypes.string.isRequired,
-  checkAccount: PropTypes.func.isRequired,
+  loginMetamask: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -62,6 +64,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  checkAccount,
+  loginMetamask,
   fetchEthfinexData,
 })(App);

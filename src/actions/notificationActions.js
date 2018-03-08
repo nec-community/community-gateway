@@ -15,7 +15,7 @@ export const hideNotification = () => ({
   type: HIDE_NOTIF,
 });
 
-export const notify = (message, type = 'success', length = 2000) => (dispatch) => {
+export const notify = (message, type = 'success', length = 5000) => (dispatch) => {
   dispatch(showNotification(message, type));
   clearTimeout(timeout);
   timeout = setTimeout(() => dispatch(hideNotification()), length);
