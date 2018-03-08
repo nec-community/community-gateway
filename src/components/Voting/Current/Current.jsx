@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getActiveProposals } from '../../actions/proposalActions';
+import { getActiveProposals } from '../../../actions/proposalActions';
 import { Link } from 'react-router-dom';
 import './Current.scss';
 
@@ -20,10 +20,14 @@ class Current extends Component {
               <p className="title">
                 <Link className="vote-wrapper" to={`/proposal/${proposal.id}`}>{proposal.title}</Link>
               </p>
-              <Link className="vote-wrapper" to={`/proposal/${proposal.id}`}>VOTE</Link>
               <p className="description">{proposal.description}</p>
+              <Link className="vote-wrapper" to={`/proposal/${proposal.id}`}>VOTE</Link>
             </div>
           ))
+        }
+        {
+          this.props.proposals.length === 0 &&
+          <p>No active proposals</p>
         }
       </div>
     );

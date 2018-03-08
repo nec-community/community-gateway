@@ -77,7 +77,7 @@ module.exports = {
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    // new FaviconsWebpackPlugin(path.resolve('favicon.png')),
+    new FaviconsWebpackPlugin(path.resolve('nec.png')),
     new WriteFilePlugin({
       test: /^images/,
     }),

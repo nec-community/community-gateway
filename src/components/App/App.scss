@@ -24,12 +24,15 @@ body {
 
 nav {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 30px 40px;
   position: absolute;
   width: 100%;
   a {
     padding: 10px;
     color: $color4;
+    line-height: 48px;
+    text-decoration: none;
   }
 }
 
@@ -49,4 +52,20 @@ nav {
 
 .left-align {
   text-align: left;
+}
+
+footer {
+  background-color: $color2;
+  padding: 40px 0;
+}
+
+.logo-wrapper {
+  display: inline-flex;
+  line-height: 48px;
+  font-size: 13px;
+  img {
+    height: 47px;
+    width: 47px;
+    margin-right: 15px;
+  }
 }

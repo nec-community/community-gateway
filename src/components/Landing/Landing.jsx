@@ -53,6 +53,14 @@ class App extends Component {
         </section>
 
         <div className="waves reverse" />
+
+        <section className="learn-more">
+          <div className="container">
+            <h1>Learn more</h1>
+            <h2>nectar.community</h2>
+            <p>Placeholder</p>
+          </div>
+        </section>
       </div>
     );
   }

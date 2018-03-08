@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getProposals } from '../../actions/proposalActions';
-import './Past.scss';
+import './AllProposals.scss';
 
-class Past extends Component {
+class AllProposals extends Component {
   componentDidMount() {
     this.props.getProposals();
   }
@@ -17,10 +18,12 @@ class Past extends Component {
           {
             this.props.proposals.map(proposal => (
               <div key={proposal._token} className="proposal-wrapper">
-                <p className="started">Started: {proposal.startTime.toISOString()}</p>
-                <p className="duration">Duration: {proposal.duration} days</p>
-                <p className="finished">Finished: {proposal._finalized ? 'Yes' : 'No'}</p>
+                <p className="started">{proposal.startTime.toLocaleString()}</p>
+                <p className="title">
+                  <Link className="vote-wrapper" to={`/proposal/${proposal.id}`}>{proposal.title}</Link>
+                </p>
                 <p className="description">{proposal.description}</p>
+                <Link className="vote-wrapper" to={`/proposal/${proposal.id}`}>Details</Link>
               </div>
             ))
           }
@@ -30,7 +33,7 @@ class Past extends Component {
   }
 }
 
-Past.propTypes = {
+AllProposals.propTypes = {
   getProposals: PropTypes.func.isRequired,
   proposals: PropTypes.array.isRequired,
 };
@@ -41,4 +44,4 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   getProposals,
-})(Past);
+})(AllProposals);

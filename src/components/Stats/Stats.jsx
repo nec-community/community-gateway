@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import eth from '../../services/ethereumService';
-import Current from '../Current/Current';
+import Current from '../Voting/Current/Current';
 
 import './Stats.scss';
 

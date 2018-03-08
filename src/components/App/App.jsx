@@ -29,10 +29,15 @@ class App extends Component {
             </div>
           </div>
           <nav>
-            <Link to="/">Current</Link>
-            <Link to="/past">Past Proposals</Link>
-            <Link to="/submit">Submit a Proposal</Link>
-            <Link to="/tokens">Nectar Tokens</Link>
+            <div className="logo-wrapper">
+              <img src="/images/logo.svg" alt="" />
+              <span>Nectar.community</span>
+            </div>
+            <div>
+              <Link to="/">Home</Link>
+              <Link to="/all">All Proposals</Link>
+              <Link to="/submit">Submit a Proposal</Link>
+            </div>
           </nav>
           {
             this.props.accountError && false &&
@@ -40,6 +45,17 @@ class App extends Component {
           }
           <Routes />
           <Login />
+          <footer>
+            <div className="container">
+              <div className="logo-wrapper">
+                <img src="/images/logo.svg" alt="" />
+                <span>Nectar.community</span>
+              </div>
+              <p className="copyright">
+                Copyright © 2013-2018 Bitfinex Inc. All rights reserved
+              </p>
+            </div>
+          </footer>
         </div>
       </HashRouter>
     );

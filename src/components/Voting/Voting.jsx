@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import Current from '../Current/Current';
+import Current from './Current/Current';
+import Past from './Past/Past';
 
 import './Voting.scss';
 
@@ -54,6 +55,10 @@ class Voting extends Component {
           {
             this.state.shown === 'current' &&
             <Current />
+          }
+          {
+            this.state.shown === 'past' &&
+            <Past />
           }
           {
             this.state.shown === 'submit' &&
