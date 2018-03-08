@@ -136,6 +136,11 @@ const getProposalDetails = async (id) => {
   let noPercentage = 100 * (parseInt(details._totalNo, 10) /
     (parseInt(details._totalYes, 10) + parseInt(details._totalNo, 10)));
   if (isNaN(noPercentage)) noPercentage = 0;
+  const startTime = new Date(parseInt(`${details._startTime}000`, 10));
+  const remainingDays = Math.floor(
+    ((startTime.valueOf() + parseInt(`${details._duration}000`)) - (new Date()).valueOf())
+    / (24 * 60 * 60 * 1000)
+  );
   return {
     id,
     ...details,
@@ -144,7 +149,8 @@ const getProposalDetails = async (id) => {
     yesPercentage,
     noPercentage,
     duration: details._duration / 24 / 60 / 60,
-    startTime: new Date(parseInt(`${details._startTime}000`, 10)),
+    startTime,
+    remainingDays,
   };
 };
 
@@ -285,6 +291,7 @@ export default {
   getTokenBalance,
   estimatePayout,
   submitProposal,
+  getProposalDetails,
   getProposals,
   getActiveProposals,
   vote,
@@ -301,6 +308,6 @@ setTimeout(async () => {
   let contractCall = proposalContract.methods.nProposals();
   // const controllerContract = await getControllerContract();
   // let contractCall = controllerContract.methods.contributeForMakers();
-  signAndSendLedger(contractCall);
+  // signAndSendLedger(contractCall);
 }, 1000);
 

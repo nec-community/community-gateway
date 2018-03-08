@@ -45,39 +45,49 @@ class Submit extends Component {
   render() {
     return (
       <div className="submit-proposal">
-        <h1>Submit a proposal</h1>
+        <div className="container">
+          <h1>Submit a proposal</h1>
+        </div>
         <div className="form-wrapper">
-          <label>
-            Proposal description:
+          <div className="form-container">
             <textarea
               name="description"
+              id="description"
               type="text"
               value={this.state.description}
               onChange={this.handleInputChange}
               required
+              placeholder="Proposal description"
             />
-          </label>
+            <label for="description">
+              Proposal description:
+            </label>
 
-          <label>
-            Duration (days):
-            <input
-              name="durationInDays"
-              type="number"
-              min="7"
-              value={this.state.durationInDays}
-              onChange={this.handleInputChange}
-            />
-          </label>
+            <div className="duration">
+              <label>
+                Duration (days):
+                <input
+                  name="durationInDays"
+                  type="number"
+                  min="7"
+                  value={this.state.durationInDays}
+                  onChange={this.handleInputChange}
+                />
+              </label>
+            </div>
 
-          <div className="info-tip">
-            The proposal will need to be approved by BitFinex before being visible.
+            {/*<div className="info-tip">*/}
+              {/*The proposal will need to be approved by BitFinex before being visible.*/}
+            {/*</div>*/}
+
+            <div className="submit-wrapper">
+              <button onClick={this.submitProposal}>Submit proposal</button>
+              {
+                this.state.submitError &&
+                <p className="submit-error">{this.state.submitError}</p>
+              }
+            </div>
           </div>
-
-          <button onClick={this.submitProposal}>Submit proposal</button>
-          {
-            this.state.submitError &&
-            <p className="submit-error">{this.state.submitError}</p>
-          }
         </div>
       </div>
     );

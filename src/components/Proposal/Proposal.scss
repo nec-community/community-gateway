@@ -1,0 +1,127 @@
+@import "../../common/variables";
+
+.single-proposal {
+  .remaining {
+    float: left;
+    width: 200px;
+    display: flex;
+    margin-top: 80px;
+    .number {
+      font-weight: bold;
+      font-size: 60px;
+      line-height: 60px;
+      margin-right: 5px;
+    }
+    .days {
+      font-size: 32px;
+      font-weight: 300;
+    }
+    .more {
+      font-size: 12px;
+      font-weight: 300;
+    }
+  }
+  .proposal-wrapper {
+    padding: 100px 0;
+    .title {
+      font-size: 70px;
+      margin-bottom: 20px;
+    }
+    .details-wrapper {
+      max-width: 600px;
+      margin: auto;
+      line-height: 29px;
+      font-size: 18px;
+      .started {
+        color: $color4;
+        text-align: right;
+        font-size: 12px;
+      }
+      .description {
+        margin: 50px auto;
+        font-weight: 300;
+        white-space: pre-wrap;
+      }
+    }
+    .results-wrapper {
+      display: flex;
+      justify-content: space-between;
+      .word {
+        font-weight: bold;
+        line-height: 38px;
+        font-size: 23px;
+      }
+      .number {
+        font-weight: bold;
+        height: 60px;
+        font-size: 53px;
+        &:after {
+          content: '%';
+          line-height: 55px;
+          font-size: 33px;
+          margin: 5px;
+          display: inline-block;
+        }
+      }
+      .votes-number {
+        line-height: 20px;
+        font-size: 12px;
+        color: $color4;
+      }
+      .yes {
+        &.stretch {
+          flex: 1 1 100%;
+          .bar-wrapper {
+            display: flex;
+            .bar {
+              flex: 1 1 100%;
+            }
+          }
+        }
+        .bar {
+          display: inline-block;
+          width: 130px;
+          height: 14px;
+          margin: 13px 10px;
+          vertical-align: top;
+          background-color: $color4;
+          .bar-yes {
+            display: inline-block;
+            width: 0%;
+            height: 14px;
+            vertical-align: top;
+            background-color: white;
+            transition: width 1s;
+          }
+        }
+      }
+      .no {
+        color: $color4;
+        text-align: right;
+      }
+    }
+    .vote-wrapper {
+      margin: 50px auto;
+      font-size: 36px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      font-weight: bold;
+      a {
+        display: inline-block;
+        padding: 5px;
+        cursor: pointer;
+      }
+    }
+    .help {
+      h3 {
+        font-size: 24px;
+      }
+      p {
+        font-weight: 300;
+        white-space: pre-wrap;
+        line-height: 29px;
+        font-size: 18px;
+      }
+    }
+  }
+}

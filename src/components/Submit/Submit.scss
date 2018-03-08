@@ -1,38 +1,90 @@
-  .submit-proposal {
-    max-width: 1200px;
-    margin: auto;
-    padding: 30px;
+@import "../../common/variables";
+
+.submit-proposal {
+  padding: 30px 0 0;
+  h1 {
+    font-size: 70px;
+    margin: 100px 0 100px;
+    font-weight: 300;
+  }
   .form-wrapper {
-    label {
-      display: block;
-      margin: 20px 0;
-    }
-    input {
-      margin-left: 10px;
-    }
-    textarea {
-      display: block;
-      margin: 10px 0;
-      width: 100%;
-      min-height: 400px;
-      resize: vertical;
-      padding: 10px;
-      font-size: 14px;
-      line-height: 1.4em;
-    }
-    .info-tip {
-      padding: 10px;
-      border-radius: 3px;
-      background-color: rgba(white, .1);
-    }
-    button {
-      margin: 10px 0;
-    }
-    .submit-error {
-      padding: 10px;
-      border-radius: 3px;
-      background-color: #d33133;
-      color: white;
+    background-color: $color4;
+    padding: 100px 0;
+    .form-container {
+      max-width: 700px;
+      margin: auto;
+      label {
+        display: block;
+        margin: 30px 0;
+        font-size: 16px;
+        font-weight: 300;
+      }
+      input {
+        margin-left: 40px;
+        background-color: transparent;
+        border: 0;
+        border-bottom: 1px solid white;
+        color: white;
+        font-size: 16px;
+        font-weight: 300;
+        text-align: right;
+        outline: none;
+      }
+      textarea {
+        display: block;
+        margin: 10px 0;
+        width: 100%;
+        min-height: 200px;
+        resize: vertical;
+        padding: 10px 0;
+        line-height: 1.4em;
+        background-color: transparent;
+        border: 0;
+        border-bottom: 1px solid white;
+        color: white;
+        font-size: 16px;
+        font-weight: 300;
+        outline: none;
+        &::placeholder {
+          color: rgba(white, .5);
+        }
+      }
+      .duration {
+        text-align: right;
+      }
+      .info-tip {
+        padding: 10px;
+        border-radius: 3px;
+        background-color: rgba(white, .1);
+      }
+      .submit-wrapper {
+        text-align: right;
+        padding: 50px 0 0;
+        button {
+          margin: 10px 0;
+          width: 200px;
+          height: 50px;
+          border: 0;
+          outline: 0;
+          background: #041824;
+          box-shadow: 0 0 100px rgba(0, 0, 0, 0.38);
+          font-size: 14px;
+          letter-spacing: 0.02em;
+          color: #FFFFFF;
+          cursor: pointer;
+          transition: all .2s;
+          &:hover {
+            background: lighten(#041824, 2%);
+            box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
+          }
+        }
+        .submit-error {
+          padding: 10px;
+          border-radius: 3px;
+          background-color: #d33133;
+          color: white;
+        }
+      }
     }
   }
 }

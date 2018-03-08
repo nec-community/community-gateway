@@ -13,7 +13,7 @@ class Calculator extends Component {
     super();
 
     this.state = {
-      shown: 'tokens',
+      shown: 'trading',
     };
 
     this.switch = this.switch.bind(this);

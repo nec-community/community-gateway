@@ -10,10 +10,6 @@ class Current extends Component {
     this.props.getActiveProposals();
   }
 
-  vote(id, vote) {
-    eth.vote(id, vote);
-  }
-
   render() {
     return (
       <div className="current-proposals">
@@ -39,12 +35,7 @@ class Current extends Component {
                   <div className="votes-number">435 votes</div>
                 </div>
               </div>
-              <p className="vote-wrapper">
-                {'Vote '}
-                <a onClick={() => this.vote(proposal.id, true)}>Yes</a>
-                {' '}
-                <a onClick={() => this.vote(proposal.id, false)}>No</a>
-              </p>
+              <p className="vote-wrapper">Vote</p>
             </div>
           ))
         }
