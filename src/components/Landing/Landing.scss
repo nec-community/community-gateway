@@ -16,8 +16,8 @@
 }
 
 @keyframes wave {
-  from {transform: translateX(0%)}
-  to {transform: translateX(-50%)}
+  from {transform: translateX(-50%)}
+  to {transform: translateX(0%)}
 }
 
 .waves {
@@ -25,7 +25,7 @@
   overflow: hidden;
   position: relative;
   &.reverse {
-    transform: scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
   }
   &:before {
     position: absolute;
@@ -36,7 +36,7 @@
     height: 200px;
     width: 200%;
     background: url('/images/wave1.png');
-    animation: wave 20s infinite linear;
+    animation: wave 45s infinite linear;
   }
   &:after {
     position: absolute;
@@ -47,7 +47,7 @@
     height: 200px;
     width: 200%;
     background: url('/images/wave2.png');
-    animation: wave 30s infinite linear;
+    animation: wave 60s infinite linear;
   }
 }
 
