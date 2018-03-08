@@ -45,7 +45,7 @@ export const checkAccount = () => async (dispatch, getState) => {
     }
   }
 
-  setTimeout(() => checkAccount()(dispatch, getState), 1000);
+  // setTimeout(() => checkAccount()(dispatch, getState), 1000);
 };
 
 export const getAccount = () => async (dispatch) => {

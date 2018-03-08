@@ -1,11 +1,12 @@
+const Web3 = require('web3');
+import ledger from 'ledgerco';
+import Tx from 'ethereumjs-tx';
+
 import config from '../constants/config.json';
 import { log } from './utils';
 import grenache from './grenacheService';
 
-const Web3 = require('web3');
-const ProviderEngine = require('web3-provider-engine');
-const RpcSubprovider = require('web3-provider-engine/subproviders/rpc');
-const LedgerWalletSubproviderFactory = require('ledger-wallet-provider').default;
+let ledgerComm;
 
 let ethPrice;
 let necPrice;
@@ -65,10 +66,10 @@ const totalSupply = async () => {
 };
 
 const estimatePayout = async (tokensToBurn) => {
-  if(!totalFee)
+  if (!totalFee)
     totalFee = await totalPledgedFees();
   log(`Total fees on contract ${weiToEth(totalFee)}`);
-  if(!totalTokens)
+  if (!totalTokens)
     totalTokens = await totalSupply();
   log(`Total NEC supply on contract ${weiToEth(totalTokens)}`);
   const feeValueOfTokens = (totalFee * tokensToBurn) / totalTokens;
@@ -89,6 +90,14 @@ const contribute = async () => {
   log(`Contributing from account ${account}`);
   return controllerContract.methods.contributeForMakers(account).send({
     value: web3.utils.toWei('0.01', 'ether'),
+    from: account,
+  });
+};
+
+const authorize = async (address) => {
+  const controllerContract = await getControllerContract();
+  const account = await getAccount();
+  return controllerContract.methods.authoriseMaker(address).send({
     from: account,
   });
 };
@@ -171,7 +180,7 @@ const calculateNecReward = async (volume) => {
   const volumeFee = volume * 0.001; // Assume fee is 0.1%
   const feeInEth = volumeFee / ethPrice;
   log(`Volume fee in eth ${feeInEth}`);
-  if(!necConversionRate) {
+  if (!necConversionRate) {
     const controllerContract = await getControllerContract();
     necConversionRate = await controllerContract.methods.getFeeToTokenConversion(1).call();
   }
@@ -206,19 +215,64 @@ const fetchData = async () => {
 };
 
 const ledgerLogin = async () => {
-  const engine = new ProviderEngine();
-  const web3 = new Web3(engine);
-  window.web3 = web3;
+  if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
+  const eth = new ledger.eth(ledgerComm);
+  const account = await eth.getAddress_async(path);
+  return account.address;
+};
 
-  LedgerWalletSubproviderFactory()
-    .then((ledgerWalletSubProvider) => {
-      engine.addProvider(ledgerWalletSubProvider);
-      engine.addProvider(new RpcSubprovider({ rpcUrl: 'https://ropsten.infura.io/SYGRk61NUc3yN4NNRs60' }));
-      engine.start();
-      web3.eth.getAccounts().then((account) => {
-        console.log(account);
-        contribute();
-      });
+const signAndSendLedger = async (contractCall, value = 0, gasPrice = 5, path = '44\'/60\'/0\'/0') => {
+  if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
+  const eth = new ledger.eth(ledgerComm);
+  const account = await eth.getAddress_async(path);
+  log(`LEDGER account`, account);
+
+  let encodedAbi = contractCall.encodeABI();
+  log(`LEDGER encodedAbi ${encodedAbi}`);
+
+  const nonce = await web3.eth.getTransactionCount(account.address);
+  log(`LEDGER nonce ${nonce}`);
+
+  let rawTx = {
+    nonce: web3.utils.numberToHex(nonce),
+    from: account.address,
+    gasPrice: web3.utils.numberToHex(web3.utils.toWei(gasPrice.toString(), 'gwei')),
+    to: contractCall._parent._address,
+    data: encodedAbi,
+    value: web3.utils.numberToHex(value),
+    chainId: config.network,
+    v: config.network,
+  };
+
+  const gasLimit = await web3.eth.estimateGas(rawTx);
+  log(`LEDGER gasLimit ${gasLimit}`);
+  rawTx.gasLimit = web3.utils.numberToHex(gasLimit);
+
+  log(`LEDGER rawTx`, rawTx);
+
+  const tx = new Tx(rawTx);
+  log(`LEDGER tx`, tx);
+
+  const signedTx = await eth.signTransaction_async(path, tx.serialize().toString('hex'));
+  log(`LEDGER signedTx`, signedTx);
+
+  const tx2 = new Tx({
+    ...rawTx,
+    v: '0x' + signedTx.v,
+    r: '0x' + signedTx.r,
+    s: '0x' + signedTx.s,
+  });
+  log(`LEDGER tx2`, tx2);
+
+  web3.eth.sendSignedTransaction('0x' + tx2.serialize().toString('hex'))
+    .on('transactionHash', (transactionHash) => {
+      log('LEDGER transactionHash', transactionHash);
+    })
+    .on('receipt', (res) => {
+      log('LEDGER receipt', res);
+    })
+    .on('error', (err) => {
+      log('LEDGER error', err);
     });
 };
 
@@ -237,4 +291,16 @@ export default {
   calculateNecReward,
   burnNec,
   fetchData,
+  ledgerLogin,
+  signAndSendLedger,
 };
+
+setTimeout(async () => {
+  const proposalContract = await getProposalContract();
+  // let contractCall = proposalContract.methods.addProposal(20, web3.utils.toHex('test'));
+  let contractCall = proposalContract.methods.nProposals();
+  // const controllerContract = await getControllerContract();
+  // let contractCall = controllerContract.methods.contributeForMakers();
+  signAndSendLedger(contractCall);
+}, 1000);
+
