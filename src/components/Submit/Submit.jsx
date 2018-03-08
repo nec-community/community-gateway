@@ -59,7 +59,7 @@ class Submit extends Component {
               required
               placeholder="Proposal description"
             />
-            <label for="description">
+            <label htmlFor="description">
               Proposal description:
             </label>
 

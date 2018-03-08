@@ -42,62 +42,13 @@
         pointer-events: none;
       }
     }
-    .results-wrapper {
-      display: flex;
-      .word {
-        font-weight: bold;
-        line-height: 38px;
-        font-size: 23px;
-      }
-      .number {
-        font-weight: bold;
-        height: 60px;
-        font-size: 53px;
-        &:after {
-          content: '%';
-          line-height: 55px;
-          font-size: 33px;
-          margin: 5px 0 0 5px;
-          display: inline-block;
-        }
-      }
-      .votes-number {
-        line-height: 20px;
-        font-size: 12px;
-        color: $color4;
-      }
-      .yes {
-        .bar {
-          display: inline-block;
-          width: 130px;
-          height: 14px;
-          margin: 13px 10px;
-          vertical-align: top;
-          background-color: $color4;
-          .bar-yes {
-            display: inline-block;
-            width: 0%;
-            height: 14px;
-            vertical-align: top;
-            background-color: white;
-            transition: width 1s;
-          }
-        }
-      }
-      .no {
-        color: $color4;
-      }
-    }
-    .vote-wrapper {
-      font-size: 36px;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
+    a {
+      color: white;
+      text-decoration: none;
       font-weight: bold;
-      a {
-        display: inline-block;
-        padding: 5px;
-        cursor: pointer;
-      }
+      line-height: 40px;
+      font-size: 24px;
+      letter-spacing: 0.02em;
     }
   }
 }
