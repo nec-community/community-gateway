@@ -5,6 +5,7 @@ import {
   UPDATE_ETHFINEX_DATA,
 } from './actionTypes';
 import ethService from '../services/ethereumService';
+import keystoreService from '../services/keystoreService';
 import config from '../constants/config.json';
 import { nameOfNetwork, log } from '../services/utils';
 import { notify } from './notificationActions';
@@ -55,6 +56,21 @@ export const loginLedger = (path) => async (dispatch, getState) => {
       err += ' - Ledger possibly locked';
     dispatch(accountError(err));
     notify(err, 'error')(dispatch);
+  }
+};
+
+export const loginKeystore = (keystoreJson, password) => async (dispatch, getState) => {
+  try {
+    const keystore = keystoreService.unlockKeystore(keystoreJson, password);
+    log(keystore);
+    const account  = keystore.address;
+    log(`Keystore account found ${account}`);
+    const balance = await ethService.getBalance(account);
+    dispatch(accountSuccess(account, 'keystore', balance));
+    notify(`Keystore account found ${account}`, 'success')(dispatch);
+  } catch (err) {
+    dispatch(accountError(err.message));
+    notify(err.message, 'error')(dispatch);
   }
 };
 
