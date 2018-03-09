@@ -13,20 +13,23 @@ class AllProposals extends Component {
   render() {
     return (
       <div className="all-proposals">
-        <h1>All Proposals</h1>
-        <div>
-          {
-            this.props.proposals.map(proposal => (
-              <div key={proposal._token} className="proposal-wrapper">
-                <p className="started">{proposal.startTime.toLocaleString()}</p>
-                <p className="title">
-                  <Link className="vote-wrapper" to={`/proposal/${proposal.id}`}>{proposal.title}</Link>
-                </p>
-                <p className="description">{proposal.description}</p>
-                <Link className="vote-wrapper" to={`/proposal/${proposal.id}`}>Details</Link>
-              </div>
-            ))
-          }
+        <div className="container">
+          <h1>All Proposals</h1>
+          <div>
+            {
+              this.props.proposals.map(proposal => (
+                <div key={proposal._token} className="proposal-wrapper">
+                  <p className="started">{proposal.startTime.toLocaleString()}</p>
+                  <p className="title">
+                    <Link className="vote-wrapper"
+                          to={`/proposal/${proposal.id}`}>{proposal.title}</Link>
+                  </p>
+                  <p className="description">{proposal.description}</p>
+                  <Link className="vote-wrapper" to={`/proposal/${proposal.id}`}>Details</Link>
+                </div>
+              ))
+            }
+          </div>
         </div>
       </div>
     );
