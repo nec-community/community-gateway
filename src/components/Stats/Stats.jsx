@@ -39,7 +39,7 @@ class Stats extends Component {
   render() {
     return (
       <div className="stats-wrapper">
-        <div className="stats-bg-text">statistics</div>
+        <div className="bg-text stats-bg-text">statistics</div>
 
         <div className="stats-content-wrapper">
           <h2>Statistics</h2>

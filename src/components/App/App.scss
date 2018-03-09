@@ -69,3 +69,13 @@ footer {
     margin-right: 15px;
   }
 }
+
+.bg-text {
+  position: absolute;
+  font-family: $font-family-bg-text;
+  font-size: 277px;
+  line-height: 342px;
+  color: $bg-text-color-1;
+  opacity: 0.1;
+  z-index: 1;
+}

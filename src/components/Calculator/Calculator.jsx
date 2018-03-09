@@ -28,6 +28,8 @@ class Calculator extends Component {
   render() {
     return (
       <div className="calculator-wrapper">
+        <div className="bg-text calculator-bg-text">calculator</div>
+
         <div className="calculator-nav">
           <a
             className={`${this.state.shown === 'trading' ? 'active' : ''}`}
