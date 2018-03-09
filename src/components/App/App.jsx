@@ -13,7 +13,7 @@ class App extends Component {
     if (typeof web3 !== 'undefined') {
       window.web3 = new Web3(web3.currentProvider);
     } else {
-      window.web3 = new Web3('wss://mainnet.infura.io/ws');
+      window.web3 = new Web3('wss://ropsten.infura.io/ws');
     }
     this.props.loginMetamask(true);
     this.props.fetchEthfinexData();
@@ -52,7 +52,7 @@ class App extends Component {
                 <span>Nectar.community</span>
               </div>
               <p className="copyright">
-                Copyright © 2013-2018 Bitfinex Inc. All rights reserved
+                Copyright Ethfinex Inc
               </p>
             </div>
           </footer>

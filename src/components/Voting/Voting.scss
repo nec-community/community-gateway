@@ -1,63 +1,100 @@
 @import "../../common/variables";
 
 .voting-wrapper {
-  .meta {
+  position: relative;
+
+  .voting-bg-text {
+    top: 70px;
+    right: 500px;
+  }
+
+  .voting-content-wrapper {
+    position: relative;
+    z-index: 2;
+
     h2 {
       font-size: 48px;
-      margin: 0;
+      margin: 0 0 0 50px;
     }
-    p {
-      font-weight: normal;
-      margin: 25px 50px;
-      line-height: 23px;
-      font-size: 14px;
-      letter-spacing: 0.02em;
-      width: 350px;
-    }
-    .nav {
-      border-bottom: 1px solid $color4;
-      a {
-        display: inline-block;
-        line-height: 60px;
-        font-size: 25px;
-        letter-spacing: 0.02em;
-        color: $color4;
-        cursor: pointer;
-        transition: .2s color;
-        border-bottom: 6px solid transparent;
-        margin: 0 40px -3px 0;
-        &:hover {
-          color: white;
+
+    .meta {
+      margin-left: 100px;
+
+      .voting-desc {
+        margin: 32px 0 35px 0;
+
+        h3 {
+          margin: 0 0 32px 0;
+          font-size: 34px;
         }
-        &.active {
-          font-weight: bold;
-          color: white;
-          border-color: white;
-          &:before {
-            background-color: white;
+
+        .desc-sections {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .desc-section {
+            font-size: 14px;
+            max-width: 380px;
+          }
+        }
+      }
+
+      p {
+        font-weight: normal;
+        margin: 25px 50px;
+        line-height: 23px;
+        font-size: 14px;
+        letter-spacing: 0.02em;
+        width: 350px;
+      }
+      .nav {
+        max-width: 900px;
+        border-bottom: 1px solid $color4;
+        a {
+          display: inline-block;
+          line-height: 60px;
+          font-size: 25px;
+          letter-spacing: 0.02em;
+          color: $color4;
+          cursor: pointer;
+          transition: .2s color;
+          border-bottom: 6px solid transparent;
+          margin: 0 40px -3px 0;
+          &:hover {
+            color: white;
+          }
+          &.active {
+            font-weight: bold;
+            color: white;
+            border-color: white;
+            &:before {
+              background-color: white;
+            }
           }
         }
       }
     }
-  }
-  .content {
-    //max-height: calc(100vh - 200px);
-    //overflow: auto;
-    .submit-wrapper {
-      h3 {
-        font-size: 24px;
-        letter-spacing: 0.02em;
-      }
-      p {
-        line-height: 20px;
-        font-size: 12px;
-        letter-spacing: 0.02em;
-      }
-      a {
-        font-weight: bold;
-        color: white;
-        font-size: 48px;
-        text-decoration: none;
+    .content {
+      margin-left: 100px;
+      //max-height: calc(100vh - 200px);
+      //overflow: auto;
+      .submit-wrapper {
+        h3 {
+          font-size: 24px;
+          letter-spacing: 0.02em;
+        }
+        p {
+          line-height: 20px;
+          font-size: 12px;
+          letter-spacing: 0.02em;
+        }
+        a {
+          font-weight: bold;
+          color: white;
+          font-size: 48px;
+          text-decoration: none;
+        }
       }
     }
   }

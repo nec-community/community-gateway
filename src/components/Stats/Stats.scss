@@ -1,6 +1,19 @@
 @import "../../common/variables";
 
 .stats-wrapper {
+  position: relative;
+
+  .stats-bg-text {
+    top: -20px;
+    right: 210px;
+  }
+
+  .stats-content-wrapper {
+    margin-left: 50px;
+    position: relative;
+    z-index: 2;
+  }
+
   h2 {
     font-size: 48px;
     margin: 0;
@@ -10,6 +23,7 @@
     line-height: 29px;
     font-weight: normal;
     margin: 25px 50px;
+    max-width: 442px;
   }
   .stats-grid {
     display: grid;

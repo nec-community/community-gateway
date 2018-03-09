@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import eth from '../../services/ethereumService';
+import { voteForProposal } from '../../actions/proposalActions';
 
 import './Proposal.scss';
 
@@ -19,10 +20,6 @@ class Proposal extends Component {
     const { match: { params: { proposalId } } } = this.props;
     const proposal = await eth.getProposalDetails(proposalId);
     this.setState({ proposal });
-  }
-
-  vote(id, vote) {
-    eth.vote(id, vote);
   }
 
   render() {
@@ -43,8 +40,8 @@ class Proposal extends Component {
             </div>
             <div className="details-wrapper">
               <p className="started">Started {proposal.startTime.toLocaleDateString()}</p>
+              <p className="submitter">Submitted by {proposal._proposer}</p>
               <p className="description">{proposal.description}</p>
-              {/*<p className="duration">Duration: {proposal.duration} days</p>*/}
 
               <div className="results-wrapper">
                 <div className="yes stretch">
@@ -63,19 +60,19 @@ class Proposal extends Component {
               <div className="results-wrapper">
                 <div className="yes">
                   <div className="number">{`${proposal.yesPercentage}`}</div>
-                  <div className="votes-number">435 votes</div>
+                  <div className="votes-number">{proposal.totalYes} NEC</div>
                 </div>
                 <div className="no">
                   <div className="number">{`${proposal.noPercentage}`}</div>
-                  <div className="votes-number">435 votes</div>
+                  <div className="votes-number">{proposal.totalNo} NEC</div>
                 </div>
               </div>
 
               <p className="vote-wrapper">
                 {'Vote '}
-                <a onClick={() => this.vote(proposal.id, true)}>Yes</a>
+                <a onClick={() => this.props.voteForProposal(proposal.id, true)}>Yes</a>
                 {' '}
-                <a onClick={() => this.vote(proposal.id, false)}>No</a>
+                <a onClick={() => this.props.voteForProposal(proposal.id, false)}>No</a>
               </p>
 
               <div className="help">
@@ -104,8 +101,11 @@ Proposal.propTypes = {
       proposalId: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  voteForProposal: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({});
 
-export default connect(mapStateToProps, {})(Proposal);
+export default connect(mapStateToProps, {
+  voteForProposal,
+})(Proposal);

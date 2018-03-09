@@ -39,49 +39,53 @@ class Stats extends Component {
   render() {
     return (
       <div className="stats-wrapper">
-        <h2>Statistics</h2>
-        <h3>Statistics subtitle statistics subtitle statistics subtitle statistics</h3>
-        <div className="stats-grid">
-          <div>
-            <div>Total fees pledged <br />to token holders:</div>
-            <div className="stat-wrapper">
-              <div className="stat">{eth.weiToEth(this.props.ethfinexData.totalFee)}</div>
-              <div className="stat-addon">
-                <div>ETH</div>
+        <div className="bg-text stats-bg-text">statistics</div>
+
+        <div className="stats-content-wrapper">
+          <h2>Statistics</h2>
+          <h3>This book is a treatise on the theory of ethics very popular during the Renaissance.</h3>
+          <div className="stats-grid">
+            <div>
+              <div>Total fees pledged <br />to token holders:</div>
+              <div className="stat-wrapper">
+                <div className="stat">{eth.weiToEth(this.props.ethfinexData.totalFee)}</div>
+                <div className="stat-addon">
+                  <div>ETH</div>
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            <div>Next token <br />distribution date:</div>
-            <div className="stat-wrapper">
-              <div className="stat">{this.getNextDate().getDate()}</div>
-              <div className="stat-addon">
-                <div className="secondary">th</div>
-                <div>{this.dateToMonth(this.getNextDate())}</div>
+            <div>
+              <div>Next token <br />distribution date:</div>
+              <div className="stat-wrapper">
+                <div className="stat">{this.getNextDate().getDate()}</div>
+                <div className="stat-addon">
+                  <div className="secondary">th</div>
+                  <div>{this.dateToMonth(this.getNextDate())}</div>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="token-supply">
-            <div>Token <br />total supply:</div>
-            <div className="stat-wrapper">
-              <div className="stat">{this.toDecimal(eth.weiToEth(this.props.ethfinexData.totalTokens), 2)}</div>
-            </div>
-          </div>
-          <div className="current-token">
-            <div>Current <br />token value:</div>
-            <div className="stat-wrapper">
-              <div className="stat">{this.props.ethfinexData.necPrice}</div>
-              <div className="stat-addon">
-                <div>USD</div>
+            <div className="token-supply">
+              <div>Token <br />total supply:</div>
+              <div className="stat-wrapper">
+                <div className="stat">{this.toDecimal(eth.weiToEth(this.props.ethfinexData.totalTokens), 2)}</div>
               </div>
             </div>
-          </div>
-          <div className="trading-volume">
-            <div>Ethfinex 30-day <br />trading volume:</div>
-            <div className="stat-wrapper">
-              <div className="stat">9999</div>
-              <div className="stat-addon">
-                <div>USD</div>
+            <div className="current-token">
+              <div>Current <br />token value:</div>
+              <div className="stat-wrapper">
+                <div className="stat">{this.props.ethfinexData.necPrice}</div>
+                <div className="stat-addon">
+                  <div>USD</div>
+                </div>
+              </div>
+            </div>
+            <div className="trading-volume">
+              <div>Ethfinex 30-day <br />trading volume:</div>
+              <div className="stat-wrapper">
+                <div className="stat">9999</div>
+                <div className="stat-addon">
+                  <div>USD</div>
+                </div>
               </div>
             </div>
           </div>

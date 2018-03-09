@@ -41,12 +41,24 @@ class TradingReward extends Component {
   render() {
     return (
       <div className="trading-reward-wrapper">
-        <h2>Earn by trading on Ethfinex</h2>
-        <p>
-          You can earn new NEC tokens in proportion to your maker volume (matched limit orders).
-          Tokens become harder to earn each month. Calculate how many you would earn
-          based on your trading volume.
-        </p>
+        <div className="top-text">
+          <h2>Earn by trading on Ethfinex</h2>
+          <div className="nec-price">
+            <div className="row-1"><span className="number">1</span><span className="nec">Nec =</span></div>
+            <div className="row-2">0.1143 ETH</div>
+            <div className="row-3">
+              <span className="refresh">Refreshes every</span><span className="min">5min</span>
+            </div>
+          </div>
+        </div>
+        <div className="calculator-desc">
+          <div className="line-indent" />
+          <p>
+            You can earn new NEC tokens in proportion to your maker volume (matched limit orders).
+            Tokens become harder to earn each month. Calculate how many you would earn
+            based on your trading volume.
+          </p>
+        </div>
         <h3>
           <label htmlFor="input">
             If your maker trading

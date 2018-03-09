@@ -24,6 +24,7 @@
   height: 200px;
   overflow: hidden;
   position: relative;
+  clear: both;
   &.reverse {
     transform: scaleX(-1) scaleY(-1);
   }
@@ -84,28 +85,139 @@
   .statistics {
     background: linear-gradient(117.02deg, #041824 9.23%, #07090D 91.6%);
     padding: 100px 0;
+    position: relative;
   }
   .voting {
     background-color: $color2;
     padding: 100px 0;
   }
   .learn-more {
-    padding: 100px 0;
-    h1 {
-      font-size: 48px;
-      margin: 0;
+    padding: 100px 0 0 0;
+
+    .gradient-section {
+      height: 180px;
+      width: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.39) 67.4%);
     }
-    h2 {
-      font-size: 32px;
-      font-weight: normal;
-    }
-    p {
-      font-weight: normal;
-      margin: 25px 50px;
-      line-height: 23px;
-      font-size: 14px;
-      letter-spacing: 0.02em;
-      width: 350px;
+
+    .learn-more-wrapper {
+      position: relative;
+
+      .learn-more-bg-text {
+        top: 200px;
+        right: -30px;
+        white-space: nowrap;
+      }
+
+      .learn-more-content-wrapper {
+        position: relative;
+        z-index: 2;
+
+        h1 {
+          font-size: 48px;
+          margin: 0;
+          margin-left: 50px;
+        }
+
+        .learn-more-content {
+          margin: 30px 0 0 100px;
+
+          h2 {
+            font-size: 32px;
+            font-weight: normal;
+            margin: 0 0 20px 0;
+          }
+
+          .content-sections {
+            display: flex;
+            justify-content: space-between;
+            line-height: 26px;
+            font-size: 14px;
+
+            .content-section {
+              max-width: 361px;
+
+              a {
+                margin-left: 5px;
+              }
+            }
+          }
+        }
+      }
+
+      .find-out-more {
+        margin-top: 50px;
+
+        .desc-text {
+          max-width: 190px;
+          line-height: 25px;
+          font-weight: bold;
+          font-size: 13px;
+          margin-left: 280px;
+        }
+
+        .links-wrapper {
+          display: flex;
+          justify-content: space-between;
+          opacity: 0.3;
+
+          .logo-link {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: 0.2s ease-in;
+
+            &:hover {
+              cursor: pointer;
+              opacity: 0.7;
+            }
+
+            .sub-text-wrapper {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+
+              .sub-text {
+                margin-top: -18px;
+                position: relative;
+                bottom: 10px;
+              }
+
+              .link-image {
+                position: relative;
+                bottom: 10px;
+              }
+            }
+
+            .link-image {
+              width: 74px;
+              height: 84px;
+              background-size: 100%;
+              background-repeat: no-repeat;
+              background-position: center;
+
+              &.ethfinex, &.blog {  background-image: url('./images/ethfinex.png');  }
+              &.twitter {
+                background-image: url('./images/twitter.png');
+                background-size: 90%;
+              }
+              &.support {
+                background-image: url('./images/support.png');
+                background-size: 60%;
+              }
+              &.youtube {
+                background-image: url('./images/youtube.png');
+                background-size: 80%;
+              }
+              &.github {
+                background-image: url('./images/github.png');
+                background-size: 70%;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

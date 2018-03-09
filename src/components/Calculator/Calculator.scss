@@ -1,10 +1,20 @@
 @import "../../common/variables";
 
 .calculator-wrapper {
+  position: relative;
+
+  .calculator-bg-text {
+    right: 0;
+    top: 189px;
+  }
+
   .calculator-nav {
+    z-index: 2;
     height: 120px;
     margin-top: -60px;
     display: flex;
+    position: relative;
+
     a {
       padding: 32px 50px;
       background: $color3;

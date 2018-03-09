@@ -13,3 +13,6 @@ export const FETCHED_PROPOSALS = 'fetched_proposals';
 export const FETCHED_ACTIVE_PROPOSALS = 'fetched_active_proposals';
 
 export const UPDATE_ETHFINEX_DATA = 'update_ethfinex_data';
+
+export const OPEN_LOGIN = 'open_login';
+export const CLOSE_LOGIN = 'close_login';

@@ -32,10 +32,13 @@
       margin: auto;
       line-height: 29px;
       font-size: 18px;
+      .submitter,
       .started {
         color: $color4;
         text-align: right;
         font-size: 12px;
+        margin: 0;
+        line-height: 18px;
       }
       .description {
         margin: 50px auto;
@@ -55,12 +58,15 @@
         font-weight: bold;
         height: 60px;
         font-size: 53px;
+        position: relative;
+        line-height: 50px;
         &:after {
           content: '%';
-          line-height: 55px;
+          line-height: 24px;
           font-size: 33px;
           margin: 5px;
           display: inline-block;
+          vertical-align: top;
         }
       }
       .votes-number {
