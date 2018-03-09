@@ -92,21 +92,37 @@
   }
   .learn-more {
     padding: 100px 0;
-    h1 {
-      font-size: 48px;
-      margin: 0;
-    }
-    h2 {
-      font-size: 32px;
-      font-weight: normal;
-    }
-    p {
-      font-weight: normal;
-      margin: 25px 50px;
-      line-height: 23px;
-      font-size: 14px;
-      letter-spacing: 0.02em;
-      width: 350px;
+
+    .learn-more-wrapper {
+      position: relative;
+
+      .learn-more-bg-text {
+        top: 250px;
+        right: 0;
+        white-space: nowrap;
+      }
+
+      .learn-more-content-wrapper {
+        position: relative;
+        z-index: 2;
+
+        h1 {
+          font-size: 48px;
+          margin: 0;
+        }
+        h2 {
+          font-size: 32px;
+          font-weight: normal;
+        }
+        p {
+          font-weight: normal;
+          margin: 25px 50px;
+          line-height: 23px;
+          font-size: 14px;
+          letter-spacing: 0.02em;
+          width: 350px;
+        }
+      }
     }
   }
 }

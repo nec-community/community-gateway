@@ -56,9 +56,15 @@ class App extends Component {
 
         <section className="learn-more">
           <div className="container">
-            <h1>Learn more</h1>
-            <h2>nectar.community</h2>
-            <p>Placeholder</p>
+            <div className="learn-more-wrapper">
+              <div className="bg-text learn-more-bg-text">learn more</div>
+
+              <div className="learn-more-content-wrapper">
+                <h1>Learn more</h1>
+                <h2>nectar.community</h2>
+                <p>Placeholder</p>
+              </div>
+            </div>
           </div>
         </section>
       </div>
