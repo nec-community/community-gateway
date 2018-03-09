@@ -15,20 +15,22 @@ class App extends Component {
     return (
       <div className="landing-wrapper">
         <section className="hero">
-          <h1>welcome to
-            <b>Nectar.community</b>
-          </h1>
-          <div className="hero-footer">
-            <div>
-              <span className="vertical">scroll down</span>
+          <div className="container">
+            <h1>welcome to
+              <b>Nectar.community</b>
+            </h1>
+            <div className="hero-footer">
+              <div>
+                <span className="vertical">scroll down</span>
+              </div>
+              <div>
+                <h2>
+                  The Ethfinex Nectar token (NEC) is used for governance and entitles the holders to
+                  claim a share of the fees collected on Ethfinex.
+                </h2>
+              </div>
+              <div />
             </div>
-            <div>
-              <h2>
-                The Ethfinex Nectar token (NEC) is used for governance and entitles the holders to
-                claim a share of the fees collected on Ethfinex.
-              </h2>
-            </div>
-            <div />
           </div>
         </section>
 
