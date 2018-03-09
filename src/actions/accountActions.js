@@ -3,6 +3,8 @@ import {
   GET_ACCOUNT_ERROR,
   TOKEN_BALANCE,
   UPDATE_ETHFINEX_DATA,
+  OPEN_LOGIN,
+  CLOSE_LOGIN,
 } from './actionTypes';
 import ethService from '../services/ethereumService';
 import keystoreService from '../services/keystoreService';
@@ -108,3 +110,22 @@ export const fetchEthfinexData = () => async (dispatch) => {
   dispatch(updateEthfinexData(data));
   setTimeout(() => fetchEthfinexData()(dispatch), 5 * 60 * 1000);
 };
+
+export const burnNec = (amount) => async (dispatch, getState) => {
+  if (!getState().account.accountType)
+    return dispatch(openLogin());
+  try {
+    await eth.burnNec(amount, getState().account.accountType);
+    notify('NEC reward claimed!', 'success')(dispatch);
+  } catch (err) {
+    notify(err.message, 'error')(dispatch);
+  }
+};
+
+export const openLogin = () => ({
+  type: OPEN_LOGIN,
+});
+
+export const closeLogin = () => ({
+  type: CLOSE_LOGIN,
+});

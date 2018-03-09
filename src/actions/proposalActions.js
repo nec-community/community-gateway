@@ -1,6 +1,8 @@
 import { FETCHED_PROPOSALS, FETCHED_ACTIVE_PROPOSALS } from './actionTypes';
 import eth from '../services/ethereumService';
 import grenache from '../services/grenacheService';
+import { openLogin } from './accountActions';
+import { notify } from './notificationActions';
 
 const fetchedProposals = proposals => ({
   type: FETCHED_PROPOSALS,
@@ -24,7 +26,25 @@ export const getActiveProposals = () => async (dispatch) => {
   dispatch(fetchedActiveProposals(proposals));
 };
 
-export const submitProposal = (duration, description) => async (dispatch) => {
+export const submitProposal = (duration, description) => async (dispatch, getState) => {
+  if (!getState().account.accountType)
+    return dispatch(openLogin());
   const descriptionHash = await grenache.put(description);
-  eth.submitProposal(duration, descriptionHash);
+  try {
+    await eth.submitProposal(duration, descriptionHash, getState().account.accountType);
+    notify('Thanks for voting!', 'success')(dispatch);
+  } catch (err) {
+    notify(err.message, 'error')(dispatch);
+  }
+};
+
+export const voteForProposal = (id, vote) => async (dispatch, getState) => {
+  if (!getState().account.accountType)
+    return dispatch(openLogin());
+  try {
+    await eth.vote(id, vote, getState().account.accountType);
+    notify('Thanks for voting!', 'success')(dispatch);
+  } catch (err) {
+    notify(err.message, 'error')(dispatch);
+  }
 };

@@ -5,15 +5,18 @@ import Tx from 'ethereumjs-tx';
 import config from '../constants/config.json';
 import { log } from './utils';
 import grenache from './grenacheService';
+import keystore from './keystoreService';
 
 let ledgerComm;
 const defaultPath = '44\'/60\'/0\'/0';
+let ledgerPath = defaultPath;
 
 let ethPrice;
 let necPrice;
 let necConversionRate;
 let totalFee;
 let totalTokens;
+let burningEnabled;
 
 const getAccount = () => (
   new Promise(async (resolve, reject) => {
@@ -56,6 +59,116 @@ const getTokenContract = async () =>
 const getControllerContract = async () =>
   new web3.eth.Contract(config.controllerContract.abi, config.controllerContract.address);
 
+
+const ledgerLogin = async (path = defaultPath) => {
+  ledgerPath = path;
+  if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
+  const eth = new ledger.eth(ledgerComm);
+  const account = await eth.getAddress_async(ledgerPath);
+  return account.address;
+};
+
+const signAndSendLedger = async (contractCall, value = 0, gasPrice = 5) => {
+  if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
+  const eth = new ledger.eth(ledgerComm);
+  const account = await eth.getAddress_async(ledgerPath);
+  log(`LEDGER account`, account);
+
+  let encodedAbi = contractCall.encodeABI();
+  log(`LEDGER encodedAbi ${encodedAbi}`);
+
+  const nonce = await web3.eth.getTransactionCount(account.address);
+  log(`LEDGER nonce ${nonce}`);
+
+  let rawTx = {
+    nonce: web3.utils.numberToHex(nonce),
+    from: account.address,
+    gasPrice: web3.utils.numberToHex(web3.utils.toWei(gasPrice.toString(), 'gwei')),
+    to: contractCall._parent._address,
+    data: encodedAbi,
+    value: web3.utils.numberToHex(value),
+    chainId: config.network,
+    v: config.network,
+  };
+
+  const gasLimit = await web3.eth.estimateGas(rawTx);
+  log(`LEDGER gasLimit ${gasLimit}`);
+  rawTx.gasLimit = web3.utils.numberToHex(gasLimit);
+
+  log(`LEDGER rawTx`, rawTx);
+
+  const tx = new Tx(rawTx);
+  log(`LEDGER tx`, tx);
+
+  const signedTx = await eth.signTransaction_async(ledgerPath, tx.serialize().toString('hex'));
+  log(`LEDGER signedTx`, signedTx);
+
+  const tx2 = new Tx({
+    ...rawTx,
+    v: '0x' + signedTx.v,
+    r: '0x' + signedTx.r,
+    s: '0x' + signedTx.s,
+  });
+  log(`LEDGER tx2`, tx2);
+
+  web3.eth.sendSignedTransaction('0x' + tx2.serialize().toString('hex'))
+    .on('transactionHash', (transactionHash) => {
+      log('LEDGER transactionHash', transactionHash);
+    })
+    .on('receipt', (res) => {
+      log('LEDGER receipt', res);
+    })
+    .on('error', (err) => {
+      log('LEDGER error', err);
+    });
+};
+
+const signAndSendKeystore = async (contractCall, value = 0, gasPrice = 5) => {
+  const account = keystore.getWallet();
+  log(`KEYSTORE account`, account.address);
+
+  let encodedAbi = contractCall.encodeABI();
+  log(`KEYSTORE encodedAbi ${encodedAbi}`);
+
+  const nonce = await web3.eth.getTransactionCount(account.address);
+  log(`KEYSTORE nonce ${nonce}`);
+
+  let rawTx = {
+    nonce: web3.utils.numberToHex(nonce),
+    from: account.address,
+    gasPrice: web3.utils.numberToHex(web3.utils.toWei(gasPrice.toString(), 'gwei')),
+    to: contractCall._parent._address,
+    data: encodedAbi,
+    value: web3.utils.numberToHex(value),
+    chainId: config.network,
+    v: config.network,
+  };
+
+  const gasLimit = await web3.eth.estimateGas(rawTx);
+  log(`KEYSTORE gasLimit ${gasLimit}`);
+  rawTx.gasLimit = web3.utils.numberToHex(gasLimit);
+
+  log(`KEYSTORE rawTx`, rawTx);
+
+  const tx = new Tx(rawTx);
+  log(`KEYSTORE tx`, tx);
+
+  await account.signRawTransaction(tx);
+  log(`KEYSTORE signed tx`, tx);
+
+  web3.eth.sendSignedTransaction('0x' + tx.serialize().toString('hex'))
+    .on('transactionHash', (transactionHash) => {
+      log('KEYSTORE transactionHash', transactionHash);
+    })
+    .on('receipt', (res) => {
+      log('KEYSTORE receipt', res);
+    })
+    .on('error', (err) => {
+      log('KEYSTORE error', err);
+    });
+};
+
+
 const totalPledgedFees = async () => {
   const tokenContract = await getTokenContract();
   return tokenContract.methods.totalPledgedFees().call();
@@ -85,6 +198,7 @@ const getTokenBalance = async (_account) => {
   return tokenContract.methods.balanceOf(account).call();
 };
 
+// dev
 const contribute = async () => {
   const controllerContract = await getControllerContract();
   const account = await getAccount();
@@ -95,6 +209,7 @@ const contribute = async () => {
   });
 };
 
+// dev
 const authorize = async (address) => {
   const controllerContract = await getControllerContract();
   const account = await getAccount();
@@ -103,20 +218,34 @@ const authorize = async (address) => {
   });
 };
 
-const submitProposal = async (duration, hash) => {
-  const account = await getAccount();
+const submitProposal = async (duration, hash, accountType) => {
   const proposalContract = await getProposalContract();
-  return proposalContract.methods.addProposal(duration, web3.utils.toHex(hash)).send({
-    from: account,
-  });
+  const contractCall = proposalContract.methods.addProposal(duration, web3.utils.toHex(hash));
+  if (accountType === 'ledger') {
+    return signAndSendLedger(contractCall);
+  } else if (accountType === 'keystore') {
+    return signAndSendKeystore(contractCall);
+  } else {
+    const account = await getAccount();
+    return contractCall.send({
+      from: account,
+    });
+  }
 };
 
-const vote = async (id, vote) => {
-  const account = await getAccount();
+const vote = async (id, vote, accountType) => {
   const proposalContract = await getProposalContract();
-  return proposalContract.methods.vote(id, vote).send({
-    from: account,
-  });
+  const contractCall = proposalContract.methods.vote(id, vote);
+  if (accountType === 'ledger') {
+    return signAndSendLedger(contractCall);
+  } else if (accountType === 'keystore') {
+    return signAndSendKeystore(contractCall);
+  } else {
+    const account = await getAccount();
+    return contractCall.send({
+      from: account,
+    });
+  }
 };
 
 const getProposalDetails = async (id) => {
@@ -196,13 +325,20 @@ const calculateNecReward = async (volume) => {
   return necReward;
 };
 
-const burnNec = async (necTokens) => {
-  const account = await getAccount();
+const burnNec = async (necTokens, accountType) => {
   const tokenContract = await getTokenContract();
   log(`Burning ${necTokens} NEC tokens`);
-  return tokenContract.methods.burnAndRetrieve(necTokens).send({
-    from: account,
-  });
+  const contractCall = tokenContract.methods.burnAndRetrieve(necTokens);
+  if (accountType === 'ledger') {
+    return signAndSendLedger(contractCall);
+  } else if (accountType === 'keystore') {
+    return signAndSendKeystore(contractCall);
+  } else {
+    const account = await getAccount();
+    return contractCall.send({
+      from: account,
+    });
+  }
 };
 
 const fetchData = async () => {
@@ -210,6 +346,8 @@ const fetchData = async () => {
   necPrice = await getNecPrice();
   const controllerContract = await getControllerContract();
   necConversionRate = await controllerContract.methods.getFeeToTokenConversion(1).call();
+  const tokenContract = await getTokenContract();
+  burningEnabled = await tokenContract.methods.burningEnabled().call();
   totalFee = await totalPledgedFees();
   totalTokens = await totalSupply();
   return {
@@ -218,69 +356,8 @@ const fetchData = async () => {
     necConversionRate,
     totalFee,
     totalTokens,
+    burningEnabled,
   };
-};
-
-const ledgerLogin = async (path = defaultPath) => {
-  if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
-  const eth = new ledger.eth(ledgerComm);
-  const account = await eth.getAddress_async(path);
-  return account.address;
-};
-
-const signAndSendLedger = async (contractCall, value = 0, gasPrice = 5, path = defaultPath) => {
-  if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
-  const eth = new ledger.eth(ledgerComm);
-  const account = await eth.getAddress_async(path);
-  log(`LEDGER account`, account);
-
-  let encodedAbi = contractCall.encodeABI();
-  log(`LEDGER encodedAbi ${encodedAbi}`);
-
-  const nonce = await web3.eth.getTransactionCount(account.address);
-  log(`LEDGER nonce ${nonce}`);
-
-  let rawTx = {
-    nonce: web3.utils.numberToHex(nonce),
-    from: account.address,
-    gasPrice: web3.utils.numberToHex(web3.utils.toWei(gasPrice.toString(), 'gwei')),
-    to: contractCall._parent._address,
-    data: encodedAbi,
-    value: web3.utils.numberToHex(value),
-    chainId: config.network,
-    v: config.network,
-  };
-
-  const gasLimit = await web3.eth.estimateGas(rawTx);
-  log(`LEDGER gasLimit ${gasLimit}`);
-  rawTx.gasLimit = web3.utils.numberToHex(gasLimit);
-
-  log(`LEDGER rawTx`, rawTx);
-
-  const tx = new Tx(rawTx);
-  log(`LEDGER tx`, tx);
-
-  const signedTx = await eth.signTransaction_async(path, tx.serialize().toString('hex'));
-  log(`LEDGER signedTx`, signedTx);
-
-  const tx2 = new Tx({
-    ...rawTx,
-    v: '0x' + signedTx.v,
-    r: '0x' + signedTx.r,
-    s: '0x' + signedTx.s,
-  });
-  log(`LEDGER tx2`, tx2);
-
-  web3.eth.sendSignedTransaction('0x' + tx2.serialize().toString('hex'))
-    .on('transactionHash', (transactionHash) => {
-      log('LEDGER transactionHash', transactionHash);
-    })
-    .on('receipt', (res) => {
-      log('LEDGER receipt', res);
-    })
-    .on('error', (err) => {
-      log('LEDGER error', err);
-    });
 };
 
 export default {
@@ -305,10 +382,24 @@ export default {
 
 setTimeout(async () => {
   const proposalContract = await getProposalContract();
-  // let contractCall = proposalContract.methods.addProposal(20, web3.utils.toHex('test'));
+  // let contractCall = proposalContract.methods.addProposal(20, web3.utils.toHex('e4082dc8e0388250e03217087e08eebc83a7ee34'));
   let contractCall = proposalContract.methods.nProposals();
+  console.log(contractCall);
+  // signAndSendKeystore(contractCall);
+
   // const controllerContract = await getControllerContract();
-  // let contractCall = controllerContract.methods.contributeForMakers();
-  // signAndSendLedger(contractCall);
+  // let contractCall = controllerContract.methods.contributeForMakers('2f797b1e6c8ae924738b0cc837556b8741e44d9e');
+  // signAndSendKeystore(contractCall, ethToWei(0.01));
 }, 1000);
 
+
+window.test = async () => {
+  // const controllerContract = await getControllerContract();
+  // let contractCall = controllerContract.methods.contributeForMakers('2f797b1e6c8ae924738b0cc837556b8741e44d9e');
+  // signAndSendLedger(contractCall, ethToWei(0.01));
+  // signAndSendKeystore(contractCall, ethToWei(0.01));
+
+  const proposalContract = await getProposalContract();
+  let contractCall = proposalContract.methods.addProposal(20, web3.utils.toHex('e4082dc8e0388250e03217087e08eebc83a7ee34'));
+  signAndSendKeystore(contractCall);
+};
