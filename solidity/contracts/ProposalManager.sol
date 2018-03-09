@@ -13,8 +13,11 @@ contract ProposalManager is Ownable {
 
     address constant NECTAR_TOKEN = 0xCc80C051057B774cD75067Dc48f8987C4Eb97A5e;
     address constant TOKEN_FACTORY = 0x003ea7f54b6Dcf6cEE86986EdC18143A35F15505;
+    uint constant MIN_PROPOSAL_DURATION = 7;
+    uint constant MAX_PROPOSAL_DURATION = 45;
 
     struct Proposal {
+        address proposer;
         uint startBlock;
         uint startTime;
         uint duration;
@@ -50,6 +53,8 @@ contract ProposalManager is Ownable {
         uint _duration, // number of days
         bytes32 _storageHash) public returns (uint _proposalId)
     {
+        require(_duration >= MIN_PROPOSAL_DURATION);
+        require(_duration <= MAX_PROPOSAL_DURATION);
 
         uint amount = MiniMeToken(nectarToken).balanceOf(msg.sender);
         assert(amount > 0); // user can't submit proposal if doesn't own any tokens
@@ -60,8 +65,9 @@ contract ProposalManager is Ownable {
         Proposal storage p = proposals[_proposalId];
         p.storageHash = _storageHash;
         p.duration = _duration * (1 days);
+        p.proposer = msg.sender;
         
-        NewProposal(_proposalId, _duration, _storageHash);
+        emit NewProposal(_proposalId, _duration, _storageHash);
     }
 
     /// @notice Admins are able to approve proposal that someone submitted
@@ -86,7 +92,7 @@ contract ProposalManager is Ownable {
         p.startTime = now;
         p.startBlock = getBlockNumber();
 
-        Approved(_proposalId);
+        emit Approved(_proposalId);
     }
 
     /// @notice Vote for specific proposal with yes or no
@@ -109,7 +115,7 @@ contract ProposalManager is Ownable {
             proposals[_proposalId].noVotes += amount;
         }
         
-        Vote(_proposalId, msg.sender, _yes, amount);
+        emit Vote(_proposalId, msg.sender, _yes, amount);
     }
 
     /// @notice Any admin is able to add new admin
@@ -127,6 +133,7 @@ contract ProposalManager is Ownable {
     /// @notice Get data about specific proposal
     /// @param _proposalId Id of proposal 
     function proposal(uint _proposalId) public view returns(
+        address _proposer,
         uint _startBlock,
         uint _startTime,
         uint _duration,
@@ -142,6 +149,7 @@ contract ProposalManager is Ownable {
         require(_proposalId < proposals.length);
 
         Proposal memory p = proposals[_proposalId];
+        _proposer = p.proposer;
         _startBlock = p.startBlock;
         _startTime = p.startTime;
         _duration = p.duration;
@@ -152,7 +160,7 @@ contract ProposalManager is Ownable {
         _totalNo = p.noVotes;
         _token = p.token;
         _approved = p.approved;
-        _hasBalance = (MiniMeToken(p.token).balanceOf(msg.sender) > 0);
+        _hasBalance = (p.token == 0x0) ? false : (MiniMeToken(p.token).balanceOf(msg.sender) > 0);
     }
 
     /// @notice Get all approved proposals
