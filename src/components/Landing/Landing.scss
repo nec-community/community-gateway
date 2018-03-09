@@ -98,8 +98,8 @@
       position: relative;
 
       .learn-more-bg-text {
-        top: 250px;
-        right: 0;
+        top: 200px;
+        right: -30px;
         white-space: nowrap;
       }
 
@@ -110,18 +110,32 @@
         h1 {
           font-size: 48px;
           margin: 0;
+          margin-left: 50px;
         }
-        h2 {
-          font-size: 32px;
-          font-weight: normal;
-        }
-        p {
-          font-weight: normal;
-          margin: 25px 50px;
-          line-height: 23px;
-          font-size: 14px;
-          letter-spacing: 0.02em;
-          width: 350px;
+
+        .learn-more-content {
+          margin: 30px 0 0 100px;
+
+          h2 {
+            font-size: 32px;
+            font-weight: normal;
+            margin: 0 0 20px 0;
+          }
+
+          .content-sections {
+            display: flex;
+            justify-content: space-between;
+            line-height: 26px;
+            font-size: 14px;
+
+            .content-section {
+              max-width: 361px;
+
+              a {
+                margin-left: 5px;
+              }
+            }
+          }
         }
       }
     }
