@@ -253,19 +253,29 @@ const getProposalDetails = async (id) => {
   const details = await proposalContract.methods.proposal(id).call();
   console.log(details);
   const storageHash = details._storageHash.substr(2, 40);
-  // const storageHash = web3.utils.toAscii(details._storageHash).replace(/\u0000/g, '');
+
   let description = await grenache.get(storageHash);
   const separator = description.indexOf('\n') === -1
     ? description.length
     : description.indexOf('\n');
   const title = description.substr(0, separator);
   description = description.substr(separator).trim();
+
   let yesPercentage = 100 * (parseInt(details._totalYes, 10) /
     (parseInt(details._totalYes, 10) + parseInt(details._totalNo, 10)));
   if (isNaN(yesPercentage)) yesPercentage = 0;
+  else yesPercentage = Math.floor(yesPercentage * 100) / 100;
+
+  let totalYes = weiToEth(details._totalYes);
+  totalYes = Math.floor(totalYes * 100) / 100;
+  let totalNo = weiToEth(details._totalNo);
+  totalNo = Math.floor(totalNo * 100) / 100;
+
   let noPercentage = 100 * (parseInt(details._totalNo, 10) /
     (parseInt(details._totalYes, 10) + parseInt(details._totalNo, 10)));
   if (isNaN(noPercentage)) noPercentage = 0;
+  else noPercentage = Math.floor(noPercentage * 100) / 100;
+
   const startTime = new Date(parseInt(`${details._startTime}000`, 10));
   const remainingDays = Math.floor(
     ((startTime.valueOf() + parseInt(`${details._duration}000`)) - (new Date()).valueOf())
@@ -281,6 +291,8 @@ const getProposalDetails = async (id) => {
     duration: details._duration / 24 / 60 / 60,
     startTime,
     remainingDays,
+    totalYes,
+    totalNo,
   };
 };
 

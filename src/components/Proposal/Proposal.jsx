@@ -40,8 +40,8 @@ class Proposal extends Component {
             </div>
             <div className="details-wrapper">
               <p className="started">Started {proposal.startTime.toLocaleDateString()}</p>
+              <p className="submitter">Submitted by {proposal._proposer}</p>
               <p className="description">{proposal.description}</p>
-              {/*<p className="duration">Duration: {proposal.duration} days</p>*/}
 
               <div className="results-wrapper">
                 <div className="yes stretch">
@@ -60,11 +60,11 @@ class Proposal extends Component {
               <div className="results-wrapper">
                 <div className="yes">
                   <div className="number">{`${proposal.yesPercentage}`}</div>
-                  <div className="votes-number">435 votes</div>
+                  <div className="votes-number">{proposal.totalYes} NEC</div>
                 </div>
                 <div className="no">
                   <div className="number">{`${proposal.noPercentage}`}</div>
-                  <div className="votes-number">435 votes</div>
+                  <div className="votes-number">{proposal.totalNo} NEC</div>
                 </div>
               </div>
 
