@@ -138,6 +138,80 @@
           }
         }
       }
+
+      .find-out-more {
+        margin-top: 50px;
+
+        .desc-text {
+          max-width: 190px;
+          line-height: 25px;
+          font-weight: bold;
+          font-size: 13px;
+          margin-left: 280px;
+        }
+
+        .links-wrapper {
+          display: flex;
+          justify-content: space-between;
+          opacity: 0.3;
+
+          .logo-link {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: 0.2s ease-in;
+
+            &:hover {
+              cursor: pointer;
+              opacity: 0.7;
+            }
+
+            .sub-text-wrapper {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+
+              .sub-text {
+                margin-top: -18px;
+                position: relative;
+                bottom: 10px;
+              }
+
+              .link-image {
+                position: relative;
+                bottom: 10px;
+              }
+            }
+
+            .link-image {
+              width: 74px;
+              height: 84px;
+              background-size: 100%;
+              background-repeat: no-repeat;
+              background-position: center;
+
+              &.ethfinex, &.blog {  background-image: url('./images/ethfinex.png');  }
+              &.twitter {
+                background-image: url('./images/twitter.png');
+                background-size: 90%;
+              }
+              &.support {
+                background-image: url('./images/support.png');
+                background-size: 60%;
+              }
+              &.youtube {
+                background-image: url('./images/youtube.png');
+                background-size: 80%;
+              }
+              &.github {
+                background-image: url('./images/github.png');
+                background-size: 70%;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -88,6 +88,46 @@ class App extends Component {
                 </div>
               </div>
 
+              <div className="find-out-more">
+                <div className="desc-text">Find out more about Ethfinex and the Nectar token:</div>
+
+                <div className="links-wrapper">
+
+                  <div className="logo-link">
+                    <div className="link-image ethfinex" />
+                    <div className="link-text">ethfinex.com</div>
+                  </div>
+
+                  <div className="logo-link">
+                    <div className="sub-text-wrapper">
+                      <div className="link-image blog" />
+                      <div className="sub-text">blog</div>
+                    </div>
+                    <div className="link-text">blog.ethfinex.com</div>
+                  </div>
+
+                  <div className="logo-link">
+                    <div className="link-image twitter" />
+                    <div className="link-text">twitter.com/ethfinex</div>
+                  </div>
+
+                  <div className="logo-link">
+                    <div className="link-image support" />
+                    <div className="link-text">support.ethfinex.com</div>
+                  </div>
+
+                  <div className="logo-link">
+                    <div className="link-image youtube" />
+                    <div className="link-text">youtube</div>
+                  </div>
+
+                  <div className="logo-link">
+                    <div className="link-image github" />
+                    <div className="link-text">github</div>
+                  </div>
+
+                </div>
+              </div>
             </div>
           </div>
         </section>
