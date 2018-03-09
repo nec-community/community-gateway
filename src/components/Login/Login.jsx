@@ -37,7 +37,6 @@ class Login extends Component {
       this.setState({
         passReq,
       });
-      let keystore;
       if (!passReq)
         this.props.loginKeystore(keystoreJson);
       else if (this.pass.value)
