@@ -4,19 +4,42 @@
   position: relative;
 
   .voting-bg-text {
-    top: 374px;
-    right: 620px;
+    top: 70px;
+    right: 500px;
   }
 
   .voting-content-wrapper {
     position: relative;
     z-index: 2;
 
+    h2 {
+      font-size: 48px;
+      margin: 0 0 0 50px;
+    }
+
     .meta {
-      h2 {
-        font-size: 48px;
-        margin: 0;
+      margin-left: 100px;
+
+      .voting-desc {
+        margin: 32px 0 35px 0;
+
+        h3 {
+          margin: 0 0 32px 0;
+          font-size: 34px;
+        }
+
+        .desc-sections {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .desc-section {
+            font-size: 14px;
+            max-width: 380px;
+          }
+        }
       }
+
       p {
         font-weight: normal;
         margin: 25px 50px;
@@ -26,6 +49,7 @@
         width: 350px;
       }
       .nav {
+        max-width: 900px;
         border-bottom: 1px solid $color4;
         a {
           display: inline-block;
@@ -52,6 +76,7 @@
       }
     }
     .content {
+      margin-left: 100px;
       //max-height: calc(100vh - 200px);
       //overflow: auto;
       .submit-wrapper {

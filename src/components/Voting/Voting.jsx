@@ -31,8 +31,24 @@ class Voting extends Component {
         <div className="bg-text voting-bg-text">voting</div>
 
         <div className="voting-content-wrapper">
+          <h2>Voting</h2>
+
           <div className="meta">
-            <h2>Voting</h2>
+            <div className="voting-desc">
+              <h3>Redeem your tokens</h3>
+
+              <div className="desc-sections">
+                <div className="desc-section">
+                  every 30 days trading fees on Ethfinex are pledged to NEC holders. Calculate the current value
+                  which your tokens entitle you to, or redeem your rewards from the smart contract now.
+                </div>
+                <div className="desc-section">
+                  every 30 days trading fees on Ethfinex are pledged to NEC holders. Calculate the current value
+                  which your tokens entitle you to, or redeem your rewards from the smart contract now.
+                </div>
+              </div>
+            </div>
+
             <div className="nav">
               <a
                 className={`${this.state.shown === 'current' ? 'active' : ''}`}
