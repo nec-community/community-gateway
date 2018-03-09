@@ -33,10 +33,10 @@ class Submit extends Component {
     const { description, durationInDays } = this.state;
 
     if (!description) {
-      this.setState({ submitError: 'Description required.' });
+      return this.setState({ submitError: 'Description required.' });
     }
-    if (durationInDays < 7) {
-      this.setState({ submitError: 'Proposal must last 7 days or longer.' });
+    if (durationInDays < 7 || durationInDays > 45) {
+      return this.setState({ submitError: 'Proposal must last between 7 and 45 days.' });
     }
 
     this.props.submitProposal(durationInDays, description);
@@ -70,6 +70,7 @@ class Submit extends Component {
                   name="durationInDays"
                   type="number"
                   min="7"
+                  max="45"
                   value={this.state.durationInDays}
                   onChange={this.handleInputChange}
                 />

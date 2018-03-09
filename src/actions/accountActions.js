@@ -10,7 +10,7 @@ import ethService from '../services/ethereumService';
 import keystoreService from '../services/keystoreService';
 import config from '../constants/config.json';
 import { nameOfNetwork, log } from '../services/utils';
-import { notify } from './notificationActions';
+import { notify, notifyError } from './notificationActions';
 
 export const accountSuccess = (account, type, balance) => ({
   type: GET_ACCOUNT_SUCCESS,
@@ -56,6 +56,8 @@ export const loginLedger = (path) => async (dispatch, getState) => {
   } catch (err) {
     if (err === 'Invalid status 6801')
       err += ' - Ledger possibly locked';
+    if (err === 'Invalid status 6985')
+      err += ' - User denied tx';
     dispatch(accountError(err));
     notify(err, 'error')(dispatch);
   }
@@ -118,7 +120,7 @@ export const burnNec = (amount) => async (dispatch, getState) => {
     await eth.burnNec(amount, getState().account.accountType);
     notify('NEC reward claimed!', 'success')(dispatch);
   } catch (err) {
-    notify(err.message, 'error')(dispatch);
+    notifyError(err)(dispatch);
   }
 };
 

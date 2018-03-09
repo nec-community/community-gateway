@@ -52,7 +52,7 @@ class App extends Component {
                 <span>Nectar.community</span>
               </div>
               <p className="copyright">
-                Copyright © 2013-2018 Bitfinex Inc. All rights reserved
+                Copyright Ethfinex Inc
               </p>
             </div>
           </footer>

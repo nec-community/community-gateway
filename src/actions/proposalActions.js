@@ -2,7 +2,7 @@ import { FETCHED_PROPOSALS, FETCHED_ACTIVE_PROPOSALS } from './actionTypes';
 import eth from '../services/ethereumService';
 import grenache from '../services/grenacheService';
 import { openLogin } from './accountActions';
-import { notify } from './notificationActions';
+import { notify, notifyError } from './notificationActions';
 
 const fetchedProposals = proposals => ({
   type: FETCHED_PROPOSALS,
@@ -32,9 +32,9 @@ export const submitProposal = (duration, description) => async (dispatch, getSta
   const descriptionHash = await grenache.put(description);
   try {
     await eth.submitProposal(duration, descriptionHash, getState().account.accountType);
-    notify('Thanks for voting!', 'success')(dispatch);
+    notify('Your proposal has been submitted and will need to be approved by the Ethfinex moderation team before a vote can begin', 'success')(dispatch);
   } catch (err) {
-    notify(err.message, 'error')(dispatch);
+    notifyError(err)(dispatch);
   }
 };
 
@@ -45,6 +45,6 @@ export const voteForProposal = (id, vote) => async (dispatch, getState) => {
     await eth.vote(id, vote, getState().account.accountType);
     notify('Thanks for voting!', 'success')(dispatch);
   } catch (err) {
-    notify(err.message, 'error')(dispatch);
+    notifyError(err)(dispatch);
   }
 };
