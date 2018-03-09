@@ -43,7 +43,7 @@ class Stats extends Component {
 
         <div className="stats-content-wrapper">
           <h2>Statistics</h2>
-          <h3>Statistics subtitle statistics subtitle statistics subtitle statistics</h3>
+          <h3>This book is a treatise on the theory of ethics very popular during the Renaissance.</h3>
           <div className="stats-grid">
             <div>
               <div>Total fees pledged <br />to token holders:</div>

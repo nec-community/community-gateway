@@ -4,8 +4,8 @@
   position: relative;
 
   .stats-bg-text {
-    top: -50px;
-    right: 150px;
+    top: -20px;
+    right: 210px;
   }
 
   .stats-content-wrapper {
@@ -22,6 +22,7 @@
     line-height: 29px;
     font-weight: normal;
     margin: 25px 50px;
+    max-width: 442px;
   }
   .stats-grid {
     display: grid;
