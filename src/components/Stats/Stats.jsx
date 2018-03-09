@@ -48,7 +48,7 @@ class Stats extends Component {
             <div>
               <div>Total fees pledged <br />to token holders:</div>
               <div className="stat-wrapper">
-                <div className="stat">{eth.weiToEth(this.props.ethfinexData.totalFee)}</div>
+                <div className="stat">{this.props.ethfinexData.totalFee}</div>
                 <div className="stat-addon">
                   <div>ETH</div>
                 </div>
@@ -67,7 +67,7 @@ class Stats extends Component {
             <div className="token-supply">
               <div>Token <br />total supply:</div>
               <div className="stat-wrapper">
-                <div className="stat">{this.toDecimal(eth.weiToEth(this.props.ethfinexData.totalTokens), 2)}</div>
+                <div className="stat">{this.props.ethfinexData.totalTokens}</div>
               </div>
             </div>
             <div className="current-token">

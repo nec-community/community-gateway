@@ -41,16 +41,7 @@ class TradingReward extends Component {
   render() {
     return (
       <div className="trading-reward-wrapper">
-        <div className="top-text">
-          <h2>Earn by trading on Ethfinex</h2>
-          <div className="nec-price">
-            <div className="row-1"><span className="number">1</span><span className="nec">Nec =</span></div>
-            <div className="row-2">0.1143 ETH</div>
-            <div className="row-3">
-              <span className="refresh">Refreshes every</span><span className="min">5min</span>
-            </div>
-          </div>
-        </div>
+        <h2>Earn by trading on Ethfinex</h2>
         <div className="calculator-desc">
           <div className="line-indent" />
           <p>
@@ -82,6 +73,7 @@ TradingReward.propTypes = {
 const mapStateToProps = state => ({
   tokenBalance: state.account.tokenBalance,
   tokenPayout: state.account.tokenPayout,
+  accountBalance: state.account.accountBalance,
 });
 
 export default connect(mapStateToProps, {

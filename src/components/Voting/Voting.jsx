@@ -39,12 +39,10 @@ class Voting extends Component {
 
               <div className="desc-sections">
                 <div className="desc-section">
-                  every 30 days trading fees on Ethfinex are pledged to NEC holders. Calculate the current value
+                  Every 30 days trading fees on Ethfinex are pledged to NEC holders. Calculate the current value
                   which your tokens entitle you to, or redeem your rewards from the smart contract now.
                 </div>
                 <div className="desc-section">
-                  every 30 days trading fees on Ethfinex are pledged to NEC holders. Calculate the current value
-                  which your tokens entitle you to, or redeem your rewards from the smart contract now.
                 </div>
               </div>
             </div>

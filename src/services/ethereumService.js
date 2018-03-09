@@ -3,7 +3,7 @@ import ledger from 'ledgerco';
 import Tx from 'ethereumjs-tx';
 
 import config from '../constants/config.json';
-import { log } from './utils';
+import { log, toDecimal } from './utils';
 import grenache from './grenacheService';
 import keystore from './keystoreService';
 
@@ -360,8 +360,8 @@ const fetchData = async () => {
   necConversionRate = await controllerContract.methods.getFeeToTokenConversion(1).call();
   const tokenContract = await getTokenContract();
   burningEnabled = await tokenContract.methods.burningEnabled().call();
-  totalFee = await totalPledgedFees();
-  totalTokens = await totalSupply();
+  totalFee = toDecimal(weiToEth(await totalPledgedFees()), 2);
+  totalTokens = toDecimal(weiToEth(await totalSupply()), 2);
   return {
     ethPrice,
     necPrice,

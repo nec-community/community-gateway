@@ -9,7 +9,7 @@ import {
 import ethService from '../services/ethereumService';
 import keystoreService from '../services/keystoreService';
 import config from '../constants/config.json';
-import { nameOfNetwork, log } from '../services/utils';
+import { nameOfNetwork, log, toDecimal } from '../services/utils';
 import { notify, notifyError } from './notificationActions';
 
 export const accountSuccess = (account, type, balance) => ({
@@ -98,7 +98,10 @@ export const getTokenBalance = () => async (dispatch) => {
   const balance = await ethService.getTokenBalance();
   const payout = await ethService.estimatePayout(balance);
   log(`Payout for balance ${balance} is ${payout}`);
-  dispatch(tokenBalance(ethService.weiToEth(balance), ethService.weiToEth(payout)));
+  dispatch(tokenBalance(
+    toDecimal(ethService.weiToEth(balance)),
+    toDecimal(ethService.weiToEth(payout)),
+  ));
 };
 
 const updateEthfinexData = (data) => ({

@@ -78,12 +78,9 @@ footer {
   color: $bg-text-color-1;
   opacity: 0.1;
   z-index: 1;
+  pointer-events: none;
 }
 
 a {
   color: #fff;
-
-  &:hover {
-    opacity: 0.7;
-  }
 }

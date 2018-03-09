@@ -98,11 +98,7 @@ class Login extends Component {
                   <div className="ledger-login-wrapper">
                     <h2>This is a recommended way to access your wallet</h2>
                     <p>
-                      Ledger Nano S is a Bitcoin, Ethereum and Altcoins hardware wallet, based on
-                      robust safety features for storing cryptographic assets and securing digital
-                      payments. It connects to any computer (USB) and embeds a secure OLED display
-                      to double-check and confirm each transaction with a single tap on its side
-                      buttons.
+                      Connect your Ledger, unlock it and open the Ethereum app.
                     </p>
                     <label>Path:
                       <input type="text" ref={(input) => { this.ledgerPath = input; }}
