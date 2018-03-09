@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loginLedger, loginMetamask, loginKeystore } from '../../actions/accountActions';
+import { loginLedger, loginMetamask, loginKeystore, openLogin, closeLogin } from '../../actions/accountActions';
 import keystoreService from '../../services/keystoreService';
 
 import './Login.scss';
@@ -15,25 +15,11 @@ class Login extends Component {
       passReq: false,
     };
 
-    this.openLogin = this.openLogin.bind(this);
-    this.closeLogin = this.closeLogin.bind(this);
     this.switch = this.switch.bind(this);
     this.readKeystore = this.readKeystore.bind(this);
   }
 
   componentDidMount() {}
-
-  openLogin() {
-    this.setState({
-      open: true,
-    });
-  }
-
-  closeLogin() {
-    this.setState({
-      open: false,
-    });
-  }
 
   switch(slug) {
     this.setState({
@@ -63,16 +49,16 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <div className="login-fab" onClick={this.openLogin}>
+        <div className="login-fab" onClick={this.props.openLogin}>
           {
             this.props.accountType || 'Connect wallet'
           }
         </div>
         {
-          this.state.open &&
+          this.props.loginOpen &&
           <div className="login-wrapper">
             <div className="login-inner-wrapper">
-              <button className="close-button" onClick={this.closeLogin}>close</button>
+              <button className="close-button" onClick={this.props.closeLogin}>close</button>
 
               <div className="nav">
                 <a
@@ -147,17 +133,23 @@ Login.propTypes = {
   loginLedger: PropTypes.func.isRequired,
   loginMetamask: PropTypes.func.isRequired,
   loginKeystore: PropTypes.func.isRequired,
+  openLogin: PropTypes.func.isRequired,
+  closeLogin: PropTypes.func.isRequired,
   account: PropTypes.string.isRequired,
   accountType: PropTypes.string.isRequired,
+  loginOpen: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   account: state.account.account,
   accountType: state.account.accountType,
+  loginOpen: state.account.loginOpen,
 });
 
 export default connect(mapStateToProps, {
   loginLedger,
   loginMetamask,
   loginKeystore,
+  openLogin,
+  closeLogin,
 })(Login);

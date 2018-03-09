@@ -3,6 +3,8 @@ import {
   GET_ACCOUNT_ERROR,
   TOKEN_BALANCE,
   UPDATE_ETHFINEX_DATA,
+  OPEN_LOGIN,
+  CLOSE_LOGIN,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -18,7 +20,9 @@ const INITIAL_STATE = {
     necConversionRate: 0,
     totalFee: 0,
     totalTokens: 0,
-  }
+    burningEnabled: false,
+  },
+  loginOpen: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -30,6 +34,7 @@ export default (state = INITIAL_STATE, action) => {
         accountType: action.accountType,
         accountBalance: action.balance,
         accountError: '',
+        loginOpen: false,
       };
     case GET_ACCOUNT_ERROR:
       return {
@@ -49,6 +54,16 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         ethfinexData: action.data,
+      };
+    case OPEN_LOGIN:
+      return {
+        ...state,
+        loginOpen: true,
+      };
+    case CLOSE_LOGIN:
+      return {
+        ...state,
+        loginOpen: false,
       };
     default:
       return state;

@@ -150,6 +150,10 @@
       text-align: center;
       letter-spacing: 0.02em;
       cursor: pointer;
+      &:disabled {
+        background-color: #2f3342;
+        cursor: default;
+      }
     }
   }
 }

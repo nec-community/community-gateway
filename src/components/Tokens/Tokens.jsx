@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getTokenBalance } from '../../actions/accountActions';
+import { getTokenBalance, burnNec } from '../../actions/accountActions';
 import eth from '../../services/ethereumService';
 
 import './Tokens.scss';
@@ -76,12 +76,24 @@ class Tokens extends Component {
             </span>
             <p>Your reward</p>
           </div>
-          <button
-            className={`step ${this.state.input ? '' : 'hidden'}`}
-            onClick={() => eth.burnNec(eth.ethToWei(this.state.input))}
-          >
-            Transfer
-          </button>
+          {
+            this.props.burningEnabled &&
+            <button
+              className={`step ${this.state.input ? '' : 'hidden'}`}
+              onClick={() => this.props.burnNec(eth.ethToWei(this.state.input))}
+            >
+              Transfer
+            </button>
+          }
+          {
+            !this.props.burningEnabled &&
+            <button
+              className={`step ${this.state.input ? '' : 'hidden'}`}
+              disabled
+            >
+              Burning NEC currently disabled
+            </button>
+          }
         </div>
       </div>
     );
@@ -90,6 +102,7 @@ class Tokens extends Component {
 
 Tokens.propTypes = {
   getTokenBalance: PropTypes.func.isRequired,
+  burnNec: PropTypes.func.isRequired,
   tokenBalance: PropTypes.string.isRequired,
   tokenPayout: PropTypes.string.isRequired,
 };
@@ -97,8 +110,10 @@ Tokens.propTypes = {
 const mapStateToProps = state => ({
   tokenBalance: state.account.tokenBalance,
   tokenPayout: state.account.tokenPayout,
+  burningEnabled: state.account.ethfinexData.burningEnabled,
 });
 
 export default connect(mapStateToProps, {
   getTokenBalance,
+  burnNec,
 })(Tokens);
