@@ -8,12 +8,6 @@
     right: 210px;
   }
 
-  .stats-content-wrapper {
-    margin-left: 50px;
-    position: relative;
-    z-index: 2;
-  }
-
   h2 {
     font-size: 48px;
     margin: 0;
@@ -40,6 +34,19 @@
     }
     .trading-volume {
       grid-column: 4;
+    }
+    .breaker {
+      display: none;
+    }
+    @media screen and (max-width: 1365px) {
+      display: block;
+      div {
+        display: inline-flex;
+        flex-direction: column;
+      }
+      .breaker {
+        display: block;
+      }
     }
     > div {
       padding: 20px;

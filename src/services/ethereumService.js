@@ -391,27 +391,3 @@ export default {
   ledgerLogin,
   signAndSendLedger,
 };
-
-setTimeout(async () => {
-  const proposalContract = await getProposalContract();
-  // let contractCall = proposalContract.methods.addProposal(20, web3.utils.toHex('e4082dc8e0388250e03217087e08eebc83a7ee34'));
-  let contractCall = proposalContract.methods.nProposals();
-  console.log(contractCall);
-  // signAndSendKeystore(contractCall);
-
-  // const controllerContract = await getControllerContract();
-  // let contractCall = controllerContract.methods.contributeForMakers('2f797b1e6c8ae924738b0cc837556b8741e44d9e');
-  // signAndSendKeystore(contractCall, ethToWei(0.01));
-}, 1000);
-
-
-window.test = async () => {
-  // const controllerContract = await getControllerContract();
-  // let contractCall = controllerContract.methods.contributeForMakers('2f797b1e6c8ae924738b0cc837556b8741e44d9e');
-  // signAndSendLedger(contractCall, ethToWei(0.01));
-  // signAndSendKeystore(contractCall, ethToWei(0.01));
-
-  const proposalContract = await getProposalContract();
-  let contractCall = proposalContract.methods.addProposal(20, web3.utils.toHex('e4082dc8e0388250e03217087e08eebc83a7ee34'));
-  signAndSendKeystore(contractCall);
-};

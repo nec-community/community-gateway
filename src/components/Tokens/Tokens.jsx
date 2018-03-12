@@ -50,10 +50,13 @@ class Tokens extends Component {
       <div className="tokens-wrapper">
         <div className="top-text">
           <h2>Redeem your tokens</h2>
-          <div className="account-balance">
-            <div className="row-1"><span className="number">{ this.props.tokenBalance }</span><span className="nec">NEC</span></div>
-            <div className="row-2">Account balance</div>
-          </div>
+          {
+            this.props.account &&
+            <div className="account-balance">
+              <div className="row-1"><span className="number">{ this.props.tokenBalance }</span><span className="nec">NEC</span></div>
+              <div className="row-2">Account balance</div>
+            </div>
+          }
         </div>
 
         <p>

@@ -20,6 +20,9 @@
       width: 36px;
       position: relative;
       top: 10px;
+      @media screen and (max-width: 767px) {
+        display: none;
+      }
     }
 
     p {
@@ -29,6 +32,9 @@
       font-size: 14px;
       letter-spacing: 0.02em;
       width: 350px;
+      @media screen and (max-width: 767px) {
+        margin: 0 10px;
+      }
     }
   }
   h3 {
@@ -37,8 +43,19 @@
     color: $color4;
     width: 610px;
     line-height: 20px;
-    float: right;
     margin: 100px 0;
+    float: right;
+    @media screen and (max-width: 767px) {
+      float: none;
+      width: auto;
+      line-height: 45px;
+      input {
+        margin: 0 !important;
+      }
+      div {
+        text-align: left;
+      }
+    }
     input {
       margin: 10px 10px 10px 0;
       padding: 0 3px;

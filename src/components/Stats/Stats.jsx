@@ -64,12 +64,14 @@ class Stats extends Component {
                 </div>
               </div>
             </div>
+            <span className="breaker" />
             <div className="token-supply">
               <div>Token <br />total supply:</div>
               <div className="stat-wrapper">
                 <div className="stat">{this.props.ethfinexData.totalTokens}</div>
               </div>
             </div>
+            <span className="breaker" />
             <div className="current-token">
               <div>Current <br />token value:</div>
               <div className="stat-wrapper">

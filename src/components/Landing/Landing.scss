@@ -2,22 +2,19 @@
 @import "../../common/components";
 @import "../../common/variables";
 
-.vertical {
-  display: inline-block;
-  transform: rotate(90deg);
-  transform-origin: left top 0;
-  font-size: 12px;
-  //margin-top: 10px;
-  margin-left: 20px;
-}
 .container {
   max-width: 1000px;
   margin: 0 auto;
+  padding: 0 30px;
 }
 
 @keyframes wave {
-  from {transform: translateX(-50%)}
-  to {transform: translateX(0%)}
+  from {
+    transform: translateX(-50%)
+  }
+  to {
+    transform: translateX(0%)
+  }
 }
 
 .waves {
@@ -55,24 +52,68 @@
 .landing-wrapper {
   background-color: $color1;
   section {
-    min-height: 90vh;
+    //min-height: 90vh;
   }
   .hero {
-    padding: 40px 60px;
+    padding: 100px 60px;
     background: url(/images/landing-bg.png) center/contain no-repeat;
+    max-height: 900px;
+    max-width: 1400px;
+    margin: auto;
+    @media screen and (max-height: 900px) {
+      min-height: 90vh;
+    }
     h1 {
       font-size: 70px;
       font-weight: normal;
       margin: 130px 0;
+      @media screen and (max-width: 1399px) {
+        font-size: 56px;
+      }
+      @media screen and (max-width: 767px) {
+        font-size: 24px;
+      }
+      @media screen and (max-height: 900px) {
+        margin: 100px 0;
+      }
+      @media screen and (max-height: 800px) {
+        margin: 80px 0;
+      }
       b {
         display: block;
         font-size: 112px;
+        @media screen and (max-width: 1399px) {
+          font-size: 90px;
+          line-height: 90px;
+        }
+        @media screen and (max-width: 767px) {
+          font-size: 40px;
+          line-height: 40px;
+        }
+        span {
+          display: inline-block;
+        }
       }
     }
     .hero-footer {
       display: flex;
+      @media screen and (max-width: 1400px) {
+        .text {
+          min-width: 500px;
+        }
+      }
+      @media screen and (max-width: 1000px) {
+        flex-direction: column-reverse;
+        .vertical {
+          margin: 50px 0 0 14px;
+        }
+        .text {
+          min-width: auto;
+        }
+      }
       div {
         flex: 1 1 100%;
+        max-width: 500px;
       }
       h2 {
         line-height: 29px;
@@ -80,6 +121,14 @@
         margin: 0;
         font-weight: normal;
       }
+    }
+    .vertical {
+      display: inline-block;
+      transform: rotate(90deg);
+      transform-origin: left top 0;
+      font-size: 12px;
+      //margin-top: 10px;
+      margin-left: 20px;
     }
   }
   .statistics {
@@ -92,7 +141,8 @@
     padding: 100px 0;
   }
   .learn-more {
-    padding: 100px 0 0 0;
+    padding: 50px 0 0 0;
+    overflow-x: hidden;
 
     .gradient-section {
       height: 180px;
@@ -116,11 +166,11 @@
         h1 {
           font-size: 48px;
           margin: 0;
-          margin-left: 50px;
         }
 
         .learn-more-content {
-          margin: 30px 0 0 100px;
+          max-width: 800px;
+          margin: 30px auto 0;
 
           h2 {
             font-size: 32px;
@@ -129,13 +179,16 @@
           }
 
           .content-sections {
-            display: flex;
-            justify-content: space-between;
             line-height: 26px;
             font-size: 14px;
+            @media screen and (min-width: 768px) {
+              display: flex;
+              justify-content: space-between;
+            }
 
             .content-section {
-              max-width: 361px;
+              max-width: 360px;
+              padding: 10px;
 
               a {
                 margin-left: 5px;
@@ -149,16 +202,21 @@
         margin-top: 50px;
 
         .desc-text {
-          max-width: 190px;
           line-height: 25px;
           font-weight: bold;
           font-size: 13px;
-          margin-left: 280px;
+          @media screen and (min-width: 768px) {
+            margin-left: 280px;
+            max-width: 190px;
+          }
         }
 
         .links-wrapper {
           display: flex;
           opacity: 0.3;
+          @media screen and (max-width: 767px) {
+            flex-wrap: wrap;
+          }
 
           .logo-link {
             margin-top: 50px;
@@ -167,7 +225,7 @@
             align-items: center;
             transition: 0.2s ease-in;
             text-decoration: none !important;
-            flex: 1 1 100%;
+            flex: 1 1 150px;
 
             &:hover {
               cursor: pointer;
@@ -198,7 +256,9 @@
               background-repeat: no-repeat;
               background-position: center;
 
-              &.ethfinex, &.blog {  background-image: url('./images/ethfinex.png');  }
+              &.ethfinex, &.blog {
+                background-image: url('./images/ethfinex.png');
+              }
               &.twitter {
                 background-image: url('./images/twitter.png');
                 background-size: 90%;

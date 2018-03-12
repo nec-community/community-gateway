@@ -18,6 +18,7 @@
   justify-content: center;
   flex-direction: column;
   transition: all .2s;
+  z-index: 1000;
   &:hover {
     background-color: darken($color4, 5%);
   }
