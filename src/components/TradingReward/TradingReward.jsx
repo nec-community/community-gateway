@@ -53,7 +53,7 @@ class TradingReward extends Component {
         <h3>
           <label htmlFor="input">
             If your maker trading
-            <div className="right-align">volume is:
+            <div className="right-align">volume is: $
               <input style={{ width: `${this.state.input.toString().length * 19 + 10}px` }} id="input" type="text" value={this.state.input} onChange={this.calculate} min="0" />
               you earn<br /><b>{this.state.calculated}</b> tokens
             </div>

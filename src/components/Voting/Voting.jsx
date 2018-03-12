@@ -35,12 +35,12 @@ class Voting extends Component {
 
           <div className="meta">
             <div className="voting-desc">
-              <h3>Redeem your tokens</h3>
+              {/*<h3>Redeem your tokens</h3>*/}
 
               <div className="desc-sections">
                 <div className="desc-section">
-                  Every 30 days trading fees on Ethfinex are pledged to NEC holders. Calculate the current value
-                  which your tokens entitle you to, or redeem your rewards from the smart contract now.
+                  As a holder of Nectar tokens you can submit new ideas as proposals, as well as
+                  vote on those submitted by others, to help determine the future of Ethfinex
                 </div>
                 <div className="desc-section">
                 </div>
@@ -80,16 +80,16 @@ class Voting extends Component {
             {
               this.state.shown === 'submit' &&
               <div className="submit-wrapper">
-                <h3>
-                  Placeholder text title
-                </h3>
+                {/*<h3>*/}
+                  {/*Placeholder text title*/}
+                {/*</h3>*/}
                 <p>
-                  Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
-                  literature from 45 BC, making it over 2000 years old. Lorem Ipsum is not simply
-                  random text. It has roots in a piece of classical Latin literature from 45 BC,
-                  making it over 2000 years old.
+                  Every individual who holds NEC is able to contribute their ideas for Ethfinex to
+                  be voted on by the rest of the token holders. If the proposal you create is
+                  accepted it will initialise a vote, giving everyone a new voting token to match
+                  their NEC balances.
                 </p>
-                <Link to="/submit">Go to<br />submit page</Link>
+                <Link to="/submit">Go to submit page</Link>
               </div>
             }
           </div>

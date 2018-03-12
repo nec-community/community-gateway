@@ -80,13 +80,13 @@
       //max-height: calc(100vh - 200px);
       //overflow: auto;
       .submit-wrapper {
+        padding: 30px 0;
         h3 {
           font-size: 24px;
           letter-spacing: 0.02em;
         }
         p {
-          line-height: 20px;
-          font-size: 12px;
+          line-height: 1.5em;
           letter-spacing: 0.02em;
         }
         a {
@@ -94,6 +94,8 @@
           color: white;
           font-size: 48px;
           text-decoration: none;
+          margin: 20px 0;
+          display: block;
         }
       }
     }

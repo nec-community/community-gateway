@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getTokenBalance, burnNec } from '../../actions/accountActions';
+import { getTokenBalance, burnNec, openLogin } from '../../actions/accountActions';
 import eth from '../../services/ethereumService';
 
 import './Tokens.scss';
@@ -20,6 +20,11 @@ class Tokens extends Component {
 
   componentDidMount() {
     this.props.getTokenBalance();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.account !== this.props.account)
+      this.props.getTokenBalance();
   }
 
   async calculate(e) {
@@ -86,9 +91,12 @@ class Tokens extends Component {
             this.props.burningEnabled &&
             <button
               className={`step ${this.state.input ? '' : 'hidden'}`}
-              onClick={() => this.props.burnNec(eth.ethToWei(this.state.input))}
+              onClick={ this.props.accountType
+                ? () => this.props.burnNec(eth.ethToWei(this.state.input))
+                : () => this.props.openLogin()
+              }
             >
-              Transfer
+              { this.props.accountType ? 'Redeem' : 'Connect your Wallet' }
             </button>
           }
           {
@@ -109,17 +117,23 @@ class Tokens extends Component {
 Tokens.propTypes = {
   getTokenBalance: PropTypes.func.isRequired,
   burnNec: PropTypes.func.isRequired,
+  openLogin: PropTypes.func.isRequired,
   tokenBalance: PropTypes.string.isRequired,
   tokenPayout: PropTypes.string.isRequired,
+  accountType: PropTypes.string.isRequired,
+  account: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
   tokenBalance: state.account.tokenBalance,
   tokenPayout: state.account.tokenPayout,
   burningEnabled: state.account.ethfinexData.burningEnabled,
+  accountType: state.account.accountType,
+  account: state.account.account,
 });
 
 export default connect(mapStateToProps, {
   getTokenBalance,
   burnNec,
+  openLogin,
 })(Tokens);

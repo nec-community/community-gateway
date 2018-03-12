@@ -158,7 +158,6 @@
 
         .links-wrapper {
           display: flex;
-          justify-content: space-between;
           opacity: 0.3;
 
           .logo-link {
@@ -167,6 +166,8 @@
             flex-direction: column;
             align-items: center;
             transition: 0.2s ease-in;
+            text-decoration: none !important;
+            flex: 1 1 100%;
 
             &:hover {
               cursor: pointer;

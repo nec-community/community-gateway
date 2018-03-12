@@ -94,8 +94,8 @@ const tokenBalance = (balance, payout) => ({
   payout,
 });
 
-export const getTokenBalance = () => async (dispatch) => {
-  const balance = await ethService.getTokenBalance();
+export const getTokenBalance = () => async (dispatch, getState) => {
+  const balance = await ethService.getTokenBalance(getState().account.account);
   const payout = await ethService.estimatePayout(balance);
   log(`Payout for balance ${balance} is ${payout}`);
   dispatch(tokenBalance(
@@ -120,7 +120,7 @@ export const burnNec = (amount) => async (dispatch, getState) => {
   if (!getState().account.accountType)
     return dispatch(openLogin());
   try {
-    await eth.burnNec(amount, getState().account.accountType);
+    await ethService.burnNec(amount, getState().account.accountType);
     notify('NEC reward claimed!', 'success')(dispatch);
   } catch (err) {
     notifyError(err)(dispatch);
