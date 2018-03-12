@@ -1,12 +1,8 @@
-import EthTx from 'ethereumjs-tx';
 import {
   addHexPrefix,
   ecsign,
-  ecrecover,
-  sha3,
   hashPersonalMessage,
   toBuffer,
-  pubToAddress
 } from 'ethereumjs-util';
 import { fromEtherWallet } from 'ethereumjs-wallet/thirdparty';
 import { createDecipheriv, createHash } from 'crypto-browserify';
@@ -24,41 +20,41 @@ const KeystoreTypes = {
   v2Unencrypted: 'v2-unencrypted',
 };
 
-export function signRawTxWithPrivKey(privKey, t) {
+function signRawTxWithPrivKey(privKey, t) {
   console.log(privKey);
   console.log(t);
   t.sign(privKey);
   return t.serialize();
 }
 
-export function signMessageWithPrivKeyV2(privKey, msg) {
+function signMessageWithPrivKeyV2(privKey, msg) {
   const hash = hashPersonalMessage(toBuffer(msg));
   const signed = ecsign(hash, privKey);
   const combined = Buffer.concat([
     Buffer.from(signed.r),
     Buffer.from(signed.s),
-    Buffer.from([signed.v])
+    Buffer.from([signed.v]),
   ]);
   const combinedHex = combined.toString('hex');
 
   return addHexPrefix(combinedHex);
 }
 
+const signWrapper = walletToWrap =>
+  Object.assign(walletToWrap, {
+    signRawTransaction: t => signRawTxWithPrivKey(walletToWrap.getPrivateKey(), t),
+    signMessage: msg => signMessageWithPrivKeyV2(walletToWrap.getPrivateKey(), msg),
+    unlock: () => Promise.resolve(),
+  });
+
 function determineKeystoreType(file) {
   const parsed = JSON.parse(file);
-  if (parsed.encseed) {
-    return KeystoreTypes.presale;
-  } else if (parsed.Crypto || parsed.crypto) {
-    return KeystoreTypes.utc;
-  } else if (parsed.hash && parsed.locked === true) {
-    return KeystoreTypes.v1Encrypted;
-  } else if (parsed.hash && parsed.locked === false) {
-    return KeystoreTypes.v1Unencrypted;
-  } else if (parsed.publisher === 'MyEtherWallet') {
-    return KeystoreTypes.v2Unencrypted;
-  } else {
-    throw new Error('Invalid keystore');
-  }
+  if (parsed.encseed) return KeystoreTypes.presale;
+  if (parsed.Crypto || parsed.crypto) return KeystoreTypes.utc;
+  if (parsed.hash && parsed.locked === true) return KeystoreTypes.v1Encrypted;
+  if (parsed.hash && parsed.locked === false) return KeystoreTypes.v1Unencrypted;
+  if (parsed.publisher === 'MyEtherWallet') return KeystoreTypes.v2Unencrypted;
+  throw new Error('Invalid keystore');
 }
 
 const isKeystorePassRequired = (file) => {
@@ -70,7 +66,7 @@ const isKeystorePassRequired = (file) => {
   );
 };
 
-export function evp_kdf(data, salt, opts) {
+function evpKdf(data, salt, opts) {
   // A single EVP iteration, returns `D_i`, where block equlas to `D_(i-1)`
   function iter(block) {
     let hash = createHash(opts.digest || 'md5');
@@ -97,20 +93,31 @@ export function evp_kdf(data, salt, opts) {
   const tmp = Buffer.concat(ret);
   return {
     key: tmp.slice(0, keysize),
-    iv: tmp.slice(keysize, keysize + ivsize)
+    iv: tmp.slice(keysize, keysize + ivsize),
   };
 }
 
-export function decipherBuffer(decipher, data) {
+function decipherBuffer(decipher, data) {
   return Buffer.concat([decipher.update(data), decipher.final()]);
 }
 
-export function decryptPrivKey(encprivkey, password) {
+function decodeCryptojsSalt(input) {
+  const ciphertext = new Buffer(input, 'base64');
+  if (ciphertext.slice(0, 8).toString() === 'Salted__') {
+    return {
+      salt: ciphertext.slice(8, 16),
+      ciphertext: ciphertext.slice(16),
+    };
+  }
+  return { ciphertext };
+}
+
+function decryptPrivKey(encprivkey, password) {
   const cipher = encprivkey.slice(0, 128);
   const decryptedCipher = decodeCryptojsSalt(cipher);
-  const evp = evp_kdf(new Buffer(password), decryptedCipher.salt, {
+  const evp = evpKdf(new Buffer(password), decryptedCipher.salt, {
     keysize: 32,
-    ivsize: 16
+    ivsize: 16,
   });
   const decipher = createDecipheriv('aes-256-cbc', evp.key, evp.iv);
   const privKey = decipherBuffer(decipher, new Buffer(decryptedCipher.ciphertext));
@@ -127,7 +134,7 @@ const PresaleWallet = (keystore, password) =>
 const MewV1Wallet = (keystore, password) =>
   signWrapper(fromEtherWallet(keystore, password));
 
-const PrivKeyWallet = (privkey) => signWrapper(fromPrivateKey(privkey));
+const PrivKeyWallet = privkey => signWrapper(fromPrivateKey(privkey));
 
 const UtcWallet = (keystore, password) => fromV3(keystore, password, true);
 
@@ -152,32 +159,25 @@ const getKeystoreWallet = (file, password) => {
   }
 };
 
-export const signWrapper = (walletToWrap) =>
-  Object.assign(walletToWrap, {
-    signRawTransaction: (t) => signRawTxWithPrivKey(walletToWrap.getPrivateKey(), t),
-    signMessage: (msg) => signMessageWithPrivKeyV2(walletToWrap.getPrivateKey(), msg),
-    unlock: () => Promise.resolve()
-  });
-
-export function unlockKeystore(file, password) {
+function unlockKeystore(file, password) {
   const address = JSON.parse(file).address;
   if (determineKeystoreType(file) === KeystoreTypes.utc) {
     wallet = {
       address,
       ...signWrapper(UtcWallet(file, password)),
-    }
+    };
   } else {
     wallet = {
       address,
       ...getKeystoreWallet(file, password),
-    }
+    };
   }
   return wallet;
 }
 
-export const getWallet = () => {
+const getWallet = () => {
   if (wallet) return wallet;
-  else throw new Error('Keystore not unlocked');
+  throw new Error('Keystore not unlocked');
 };
 
 export default {

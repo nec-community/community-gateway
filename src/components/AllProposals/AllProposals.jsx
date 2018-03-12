@@ -21,8 +21,12 @@ class AllProposals extends Component {
                 <div key={proposal._token} className="proposal-wrapper">
                   <p className="started">{proposal.startTime.toLocaleString()}</p>
                   <p className="title">
-                    <Link className="vote-wrapper"
-                          to={`/proposal/${proposal.id}`}>{proposal.title}</Link>
+                    <Link
+                      className="vote-wrapper"
+                      to={`/proposal/${proposal.id}`}
+                    >
+                      {proposal.title}
+                    </Link>
                   </p>
                   <p className="description">{proposal.description}</p>
                   <Link className="vote-wrapper" to={`/proposal/${proposal.id}`}>Details</Link>

@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-
 import Tokens from '../Tokens/Tokens';
 import TradingReward from '../TradingReward/TradingReward';
 
@@ -57,8 +53,4 @@ class Calculator extends Component {
   }
 }
 
-Calculator.propTypes = {};
-
-const mapStateToProps = state => ({});
-
-export default connect(mapStateToProps, {})(Calculator);
+export default Calculator;

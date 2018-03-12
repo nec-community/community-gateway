@@ -45,6 +45,5 @@ export const nameOfNetwork = (networkId) => {
   return networks[networkId] || 'Unknown network';
 };
 
-export const toDecimal = (num, decimals = 2) => {
-  return num.substr(0, num.indexOf('.') + decimals + 1);
-};
+export const toDecimal = (num, decimals = 2) =>
+  num.substr(0, num.indexOf('.') + decimals + 1);

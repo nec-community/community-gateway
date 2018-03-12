@@ -1,7 +1,5 @@
-const Web3 = require('web3');
 import ledger from 'ledgerco';
 import Tx from 'ethereumjs-tx';
-
 import config from '../constants/config.json';
 import { log, toDecimal } from './utils';
 import grenache from './grenacheService';
@@ -72,15 +70,15 @@ const signAndSendLedger = async (contractCall, value = 0, gasPrice = 5) => {
   if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
   const eth = new ledger.eth(ledgerComm);
   const account = await eth.getAddress_async(ledgerPath);
-  log(`LEDGER account`, account);
+  log(`LEDGER account ${account}`);
 
-  let encodedAbi = contractCall.encodeABI();
+  const encodedAbi = contractCall.encodeABI();
   log(`LEDGER encodedAbi ${encodedAbi}`);
 
   const nonce = await web3.eth.getTransactionCount(account.address);
   log(`LEDGER nonce ${nonce}`);
 
-  let rawTx = {
+  const rawTx = {
     nonce: web3.utils.numberToHex(nonce),
     from: account.address,
     gasPrice: web3.utils.numberToHex(web3.utils.toWei(gasPrice.toString(), 'gwei')),
@@ -95,23 +93,23 @@ const signAndSendLedger = async (contractCall, value = 0, gasPrice = 5) => {
   log(`LEDGER gasLimit ${gasLimit}`);
   rawTx.gasLimit = web3.utils.numberToHex(gasLimit);
 
-  log(`LEDGER rawTx`, rawTx);
+  log('LEDGER rawTx', rawTx);
 
   const tx = new Tx(rawTx);
-  log(`LEDGER tx`, tx);
+  log('LEDGER tx', tx);
 
   const signedTx = await eth.signTransaction_async(ledgerPath, tx.serialize().toString('hex'));
-  log(`LEDGER signedTx`, signedTx);
+  log('LEDGER signedTx', signedTx);
 
   const tx2 = new Tx({
     ...rawTx,
-    v: '0x' + signedTx.v,
-    r: '0x' + signedTx.r,
-    s: '0x' + signedTx.s,
+    v: `0x${signedTx.v}`,
+    r: `0x${signedTx.r}`,
+    s: `0x${signedTx.s}`,
   });
-  log(`LEDGER tx2`, tx2);
+  log('LEDGER tx2', tx2);
 
-  web3.eth.sendSignedTransaction('0x' + tx2.serialize().toString('hex'))
+  web3.eth.sendSignedTransaction(`0x${tx2.serialize().toString('hex')}`)
     .on('transactionHash', (transactionHash) => {
       log('LEDGER transactionHash', transactionHash);
     })
@@ -125,15 +123,15 @@ const signAndSendLedger = async (contractCall, value = 0, gasPrice = 5) => {
 
 const signAndSendKeystore = async (contractCall, value = 0, gasPrice = 5) => {
   const account = keystore.getWallet();
-  log(`KEYSTORE account`, account.address);
+  log(`KEYSTORE account ${account.address}`);
 
-  let encodedAbi = contractCall.encodeABI();
+  const encodedAbi = contractCall.encodeABI();
   log(`KEYSTORE encodedAbi ${encodedAbi}`);
 
   const nonce = await web3.eth.getTransactionCount(account.address);
   log(`KEYSTORE nonce ${nonce}`);
 
-  let rawTx = {
+  const rawTx = {
     nonce: web3.utils.numberToHex(nonce),
     from: account.address,
     gasPrice: web3.utils.numberToHex(web3.utils.toWei(gasPrice.toString(), 'gwei')),
@@ -148,15 +146,15 @@ const signAndSendKeystore = async (contractCall, value = 0, gasPrice = 5) => {
   log(`KEYSTORE gasLimit ${gasLimit}`);
   rawTx.gasLimit = web3.utils.numberToHex(gasLimit);
 
-  log(`KEYSTORE rawTx`, rawTx);
+  log('KEYSTORE rawTx', rawTx);
 
   const tx = new Tx(rawTx);
-  log(`KEYSTORE tx`, tx);
+  log('KEYSTORE tx', tx);
 
   await account.signRawTransaction(tx);
-  log(`KEYSTORE signed tx`, tx);
+  log('KEYSTORE signed tx', tx);
 
-  web3.eth.sendSignedTransaction('0x' + tx.serialize().toString('hex'))
+  web3.eth.sendSignedTransaction(`0x${tx.serialize().toString('hex')}`)
     .on('transactionHash', (transactionHash) => {
       log('KEYSTORE transactionHash', transactionHash);
     })
@@ -180,11 +178,9 @@ const totalSupply = async () => {
 };
 
 const estimatePayout = async (tokensToBurn) => {
-  if (!totalFee)
-    totalFee = await totalPledgedFees();
+  if (!totalFee) totalFee = await totalPledgedFees();
   log(`Total fees on contract ${weiToEth(totalFee)}`);
-  if (!totalTokens)
-    totalTokens = await totalSupply();
+  if (!totalTokens) totalTokens = await totalSupply();
   log(`Total NEC supply on contract ${weiToEth(totalTokens)}`);
   const feeValueOfTokens = (totalFee * tokensToBurn) / totalTokens;
   log(`Burning ${weiToEth(tokensToBurn)} tokens will pay out ${weiToEth(feeValueOfTokens)}`);
@@ -221,37 +217,29 @@ const authorize = async (address) => {
 const submitProposal = async (duration, hash, accountType) => {
   const proposalContract = await getProposalContract();
   const contractCall = proposalContract.methods.addProposal(duration, web3.utils.toHex(hash));
-  if (accountType === 'ledger') {
-    return signAndSendLedger(contractCall);
-  } else if (accountType === 'keystore') {
-    return signAndSendKeystore(contractCall);
-  } else {
-    const account = await getAccount();
-    return contractCall.send({
-      from: account,
-    });
-  }
+  if (accountType === 'ledger') return signAndSendLedger(contractCall);
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall);
+  const account = await getAccount();
+  return contractCall.send({
+    from: account,
+  });
 };
 
 const vote = async (id, vote, accountType) => {
   const proposalContract = await getProposalContract();
   const contractCall = proposalContract.methods.vote(id, vote);
-  if (accountType === 'ledger') {
-    return signAndSendLedger(contractCall);
-  } else if (accountType === 'keystore') {
-    return signAndSendKeystore(contractCall);
-  } else {
-    const account = await getAccount();
-    return contractCall.send({
-      from: account,
-    });
-  }
+  if (accountType === 'ledger') return signAndSendLedger(contractCall);
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall);
+  const account = await getAccount();
+  return contractCall.send({
+    from: account,
+  });
 };
 
 const getProposalDetails = async (id) => {
   const proposalContract = await getProposalContract();
   const details = await proposalContract.methods.proposal(id).call();
-  console.log(details);
+  log(details);
   const storageHash = details._storageHash.substr(2, 40);
 
   let description = await grenache.get(storageHash);
@@ -278,8 +266,8 @@ const getProposalDetails = async (id) => {
 
   const startTime = new Date(parseInt(`${details._startTime}000`, 10));
   const remainingDays = Math.floor(
-    ((startTime.valueOf() + parseInt(`${details._duration}000`)) - (new Date()).valueOf())
-    / (24 * 60 * 60 * 1000)
+    ((startTime.valueOf() + parseInt(`${details._duration}000`, 10)) - (new Date()).valueOf())
+    / (24 * 60 * 60 * 1000),
   );
   return {
     id,
@@ -341,16 +329,12 @@ const burnNec = async (necTokens, accountType) => {
   const tokenContract = await getTokenContract();
   log(`Burning ${necTokens} NEC tokens`);
   const contractCall = tokenContract.methods.burnAndRetrieve(necTokens);
-  if (accountType === 'ledger') {
-    return signAndSendLedger(contractCall);
-  } else if (accountType === 'keystore') {
-    return signAndSendKeystore(contractCall);
-  } else {
-    const account = await getAccount();
-    return contractCall.send({
-      from: account,
-    });
-  }
+  if (accountType === 'ledger') return signAndSendLedger(contractCall);
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall);
+  const account = await getAccount();
+  return contractCall.send({
+    from: account,
+  });
 };
 
 const fetchData = async () => {

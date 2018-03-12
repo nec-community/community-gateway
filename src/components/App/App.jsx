@@ -35,10 +35,6 @@ class App extends Component {
               <Link to="/submit">Submit a Proposal</Link>
             </div>
           </nav>
-          {
-            this.props.accountError && false &&
-            <h2 className="account-error-wrapper">Voting disabled - {this.props.accountError}</h2>
-          }
           <Routes />
           <Login />
           <footer>
@@ -62,14 +58,11 @@ App.propTypes = {
   showNotif: PropTypes.bool.isRequired,
   notifMessage: PropTypes.string.isRequired,
   notifType: PropTypes.string.isRequired,
-  account: PropTypes.string.isRequired,
-  accountError: PropTypes.string.isRequired,
   loginMetamask: PropTypes.func.isRequired,
+  fetchEthfinexData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  account: state.account.account,
-  accountError: state.account.accountError,
   showNotif: state.notification.displayed,
   notifMessage: state.notification.message,
   notifType: state.notification.type,

@@ -29,10 +29,11 @@ module.exports = {
     'jsx-a11y/click-events-have-key-events': 0,
     'jsx-a11y/anchor-is-valid': 0,
     'no-shadow': 0,
-    'prefer-destructuring': [1, {
-      "array": false,
-      "object": true
-    }],
+    'prefer-destructuring': 0,
+    'function-paren-newline': 0,
+    'no-restricted-globals': 0,
+    'no-buffer-constructor': 0,
+    'no-plusplus': 0,
     'no-unused-vars': 1,
     'react/no-unused-prop-types': 1,
   },

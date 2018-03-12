@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Current from './Current/Current';
@@ -35,14 +33,10 @@ class Voting extends Component {
 
           <div className="meta">
             <div className="voting-desc">
-              {/*<h3>Redeem your tokens</h3>*/}
-
               <div className="desc-sections">
                 <div className="desc-section">
                   As a holder of Nectar tokens you can submit new ideas as proposals, as well as
                   vote on those submitted by others, to help determine the future of Ethfinex
-                </div>
-                <div className="desc-section">
                 </div>
               </div>
             </div>
@@ -80,9 +74,6 @@ class Voting extends Component {
             {
               this.state.shown === 'submit' &&
               <div className="submit-wrapper">
-                {/*<h3>*/}
-                  {/*Placeholder text title*/}
-                {/*</h3>*/}
                 <p>
                   Every individual who holds NEC is able to contribute their ideas for Ethfinex to
                   be voted on by the rest of the token holders. If the proposal you create is
@@ -99,8 +90,4 @@ class Voting extends Component {
   }
 }
 
-Voting.propTypes = {};
-
-const mapStateToProps = state => ({});
-
-export default connect(mapStateToProps, {})(Voting);
+export default Voting;

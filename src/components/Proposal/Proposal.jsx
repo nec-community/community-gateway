@@ -13,17 +13,15 @@ class Proposal extends Component {
     this.state = {
       proposal: {},
     };
-
   }
 
-  async componentDidMount() {
+  async componentWillMount() {
     const { match: { params: { proposalId } } } = this.props;
     const proposal = await eth.getProposalDetails(proposalId);
     this.setState({ proposal });
   }
 
   render() {
-    const { match: { params: { proposalId } } } = this.props;
     const proposal = this.state.proposal;
     return (
       <div className="container single-proposal">
@@ -104,8 +102,6 @@ Proposal.propTypes = {
   voteForProposal: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({});
-
-export default connect(mapStateToProps, {
+export default connect(null, {
   voteForProposal,
 })(Proposal);

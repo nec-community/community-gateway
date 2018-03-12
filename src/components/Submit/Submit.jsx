@@ -77,10 +77,6 @@ class Submit extends Component {
               </label>
             </div>
 
-            {/*<div className="info-tip">*/}
-              {/*The proposal will need to be approved by BitFinex before being visible.*/}
-            {/*</div>*/}
-
             <div className="submit-wrapper">
               <button onClick={this.submitProposal}>Submit proposal</button>
               {
@@ -99,8 +95,7 @@ Submit.propTypes = {
   submitProposal: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({});
 
-export default connect(mapStateToProps, {
+export default connect(null, {
   submitProposal,
 })(Submit);

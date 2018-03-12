@@ -10,7 +10,6 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
       shown: 'metamask',
       passReq: false,
       fileName: '',
@@ -29,7 +28,7 @@ class Login extends Component {
     });
   }
 
-  readKeystore(e) {
+  readKeystore() {
     const fileReader = new FileReader();
     const inputFile = this.filePicker.files[0];
     this.setState({
@@ -44,10 +43,8 @@ class Login extends Component {
         this.setState({
           passReq,
         });
-        if (!passReq)
-          this.props.loginKeystore(keystoreJson);
-        else if (this.pass.value)
-          this.props.loginKeystore(keystoreJson, this.pass.value);
+        if (!passReq) this.props.loginKeystore(keystoreJson);
+        else if (this.pass.value) this.props.loginKeystore(keystoreJson, this.pass.value);
       } catch (err) {
         this.setState({
           fileName: inputFile.name,
@@ -56,7 +53,7 @@ class Login extends Component {
       }
     };
     fileReader.readAsText(inputFile, 'utf-8');
-  };
+  }
 
   render() {
     return (
@@ -101,8 +98,11 @@ class Login extends Component {
                       Connect your Ledger, unlock it and open the Ethereum app.
                     </p>
                     <label>Path:
-                      <input type="text" ref={(input) => { this.ledgerPath = input; }}
-                             defaultValue="44'/60'/0'/0" />
+                      <input
+                        type="text"
+                        ref={(input) => { this.ledgerPath = input; }}
+                        defaultValue="44'/60'/0'/0"
+                      />
                     </label>
                     <button onClick={() => this.props.loginLedger(this.ledgerPath.value)}>Connect
                       Ledger
@@ -128,7 +128,7 @@ class Login extends Component {
                     <h2>This is not a recommended way to access your wallet</h2>
                     <p>Uploading your private key to a website might be dangerous.</p>
                     <input
-                      className={'hidden'}
+                      className="hidden"
                       type="file"
                       id="fileinput"
                       ref={(input) => { this.filePicker = input; }}
@@ -167,13 +167,11 @@ Login.propTypes = {
   loginKeystore: PropTypes.func.isRequired,
   openLogin: PropTypes.func.isRequired,
   closeLogin: PropTypes.func.isRequired,
-  account: PropTypes.string.isRequired,
   accountType: PropTypes.string.isRequired,
   loginOpen: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
-  account: state.account.account,
   accountType: state.account.accountType,
   loginOpen: state.account.loginOpen,
 });

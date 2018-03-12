@@ -23,14 +23,13 @@ class Tokens extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.account !== this.props.account)
-      this.props.getTokenBalance();
+    if (prevProps.account !== this.props.account) this.props.getTokenBalance();
   }
 
   async calculate(e) {
     const val = e.target.value;
     if (val.length > 12) return;
-    let input = parseFloat(val);
+    const input = parseFloat(val);
     if (!isNaN(input)) {
       const calculated = await eth.estimatePayout(eth.ethToWei(input));
       this.setState({
@@ -53,7 +52,10 @@ class Tokens extends Component {
           {
             this.props.account &&
             <div className="account-balance">
-              <div className="row-1"><span className="number">{ this.props.tokenBalance }</span><span className="nec">NEC</span></div>
+              <div className="row-1">
+                <span className="number">{this.props.tokenBalance}</span>
+                <span className="nec">NEC</span>
+              </div>
               <div className="row-2">Account balance</div>
             </div>
           }
@@ -69,16 +71,19 @@ class Tokens extends Component {
           <div className={`step ${this.state.input ? '' : 'empty'}`}>
             <label htmlFor="input">
               NEC:
-              <input style={{
-                      width: `${
-                        this.state.input.length > 8
-                          ? this.state.input.toString().length * 14 + 10
-                          : this.state.input.toString().length * 24 + 10
-                      }px`
-                     }}
-                     className={`${this.state.input.length > 8 ? 'smaller' : ''}`}
-                     id="input"
-                     type="text" value={this.state.input} onChange={this.calculate}
+              <input
+                style={{
+                  width: `${
+                    this.state.input.length > 8
+                      ? (this.state.input.toString().length * 14) + 10
+                      : (this.state.input.toString().length * 24) + 10
+                    }px`,
+                }}
+                className={`${this.state.input.length > 8 ? 'smaller' : ''}`}
+                id="input"
+                type="text"
+                value={this.state.input}
+                onChange={this.calculate}
               />
             </label>
             <p>Enter your NEC balance</p>
@@ -94,12 +99,12 @@ class Tokens extends Component {
             this.props.burningEnabled &&
             <button
               className={`step ${this.state.input ? '' : 'hidden'}`}
-              onClick={ this.props.accountType
+              onClick={this.props.accountType
                 ? () => this.props.burnNec(eth.ethToWei(this.state.input))
                 : () => this.props.openLogin()
               }
             >
-              { this.props.accountType ? 'Redeem' : 'Connect your Wallet' }
+              {this.props.accountType ? 'Redeem' : 'Connect your Wallet'}
             </button>
           }
           {
@@ -118,19 +123,18 @@ class Tokens extends Component {
 }
 
 Tokens.propTypes = {
+  burningEnabled: PropTypes.bool.isRequired,
+  tokenBalance: PropTypes.string.isRequired,
+  accountType: PropTypes.string.isRequired,
+  account: PropTypes.string.isRequired,
   getTokenBalance: PropTypes.func.isRequired,
   burnNec: PropTypes.func.isRequired,
   openLogin: PropTypes.func.isRequired,
-  tokenBalance: PropTypes.string.isRequired,
-  tokenPayout: PropTypes.string.isRequired,
-  accountType: PropTypes.string.isRequired,
-  account: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
-  tokenBalance: state.account.tokenBalance,
-  tokenPayout: state.account.tokenPayout,
   burningEnabled: state.account.ethfinexData.burningEnabled,
+  tokenBalance: state.account.tokenBalance,
   accountType: state.account.accountType,
   account: state.account.account,
 });

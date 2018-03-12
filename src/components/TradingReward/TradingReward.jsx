@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { getTokenBalance } from '../../actions/accountActions';
 import eth from '../../services/ethereumService';
 
 import './TradingReward.scss';
@@ -54,7 +51,14 @@ class TradingReward extends Component {
           <label htmlFor="input">
             If your maker trading
             <div className="right-align">volume is: $
-              <input style={{ width: `${this.state.input.toString().length * 19 + 10}px` }} id="input" type="text" value={this.state.input} onChange={this.calculate} min="0" />
+              <input
+                style={{ width: `${(this.state.input.toString().length * 19) + 10}px` }}
+                id="input"
+                type="text"
+                value={this.state.input}
+                onChange={this.calculate}
+                min="0"
+              />
               you earn<br /><b>{this.state.calculated}</b> tokens
             </div>
           </label>
@@ -64,18 +68,4 @@ class TradingReward extends Component {
   }
 }
 
-TradingReward.propTypes = {
-  getTokenBalance: PropTypes.func.isRequired,
-  tokenBalance: PropTypes.string.isRequired,
-  tokenPayout: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = state => ({
-  tokenBalance: state.account.tokenBalance,
-  tokenPayout: state.account.tokenPayout,
-  accountBalance: state.account.accountBalance,
-});
-
-export default connect(mapStateToProps, {
-  getTokenBalance,
-})(TradingReward);
+export default TradingReward;
