@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { HashRouter, Link } from 'react-router-dom';
 import Web3 from 'web3';
+import config from '../../constants/config.json';
 import Routes from '../../routes';
 import Login from '../../components/Login/Login';
 import { loginMetamask, fetchEthfinexData } from '../../actions/accountActions';
@@ -10,7 +11,7 @@ import './App.scss';
 
 class App extends Component {
   componentWillMount() {
-    window.web3 = new Web3('wss://ropsten.infura.io/ws');
+    window.web3 = new Web3(config.providerUrl);
     this.props.loginMetamask(true);
     this.props.fetchEthfinexData();
   }

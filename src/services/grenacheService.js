@@ -1,5 +1,5 @@
-// TODO move to config
-const serviceUrl = 'http://139.59.146.81:3000';
+import config from '../constants/config.json';
+const serviceUrl = config.backendUrl;
 
 const get = async (hash) => {
   const res = await fetch(`${serviceUrl}/get`, {
