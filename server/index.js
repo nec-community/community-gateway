@@ -56,7 +56,7 @@ app.post('/get', (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
     if (data) return res.send(data.v);
     console.error(`Data for hash ${hash} not found on grenache`);
-    let db = new sqlite3.Database(DB_PATH);
+    let db = new sqlite3.Database(config.DB_PATH);
     db.get(`SELECT description FROM proposals WHERE hash = ?`, [hash], (err, row) => {
       if (row) return res.send(row.description);
       res.send('Data for hash not found');
