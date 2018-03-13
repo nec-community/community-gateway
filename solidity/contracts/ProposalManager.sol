@@ -1,3 +1,5 @@
+    address constant NECTAR_TOKEN = 0x4c88D00971467aBd70381541AED6417B0e541C41;
+    address constant TOKEN_FACTORY = 0x0E59f06f597Af0a7c30d79B0a7988fa45eEaf292;
 pragma solidity ^0.4.18;
 
 import "./MiniMeToken.sol";
@@ -26,6 +28,7 @@ contract ProposalManager is Ownable {
         bool approved;
         uint yesVotes;
         uint noVotes;
+        bool denied;
     }
 
     Proposal[] proposals;
@@ -35,7 +38,7 @@ contract ProposalManager is Ownable {
     mapping(address => bool) admins;
 
     modifier onlyAdmins() { 
-        require(admins[msg.sender]);
+        require(isAdmin());
         _; 
     }
 
@@ -74,6 +77,7 @@ contract ProposalManager is Ownable {
     /// @param _proposalId Id of proposal that admin approves
     function approveProposal(uint _proposalId) public onlyAdmins {
         require(proposals.length > _proposalId);
+        require(!proposals[_proposalId].denied);
 
         Proposal storage p = proposals[_proposalId];
 
@@ -101,6 +105,7 @@ contract ProposalManager is Ownable {
     function vote(uint _proposalId, bool _yes) public {
         require(_proposalId < proposals.length);
         require(checkIfCurrentlyActive(_proposalId));
+        require(!proposals[_proposalId].denied);
         
         Proposal memory p = proposals[_proposalId];
 
@@ -144,6 +149,7 @@ contract ProposalManager is Ownable {
         uint _totalNo,
         address _token,
         bool _approved,
+        bool _denied,
         bool _hasBalance
     ) {
         require(_proposalId < proposals.length);
@@ -160,7 +166,37 @@ contract ProposalManager is Ownable {
         _totalNo = p.noVotes;
         _token = p.token;
         _approved = p.approved;
+        _denied = p.denied;
         _hasBalance = (p.token == 0x0) ? false : (MiniMeToken(p.token).balanceOf(msg.sender) > 0);
+    }
+
+    function denyProposal(uint _proposalId) public {
+        require(!proposals[_proposalId].approved);
+
+        proposals[_proposalId].denied = true;
+    }
+
+    /// @notice Get all not approved proposals
+    /// @dev looping two times through array so we can make array with exact count
+    ///       because of Solidity limitation to make dynamic array in memory
+    function getNotApprovedProposals() public view returns(uint[]) {
+        uint count = 0;
+        for (uint i=0; i<proposals.length; i++) {
+            if (!proposals[i].approved && !proposals[i].denied) {
+                count++;
+            }
+        }
+
+        uint[] memory notApprovedProposals = new uint[](count);
+        count = 0;
+        for (i=0; i<proposals.length; i++) {
+            if (!proposals[i].approved && !proposals[i].denied) {
+                notApprovedProposals[count] = i;
+                count++;
+            }
+        }
+
+        return notApprovedProposals;
     }
 
     /// @notice Get all approved proposals
@@ -169,7 +205,7 @@ contract ProposalManager is Ownable {
     function getApprovedProposals() public view returns(uint[]) {
         uint count = 0;
         for (uint i=0; i<proposals.length; i++) {
-            if (proposals[i].approved) {
+            if (proposals[i].approved && !proposals[i].denied) {
                 count++;
             }
         }
@@ -177,7 +213,7 @@ contract ProposalManager is Ownable {
         uint[] memory approvedProposals = new uint[](count);
         count = 0;
         for (i=0; i<proposals.length; i++) {
-            if (proposals[i].approved) {
+            if (proposals[i].approved && !proposals[i].denied) {
                 approvedProposals[count] = i;
                 count++;
             }
@@ -238,9 +274,13 @@ contract ProposalManager is Ownable {
         return proposals.length;
     }
 
+    function isAdmin() public view returns(bool) {
+        return admins[msg.sender];
+    }
+
     function checkIfCurrentlyActive(uint _proposalId) private view returns(bool) {
         Proposal memory p = proposals[_proposalId];
-        return (p.startTime + p.duration > now && p.startTime < now && p.approved);    
+        return (p.startTime + p.duration > now && p.startTime < now && p.approved && !proposals[i].denied);    
     }  
     
     function proxyPayment(address ) public payable returns(bool) {
