@@ -1,5 +1,3 @@
-    address constant NECTAR_TOKEN = 0x4c88D00971467aBd70381541AED6417B0e541C41;
-    address constant TOKEN_FACTORY = 0x0E59f06f597Af0a7c30d79B0a7988fa45eEaf292;
 pragma solidity ^0.4.18;
 
 import "./MiniMeToken.sol";
@@ -280,7 +278,7 @@ contract ProposalManager is Ownable {
 
     function checkIfCurrentlyActive(uint _proposalId) private view returns(bool) {
         Proposal memory p = proposals[_proposalId];
-        return (p.startTime + p.duration > now && p.startTime < now && p.approved && !proposals[i].denied);    
+        return (p.startTime + p.duration > now && p.startTime < now && p.approved && !p.denied);    
     }  
     
     function proxyPayment(address ) public payable returns(bool) {
