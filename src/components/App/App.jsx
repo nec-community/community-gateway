@@ -14,7 +14,7 @@ class App extends Component {
     super();
     this.state = {
       open: false,
-    }
+    };
   }
   componentWillMount() {
     if (typeof web3 !== 'undefined') {
@@ -34,14 +34,14 @@ class App extends Component {
               {this.props.notifMessage}
             </div>
           </div>
-          <nav className={`${this.state.open ? 'open':''}`}>
+          <nav className={`${this.state.open ? 'open' : ''}`}>
             <div className="logo-wrapper">
               <img src="/images/logo.svg" alt="" />
               <span>Nectar.community</span>
             </div>
 
             <div className="menu-opener-wrapper">
-              <a onClick={() => this.setState({open: !this.state.open})}>|||</a>
+              <a onClick={() => this.setState({ open: !this.state.open })}>|||</a>
             </div>
             <div className="nav-links">
               <Link to="/">Home</Link>

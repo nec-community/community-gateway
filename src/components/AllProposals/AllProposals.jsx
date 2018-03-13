@@ -28,7 +28,8 @@ class AllProposals extends Component {
                         <div className="number">{proposal.remainingDays}</div>
                         <div>
                           <div className="days">
-                            day{proposal.remainingDays % 10 === 1 ? '' : 's'}</div>
+                            day{proposal.remainingDays % 10 === 1 ? '' : 's'}
+                          </div>
                           <div className="more">remaining</div>
                         </div>
                       </div>
@@ -48,8 +49,10 @@ class AllProposals extends Component {
                         <div className="yes">
                           <span className="word">yes</span>
                           <div className="bar">
-                            <div className="bar-yes"
-                                 style={{ width: `${proposal.yesPercentage}%` }} />
+                            <div
+                              className="bar-yes"
+                              style={{ width: `${proposal.yesPercentage}%` }}
+                            />
                           </div>
                           <div className="number">{`${Math.floor(proposal.yesPercentage)}`}</div>
                           <div className="votes-number">{proposal.totalYes} NEC</div>
@@ -73,7 +76,7 @@ class AllProposals extends Component {
             {
               this.props.proposals.filter(p => p._active).map(proposal => (
                 <div key={proposal._token} className="proposal-wrapper">
-                  <div className="remaining"></div>
+                  <div className="remaining" />
 
                   <div className="details-wrapper">
                     <Link
@@ -104,7 +107,6 @@ class AllProposals extends Component {
                 </div>
               ))
             }
-
           </div>
         </div>
       </div>

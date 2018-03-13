@@ -63,7 +63,8 @@ class Tokens extends Component {
 
         <p>
           Every 30-days trading fees on Ethfinex are pledged to NEC holders.
-          Calculate the current value which your tokens entitle you to, or redeem your rewards from the smart contract now.
+          Calculate the current value which your tokens entitle you to, or redeem your rewards
+          from the smart contract now.
         </p>
 
         <div className="redeem-wrapper">

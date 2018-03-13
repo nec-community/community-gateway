@@ -1,4 +1,5 @@
 import config from '../constants/config.json';
+
 const serviceUrl = config.backendUrl;
 
 const get = async (hash) => {
