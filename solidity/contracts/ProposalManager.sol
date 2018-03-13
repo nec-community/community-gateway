@@ -36,7 +36,7 @@ contract ProposalManager is Ownable {
     mapping(address => bool) admins;
 
     modifier onlyAdmins() { 
-        require(isAdmin());
+        require(isAdmin(msg.sender));
         _; 
     }
 
@@ -272,8 +272,8 @@ contract ProposalManager is Ownable {
         return proposals.length;
     }
 
-    function isAdmin() public view returns(bool) {
-        return admins[msg.sender];
+    function isAdmin(address _admin) public view returns(bool) {
+        return admins[_admin];
     }
 
     function checkIfCurrentlyActive(uint _proposalId) private view returns(bool) {
