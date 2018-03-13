@@ -1,8 +1,13 @@
-import { FETCHED_PROPOSALS, FETCHED_ACTIVE_PROPOSALS } from '../actions/actionTypes';
+import {
+  FETCHED_PROPOSALS,
+  FETCHED_ACTIVE_PROPOSALS,
+  FETCHED_NONAPPROVED_PROPOSALS,
+} from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   proposals: [],
   activeProposals: [],
+  nonApprovedProposals: [],
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -11,13 +16,16 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         proposals: action.proposals,
-        // .sort()
       };
     case FETCHED_ACTIVE_PROPOSALS:
       return {
         ...state,
         activeProposals: action.proposals,
-        // .sort()
+      };
+    case FETCHED_NONAPPROVED_PROPOSALS:
+      return {
+        ...state,
+        nonApprovedProposals: action.proposals,
       };
     default:
       return state;

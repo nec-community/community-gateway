@@ -12,11 +12,12 @@ import config from '../constants/config.json';
 import { nameOfNetwork, log, toDecimal } from '../services/utils';
 import { notify, notifyError } from './notificationActions';
 
-export const accountSuccess = (account, type, balance) => ({
+export const accountSuccess = (account, type, balance, isAdmin) => ({
   type: GET_ACCOUNT_SUCCESS,
   account,
   accountType: type,
   balance,
+  isAdmin,
 });
 
 export const accountError = error => ({
@@ -36,7 +37,8 @@ export const loginMetamask = silent => async (dispatch, getState) => {
       log(`Metamask account found ${account}`);
       notify(`Metamask account found ${account}`, 'success')(dispatch);
       const balance = await ethService.getBalance(account);
-      dispatch(accountSuccess(account, 'metamask', balance));
+      const isAdmin = await ethService.isAdmin(account);
+      dispatch(accountSuccess(account, 'metamask', balance, isAdmin));
     }
   } catch (err) {
     ethService.setupWeb3();
@@ -53,7 +55,8 @@ export const loginLedger = path => async (dispatch) => {
     const account = await ethService.ledgerLogin(path);
     log(`Ledger account found ${account}`);
     const balance = await ethService.getBalance(account);
-    dispatch(accountSuccess(account, 'ledger', balance));
+    const isAdmin = await ethService.isAdmin(account);
+    dispatch(accountSuccess(account, 'ledger', balance, isAdmin));
     notify(`Ledger account found ${account}`, 'success')(dispatch);
   } catch (err) {
     if (err.message) {
@@ -74,7 +77,8 @@ export const loginKeystore = (keystoreJson, password) => async (dispatch) => {
     const account = keystore.address;
     log(`Keystore account found ${account}`);
     const balance = await ethService.getBalance(account);
-    dispatch(accountSuccess(account, 'keystore', balance));
+    const isAdmin = await ethService.isAdmin(account);
+    dispatch(accountSuccess(account, 'keystore', balance, isAdmin));
     notify(`Keystore account found ${account}`, 'success')(dispatch);
   } catch (err) {
     dispatch(accountError(err.message));

@@ -74,7 +74,7 @@ class AllProposals extends Component {
         <div className="past-section">
           <div className="container">
             {
-              this.props.proposals.filter(p => p._active).map(proposal => (
+              this.props.proposals.filter(p => p.finalized).map(proposal => (
                 <div key={proposal._token} className="proposal-wrapper">
                   <div className="remaining" />
 

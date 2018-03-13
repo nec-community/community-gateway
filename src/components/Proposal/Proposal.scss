@@ -1,28 +1,32 @@
 @import "../../common/variables";
 
 .single-proposal {
-  .remaining {
-    float: left;
-    width: 200px;
-    display: flex;
-    margin-top: 80px;
-    .number {
-      font-weight: bold;
-      font-size: 60px;
-      line-height: 60px;
-      margin-right: 5px;
-    }
-    .days {
-      font-size: 32px;
-      font-weight: 300;
-    }
-    .more {
-      font-size: 12px;
-      font-weight: 300;
-    }
-  }
   .proposal-wrapper {
     padding: 100px 0;
+    .proposal-inner-wrapper {
+      @media screen and (min-width: 768px) {
+        display: flex;
+      }
+    }
+    .remaining {
+      width: 200px;
+      display: flex;
+      margin-top: 80px;
+      .number {
+        font-weight: bold;
+        font-size: 60px;
+        line-height: 60px;
+        margin-right: 5px;
+      }
+      .days {
+        font-size: 32px;
+        font-weight: 300;
+      }
+      .more {
+        font-size: 12px;
+        font-weight: 300;
+      }
+    }
     .title {
       font-size: 70px;
       margin-bottom: 20px;

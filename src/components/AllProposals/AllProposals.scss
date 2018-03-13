@@ -11,6 +11,9 @@
   .active-section {
     background-color: $color2;
     padding: 100px 0 50px;
+    .description:after {
+      background: linear-gradient(to bottom, rgba($color2, 0), rgba($color2, 1)) !important;
+    }
   }
   .proposal-wrapper {
     @media screen and (min-width: 768px) {
@@ -51,7 +54,7 @@
     }
     .details-wrapper {
       flex: 1 1 100%;
-      padding: 40px 0;
+      padding: 40px 20px;
       border-top: 1px solid white;
       p {
         margin: 10px 0;

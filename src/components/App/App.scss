@@ -42,11 +42,13 @@ nav {
       }
     }
   }
-  &.open {
-    background-color: $color1;
-    box-shadow: 0 0 5px 5px rgba($color2, .7);
-    .nav-links {
-      display: block !important;
+  @media screen and (max-width: 767px) {
+    &.open {
+      background-color: $color1;
+      box-shadow: 0 0 5px 5px rgba($color2, .7);
+      .nav-links {
+        display: block !important;
+      }
     }
   }
   a {

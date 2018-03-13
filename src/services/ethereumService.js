@@ -47,6 +47,12 @@ const getBalance = async (_account) => {
   return balanceEth;
 };
 
+const isAdmin = async (_account) => {
+  const account = _account || await getAccount();
+  const proposalContract = await getProposalContract();
+  return proposalContract.methods.isAdmin(account).call();
+};
+
 const weiToEth = weiVal =>
   window._web3.utils.fromWei(new window._web3.utils.BN(`${weiVal}`));
 
@@ -223,6 +229,28 @@ const authorize = async (address) => {
   });
 };
 
+const approveProposal = async (id, accountType) => {
+  const proposalContract = await getProposalContract();
+  const contractCall = proposalContract.methods.approveProposal(id);
+  if (accountType === 'ledger') return signAndSendLedger(contractCall);
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall);
+  const account = await getAccount();
+  return contractCall.send({
+    from: account,
+  });
+};
+
+const denyProposal = async (id, accountType) => {
+  const proposalContract = await getProposalContract();
+  const contractCall = proposalContract.methods.denyProposal(id);
+  if (accountType === 'ledger') return signAndSendLedger(contractCall);
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall);
+  const account = await getAccount();
+  return contractCall.send({
+    from: account,
+  });
+};
+
 const submitProposal = async (duration, hash, accountType) => {
   const proposalContract = await getProposalContract();
   const contractCall = proposalContract.methods.addProposal(duration, window._web3.utils.toHex(hash));
@@ -307,6 +335,13 @@ const getActiveProposals = async () => {
   return proposalIDs.map(id => getProposalDetails(id));
 };
 
+const getNonApprovedProposals = async () => {
+  const proposalContract = await getProposalContract();
+  const proposalIDs = await proposalContract.methods.getNotApprovedProposals().call();
+  log('getActiveProposals', proposalIDs);
+  return proposalIDs.map(id => getProposalDetails(id));
+};
+
 const getEthPrice = async () => {
   const tickerRes = await fetch('https://api.bitfinex.com/v2/ticker/tETHUSD');
   const ticker = await tickerRes.json();
@@ -371,6 +406,7 @@ export default {
   getAccount,
   getBalance,
   getNetwork,
+  isAdmin,
   weiToEth,
   ethToWei,
   getTokenBalance,
@@ -379,10 +415,13 @@ export default {
   getProposalDetails,
   getProposals,
   getActiveProposals,
+  getNonApprovedProposals,
   vote,
   calculateNecReward,
   burnNec,
   fetchData,
   ledgerLogin,
   signAndSendLedger,
+  approveProposal,
+  denyProposal,
 };

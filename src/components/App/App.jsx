@@ -44,6 +44,10 @@ class App extends Component {
               <a onClick={() => this.setState({ open: !this.state.open })}>|||</a>
             </div>
             <div className="nav-links">
+              {
+                this.props.isAdmin &&
+                <Link to="/admin">Admin</Link>
+              }
               <Link to="/">Home</Link>
               <Link to="/all">All Proposals</Link>
               <Link to="/submit">Submit a Proposal</Link>
@@ -74,12 +78,16 @@ App.propTypes = {
   notifType: PropTypes.string.isRequired,
   loginMetamask: PropTypes.func.isRequired,
   fetchEthfinexData: PropTypes.func.isRequired,
+  account: PropTypes.string.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   showNotif: state.notification.displayed,
   notifMessage: state.notification.message,
   notifType: state.notification.type,
+  account: state.account.account,
+  isAdmin: state.account.isAdmin,
 });
 
 export default connect(mapStateToProps, {

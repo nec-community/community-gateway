@@ -12,6 +12,7 @@ const INITIAL_STATE = {
   accountType: '',
   accountBalance: '',
   accountError: '',
+  isAdmin: false,
   tokenBalance: 'loading',
   tokenPayout: 'loading',
   ethfinexData: {
@@ -34,6 +35,7 @@ export default (state = INITIAL_STATE, action) => {
         accountType: action.accountType,
         accountBalance: action.balance,
         accountError: '',
+        isAdmin: action.isAdmin,
         loginOpen: false,
       };
     case GET_ACCOUNT_ERROR:
@@ -42,6 +44,7 @@ export default (state = INITIAL_STATE, action) => {
         account: '',
         accountType: '',
         accountBalance: '',
+        isAdmin: false,
         accountError: action.error,
       };
     case TOKEN_BALANCE:

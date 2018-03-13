@@ -4,6 +4,7 @@ import Proposal from './components/Proposal/Proposal';
 import AllProposals from './components/AllProposals/AllProposals';
 import Submit from './components/Submit/Submit';
 import Landing from './components/Landing/Landing';
+import Admin from './components/Admin/Admin';
 
 const Routes = () => (
   <Switch>
@@ -11,6 +12,7 @@ const Routes = () => (
     <Route exact path="/proposal/:proposalId" component={Proposal} />
     <Route exact path="/all" component={AllProposals} />
     <Route exact path="/submit" component={Submit} />
+    <Route exact path="/admin" component={Admin} />
   </Switch>
 );
 
