@@ -11,8 +11,11 @@ import './App.scss';
 
 class App extends Component {
   componentWillMount() {
-    window.web3 = new Web3(config.providerUrl);
-    this.props.loginMetamask(true);
+    if (typeof web3 !== 'undefined') {
+      this.props.loginMetamask(true);
+    } else {
+      window._web3 = new Web3(config.providerUrl);
+    }
     this.props.fetchEthfinexData();
   }
 

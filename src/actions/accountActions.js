@@ -26,6 +26,7 @@ export const accountError = error => ({
 
 export const loginMetamask = silent => async (dispatch, getState) => {
   try {
+    ethService.setWeb3toMetamask();
     const network = await ethService.getNetwork();
     if (config.network !== network) {
       throw new Error(`Wrong network - please set Metamask to ${nameOfNetwork(config.network)}`);
@@ -38,6 +39,7 @@ export const loginMetamask = silent => async (dispatch, getState) => {
       dispatch(accountSuccess(account, 'metamask', balance));
     }
   } catch (err) {
+    ethService.setupWeb3();
     if (!silent) {
       dispatch(accountError(err.message));
       notify(err.message, 'error')(dispatch);
