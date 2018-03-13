@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getTokenBalance, burnNec } from '../../actions/accountActions';
+import { getTokenBalance, burnNec, openLogin } from '../../actions/accountActions';
 import eth from '../../services/ethereumService';
 
 import './Tokens.scss';
@@ -22,10 +22,14 @@ class Tokens extends Component {
     this.props.getTokenBalance();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.account !== this.props.account) this.props.getTokenBalance();
+  }
+
   async calculate(e) {
     const val = e.target.value;
     if (val.length > 12) return;
-    let input = parseFloat(val);
+    const input = parseFloat(val);
     if (!isNaN(input)) {
       const calculated = await eth.estimatePayout(eth.ethToWei(input));
       this.setState({
@@ -43,28 +47,43 @@ class Tokens extends Component {
   render() {
     return (
       <div className="tokens-wrapper">
-        <h2>Redeem your<br />tokens</h2>
+        <div className="top-text">
+          <h2>Redeem your tokens</h2>
+          {
+            this.props.account &&
+            <div className="account-balance">
+              <div className="row-1">
+                <span className="number">{this.props.tokenBalance}</span>
+                <span className="nec">NEC</span>
+              </div>
+              <div className="row-2">Account balance</div>
+            </div>
+          }
+        </div>
 
         <p>
-          You can earn new NEC tokens in proportion to your maker volume (matched limit orders).
-          Tokens become harder to earn each month. Calculate how many you would earn
-          based on your trading volume.
+          Every 30-days trading fees on Ethfinex are pledged to NEC holders.
+          Calculate the current value which your tokens entitle you to, or redeem your rewards
+          from the smart contract now.
         </p>
 
         <div className="redeem-wrapper">
           <div className={`step ${this.state.input ? '' : 'empty'}`}>
             <label htmlFor="input">
               NEC:
-              <input style={{
-                      width: `${
-                        this.state.input.length > 8
-                          ? this.state.input.toString().length * 14 + 10
-                          : this.state.input.toString().length * 24 + 10
-                      }px`
-                     }}
-                     className={`${this.state.input.length > 8 ? 'smaller' : ''}`}
-                     id="input"
-                     type="text" value={this.state.input} onChange={this.calculate}
+              <input
+                style={{
+                  width: `${
+                    this.state.input.length > 5
+                      ? (this.state.input.toString().length * 14) + 30
+                      : (this.state.input.toString().length * 24) + 30
+                    }px`,
+                }}
+                className={`${this.state.input.length > 5 ? 'smaller' : ''}`}
+                id="input"
+                type="number"
+                value={this.state.input}
+                onChange={this.calculate}
               />
             </label>
             <p>Enter your NEC balance</p>
@@ -80,9 +99,12 @@ class Tokens extends Component {
             this.props.burningEnabled &&
             <button
               className={`step ${this.state.input ? '' : 'hidden'}`}
-              onClick={() => this.props.burnNec(eth.ethToWei(this.state.input))}
+              onClick={this.props.accountType
+                ? () => this.props.burnNec(eth.ethToWei(this.state.input))
+                : () => this.props.openLogin()
+              }
             >
-              Transfer
+              {this.props.accountType ? 'Redeem' : 'Connect your Wallet'}
             </button>
           }
           {
@@ -101,19 +123,24 @@ class Tokens extends Component {
 }
 
 Tokens.propTypes = {
+  burningEnabled: PropTypes.bool.isRequired,
+  tokenBalance: PropTypes.string.isRequired,
+  accountType: PropTypes.string.isRequired,
+  account: PropTypes.string.isRequired,
   getTokenBalance: PropTypes.func.isRequired,
   burnNec: PropTypes.func.isRequired,
-  tokenBalance: PropTypes.string.isRequired,
-  tokenPayout: PropTypes.string.isRequired,
+  openLogin: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  tokenBalance: state.account.tokenBalance,
-  tokenPayout: state.account.tokenPayout,
   burningEnabled: state.account.ethfinexData.burningEnabled,
+  tokenBalance: state.account.tokenBalance,
+  accountType: state.account.accountType,
+  account: state.account.account,
 });
 
 export default connect(mapStateToProps, {
   getTokenBalance,
   burnNec,
+  openLogin,
 })(Tokens);

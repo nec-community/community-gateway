@@ -1,9 +1,8 @@
-const Web3 = require('web3');
 import ledger from 'ledgerco';
 import Tx from 'ethereumjs-tx';
-
+import Web3 from 'web3';
 import config from '../constants/config.json';
-import { log } from './utils';
+import { log, toDecimal } from './utils';
 import grenache from './grenacheService';
 import keystore from './keystoreService';
 
@@ -18,10 +17,18 @@ let totalFee;
 let totalTokens;
 let burningEnabled;
 
+const setWeb3toMetamask = () => {
+  window._web3 = new Web3(web3.currentProvider);
+};
+
+const setupWeb3 = () => {
+  window._web3 = new Web3(config.providerUrl);
+};
+
 const getAccount = () => (
   new Promise(async (resolve, reject) => {
     try {
-      const accounts = await web3.eth.getAccounts();
+      const accounts = await window._web3.eth.getAccounts();
       if (!accounts.length) throw new Error('No accounts (Possibly locked)');
       resolve(accounts[0]);
     } catch (err) {
@@ -33,31 +40,31 @@ const getAccount = () => (
 
 const getBalance = async (_account) => {
   const account = _account || await getAccount();
-  const balanceWei = await web3.eth.getBalance(account);
-  const balanceEth = web3.utils.fromWei(balanceWei);
+  const balanceWei = await window._web3.eth.getBalance(account);
+  const balanceEth = window._web3.utils.fromWei(balanceWei);
   // optionally convert to BigNumber here
-  // return new web3.utils.BN(balanceEth);
+  // return new window._web3.utils.BN(balanceEth);
   return balanceEth;
 };
 
 const weiToEth = weiVal =>
-  web3.utils.fromWei(new web3.utils.BN(`${weiVal}`));
+  window._web3.utils.fromWei(new window._web3.utils.BN(`${weiVal}`));
 
 const ethToWei = ethVal =>
-  web3.utils.toWei(`${ethVal}`);
+  window._web3.utils.toWei(`${ethVal}`);
 
-const getBlockNumber = () => web3.eth.getBlockNumber();
+const getBlockNumber = () => window._web3.eth.getBlockNumber();
 
-const getNetwork = () => web3.eth.net.getId();
+const getNetwork = () => window._web3.eth.net.getId();
 
 const getProposalContract = async () =>
-  new web3.eth.Contract(config.proposalContract.abi, config.proposalContract.address);
+  new window._web3.eth.Contract(config.proposalContract.abi, config.proposalContract.address);
 
 const getTokenContract = async () =>
-  new web3.eth.Contract(config.tokenContract.abi, config.tokenContract.address);
+  new window._web3.eth.Contract(config.tokenContract.abi, config.tokenContract.address);
 
 const getControllerContract = async () =>
-  new web3.eth.Contract(config.controllerContract.abi, config.controllerContract.address);
+  new window._web3.eth.Contract(config.controllerContract.abi, config.controllerContract.address);
 
 
 const ledgerLogin = async (path = defaultPath) => {
@@ -72,46 +79,46 @@ const signAndSendLedger = async (contractCall, value = 0, gasPrice = 5) => {
   if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
   const eth = new ledger.eth(ledgerComm);
   const account = await eth.getAddress_async(ledgerPath);
-  log(`LEDGER account`, account);
+  log(`LEDGER account ${account}`);
 
-  let encodedAbi = contractCall.encodeABI();
+  const encodedAbi = contractCall.encodeABI();
   log(`LEDGER encodedAbi ${encodedAbi}`);
 
-  const nonce = await web3.eth.getTransactionCount(account.address);
+  const nonce = await window._web3.eth.getTransactionCount(account.address);
   log(`LEDGER nonce ${nonce}`);
 
-  let rawTx = {
-    nonce: web3.utils.numberToHex(nonce),
+  const rawTx = {
+    nonce: window._web3.utils.numberToHex(nonce),
     from: account.address,
-    gasPrice: web3.utils.numberToHex(web3.utils.toWei(gasPrice.toString(), 'gwei')),
+    gasPrice: window._web3.utils.numberToHex(window._web3.utils.toWei(gasPrice.toString(), 'gwei')),
     to: contractCall._parent._address,
     data: encodedAbi,
-    value: web3.utils.numberToHex(value),
+    value: window._web3.utils.numberToHex(value),
     chainId: config.network,
     v: config.network,
   };
 
-  const gasLimit = await web3.eth.estimateGas(rawTx);
+  const gasLimit = await window._web3.eth.estimateGas(rawTx);
   log(`LEDGER gasLimit ${gasLimit}`);
-  rawTx.gasLimit = web3.utils.numberToHex(gasLimit);
+  rawTx.gasLimit = window._web3.utils.numberToHex(gasLimit);
 
-  log(`LEDGER rawTx`, rawTx);
+  log('LEDGER rawTx', rawTx);
 
   const tx = new Tx(rawTx);
-  log(`LEDGER tx`, tx);
+  log('LEDGER tx', tx);
 
   const signedTx = await eth.signTransaction_async(ledgerPath, tx.serialize().toString('hex'));
-  log(`LEDGER signedTx`, signedTx);
+  log('LEDGER signedTx', signedTx);
 
   const tx2 = new Tx({
     ...rawTx,
-    v: '0x' + signedTx.v,
-    r: '0x' + signedTx.r,
-    s: '0x' + signedTx.s,
+    v: `0x${signedTx.v}`,
+    r: `0x${signedTx.r}`,
+    s: `0x${signedTx.s}`,
   });
-  log(`LEDGER tx2`, tx2);
+  log('LEDGER tx2', tx2);
 
-  web3.eth.sendSignedTransaction('0x' + tx2.serialize().toString('hex'))
+  window._web3.eth.sendSignedTransaction(`0x${tx2.serialize().toString('hex')}`)
     .on('transactionHash', (transactionHash) => {
       log('LEDGER transactionHash', transactionHash);
     })
@@ -125,38 +132,38 @@ const signAndSendLedger = async (contractCall, value = 0, gasPrice = 5) => {
 
 const signAndSendKeystore = async (contractCall, value = 0, gasPrice = 5) => {
   const account = keystore.getWallet();
-  log(`KEYSTORE account`, account.address);
+  log(`KEYSTORE account ${account.address}`);
 
-  let encodedAbi = contractCall.encodeABI();
+  const encodedAbi = contractCall.encodeABI();
   log(`KEYSTORE encodedAbi ${encodedAbi}`);
 
-  const nonce = await web3.eth.getTransactionCount(account.address);
+  const nonce = await window._web3.eth.getTransactionCount(account.address);
   log(`KEYSTORE nonce ${nonce}`);
 
-  let rawTx = {
-    nonce: web3.utils.numberToHex(nonce),
+  const rawTx = {
+    nonce: window._web3.utils.numberToHex(nonce),
     from: account.address,
-    gasPrice: web3.utils.numberToHex(web3.utils.toWei(gasPrice.toString(), 'gwei')),
+    gasPrice: window._web3.utils.numberToHex(window._web3.utils.toWei(gasPrice.toString(), 'gwei')),
     to: contractCall._parent._address,
     data: encodedAbi,
-    value: web3.utils.numberToHex(value),
+    value: window._web3.utils.numberToHex(value),
     chainId: config.network,
     v: config.network,
   };
 
-  const gasLimit = await web3.eth.estimateGas(rawTx);
+  const gasLimit = await window._web3.eth.estimateGas(rawTx);
   log(`KEYSTORE gasLimit ${gasLimit}`);
-  rawTx.gasLimit = web3.utils.numberToHex(gasLimit);
+  rawTx.gasLimit = window._web3.utils.numberToHex(gasLimit);
 
-  log(`KEYSTORE rawTx`, rawTx);
+  log('KEYSTORE rawTx', rawTx);
 
   const tx = new Tx(rawTx);
-  log(`KEYSTORE tx`, tx);
+  log('KEYSTORE tx', tx);
 
   await account.signRawTransaction(tx);
-  log(`KEYSTORE signed tx`, tx);
+  log('KEYSTORE signed tx', tx);
 
-  web3.eth.sendSignedTransaction('0x' + tx.serialize().toString('hex'))
+  window._web3.eth.sendSignedTransaction(`0x${tx.serialize().toString('hex')}`)
     .on('transactionHash', (transactionHash) => {
       log('KEYSTORE transactionHash', transactionHash);
     })
@@ -180,11 +187,9 @@ const totalSupply = async () => {
 };
 
 const estimatePayout = async (tokensToBurn) => {
-  if (!totalFee)
-    totalFee = await totalPledgedFees();
+  if (!totalFee) totalFee = await totalPledgedFees();
   log(`Total fees on contract ${weiToEth(totalFee)}`);
-  if (!totalTokens)
-    totalTokens = await totalSupply();
+  if (!totalTokens) totalTokens = await totalSupply();
   log(`Total NEC supply on contract ${weiToEth(totalTokens)}`);
   const feeValueOfTokens = (totalFee * tokensToBurn) / totalTokens;
   log(`Burning ${weiToEth(tokensToBurn)} tokens will pay out ${weiToEth(feeValueOfTokens)}`);
@@ -204,7 +209,7 @@ const contribute = async () => {
   const account = await getAccount();
   log(`Contributing from account ${account}`);
   return controllerContract.methods.contributeForMakers(account).send({
-    value: web3.utils.toWei('0.01', 'ether'),
+    value: window._web3.utils.toWei('0.01', 'ether'),
     from: account,
   });
 };
@@ -220,38 +225,30 @@ const authorize = async (address) => {
 
 const submitProposal = async (duration, hash, accountType) => {
   const proposalContract = await getProposalContract();
-  const contractCall = proposalContract.methods.addProposal(duration, web3.utils.toHex(hash));
-  if (accountType === 'ledger') {
-    return signAndSendLedger(contractCall);
-  } else if (accountType === 'keystore') {
-    return signAndSendKeystore(contractCall);
-  } else {
-    const account = await getAccount();
-    return contractCall.send({
-      from: account,
-    });
-  }
+  const contractCall = proposalContract.methods.addProposal(duration, window._web3.utils.toHex(hash));
+  if (accountType === 'ledger') return signAndSendLedger(contractCall);
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall);
+  const account = await getAccount();
+  return contractCall.send({
+    from: account,
+  });
 };
 
 const vote = async (id, vote, accountType) => {
   const proposalContract = await getProposalContract();
   const contractCall = proposalContract.methods.vote(id, vote);
-  if (accountType === 'ledger') {
-    return signAndSendLedger(contractCall);
-  } else if (accountType === 'keystore') {
-    return signAndSendKeystore(contractCall);
-  } else {
-    const account = await getAccount();
-    return contractCall.send({
-      from: account,
-    });
-  }
+  if (accountType === 'ledger') return signAndSendLedger(contractCall);
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall);
+  const account = await getAccount();
+  return contractCall.send({
+    from: account,
+  });
 };
 
 const getProposalDetails = async (id) => {
   const proposalContract = await getProposalContract();
   const details = await proposalContract.methods.proposal(id).call();
-  console.log(details);
+  log(details);
   const storageHash = details._storageHash.substr(2, 40);
 
   let description = await grenache.get(storageHash);
@@ -278,8 +275,8 @@ const getProposalDetails = async (id) => {
 
   const startTime = new Date(parseInt(`${details._startTime}000`, 10));
   const remainingDays = Math.floor(
-    ((startTime.valueOf() + parseInt(`${details._duration}000`)) - (new Date()).valueOf())
-    / (24 * 60 * 60 * 1000)
+    ((startTime.valueOf() + parseInt(`${details._duration}000`, 10)) - (new Date()).valueOf())
+    / (24 * 60 * 60 * 1000),
   );
   return {
     id,
@@ -341,16 +338,12 @@ const burnNec = async (necTokens, accountType) => {
   const tokenContract = await getTokenContract();
   log(`Burning ${necTokens} NEC tokens`);
   const contractCall = tokenContract.methods.burnAndRetrieve(necTokens);
-  if (accountType === 'ledger') {
-    return signAndSendLedger(contractCall);
-  } else if (accountType === 'keystore') {
-    return signAndSendKeystore(contractCall);
-  } else {
-    const account = await getAccount();
-    return contractCall.send({
-      from: account,
-    });
-  }
+  if (accountType === 'ledger') return signAndSendLedger(contractCall);
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall);
+  const account = await getAccount();
+  return contractCall.send({
+    from: account,
+  });
 };
 
 const fetchData = async () => {
@@ -360,8 +353,8 @@ const fetchData = async () => {
   necConversionRate = await controllerContract.methods.getFeeToTokenConversion(1).call();
   const tokenContract = await getTokenContract();
   burningEnabled = await tokenContract.methods.burningEnabled().call();
-  totalFee = await totalPledgedFees();
-  totalTokens = await totalSupply();
+  totalFee = toDecimal(weiToEth(await totalPledgedFees()), 2);
+  totalTokens = toDecimal(weiToEth(await totalSupply()), 2);
   return {
     ethPrice,
     necPrice,
@@ -373,6 +366,8 @@ const fetchData = async () => {
 };
 
 export default {
+  setWeb3toMetamask,
+  setupWeb3,
   getAccount,
   getBalance,
   getNetwork,
@@ -390,28 +385,4 @@ export default {
   fetchData,
   ledgerLogin,
   signAndSendLedger,
-};
-
-setTimeout(async () => {
-  const proposalContract = await getProposalContract();
-  // let contractCall = proposalContract.methods.addProposal(20, web3.utils.toHex('e4082dc8e0388250e03217087e08eebc83a7ee34'));
-  let contractCall = proposalContract.methods.nProposals();
-  console.log(contractCall);
-  // signAndSendKeystore(contractCall);
-
-  // const controllerContract = await getControllerContract();
-  // let contractCall = controllerContract.methods.contributeForMakers('2f797b1e6c8ae924738b0cc837556b8741e44d9e');
-  // signAndSendKeystore(contractCall, ethToWei(0.01));
-}, 1000);
-
-
-window.test = async () => {
-  // const controllerContract = await getControllerContract();
-  // let contractCall = controllerContract.methods.contributeForMakers('2f797b1e6c8ae924738b0cc837556b8741e44d9e');
-  // signAndSendLedger(contractCall, ethToWei(0.01));
-  // signAndSendKeystore(contractCall, ethToWei(0.01));
-
-  const proposalContract = await getProposalContract();
-  let contractCall = proposalContract.methods.addProposal(20, web3.utils.toHex('e4082dc8e0388250e03217087e08eebc83a7ee34'));
-  signAndSendKeystore(contractCall);
 };

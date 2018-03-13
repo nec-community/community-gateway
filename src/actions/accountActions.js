@@ -9,7 +9,7 @@ import {
 import ethService from '../services/ethereumService';
 import keystoreService from '../services/keystoreService';
 import config from '../constants/config.json';
-import { nameOfNetwork, log } from '../services/utils';
+import { nameOfNetwork, log, toDecimal } from '../services/utils';
 import { notify, notifyError } from './notificationActions';
 
 export const accountSuccess = (account, type, balance) => ({
@@ -24,8 +24,9 @@ export const accountError = error => ({
   error,
 });
 
-export const loginMetamask = (silent) => async (dispatch, getState) => {
+export const loginMetamask = silent => async (dispatch, getState) => {
   try {
+    ethService.setWeb3toMetamask();
     const network = await ethService.getNetwork();
     if (config.network !== network) {
       throw new Error(`Wrong network - please set Metamask to ${nameOfNetwork(config.network)}`);
@@ -38,14 +39,15 @@ export const loginMetamask = (silent) => async (dispatch, getState) => {
       dispatch(accountSuccess(account, 'metamask', balance));
     }
   } catch (err) {
-    if(!silent) {
+    ethService.setupWeb3();
+    if (!silent) {
       dispatch(accountError(err.message));
       notify(err.message, 'error')(dispatch);
     }
   }
 };
 
-export const loginLedger = (path) => async (dispatch, getState) => {
+export const loginLedger = path => async (dispatch) => {
   try {
     log(`Path ${path}`);
     const account = await ethService.ledgerLogin(path);
@@ -54,20 +56,22 @@ export const loginLedger = (path) => async (dispatch, getState) => {
     dispatch(accountSuccess(account, 'ledger', balance));
     notify(`Ledger account found ${account}`, 'success')(dispatch);
   } catch (err) {
-    if (err === 'Invalid status 6801')
-      err += ' - Ledger possibly locked';
-    if (err === 'Invalid status 6985')
-      err += ' - User denied tx';
+    if (err.message) {
+      dispatch(accountError(err.message));
+      return notify(err.message, 'error')(dispatch);
+    }
+    if (err === 'Invalid status 6801') err += ' - Ledger possibly locked';
+    if (err === 'Invalid status 6985') err += ' - User denied tx';
     dispatch(accountError(err));
     notify(err, 'error')(dispatch);
   }
 };
 
-export const loginKeystore = (keystoreJson, password) => async (dispatch, getState) => {
+export const loginKeystore = (keystoreJson, password) => async (dispatch) => {
   try {
     const keystore = keystoreService.unlockKeystore(keystoreJson, password);
     log(keystore);
-    const account  = keystore.address;
+    const account = keystore.address;
     log(`Keystore account found ${account}`);
     const balance = await ethService.getBalance(account);
     dispatch(accountSuccess(account, 'keystore', balance));
@@ -94,14 +98,17 @@ const tokenBalance = (balance, payout) => ({
   payout,
 });
 
-export const getTokenBalance = () => async (dispatch) => {
-  const balance = await ethService.getTokenBalance();
+export const getTokenBalance = () => async (dispatch, getState) => {
+  const balance = await ethService.getTokenBalance(getState().account.account);
   const payout = await ethService.estimatePayout(balance);
   log(`Payout for balance ${balance} is ${payout}`);
-  dispatch(tokenBalance(ethService.weiToEth(balance), ethService.weiToEth(payout)));
+  dispatch(tokenBalance(
+    toDecimal(ethService.weiToEth(balance)),
+    toDecimal(ethService.weiToEth(payout)),
+  ));
 };
 
-const updateEthfinexData = (data) => ({
+const updateEthfinexData = data => ({
   type: UPDATE_ETHFINEX_DATA,
   data,
 });
@@ -113,17 +120,6 @@ export const fetchEthfinexData = () => async (dispatch) => {
   setTimeout(() => fetchEthfinexData()(dispatch), 5 * 60 * 1000);
 };
 
-export const burnNec = (amount) => async (dispatch, getState) => {
-  if (!getState().account.accountType)
-    return dispatch(openLogin());
-  try {
-    await eth.burnNec(amount, getState().account.accountType);
-    notify('NEC reward claimed!', 'success')(dispatch);
-  } catch (err) {
-    notifyError(err)(dispatch);
-  }
-};
-
 export const openLogin = () => ({
   type: OPEN_LOGIN,
 });
@@ -131,3 +127,13 @@ export const openLogin = () => ({
 export const closeLogin = () => ({
   type: CLOSE_LOGIN,
 });
+
+export const burnNec = amount => async (dispatch, getState) => {
+  if (!getState().account.accountType) return dispatch(openLogin());
+  try {
+    await ethService.burnNec(amount, getState().account.accountType);
+    notify('NEC reward claimed!', 'success')(dispatch);
+  } catch (err) {
+    notifyError(err)(dispatch);
+  }
+};

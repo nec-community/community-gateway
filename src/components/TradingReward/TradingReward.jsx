@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { getTokenBalance } from '../../actions/accountActions';
 import eth from '../../services/ethereumService';
 
 import './TradingReward.scss';
@@ -41,16 +38,7 @@ class TradingReward extends Component {
   render() {
     return (
       <div className="trading-reward-wrapper">
-        <div className="top-text">
-          <h2>Earn by trading on Ethfinex</h2>
-          <div className="nec-price">
-            <div className="row-1"><span className="number">1</span><span className="nec">Nec =</span></div>
-            <div className="row-2">0.1143 ETH</div>
-            <div className="row-3">
-              <span className="refresh">Refreshes every</span><span className="min">5min</span>
-            </div>
-          </div>
-        </div>
+        <h2>Earn by trading on Ethfinex</h2>
         <div className="calculator-desc">
           <div className="line-indent" />
           <p>
@@ -62,8 +50,15 @@ class TradingReward extends Component {
         <h3>
           <label htmlFor="input">
             If your maker trading
-            <div className="right-align">volume is:
-              <input style={{ width: `${this.state.input.toString().length * 19 + 10}px` }} id="input" type="text" value={this.state.input} onChange={this.calculate} min="0" />
+            <div className="right-align">volume is: $
+              <input
+                style={{ width: `${(this.state.input.toString().length * 19) + 30}px` }}
+                id="input"
+                type="number"
+                value={this.state.input}
+                onChange={this.calculate}
+                min="0"
+              />
               you earn<br /><b>{this.state.calculated}</b> tokens
             </div>
           </label>
@@ -73,17 +68,4 @@ class TradingReward extends Component {
   }
 }
 
-TradingReward.propTypes = {
-  getTokenBalance: PropTypes.func.isRequired,
-  tokenBalance: PropTypes.string.isRequired,
-  tokenPayout: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = state => ({
-  tokenBalance: state.account.tokenBalance,
-  tokenPayout: state.account.tokenPayout,
-});
-
-export default connect(mapStateToProps, {
-  getTokenBalance,
-})(TradingReward);
+export default TradingReward;

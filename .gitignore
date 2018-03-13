@@ -3,4 +3,6 @@ node_modules/
 package-lock.json
 yarn.lock
 src/constants/config.json
+server/config.js
+server/*.db
 dist/

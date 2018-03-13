@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-
 import Tokens from '../Tokens/Tokens';
 import TradingReward from '../TradingReward/TradingReward';
 
@@ -35,13 +31,13 @@ class Calculator extends Component {
             className={`${this.state.shown === 'trading' ? 'active' : ''}`}
             onClick={() => this.switch('trading')}
           >
-            Trading Reward<br />Calculator
+            Trading Reward <br />Calculator
           </a>
           <a
             className={`${this.state.shown === 'tokens' ? 'active' : ''}`}
             onClick={() => this.switch('tokens')}
           >
-            Redeem Value<br />Calculator
+            Redeem Value <br />Calculator
           </a>
         </div>
         {
@@ -57,8 +53,4 @@ class Calculator extends Component {
   }
 }
 
-Calculator.propTypes = {};
-
-const mapStateToProps = state => ({});
-
-export default connect(mapStateToProps, {})(Calculator);
+export default Calculator;

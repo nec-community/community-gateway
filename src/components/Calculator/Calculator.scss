@@ -15,6 +15,18 @@
     display: flex;
     position: relative;
 
+    @media screen and (max-width: 767px) {
+      display: block;
+      margin: -60px 0 30px;
+      height: auto;
+      a {
+        display: block;
+      }
+      br {
+        display: none;
+      }
+    }
+
     a {
       padding: 32px 50px;
       background: $color3;

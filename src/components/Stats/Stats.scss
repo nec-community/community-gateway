@@ -8,15 +8,15 @@
     right: 210px;
   }
 
-  .stats-content-wrapper {
-    margin-left: 50px;
-    position: relative;
-    z-index: 2;
-  }
-
   h2 {
     font-size: 48px;
     margin: 0;
+    @media screen and (max-width: 1365px) {
+      font-size: 40px;
+    }
+    @media screen and (max-width: 767px) {
+      font-size: 32px;
+    }
   }
   h3 {
     font-size: 18px;
@@ -24,6 +24,9 @@
     font-weight: normal;
     margin: 25px 50px;
     max-width: 442px;
+    @media screen and (max-width: 767px) {
+      font-size: 12px;
+    }
   }
   .stats-grid {
     display: grid;
@@ -41,6 +44,19 @@
     .trading-volume {
       grid-column: 4;
     }
+    .breaker {
+      display: none;
+    }
+    @media screen and (max-width: 1000px) {
+      display: block;
+      div {
+        display: inline-flex;
+        flex-direction: column;
+      }
+      .breaker {
+        display: block;
+      }
+    }
     > div {
       padding: 20px;
     }
@@ -49,16 +65,33 @@
       display: inline-flex;
       padding: 15px 0;
       margin: 20px 0;
+      @media screen and (max-width: 1365px) {
+        padding: 5px 0;
+        margin: 10px 0;
+        flex-direction: row;
+      }
       .stat {
         font-weight: bold;
         font-size: 40px;
         line-height: 40px;
+        @media screen and (max-width: 1365px) {
+          font-size: 26px;
+        }
+        @media screen and (max-width: 767px) {
+          font-size: 28px;
+        }
       }
       .stat-addon {
         font-size: 14px;
         line-height: 18px;
         margin-left: 5px;
         margin-top: 2px;
+
+        @media screen and (max-width: 1365px) {
+          font-size: 12px;
+          line-height: 14px;
+          margin-top: 6px;
+        }
         .secondary {
           color: $color4;
         }

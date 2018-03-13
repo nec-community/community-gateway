@@ -2,7 +2,8 @@
   "presets": [["env", {
     "modules": false,
     "targets": {
-      "node": "current"
+      "node": "current",
+      "uglify": true
     }
   }], "react"],
   "plugins": ["transform-object-rest-spread", "transform-runtime"]

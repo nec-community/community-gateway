@@ -21,7 +21,7 @@ export const notify = (message, type = 'success', length = 5000) => (dispatch) =
   timeout = setTimeout(() => dispatch(hideNotification()), length);
 };
 
-export const notifyError = (err) => (dispatch) => {
+export const notifyError = err => (dispatch) => {
   let message = err.message ? err.message : err;
   if (message.indexOf('MetaMask') !== -1) {
     message = message.substr(message.indexOf('MetaMask'));

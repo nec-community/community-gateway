@@ -73,7 +73,7 @@ module.exports = {
         warnings: false,
       },
     }),
-    // new FaviconsWebpackPlugin(path.resolve('favicon.png')),
+    new FaviconsWebpackPlugin(path.resolve('nec.png')),
     new webpack.DefinePlugin({
       'process.env': {
         env: '"production"',
@@ -82,8 +82,8 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       {
-        from: './src/constants/ima/',
-        to: 'ima/',
+        from: './src/constants/images/',
+        to: 'images/',
       }
     ])
   ]

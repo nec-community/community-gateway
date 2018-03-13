@@ -11,6 +11,7 @@ class Submit extends Component {
     this.state = {
       description: '',
       durationInDays: 30,
+      email: '',
       submitError: '',
     };
 
@@ -30,7 +31,7 @@ class Submit extends Component {
   submitProposal() {
     this.setState({ submitError: '' });
 
-    const { description, durationInDays } = this.state;
+    const { description, durationInDays, email } = this.state;
 
     if (!description) {
       return this.setState({ submitError: 'Description required.' });
@@ -39,7 +40,7 @@ class Submit extends Component {
       return this.setState({ submitError: 'Proposal must last between 7 and 45 days.' });
     }
 
-    this.props.submitProposal(durationInDays, description);
+    this.props.submitProposal(durationInDays, description, email);
   }
 
   render() {
@@ -59,10 +60,11 @@ class Submit extends Component {
               required
               placeholder="Proposal description"
             />
-            <label htmlFor="description">
-              Proposal description:
-            </label>
-
+            <p className="info-tip">
+              Please ensure your description is as detailed as possible and includes all the
+              necessary information and numbers which would be required to make the proposal
+              actionable following a successful vote.
+            </p>
             <div className="duration">
               <label>
                 Duration (days):
@@ -77,9 +79,21 @@ class Submit extends Component {
               </label>
             </div>
 
-            {/*<div className="info-tip">*/}
-              {/*The proposal will need to be approved by BitFinex before being visible.*/}
-            {/*</div>*/}
+            <div className="email">
+              <label>
+                Email:
+                <input
+                  name="email"
+                  type="email"
+                  value={this.state.email}
+                  onChange={this.handleInputChange}
+                />
+              </label>
+              <p className="info-tip">
+                Email field is optional - Ethfinex may contact you if more detail needs to be added
+                to your proposal before a vote can begin
+              </p>
+            </div>
 
             <div className="submit-wrapper">
               <button onClick={this.submitProposal}>Submit proposal</button>
@@ -99,8 +113,7 @@ Submit.propTypes = {
   submitProposal: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({});
 
-export default connect(mapStateToProps, {
+export default connect(null, {
   submitProposal,
 })(Submit);
