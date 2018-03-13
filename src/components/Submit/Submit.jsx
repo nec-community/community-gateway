@@ -60,10 +60,10 @@ class Submit extends Component {
               required
               placeholder="Proposal description"
             />
-            {/*<label htmlFor="description">*/}
-              {/*Proposal description:*/}
-            {/*</label>*/}
-
+            <p className="info-tip">
+              Please ensure your description is as detailed as possible and includes all the necessary information and numbers
+              which would be required to make the proposal actionable following a successful vote.
+            </p>
             <div className="duration">
               <label>
                 Duration (days):

@@ -62,9 +62,8 @@ class Tokens extends Component {
         </div>
 
         <p>
-          You can earn new NEC tokens in proportion to your maker volume (matched limit orders).
-          Tokens become harder to earn each month. Calculate how many you would earn
-          based on your trading volume.
+          Every 30-days trading fees on Ethfinex are pledged to NEC holders. 
+          Calculate the current value which your tokens entitle you to, or redeem your rewards from the smart contract now.
         </p>
 
         <div className="redeem-wrapper">
