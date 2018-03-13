@@ -15,10 +15,18 @@
     h2 {
       font-size: 48px;
       margin: 0;
+      @media screen and (max-width: 1365px) {
+        font-size: 40px;
+      }
+      @media screen and (max-width: 767px) {
+        font-size: 32px;
+      }
     }
 
     .meta {
-      margin-left: 50px;
+      @media screen and (min-width: 600px) {
+        margin-left: 50px;
+      }
 
       .voting-desc {
         margin: 32px 0 35px 0;
@@ -35,7 +43,12 @@
 
           .desc-section {
             font-size: 14px;
+            line-height: 23px;
             max-width: 380px;
+            @media screen and (max-width: 767px) {
+              line-height: 19px;
+              font-size: 12px;
+            }
           }
         }
       }
@@ -50,7 +63,9 @@
       }
       .nav {
         max-width: 900px;
-        border-bottom: 1px solid $color4;
+        @media screen and (min-width: 768px) {
+          border-bottom: 1px solid $color4;
+        }
         a {
           display: inline-block;
           line-height: 60px;
@@ -61,6 +76,9 @@
           transition: .2s color;
           border-bottom: 6px solid transparent;
           margin: 0 40px -3px 0;
+          @media screen and (max-width: 767px) {
+            display: block;
+          }
           &:hover {
             color: white;
           }
@@ -76,7 +94,9 @@
       }
     }
     .content {
-      margin-left: 100px;
+      @media screen and (min-width: 600px) {
+        margin-left: 100px;
+      }
       //max-height: calc(100vh - 200px);
       //overflow: auto;
       .submit-wrapper {

@@ -23,16 +23,57 @@ body {
 }
 
 nav {
-  display: flex;
-  justify-content: space-between;
-  padding: 30px 40px;
   position: absolute;
   width: 100%;
+  transition: .2s background-color;
+  padding: 15px 30px;
+  @media screen and (min-width: 768px) {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 40px;
+  }
+  .nav-links {
+    @media screen and (max-width: 767px) {
+      display: none;
+      a {
+        display: block;
+        text-align: right;
+        padding: 0 16px;
+      }
+    }
+  }
+  &.open {
+    background-color: $color1;
+    box-shadow: 0 0 5px 5px rgba($color2, .7);
+    .nav-links {
+      display: block !important;
+    }
+  }
   a {
     padding: 10px;
     color: $color4;
     line-height: 48px;
     text-decoration: none;
+    cursor: pointer;
+  }
+  .menu-opener-wrapper {
+    padding: 10px 5px 5px;
+    height: 40px;
+    text-align: right;
+    display: none;
+    float: right;
+    @media screen and (max-width: 767px) {
+      display: block;
+    }
+    a {
+      color: white;
+      transform: rotate(90deg);
+      padding: 10px;
+      display: inline-block;
+      font-size: 20px;
+      letter-spacing: 1px;
+      line-height: 8px;
+    }
   }
 }
 

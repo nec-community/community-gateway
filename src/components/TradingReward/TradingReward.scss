@@ -6,12 +6,20 @@
   h2 {
     font-size: 48px;
     margin: 0;
+    @media screen and (max-width: 1365px) {
+      font-size: 40px;
+    }
+    @media screen and (max-width: 767px) {
+      font-size: 32px;
+    }
   }
 
   .calculator-desc {
-    margin-top: 40px;
-    padding-left: 50px;
     display: flex;
+    @media screen and (min-width: 600px) {
+      margin-top: 40px;
+      padding-left: 50px;
+    }
 
 
     .line-indent {
@@ -27,13 +35,16 @@
 
     p {
       font-weight: normal;
-      margin: 0 50px 25px 50px;
       line-height: 23px;
       font-size: 14px;
       letter-spacing: 0.02em;
       width: 350px;
       @media screen and (max-width: 767px) {
-        margin: 0 10px;
+        line-height: 19px;
+        font-size: 12px;
+      }
+      @media screen and (min-width: 600px) {
+        margin: 0 50px 25px 50px;
       }
     }
   }

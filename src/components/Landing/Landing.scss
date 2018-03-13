@@ -2,54 +2,6 @@
 @import "../../common/components";
 @import "../../common/variables";
 
-.container {
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 30px;
-}
-
-@keyframes wave {
-  from {
-    transform: translateX(-50%)
-  }
-  to {
-    transform: translateX(0%)
-  }
-}
-
-.waves {
-  height: 200px;
-  overflow: hidden;
-  position: relative;
-  clear: both;
-  &.reverse {
-    transform: scaleX(-1) scaleY(-1);
-  }
-  &:before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    content: '';
-    display: block;
-    height: 200px;
-    width: 200%;
-    background: url('/images/wave1.png');
-    animation: wave 45s infinite linear;
-  }
-  &:after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    content: '';
-    display: block;
-    height: 200px;
-    width: 200%;
-    background: url('/images/wave2.png');
-    animation: wave 60s infinite linear;
-  }
-}
-
 .landing-wrapper {
   background-color: $color1;
   section {
@@ -61,8 +13,14 @@
     max-height: 900px;
     max-width: 1400px;
     margin: auto;
+    @media screen and (max-width: 1366px) {
+      background-size: cover;
+    }
     @media screen and (max-height: 900px) {
       min-height: 90vh;
+    }
+    @media screen and (max-height: 767px) {
+      padding: 100px 30px;
     }
     h1 {
       font-size: 70px;
@@ -77,8 +35,8 @@
       @media screen and (max-height: 900px) {
         margin: 100px 0;
       }
-      @media screen and (max-height: 800px) {
-        margin: 80px 0;
+      @media screen and (max-width: 767px) {
+        margin: 30px 0;
       }
       b {
         display: block;
@@ -121,6 +79,10 @@
         font-size: 18px;
         margin: 0;
         font-weight: normal;
+        @media screen and (max-width: 767px) {
+          line-height: 19px;
+          font-size: 12px;
+        }
       }
     }
     .vertical {
@@ -128,8 +90,12 @@
       transform: rotate(90deg);
       transform-origin: left top 0;
       font-size: 12px;
+      font-weight: 300;
       //margin-top: 10px;
       margin-left: 20px;
+      @media screen and (max-width: 767px) {
+        margin-top: 20vh !important;
+      }
     }
   }
   .statistics {
@@ -180,16 +146,20 @@
           }
 
           .content-sections {
-            line-height: 26px;
-            font-size: 14px;
+            line-height: 19px;
+            font-size: 12px;
             @media screen and (min-width: 768px) {
+              line-height: 23px;
+              font-size: 14px;
               display: flex;
               justify-content: space-between;
             }
 
             .content-section {
-              max-width: 360px;
-              padding: 10px;
+              @media screen and (min-width: 768px) {
+                max-width: 360px;
+                padding: 10px;
+              }
 
               a {
                 margin-left: 5px;

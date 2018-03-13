@@ -10,6 +10,12 @@ import { loginMetamask, fetchEthfinexData } from '../../actions/accountActions';
 import './App.scss';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      open: false,
+    }
+  }
   componentWillMount() {
     if (typeof web3 !== 'undefined') {
       this.props.loginMetamask(true);
@@ -28,12 +34,16 @@ class App extends Component {
               {this.props.notifMessage}
             </div>
           </div>
-          <nav>
+          <nav className={`${this.state.open ? 'open':''}`}>
             <div className="logo-wrapper">
               <img src="/images/logo.svg" alt="" />
               <span>Nectar.community</span>
             </div>
-            <div>
+
+            <div className="menu-opener-wrapper">
+              <a onClick={() => this.setState({open: !this.state.open})}>|||</a>
+            </div>
+            <div className="nav-links">
               <Link to="/">Home</Link>
               <Link to="/all">All Proposals</Link>
               <Link to="/submit">Submit a Proposal</Link>

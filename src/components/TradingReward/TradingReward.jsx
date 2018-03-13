@@ -52,9 +52,9 @@ class TradingReward extends Component {
             If your maker trading
             <div className="right-align">volume is: $
               <input
-                style={{ width: `${(this.state.input.toString().length * 19) + 10}px` }}
+                style={{ width: `${(this.state.input.toString().length * 19) + 30}px` }}
                 id="input"
-                type="text"
+                type="number"
                 value={this.state.input}
                 onChange={this.calculate}
                 min="0"

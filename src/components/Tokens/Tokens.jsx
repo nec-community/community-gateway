@@ -62,7 +62,7 @@ class Tokens extends Component {
         </div>
 
         <p>
-          Every 30-days trading fees on Ethfinex are pledged to NEC holders. 
+          Every 30-days trading fees on Ethfinex are pledged to NEC holders.
           Calculate the current value which your tokens entitle you to, or redeem your rewards from the smart contract now.
         </p>
 
@@ -73,14 +73,14 @@ class Tokens extends Component {
               <input
                 style={{
                   width: `${
-                    this.state.input.length > 8
-                      ? (this.state.input.toString().length * 14) + 10
-                      : (this.state.input.toString().length * 24) + 10
+                    this.state.input.length > 5
+                      ? (this.state.input.toString().length * 14) + 30
+                      : (this.state.input.toString().length * 24) + 30
                     }px`,
                 }}
-                className={`${this.state.input.length > 8 ? 'smaller' : ''}`}
+                className={`${this.state.input.length > 5 ? 'smaller' : ''}`}
                 id="input"
-                type="text"
+                type="number"
                 value={this.state.input}
                 onChange={this.calculate}
               />

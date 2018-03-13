@@ -29,12 +29,16 @@
 
 .login-wrapper {
   position: fixed;
-  min-width: 800px;
   width: 100%;
   padding: 80px 140px;
   top: 0;
   left: 0;
   z-index: 300;
+  max-height: 100vh;
+  overflow: auto;
+  @media screen and (max-width: 1100px) {
+    padding: 40px;
+  }
   .login-inner-wrapper {
     box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.82);
     background-color: $color2;
@@ -59,6 +63,14 @@
       justify-content: space-around;
       max-width: 600px;
       margin: auto;
+      @media screen and (max-width: 767px) {
+        flex-direction: column;
+        text-align: center;
+        border: 0;
+        a {
+          margin: 0 !important;
+        }
+      }
       a {
         display: inline-block;
         line-height: 60px;

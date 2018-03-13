@@ -1,3 +1,9 @@
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
 
 .notification-wrapper {
   position: fixed;
@@ -15,6 +21,7 @@
   .notification-inner-wrapper {
     display: inline-block;
     width: 500px;
+    max-width: 100%;
     min-height: 40px;
     font-size: 16px;
     font-weight: bold;
@@ -31,5 +38,46 @@
       background-color: #d33133;
       color: white;
     }
+  }
+}
+
+@keyframes wave {
+  from {
+    transform: translateX(-50%)
+  }
+  to {
+    transform: translateX(0%)
+  }
+}
+
+.waves {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  clear: both;
+  &.reverse {
+    transform: scaleX(-1) scaleY(-1);
+  }
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    display: block;
+    height: 200px;
+    width: 200%;
+    background: url('/images/wave1.png');
+    animation: wave 45s infinite linear;
+  }
+  &:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    display: block;
+    height: 200px;
+    width: 200%;
+    background: url('/images/wave2.png');
+    animation: wave 60s infinite linear;
   }
 }
