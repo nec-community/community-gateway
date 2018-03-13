@@ -168,7 +168,7 @@ contract ProposalManager is Ownable {
         _hasBalance = (p.token == 0x0) ? false : (MiniMeToken(p.token).balanceOf(msg.sender) > 0);
     }
 
-    function denyProposal(uint _proposalId) public {
+    function denyProposal(uint _proposalId) public onlyAdmins {
         require(!proposals[_proposalId].approved);
 
         proposals[_proposalId].denied = true;
