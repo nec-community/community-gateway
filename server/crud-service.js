@@ -4,11 +4,9 @@ const Peer = Grenache.PeerRPCServer;
 const Wasteland = require('./wasteland');
 const GrenacheBackend = require('./wasteland/backends/Grenache');
 const ed = require('ed25519-supercop');
+const config = require('./config');
 
-const SERVICE_PORT = 2008;
-const GRAPE_URL = 'http://localhost:30001';
-
-const link = new Link({ grape: GRAPE_URL });
+const link = new Link({ grape: config.GRAPE_URL });
 link.start();
 
 const peer = new Peer(link, {
@@ -26,9 +24,9 @@ const wl = new Wasteland( { backend: gb } );
 let seq = 1;
 
 const service = peer.transport('server');
-service.listen(SERVICE_PORT);
+service.listen(config.SERVICE_PORT);
 
-console.log(`nectarcommunitycrud service listening on ${SERVICE_PORT}`);
+console.log(`nectarcommunitycrud service listening on ${config.SERVICE_PORT}`);
 
 setInterval(function () {
   link.announce('nectarcommunitycrud', service.port, {})

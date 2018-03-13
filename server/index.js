@@ -1,9 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
 const express = require('express');
 const app = express();
-const DB_PATH = 'backup.db';
-const SERVER_PORT = 3000;
-const GRAPE_URL = 'http://localhost:30001';
+const config = require('./config');
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -22,7 +20,7 @@ const Grenache = require('grenache-nodejs-http');
 const Link = require('grenache-nodejs-link');
 const Peer = Grenache.PeerRPCClient;
 
-const link = new Link({ grape: GRAPE_URL });
+const link = new Link({ grape: config.GRAPE_URL });
 link.start();
 
 const peer = new Peer(link, {});
@@ -38,7 +36,7 @@ app.post('/put', (req, res) => {
     if (err) console.error(err);
     res.set('Access-Control-Allow-Origin', '*');
     res.send(data);
-    let db = new sqlite3.Database(DB_PATH);
+    let db = new sqlite3.Database(config.DB_PATH);
     db.run(
       `INSERT INTO proposals(email, description, hash) VALUES (?, ?, ?)`,
       [req.body.email, req.body.data, data]
@@ -68,4 +66,4 @@ app.post('/get', (req, res) => {
   });
 });
 
-app.listen(SERVER_PORT, () => console.log(`Server listening on ${SERVER_PORT}`));
+app.listen(config.SERVER_PORT, () => console.log(`Server listening on ${config.SERVER_PORT}`));
