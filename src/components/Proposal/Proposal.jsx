@@ -86,13 +86,12 @@ class Proposal extends Component {
                 <div className="help">
                   <h3>How to vote?</h3>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Each proposal has its own token which is created at the start of the vote. If you had
+                    250 NEC when the vote began you will also have 250 voting tokens, which are spent to 
+                    cast your vote as either 'Yes' or 'No', and then destroyed. This ensures that it is only
+                    possible to vote for each proposal once. The voting tokens can be transferred like any
+                    other ERC20 compatible token, so if you wish to delegate them to someone you trust to vote
+                    on your behalf you may do so.
                   </p>
                 </div>
               </div>
