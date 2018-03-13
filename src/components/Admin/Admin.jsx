@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { getNonApprovedProposals } from '../../actions/proposalActions';
 import './Admin.scss';
 import eth from '../../services/ethereumService'
@@ -14,6 +14,10 @@ class Admin extends Component {
   render() {
     return (
       <div className="admin">
+        {
+          !this.props.isAdmin &&
+          <Redirect to="/"/>
+        }
         <div className="container">
           <h1>Submitted Proposals</h1>
           <div className="active-section">
@@ -21,24 +25,17 @@ class Admin extends Component {
               this.props.proposals.map(proposal => (
                 <div key={proposal.id} className="proposal-wrapper">
                   <div className="details-wrapper">
-                    <Link
-                      className="title"
-                      to={`/proposal/${proposal.id}`}
-                    >
+                    <p className="title">
                       {proposal.title}
-                    </Link>
+                    </p>
                     <p className="duration">Duration: {proposal.duration} days</p>
                     <p className="proposer">Submitted by: {proposal._proposer}</p>
                     <p className="description">{proposal.description}</p>
-                    <a className="vote-wrapper" onClick={() =>
-                        eth.approveProposal(proposal.id, this.props.accountType
-                      )}>
+                    <a onClick={() => eth.approveProposal(proposal.id, this.props.accountType)}>
                       Approve
                     </a>
-                    {' '}
-                    <a className="vote-wrapper" onClick={() =>
-                        eth.denyProposal(proposal.id, this.props.accountType
-                      )}>
+                    <br />
+                    <a onClick={() => eth.denyProposal(proposal.id, this.props.accountType)}>
                       Deny
                     </a>
                   </div>
@@ -57,12 +54,14 @@ Admin.propTypes = {
   proposals: PropTypes.array.isRequired,
   account: PropTypes.string.isRequired,
   accountType: PropTypes.string.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   proposals: state.proposal.nonApprovedProposals,
   account: state.account.account,
   accountType: state.account.accountType,
+  isAdmin: state.account.isAdmin,
 });
 
 export default connect(mapStateToProps, {

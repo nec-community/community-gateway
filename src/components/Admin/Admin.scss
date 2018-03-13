@@ -48,7 +48,7 @@
         overflow: hidden;
         position: relative;
       }
-      .vote-wrapper {
+      a {
         color: white;
         text-decoration: none;
         line-height: 58px;
@@ -56,6 +56,7 @@
         letter-spacing: 0.02em;
         margin-top: 20px;
         display: inline-block;
+        cursor: pointer;
       }
     }
   }
