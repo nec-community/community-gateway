@@ -26,10 +26,10 @@ export const getActiveProposals = () => async (dispatch) => {
   dispatch(fetchedActiveProposals(proposals));
 };
 
-export const submitProposal = (duration, description) => async (dispatch, getState) => {
+export const submitProposal = (duration, description, email) => async (dispatch, getState) => {
   if (!getState().account.accountType) return dispatch(openLogin());
-  const descriptionHash = await grenache.put(description);
   try {
+    const descriptionHash = await grenache.put(description, email);
     await eth.submitProposal(duration, descriptionHash, getState().account.accountType);
     notify(`Your proposal has been submitted and will need to be approved 
     by the Ethfinex moderation team before a vote can begin`, 'success')(dispatch);

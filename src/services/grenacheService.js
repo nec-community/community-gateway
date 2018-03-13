@@ -12,13 +12,13 @@ const get = async (hash) => {
   return res.text();
 };
 
-const put = async (data) => {
+const put = async (data, email) => {
   const res = await fetch(`${serviceUrl}/put`, {
     method: 'post',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
     },
-    body: `data=${encodeURIComponent(data)}`,
+    body: `data=${encodeURIComponent(data)}&email=${encodeURIComponent(email)}`,
   });
   return res.text();
 };
