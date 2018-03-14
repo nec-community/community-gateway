@@ -13,8 +13,8 @@ const INITIAL_STATE = {
   accountBalance: '',
   accountError: '',
   isAdmin: false,
-  tokenBalance: 'loading',
-  tokenPayout: 'loading',
+  tokenBalance: '0',
+  tokenPayout: '0',
   ethfinexData: {
     ethPrice: 0,
     necPrice: 0,
@@ -34,6 +34,7 @@ export default (state = INITIAL_STATE, action) => {
         account: action.account,
         accountType: action.accountType,
         accountBalance: action.balance,
+        tokenBalance: action.necBalance,
         accountError: '',
         isAdmin: action.isAdmin,
         loginOpen: false,
@@ -44,6 +45,7 @@ export default (state = INITIAL_STATE, action) => {
         account: '',
         accountType: '',
         accountBalance: '',
+        tokenBalance: '',
         isAdmin: false,
         accountError: action.error,
       };

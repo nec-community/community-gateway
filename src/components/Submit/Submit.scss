@@ -7,6 +7,13 @@
     margin: 100px 0 100px;
     font-weight: 300;
   }
+  .error {
+    text-align: center;
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #d33133;
+    color: white;
+  }
   .form-wrapper {
     background-color: $color4;
     padding: 100px 0;
@@ -30,6 +37,14 @@
         font-weight: 300;
         outline: none;
         padding: 5px;
+      }
+      input[type="text"] {
+        width: 100%;
+        margin: 0;
+        padding: 10px 0;
+        &::placeholder {
+          color: rgba(white, .5);
+        }
       }
       textarea {
         display: block;
@@ -80,12 +95,6 @@
             background: lighten(#041824, 2%);
             box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
           }
-        }
-        .submit-error {
-          padding: 10px;
-          border-radius: 3px;
-          background-color: #d33133;
-          color: white;
         }
       }
     }

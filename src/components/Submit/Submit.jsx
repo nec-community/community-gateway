@@ -9,6 +9,7 @@ class Submit extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      title: '',
       description: '',
       durationInDays: 30,
       email: '',
@@ -31,8 +32,11 @@ class Submit extends Component {
   submitProposal() {
     this.setState({ submitError: '' });
 
-    const { description, durationInDays, email } = this.state;
+    const { title, description, durationInDays, email } = this.state;
 
+    if (!title) {
+      return this.setState({ submitError: 'Title required.' });
+    }
     if (!description) {
       return this.setState({ submitError: 'Description required.' });
     }
@@ -40,7 +44,7 @@ class Submit extends Component {
       return this.setState({ submitError: 'Proposal must last between 7 and 45 days.' });
     }
 
-    this.props.submitProposal(durationInDays, description, email);
+    this.props.submitProposal(durationInDays, `${title}\n${description}`, email);
   }
 
   render() {
@@ -51,10 +55,22 @@ class Submit extends Component {
         </div>
         <div className="form-wrapper">
           <div className="form-container">
+
+            {
+              this.props.tokenBalance === '0' &&
+              <p className="error">NEC balance required on your account to submit a proposal</p>
+            }
+
+            <input
+              name="title"
+              type="text"
+              value={this.state.title}
+              placeholder="Proposal title"
+              onChange={this.handleInputChange}
+            />
             <textarea
               name="description"
               id="description"
-              type="text"
               value={this.state.description}
               onChange={this.handleInputChange}
               required
@@ -96,10 +112,12 @@ class Submit extends Component {
             </div>
 
             <div className="submit-wrapper">
-              <button onClick={this.submitProposal}>Submit proposal</button>
+              <button onClick={this.submitProposal} disabled={this.props.tokenBalance === '0'}>
+                Submit proposal
+              </button>
               {
                 this.state.submitError &&
-                <p className="submit-error">{this.state.submitError}</p>
+                <p className="error">{this.state.submitError}</p>
               }
             </div>
           </div>
@@ -109,11 +127,15 @@ class Submit extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  tokenBalance: state.account.tokenBalance,
+});
+
 Submit.propTypes = {
   submitProposal: PropTypes.func.isRequired,
+  tokenBalance: PropTypes.string.isRequired,
 };
 
-
-export default connect(null, {
+export default connect(mapStateToProps, {
   submitProposal,
 })(Submit);

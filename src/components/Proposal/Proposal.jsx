@@ -76,18 +76,25 @@ class Proposal extends Component {
                   </div>
                 </div>
 
-                <p className="vote-wrapper">
-                  {'Vote '}
-                  <a onClick={() => this.props.voteForProposal(proposal.id, true)}>Yes</a>
-                  {' '}
-                  <a onClick={() => this.props.voteForProposal(proposal.id, false)}>No</a>
-                </p>
+
+                {
+                  this.props.tokenBalance === '0' &&
+                  <p className="vote-wrapper error">NEC balance required on your account to submit a proposal</p>
+                }
+
+                {
+                  this.props.tokenBalance !== '0' &&
+                  <p className="vote-wrapper">
+                    <a onClick={() => this.props.voteForProposal(proposal.id, true)}>Vote Yes</a>
+                    <a onClick={() => this.props.voteForProposal(proposal.id, false)}>Vote No</a>
+                  </p>
+                }
 
                 <div className="help">
                   <h3>How to vote?</h3>
                   <p>
                     Each proposal has its own token which is created at the start of the vote. If you had
-                    250 NEC when the vote began you will also have 250 voting tokens, which are spent to 
+                    250 NEC when the vote began you will also have 250 voting tokens, which are spent to
                     cast your vote as either 'Yes' or 'No', and then destroyed. This ensures that it is only
                     possible to vote for each proposal once. The voting tokens can be transferred like any
                     other ERC20 compatible token, so if you wish to delegate them to someone you trust to vote
@@ -95,7 +102,7 @@ class Proposal extends Component {
                   </p>
                 </div>
               </div>
-              <div className="remaining"></div>
+              <div className="remaining" />
             </div>
           </div>
         }
@@ -104,6 +111,10 @@ class Proposal extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  tokenBalance: state.account.tokenBalance,
+});
+
 Proposal.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -111,8 +122,9 @@ Proposal.propTypes = {
     }).isRequired,
   }).isRequired,
   voteForProposal: PropTypes.func.isRequired,
+  tokenBalance: PropTypes.string.isRequired,
 };
 
-export default connect(null, {
+export default connect(mapStateToProps, {
   voteForProposal,
 })(Proposal);

@@ -12,11 +12,12 @@ import config from '../constants/config.json';
 import { nameOfNetwork, log, toDecimal } from '../services/utils';
 import { notify, notifyError } from './notificationActions';
 
-export const accountSuccess = (account, type, balance, isAdmin) => ({
+export const accountSuccess = (account, type, balance, necBalance, isAdmin) => ({
   type: GET_ACCOUNT_SUCCESS,
   account,
   accountType: type,
   balance,
+  necBalance,
   isAdmin,
 });
 
@@ -37,8 +38,9 @@ export const loginMetamask = silent => async (dispatch, getState) => {
       log(`Metamask account found ${account}`);
       notify(`Metamask account found ${account}`, 'success')(dispatch);
       const balance = await ethService.getBalance(account);
+      const necBalance = await ethService.getTokenBalance(account);
       const isAdmin = await ethService.isAdmin(account);
-      dispatch(accountSuccess(account, 'metamask', balance, isAdmin));
+      dispatch(accountSuccess(account, 'metamask', balance, necBalance, isAdmin));
     }
   } catch (err) {
     ethService.setupWeb3();
@@ -55,8 +57,9 @@ export const loginLedger = path => async (dispatch) => {
     const account = await ethService.ledgerLogin(path);
     log(`Ledger account found ${account}`);
     const balance = await ethService.getBalance(account);
+    const necBalance = await ethService.getTokenBalance(account);
     const isAdmin = await ethService.isAdmin(account);
-    dispatch(accountSuccess(account, 'ledger', balance, isAdmin));
+    dispatch(accountSuccess(account, 'ledger', balance, necBalance, isAdmin));
     notify(`Ledger account found ${account}`, 'success')(dispatch);
   } catch (err) {
     if (err.message) {
@@ -77,8 +80,9 @@ export const loginKeystore = (keystoreJson, password) => async (dispatch) => {
     const account = keystore.address;
     log(`Keystore account found ${account}`);
     const balance = await ethService.getBalance(account);
+    const necBalance = await ethService.getTokenBalance(account);
     const isAdmin = await ethService.isAdmin(account);
-    dispatch(accountSuccess(account, 'keystore', balance, isAdmin));
+    dispatch(accountSuccess(account, 'keystore', balance, necBalance, isAdmin));
     notify(`Keystore account found ${account}`, 'success')(dispatch);
   } catch (err) {
     dispatch(accountError(err.message));
