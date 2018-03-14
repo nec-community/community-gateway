@@ -273,6 +273,22 @@ const vote = async (id, vote, accountType) => {
   });
 };
 
+const hasUserVoted = async (proposalId, address) => {
+  if (!address) return false;
+  const proposalContract = await getProposalContract();
+  const events = await proposalContract.getPastEvents('Vote', {
+    filter: {
+      idProposal: proposalId.toString(),
+      _voter: address
+    },
+    fromBlock: 0,
+    toBlock: 'latest'
+  });
+  log(`User ${address} has voted on proposal ${proposalId} ${events.length} times`);
+  log(events);
+  return events.length > 0 && (events[0].returnValues.yes ? 'Yes' : 'No');
+};
+
 const getProposalDetails = async (id) => {
   const proposalContract = await getProposalContract();
   const details = await proposalContract.methods.proposal(id).call();
@@ -417,6 +433,7 @@ export default {
   getActiveProposals,
   getNonApprovedProposals,
   vote,
+  hasUserVoted,
   calculateNecReward,
   burnNec,
   fetchData,

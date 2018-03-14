@@ -12,21 +12,30 @@ class Proposal extends Component {
 
     this.state = {
       proposal: {},
+      voted: true,
     };
   }
 
   async componentWillMount() {
     const { match: { params: { proposalId } } } = this.props;
     const proposal = await eth.getProposalDetails(proposalId);
-    this.setState({ proposal });
+    const voted = this.props.account && await eth.hasUserVoted(proposal.id, this.props.account);
+    this.setState({
+      proposal,
+      voted,
+    });
   }
 
   async componentWillUpdate(nextProps) {
     const proposalId = nextProps.match.params.proposalId;
     const oldProposalId = this.props.match.params.proposalId;
-    if (oldProposalId !== proposalId) {
+    if (oldProposalId !== proposalId || nextProps.account !== this.props.account) {
       const proposal = await eth.getProposalDetails(proposalId);
-      this.setState({ proposal });
+      const voted = await eth.hasUserVoted(proposal.id, this.props.account);
+      this.setState({
+        proposal,
+        voted,
+      });
     }
   }
 
@@ -84,10 +93,16 @@ class Proposal extends Component {
 
                 {
                   this.props.tokenBalance !== '0' &&
+                  !this.state.voted &&
                   <p className="vote-wrapper">
                     <a onClick={() => this.props.voteForProposal(proposal.id, true)}>Vote Yes</a>
                     <a onClick={() => this.props.voteForProposal(proposal.id, false)}>Vote No</a>
                   </p>
+                }
+
+                {
+                  this.state.voted &&
+                  <p className="voted">You voted { this.state.voted }.</p>
                 }
 
                 <div className="help">
@@ -113,6 +128,7 @@ class Proposal extends Component {
 
 const mapStateToProps = state => ({
   tokenBalance: state.account.tokenBalance,
+  account: state.account.account,
 });
 
 Proposal.propTypes = {
@@ -123,6 +139,7 @@ Proposal.propTypes = {
   }).isRequired,
   voteForProposal: PropTypes.func.isRequired,
   tokenBalance: PropTypes.string.isRequired,
+  account: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, {

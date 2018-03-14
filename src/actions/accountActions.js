@@ -67,7 +67,6 @@ export const loginLedger = path => async (dispatch) => {
       return notify(err.message, 'error')(dispatch);
     }
     if (err === 'Invalid status 6801') err += ' - Ledger possibly locked';
-    if (err === 'Invalid status 6985') err += ' - User denied tx';
     dispatch(accountError(err));
     notify(err, 'error')(dispatch);
   }

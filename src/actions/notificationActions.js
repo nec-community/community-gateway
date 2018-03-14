@@ -27,5 +27,6 @@ export const notifyError = err => (dispatch) => {
     message = message.substr(message.indexOf('MetaMask'));
     message = message.substr(0, message.indexOf('\n'));
   }
+  if (message === 'Invalid status 6985') message += ' - User denied tx';
   notify(message, 'error')(dispatch);
 };
