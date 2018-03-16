@@ -1,0 +1,4 @@
+[submodule "server/wasteland"]
+	path = server/wasteland
+	url = https://github.com/bitfinexcom/wasteland.git
+	branch = master
