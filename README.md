@@ -16,7 +16,7 @@ Proposals are submitted by holders of NEC tokens, managed by `ProposalManager.so
 
 Once a proposal has been accepted by an admin, it triggers a clone of the NEC token to be created, giving all token holders a matching balance of voting tokens for the proposal. When a user casts their vote their tokens are destroyed.
 
-![Example Proposal Screenshot](/screenshots/proposal.jpg?raw=true "Example Proposal")
+![Example Proposal Screenshot](/proposal.jpg?raw=true "Example Proposal")
 
 ## Prerequisites / First time setup
 
