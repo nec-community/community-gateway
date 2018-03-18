@@ -58,7 +58,7 @@ contract ProposalManager is Ownable {
         require(_duration <= MAX_PROPOSAL_DURATION);
 
         uint amount = MiniMeToken(nectarToken).balanceOf(msg.sender);
-        assert(amount > 0); // user can't submit proposal if doesn't own any tokens
+        require(amount > 0); // user can't submit proposal if doesn't own any tokens
 
         _proposalId = proposals.length;
         proposals.length++;
@@ -103,12 +103,11 @@ contract ProposalManager is Ownable {
     function vote(uint _proposalId, bool _yes) public {
         require(_proposalId < proposals.length);
         require(checkIfCurrentlyActive(_proposalId));
-        require(!proposals[_proposalId].denied);
         
         Proposal memory p = proposals[_proposalId];
 
         uint amount = MiniMeToken(p.token).balanceOf(msg.sender);      
-        assert(amount > 0);
+        require(amount > 0);
 
         require(MiniMeToken(p.token).transferFrom(msg.sender, address(this), amount));
 
