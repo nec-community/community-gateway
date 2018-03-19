@@ -4,7 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
-// require("babel-polyfill");
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './src/index.html',
@@ -13,7 +12,6 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 module.exports = {
-  // entry: ['babel-polyfill', './src/index.jsx'],
   entry: './src/index.jsx',
   devtool: 'inline-source-map',
   node: {
@@ -31,10 +29,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.node$/,
-        use: 'raw-loader'
-      },
-      { test: /\.(js|jsx)$/, loaders:[
+        test: /\.(js|jsx)$/, loaders:[
           'babel-loader',
           {
             loader: 'eslint-loader',
@@ -61,7 +56,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: 'style-loader!css-loader?modules&importLoaders=2&sourceMap&localIdentName=[local]!autoprefixer-loader?browsers=last 2 version!sass-loader?outputStyle=expanded&sourceMap'
+        loader: 'style-loader!css-loader?modules&importLoaders=2&sourceMap&localIdentName=[local]!sass-loader?outputStyle=expanded&sourceMap'
       }
     ]
   },

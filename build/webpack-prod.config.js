@@ -22,10 +22,6 @@ module.exports = {
   },
   module: {
     loaders: [
-      {
-        test: /\.node$/,
-        use: 'raw-loader'
-      },
       { test: /\.(js|jsx)$/, loaders: ['babel-loader'], exclude: /node_modules/ },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
@@ -48,7 +44,7 @@ module.exports = {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader?modules&importLoaders=2&localIdentName=[local]&sourceMap&minimize=true', 'autoprefixer-loader?browsers=last 2 version', 'sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true']
+          use: ['css-loader?modules&importLoaders=2&localIdentName=[local]&sourceMap&minimize=true', 'sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true']
         })
       }
     ]
