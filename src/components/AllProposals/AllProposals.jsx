@@ -28,7 +28,7 @@ class AllProposals extends Component {
                         <div className="number">{proposal.remainingDays}</div>
                         <div>
                           <div className="days">
-                            day{proposal.remainingDays % 10 === 1 ? '' : 's'}
+                            day{proposal.remainingDays === 1 ? '' : 's'}
                           </div>
                           <div className="more">remaining</div>
                         </div>
