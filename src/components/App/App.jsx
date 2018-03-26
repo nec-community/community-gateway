@@ -36,7 +36,9 @@ class App extends Component {
           </div>
           <nav className={`${this.state.open ? 'open' : ''}`}>
             <div className="logo-wrapper">
-              <img src="/images/logo.svg" alt="" />
+              <a target="_blank" href="https://www.ethfinex.com">
+                <img src="/images/logo.svg" alt="" />
+              </a>
               <span>Nectar.community</span>
             </div>
 
