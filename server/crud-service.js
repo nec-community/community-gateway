@@ -21,7 +21,6 @@ const gb = new GrenacheBackend({
 });
 
 const wl = new Wasteland( { backend: gb } );
-let seq = 1;
 
 const service = peer.transport('server');
 service.listen(config.SERVICE_PORT);
@@ -35,10 +34,8 @@ setInterval(function () {
 service.on('request', (rid, key, payload, handler) => {
     payload = JSON.parse(payload);
     if (payload.action === 'put') {
-        let opts = { seq: seq, salt: 'apple-salt' };
-        seq++;
         console.log(payload);
-        wl.put(payload.text, opts, (err, hash) => {
+        wl.put(payload.text, {}, (err, hash) => {
             if (err) throw err;
             handler.reply(null, hash)
         })
