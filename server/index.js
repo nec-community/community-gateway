@@ -29,12 +29,16 @@ peer.init();
 app.post('/put', (req, res) => {
   console.log(req.body);
   const data = req.body.data;
-  peer.request('nectarcommunitycrud', JSON.stringify({
+  if (!data) return res.status(400).send('Data not sent');
+  peer.request('nectarcommunitycrud', {
     action: 'put',
     text: data
-  }), { timeout: 10000 }, (err, data) => {
-    if (err) console.error(err);
+  }, { timeout: 10000 }, (err, data) => {
     res.set('Access-Control-Allow-Origin', '*');
+    if (err)  {
+      console.error(err);
+      return res.status(500).send(err.message || err);
+    }
     res.send(data);
     let db = new sqlite3.Database(config.DB_PATH);
     db.run(
@@ -48,12 +52,16 @@ app.post('/put', (req, res) => {
 app.post('/get', (req, res) => {
   console.log(req.body);
   const hash = req.body.hash;
+  if (!hash) return res.status(400).send('Hash not sent');
   peer.request('nectarcommunitycrud', JSON.stringify({
     action: 'get',
     hash: hash
   }), { timeout: 10000 }, (err, data) => {
-    if (err) console.error(err);
     res.set('Access-Control-Allow-Origin', '*');
+    if (err)  {
+      console.error(err);
+      return res.status(500).send(err.message || err);
+    }
     if (data) return res.send(data.v);
     console.error(`Data for hash ${hash} not found on grenache`);
     let db = new sqlite3.Database(config.DB_PATH);

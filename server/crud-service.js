@@ -32,17 +32,16 @@ setInterval(function () {
 }, 1000);
 
 service.on('request', (rid, key, payload, handler) => {
-    payload = JSON.parse(payload);
-    if (payload.action === 'put') {
-        console.log(payload);
-        wl.put(payload.text, {}, (err, hash) => {
-            if (err) throw err;
-            handler.reply(null, hash)
-        })
-    } else {
-        wl.get(payload.hash, {}, (err, data) => {
-            if (err) throw err;
-            handler.reply(null, data)
-        })
-    }
+  if (typeof payload === 'string') payload = JSON.parse(payload);
+  if (payload.action === 'put') {
+      wl.put(payload.text, {}, (err, hash) => {
+        if (err) return handler.reply(err);
+        handler.reply(null, hash);
+      })
+  } else {
+      wl.get(payload.hash, {}, (err, data) => {
+        if (err) return handler.reply(err);
+        handler.reply(null, data);
+      })
+  }
 });
