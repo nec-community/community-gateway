@@ -14,10 +14,10 @@ const peer = new Peer(link, {
 peer.init();
 
 const gb = new GrenacheBackend({
-    transport: link,
+  transport: link,
 });
 
-const wl = new Wasteland( { backend: gb } );
+const wl = new Wasteland({ backend: gb });
 
 const service = peer.transport('server');
 service.listen(config.SERVICE_PORT);
@@ -25,20 +25,26 @@ service.listen(config.SERVICE_PORT);
 console.log(`nectarcommunitycrud service listening on ${config.SERVICE_PORT}`);
 
 setInterval(function () {
-  link.announce('nectarcommunitycrud', service.port, {})
+  link.announce('nectarcommunitycrud', service.port, {});
 }, 1000);
 
 service.on('request', (rid, key, payload, handler) => {
-  if (typeof payload === 'string') payload = JSON.parse(payload);
+  if (typeof payload === 'string') {
+    try {
+      payload = JSON.parse(payload);
+    } catch (e) {
+      return handler.reply(new Error('Invalid JSON sent'));
+    }
+  }
   if (payload.action === 'put') {
     wl.put(payload.text, {}, (err, hash) => {
       if (err) return handler.reply(err);
       handler.reply(null, hash);
-    })
+    });
   } else {
     wl.get(payload.hash, {}, (err, data) => {
       if (err) return handler.reply(err);
       handler.reply(null, data);
-    })
+    });
   }
 });

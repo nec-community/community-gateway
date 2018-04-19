@@ -32,17 +32,17 @@ app.post('/put', (req, res) => {
   if (!data) return res.status(400).send('Data not sent');
   peer.request('nectarcommunitycrud', {
     action: 'put',
-    text: data
+    text: data,
   }, { timeout: 10000 }, (err, data) => {
     res.set('Access-Control-Allow-Origin', '*');
-    if (err)  {
+    if (err) {
       console.error(err);
       return res.status(500).send(err.message || err);
     }
     res.send(data);
-    let db = new sqlite3.Database(config.DB_PATH);
+    const db = new sqlite3.Database(config.DB_PATH);
     db.run(
-      `INSERT INTO proposals(email, description, hash) VALUES (?, ?, ?)`,
+      'INSERT INTO proposals(email, description, hash) VALUES (?, ?, ?)',
       [req.body.email, req.body.data, data]
     );
     db.close();
@@ -53,19 +53,19 @@ app.post('/get', (req, res) => {
   console.log(req.body);
   const hash = req.body.hash;
   if (!hash) return res.status(400).send('Hash not sent');
-  peer.request('nectarcommunitycrud', JSON.stringify({
+  peer.request('nectarcommunitycrud', {
     action: 'get',
-    hash: hash
-  }), { timeout: 10000 }, (err, data) => {
+    hash,
+  }, { timeout: 10000 }, (err, data) => {
     res.set('Access-Control-Allow-Origin', '*');
-    if (err)  {
+    if (err) {
       console.error(err);
       return res.status(500).send(err.message || err);
     }
     if (data) return res.send(data.v);
     console.error(`Data for hash ${hash} not found on grenache`);
-    let db = new sqlite3.Database(config.DB_PATH);
-    db.get(`SELECT description FROM proposals WHERE hash = ?`, [hash], (err, row) => {
+    const db = new sqlite3.Database(config.DB_PATH);
+    db.get('SELECT description FROM proposals WHERE hash = ?', [hash], (err, row) => {
       if (row) return res.send(row.description);
       res.send('Data for hash not found');
       console.error(`Data for hash ${hash} not found in backup db`);
