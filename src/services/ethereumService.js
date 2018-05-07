@@ -279,10 +279,10 @@ const hasUserVoted = async (proposalId, address) => {
   const events = await proposalContract.getPastEvents('Vote', {
     filter: {
       idProposal: proposalId.toString(),
-      _voter: address
+      _voter: address,
     },
     fromBlock: 0,
-    toBlock: 'latest'
+    toBlock: 'latest',
   });
   log(`User ${address} has voted on proposal ${proposalId} ${events.length} times`);
   log(events);

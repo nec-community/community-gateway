@@ -3,10 +3,12 @@ import { combineReducers } from 'redux';
 import account from './accountReducer';
 import notification from './notificationReducer';
 import proposal from './proposalReducer';
+import token from './tokenReducer';
 
 export default combineReducers({
   routing: routerReducer,
   account,
   notification,
   proposal,
+  token,
 });
