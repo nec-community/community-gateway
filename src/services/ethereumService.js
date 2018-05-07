@@ -276,9 +276,9 @@ const vote = async (id, vote, accountType) => {
   });
 };
 
-const voteTokens = async (id, vote, accountType) => {
+const voteTokens = async (tokenId, accountType) => {
   const tokenProposalContract = await getTokenProposalContract();
-  const contractCall = tokenProposalContract.methods.vote(id, vote);
+  const contractCall = tokenProposalContract.methods.vote(tokenId);
   if (accountType === 'ledger') return signAndSendLedger(contractCall);
   if (accountType === 'keystore') return signAndSendKeystore(contractCall);
   const account = await getAccount();

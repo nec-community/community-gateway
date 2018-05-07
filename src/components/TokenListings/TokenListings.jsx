@@ -65,7 +65,7 @@ class TokenListings extends Component {
                       <div className="number">{`${Math.floor(token.yesPercentage)}`}</div>
                       <div className="votes-number">{token.totalYes} NEC</div>
                       <p className="vote-wrapper">
-                        <a onClick={() => this.props.voteForToken(token.id, true)}>VOTE</a>
+                        <a onClick={() => this.props.voteForToken(token.id)}>VOTE</a>
                       </p>
                     </div>
                   </div>
