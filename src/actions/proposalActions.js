@@ -1,7 +1,7 @@
 import {
   FETCHED_PROPOSALS,
   FETCHED_ACTIVE_PROPOSALS,
-  FETCHED_NONAPPROVED_PROPOSALS
+  FETCHED_NONAPPROVED_PROPOSALS,
 } from './actionTypes';
 import eth from '../services/ethereumService';
 import grenache from '../services/grenacheService';
@@ -46,7 +46,7 @@ export const submitProposal = (duration, description, email) => async (dispatch,
   try {
     const descriptionHash = await grenache.put(description, email);
     await eth.submitProposal(duration, descriptionHash, getState().account.accountType);
-    notify(`Your proposal has been submitted and will need to be approved 
+    notify(`Your proposal has been submitted and will need to be approved
     by the Ethfinex moderation team before a vote can begin`, 'success')(dispatch);
     // go to home
   } catch (err) {

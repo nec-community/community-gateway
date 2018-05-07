@@ -66,6 +66,9 @@ const getNetwork = () => window._web3.eth.net.getId();
 const getProposalContract = async () =>
   new window._web3.eth.Contract(config.proposalContract.abi, config.proposalContract.address);
 
+const getTokenProposalContract = async () =>
+  new window._web3.eth.Contract(config.tokenProposalContract.abi, config.tokenProposalContract.address);
+
 const getTokenContract = async () =>
   new window._web3.eth.Contract(config.tokenContract.abi, config.tokenContract.address);
 
@@ -273,6 +276,17 @@ const vote = async (id, vote, accountType) => {
   });
 };
 
+const voteTokens = async (id, vote, accountType) => {
+  const tokenProposalContract = await getTokenProposalContract();
+  const contractCall = tokenProposalContract.methods.vote(id, vote);
+  if (accountType === 'ledger') return signAndSendLedger(contractCall);
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall);
+  const account = await getAccount();
+  return contractCall.send({
+    from: account,
+  });
+};
+
 const hasUserVoted = async (proposalId, address) => {
   if (!address) return false;
   const proposalContract = await getProposalContract();
@@ -433,6 +447,7 @@ export default {
   getActiveProposals,
   getNonApprovedProposals,
   vote,
+  voteTokens,
   hasUserVoted,
   calculateNecReward,
   burnNec,

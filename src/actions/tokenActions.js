@@ -35,7 +35,7 @@ export const getTokenVotes = () => async (dispatch) => {
 export const voteForToken = (id, vote) => async (dispatch, getState) => {
   if (!getState().account.accountType) return dispatch(openLogin());
   try {
-    await eth.vote(id, vote, getState().account.accountType);
+    await eth.voteTokens(id, vote, getState().account.accountType);
     notify('Thanks for voting!', 'success')(dispatch);
   } catch (err) {
     notifyError(err)(dispatch);
