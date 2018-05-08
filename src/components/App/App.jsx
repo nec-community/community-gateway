@@ -53,6 +53,7 @@ class App extends Component {
               <Link to="/">Home</Link>
               <Link to="/all">All Proposals</Link>
               <Link to="/submit">Submit a Proposal</Link>
+              <Link to="/faq">FAQ</Link>
             </div>
           </nav>
           <Routes />

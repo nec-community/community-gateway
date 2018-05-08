@@ -66,6 +66,9 @@ const getNetwork = () => window._web3.eth.net.getId();
 const getProposalContract = async () =>
   new window._web3.eth.Contract(config.proposalContract.abi, config.proposalContract.address);
 
+const getTokenProposalContract = async () =>
+  new window._web3.eth.Contract(config.tokenProposalContract.abi, config.tokenProposalContract.address);
+
 const getTokenContract = async () =>
   new window._web3.eth.Contract(config.tokenContract.abi, config.tokenContract.address);
 
@@ -273,16 +276,27 @@ const vote = async (id, vote, accountType) => {
   });
 };
 
+const voteTokens = async (tokenId, accountType) => {
+  const tokenProposalContract = await getTokenProposalContract();
+  const contractCall = tokenProposalContract.methods.vote(tokenId);
+  if (accountType === 'ledger') return signAndSendLedger(contractCall);
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall);
+  const account = await getAccount();
+  return contractCall.send({
+    from: account,
+  });
+};
+
 const hasUserVoted = async (proposalId, address) => {
   if (!address) return false;
   const proposalContract = await getProposalContract();
   const events = await proposalContract.getPastEvents('Vote', {
     filter: {
       idProposal: proposalId.toString(),
-      _voter: address
+      _voter: address,
     },
     fromBlock: 0,
-    toBlock: 'latest'
+    toBlock: 'latest',
   });
   log(`User ${address} has voted on proposal ${proposalId} ${events.length} times`);
   log(events);
@@ -433,6 +447,7 @@ export default {
   getActiveProposals,
   getNonApprovedProposals,
   vote,
+  voteTokens,
   hasUserVoted,
   calculateNecReward,
   burnNec,
