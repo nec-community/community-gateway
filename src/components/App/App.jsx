@@ -51,6 +51,7 @@ class App extends Component {
                 <Link to="/admin">Admin</Link>
               }
               <Link to="/">Home</Link>
+              <Link to="/listings">Token Listings</Link>
               <Link to="/all">All Proposals</Link>
               <Link to="/submit">Submit a Proposal</Link>
               <Link to="/faq">FAQ</Link>

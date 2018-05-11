@@ -14,22 +14,18 @@ class TokenListings extends Component {
     return (
       <div className="all-proposals">
         <div className="container">
-          <h1>Token Listing Leaderboard</h1>
+          <h1>Ethfinex Listing Leaderboard</h1>
+          <h5>The top 4 tokens on Tuesday 29th May will become tradable on Ethfinex</h5>
         </div>
         <div>
           <div className="active-section">
             <div className="header-desc-container">
               <p className="info-tip">
-                <strong>This page is a work in progress.</strong><br/><br/>
-                The tokens displayed below are for demonstration purposes only, and the process of listing
-                tokens via community votes are not yet live for Ethfinex. More information about the criteria to list
-                tokens is available at &nbsp;
-                <Link to={'https://support.ethfinex.com/hc/en-us/articles/115002526172-Listing-a-Token-on-Ethfinex'}>
-                   Ethfinex Support
-                </Link>
-                .&nbsp; Any token meeting the requirements following
-                review will become available for community vote to determine it's priority to be
-                made available for trading.
+                <strong>Info:</strong> If you hold Nectar tokens you can vote from Tuesday 15th May on one of the 10 tokens below.<br/><br/>
+                Ethfinex Voting Tokens are issued to traders in proportion to their NEC holdings, allowing loyal users more of a say without requiring you to burn your tokens.
+                To find out more about the voting process and how tokens are selected to be voted on, see the &nbsp;
+                <Link to='/faq'>FAQ</Link><br/><br/>
+                Submit your vote using MetaMask, Ledger or Keystore to show support for high-quality projects pushing the boundaries of the blockchain ecosystem.<br/><br/>
               </p>
             </div>
             <div className="container">
@@ -44,26 +40,26 @@ class TokenListings extends Component {
                   </div>
 
                   <div className="details-wrapper">
-                    <Link
+                    <a
+                      target="_blank"
+                      href={token.discussions}
                       className="title"
-                      to={token.website}
                     >
                       <h2>{index + 1}. {token.token}</h2>
-                    </Link>
+                    </a>
                     <p className="description">{token.description}</p>
                   </div>
 
                   <div className="results-wrapper">
                     <div className="yes">
-                      <span className="word">yes</span>
+                      <span className="word">votes</span>
                       <div className="bar">
                         <div
                           className="bar-yes"
-                          style={{ width: `${token.yesPercentage}%` }}
+                          style={{ width: `${token.totalYes / 100000000}%` }}
                         />
                       </div>
-                      <div className="number">{`${Math.floor(token.yesPercentage)}`}</div>
-                      <div className="votes-number">{token.totalYes} NEC</div>
+                      <div className="number">{token.totalYes}</div>
                       <p className="vote-wrapper">
                         <a onClick={() => this.props.voteForToken(token.id)}>VOTE</a>
                       </p>
