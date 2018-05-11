@@ -351,6 +351,27 @@ const getProposalDetails = async (id) => {
   };
 };
 
+const getTokenDetails = async (id) => {
+  const tokenProposalContract = await getTokenProposalContract();
+  const details = await tokenProposalContract.methods.tokenBatches(id).call();
+  log(details);
+
+  const totalVotes = details.yesVotes.reduce((a, b) => a + b, 0);
+  let yesPercentage = 100 * (parseInt(details.yesVotes(id), 10) /
+    (parseInt(totalVotes, 10)));
+  if (isNaN(yesPercentage)) yesPercentage = 0;
+  else yesPercentage = Math.floor(yesPercentage * 100) / 100;
+
+  let totalYes = weiToEth(details.yesVotes(id));
+  totalYes = Math.floor(totalYes * 100) / 100;
+
+  return {
+    id,
+    ...details,
+    totalYes,
+  };
+};
+
 const getProposals = async () => {
   const proposalContract = await getProposalContract();
   const proposalIDs = await proposalContract.methods.getApprovedProposals().call();
@@ -448,6 +469,7 @@ export default {
   getNonApprovedProposals,
   vote,
   voteTokens,
+  getTokenDetails,
   hasUserVoted,
   calculateNecReward,
   burnNec,

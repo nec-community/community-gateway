@@ -1,6 +1,6 @@
-pragma solidity ^0.4.18;
+pragma solidity 0.4.22;
 
-import "./MiniMeToken.sol";
+import "./DestructibleMiniMeToken.sol";
 import "./Ownable.sol";
 
 /*
@@ -12,7 +12,7 @@ import "./Ownable.sol";
 contract TokenListingManager is Ownable {
 
     address constant NECTAR_TOKEN = 0xCc80C051057B774cD75067Dc48f8987C4Eb97A5e;
-    address constant TOKEN_FACTORY = 0x003ea7f54b6Dcf6cEE86986EdC18143A35F15505;
+    address constant TOKEN_FACTORY = 0xc59fdFcedd07e10F131D2DA1860c525508244468;
     uint constant VOTING_DURATION = 14;
 
     struct TokenProposal {
@@ -24,9 +24,9 @@ contract TokenListingManager is Ownable {
         uint[10] yesVotes;
     }
 
-    TokenProposal[] tokensToBeListed;
+    TokenProposal[] tokenBatches;
 
-    MiniMeTokenFactory public tokenFactory;
+    DestructibleMiniMeTokenFactory public tokenFactory;
     address nectarToken;
     mapping(address => bool) admins;
 
@@ -36,7 +36,7 @@ contract TokenListingManager is Ownable {
     }
 
     function TokenListingManager() public {
-        tokenFactory = MiniMeTokenFactory(TOKEN_FACTORY);
+        tokenFactory = DestructibleMiniMeTokenFactory(TOKEN_FACTORY);
         nectarToken = NECTAR_TOKEN;
         admins[msg.sender] = true;
     }
@@ -44,14 +44,18 @@ contract TokenListingManager is Ownable {
     /// @notice Admins are able to approve proposal that someone submitted
     /// @param tokens the list of tokens in consideration during this period
     function startTokenVotes(address[10] tokens) public onlyAdmins {
-        uint _proposalId = tokensToBeListed.length;
-        tokensToBeListed.length++;
-        TokenProposal storage p = tokensToBeListed[_proposalId];
+        uint _proposalId = tokenBatches.length;
+        if(_proposalId > 0) {
+          TokenProposal memory op = tokenBatches[_proposalId - 1];
+          DestructibleMiniMeToken(op.votingToken).recycle();
+        }
+        tokenBatches.length++;
+        TokenProposal storage p = tokenBatches[_proposalId];
         p.duration = VOTING_DURATION * (1 days);
 
         p.consideredTokens = tokens;
 
-        p.votingToken = tokenFactory.createCloneToken(
+        p.votingToken = tokenFactory.createDestructibleCloneToken(
                 nectarToken,
                 getBlockNumber(),
                 appendUintToString("EfxTokenVotes-", _proposalId),
@@ -69,21 +73,22 @@ contract TokenListingManager is Ownable {
     /// @param _tokenIndex is the position from 0-9 in the token array of the chosen token
     function vote(uint _tokenIndex) public {
         // voting only on the most recent set of proposed tokens
-        uint _proposalId = tokensToBeListed.length - 1;
+        require(tokenBatches.length > 0);
+        uint _proposalId = tokenBatches.length - 1;
         require(_tokenIndex < 10);
 
-        TokenProposal memory p = tokensToBeListed[_proposalId];
+        TokenProposal memory p = tokenBatches[_proposalId];
 
-        require(p.startTime + p.duration < now);
+        require(now < p.startTime + p.duration);
 
-        uint amount = MiniMeToken(p.votingToken).balanceOf(msg.sender);
+        uint amount = DestructibleMiniMeToken(p.votingToken).balanceOf(msg.sender);
         require(amount > 0);
 
-        require(MiniMeToken(p.votingToken).transferFrom(msg.sender, address(this), amount));
+        require(DestructibleMiniMeToken(p.votingToken).transferFrom(msg.sender, address(this), amount));
 
-        tokensToBeListed[_proposalId].yesVotes[_tokenIndex] += amount;
+        tokenBatches[_proposalId].yesVotes[_tokenIndex] += amount;
 
-        emit Vote(_proposalId, msg.sender, tokensToBeListed[_proposalId].consideredTokens[_tokenIndex], amount);
+        emit Vote(_proposalId, msg.sender, tokenBatches[_proposalId].consideredTokens[_tokenIndex], amount);
     }
 
     /// @notice Any admin is able to add new admin
@@ -108,11 +113,12 @@ contract TokenListingManager is Ownable {
         bool _finalized,
         uint[10] _votes,
         address[10] _tokens,
+        address _votingToken,
         bool _hasBalance
     ) {
-        require(_proposalId < tokensToBeListed.length);
+        require(_proposalId < tokenBatches.length);
 
-        TokenProposal memory p = tokensToBeListed[_proposalId];
+        TokenProposal memory p = tokenBatches[_proposalId];
         _startBlock = p.startBlock;
         _startTime = p.startTime;
         _duration = p.duration;
@@ -120,7 +126,8 @@ contract TokenListingManager is Ownable {
         _active = !_finalized && (p.startBlock < getBlockNumber());
         _votes = p.yesVotes;
         _tokens = p.consideredTokens;
-        _hasBalance = (p.votingToken == 0x0) ? false : (MiniMeToken(p.votingToken).balanceOf(msg.sender) > 0);
+        _votingToken = p.votingToken;
+        _hasBalance = (p.votingToken == 0x0) ? false : (DestructibleMiniMeToken(p.votingToken).balanceOf(msg.sender) > 0);
     }
 
     function appendUintToString(string inStr, uint v) private pure returns (string str) {
