@@ -2,6 +2,7 @@ import {
   GET_ACCOUNT_SUCCESS,
   GET_ACCOUNT_ERROR,
   TOKEN_BALANCE,
+  VOTING_TOKEN_BALANCE,
   UPDATE_ETHFINEX_DATA,
   OPEN_LOGIN,
   CLOSE_LOGIN,
@@ -54,6 +55,11 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         tokenBalance: action.balance,
         tokenPayout: action.payout,
+      };
+    case VOTING_TOKEN_BALANCE:
+      return {
+        ...state,
+        votingTokenBalance: action.balance,
       };
     case UPDATE_ETHFINEX_DATA:
       return {

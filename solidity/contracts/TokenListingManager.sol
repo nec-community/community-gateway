@@ -12,7 +12,7 @@ import "./Ownable.sol";
 contract TokenListingManager is Ownable {
 
     address constant NECTAR_TOKEN = 0xCc80C051057B774cD75067Dc48f8987C4Eb97A5e;
-    address constant TOKEN_FACTORY = 0xc59fdFcedd07e10F131D2DA1860c525508244468;
+    address constant TOKEN_FACTORY = 0x6EB97237B8bc26E8057793200207bB0a2A83C347;
     uint constant VOTING_DURATION = 14;
 
     struct TokenProposal {

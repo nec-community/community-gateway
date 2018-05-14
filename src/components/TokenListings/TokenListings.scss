@@ -22,7 +22,7 @@
   }
   .header-desc-container {
     max-width: 900px;
-    padding: 0px 10px;
+    padding: 10px 10px;
     margin: auto;
     .info-tip {
       padding: 10px;
@@ -30,6 +30,29 @@
       background-color: rgba($color4, 1);
       font-weight: 300;
       margin-bottom: 20px;
+      height: 150px;
+    }
+    .left-header {
+      display: inline-block;
+      vertical-align:top;
+      width: 70%;
+    }
+    .right-header {
+      display: inline-block;
+      vertical-align:top;
+      width: 27%;
+      margin-left: 3%;
+      .account-balance {
+        .row-1 {
+          font-weight: bold;
+          font-size: 20px;
+          }
+        .row-2 {
+          text-align: right;
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
     }
   }
   .proposal-wrapper {
@@ -112,15 +135,15 @@
       }
       .number {
         height: 50px;
-        font-size: 53px;
+        font-size: 33px;
         position: relative;
         left: 20%;
         line-height: 50px;
         color: $color4;
         &:after {
           content: 'NEC';
-          line-height: 55px;
-          font-size: 33px;
+          line-height: 50px;
+          font-size: 23px;
           margin: 5px 0 0 5px;
           display: inline-block;
           vertical-align: top;
