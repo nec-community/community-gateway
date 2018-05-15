@@ -125,7 +125,7 @@ TokenListings.propTypes = {
   voteForToken: PropTypes.func.isRequired,
   votes: PropTypes.array.isRequired,
   votingTokenBalance: PropTypes.string.isRequired,
-  accountType: state.account.accountType,
+  accountType: PropTypes.string.isRequired,
   account: PropTypes.string.isRequired,
   getVotingTokenBalance: PropTypes.func.isRequired,
 };
