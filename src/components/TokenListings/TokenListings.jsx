@@ -125,6 +125,7 @@ TokenListings.propTypes = {
   voteForToken: PropTypes.func.isRequired,
   votes: PropTypes.array.isRequired,
   votingTokenBalance: PropTypes.string.isRequired,
+  accountType: state.account.accountType,
   account: PropTypes.string.isRequired,
   getVotingTokenBalance: PropTypes.func.isRequired,
 };
@@ -132,6 +133,7 @@ TokenListings.propTypes = {
 const mapStateToProps = state => ({
   votes: state.token.tokens,
   votingTokenBalance: state.account.votingTokenBalance,
+  accountType: state.account.accountType,
   account: state.account.account,
 });
 
