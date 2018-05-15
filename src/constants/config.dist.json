@@ -1,6 +1,6 @@
 {
   "network": 1,
-  "providerUrl": "wss://mainnet.infura.io/ws",
+  "providerUrl": "https://mainnet.infura.io/JFp9L4PjrgVxZzgx5rnZ",
   "backendUrl": "http://139.59.146.81:3000",
   "proposalContract": {
     "address": "0xb24ed9d62d4c660faf56a4cddada06c88b2d5ddb",

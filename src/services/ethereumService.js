@@ -219,7 +219,7 @@ const getVotingTokenBalance = async (_account) => {
   const tokenProposalContract = await getTokenProposalContract();
   let _votingToken;
   try {
-    const details = await tokenProposalContract.methods.proposal(0).call();
+    const details = await tokenProposalContract.methods.proposal(1).call();
     _votingToken = details._votingToken;
   } catch (err) {
     log(err);
@@ -374,7 +374,7 @@ const getTokenDetails = async () => {
   let totalVotes;
   let yesVotes;
   try {
-    const details = await tokenProposalContract.methods.proposal(0).call();
+    const details = await tokenProposalContract.methods.proposal(1).call();
     yesVotes = details._votes.map(x => weiToEth(x));
     totalVotes = yesVotes.reduce((a, b) => parseInt(a, 10) + parseInt(b, 10), 0);
   } catch (err) {

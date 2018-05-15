@@ -107,7 +107,9 @@ export const getTokenVotes = () => async (dispatch) => {
 };
 
 export const voteForToken = id => async (dispatch, getState) => {
-  if (!getState().account.accountType) return dispatch(openLogin());
+  if (!getState().account.votingTokenBalance ||
+   getState().account.votingTokenBalance < 0.1) return notifyError('You first need voting tokens!')(dispatch);
+
   try {
     await eth.voteTokens(id, getState().account.accountType);
     notify('Thanks for voting!', 'success')(dispatch);
