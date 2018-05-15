@@ -2,6 +2,7 @@ import {
   GET_ACCOUNT_SUCCESS,
   GET_ACCOUNT_ERROR,
   TOKEN_BALANCE,
+  VOTING_TOKEN_BALANCE,
   UPDATE_ETHFINEX_DATA,
   OPEN_LOGIN,
   CLOSE_LOGIN,
@@ -112,6 +113,18 @@ export const getTokenBalance = () => async (dispatch, getState) => {
   dispatch(tokenBalance(
     toDecimal(ethService.weiToEth(balance)),
     toDecimal(ethService.weiToEth(payout)),
+  ));
+};
+
+const votingTokenBalance = balance => ({
+  type: VOTING_TOKEN_BALANCE,
+  balance,
+});
+
+export const getVotingTokenBalance = () => async (dispatch, getState) => {
+  const balance = await ethService.getVotingTokenBalance(getState().account.account);
+  dispatch(votingTokenBalance(
+    ethService.weiToEth(balance),
   ));
 };
 

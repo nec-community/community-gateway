@@ -72,6 +72,9 @@ const getTokenProposalContract = async () =>
 const getTokenContract = async () =>
   new window._web3.eth.Contract(config.tokenContract.abi, config.tokenContract.address);
 
+const getVotingTokenContract = async _votingToken =>
+  new window._web3.eth.Contract(config.tokenContract.abi, _votingToken);
+
 const getControllerContract = async () =>
   new window._web3.eth.Contract(config.controllerContract.abi, config.controllerContract.address);
 
@@ -209,6 +212,21 @@ const getTokenBalance = async (_account) => {
   const account = _account || await getAccount();
   log(`token balance for ${account}`);
   const tokenContract = await getTokenContract();
+  return tokenContract.methods.balanceOf(account).call();
+};
+
+const getVotingTokenBalance = async (_account) => {
+  const tokenProposalContract = await getTokenProposalContract();
+  let _votingToken;
+  try {
+    const details = await tokenProposalContract.methods.proposal(1).call();
+    _votingToken = details._votingToken;
+  } catch (err) {
+    log(err);
+  }
+  const account = _account || await getAccount();
+  log(`voting token balance for ${account}`);
+  const tokenContract = await getVotingTokenContract(_votingToken);
   return tokenContract.methods.balanceOf(account).call();
 };
 
@@ -351,24 +369,23 @@ const getProposalDetails = async (id) => {
   };
 };
 
-const getTokenDetails = async (id) => {
+const getTokenDetails = async () => {
   const tokenProposalContract = await getTokenProposalContract();
-  const details = await tokenProposalContract.methods.tokenBatches(id).call();
-  log(details);
-
-  const totalVotes = details.yesVotes.reduce((a, b) => a + b, 0);
-  let yesPercentage = 100 * (parseInt(details.yesVotes(id), 10) /
-    (parseInt(totalVotes, 10)));
-  if (isNaN(yesPercentage)) yesPercentage = 0;
-  else yesPercentage = Math.floor(yesPercentage * 100) / 100;
-
-  let totalYes = weiToEth(details.yesVotes(id));
-  totalYes = Math.floor(totalYes * 100) / 100;
+  let totalVotes;
+  let yesVotes;
+  try {
+    const details = await tokenProposalContract.methods.proposal(1).call();
+    yesVotes = details._votes.map(x => weiToEth(x));
+    totalVotes = yesVotes.reduce((a, b) => parseInt(a, 10) + parseInt(b, 10), 0);
+  } catch (err) {
+    totalVotes = 0;
+    yesVotes = new Array(10 + 1).join('0').split('').map(parseFloat);
+    log(err);
+  }
 
   return {
-    id,
-    ...details,
-    totalYes,
+    yesVotes,
+    totalVotes,
   };
 };
 
@@ -461,6 +478,7 @@ export default {
   weiToEth,
   ethToWei,
   getTokenBalance,
+  getVotingTokenBalance,
   estimatePayout,
   submitProposal,
   getProposalDetails,
