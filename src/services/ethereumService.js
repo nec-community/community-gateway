@@ -87,7 +87,7 @@ const ledgerLogin = async (path = defaultPath) => {
   return account.address;
 };
 
-const signAndSendLedger = async (contractCall, value = 0, gasPrice = 5) => {
+const signAndSendLedger = async (contractCall, value = 0, gasPrice = 12) => {
   if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
   const eth = new ledger.eth(ledgerComm);
   const account = await eth.getAddress_async(ledgerPath);
@@ -142,7 +142,7 @@ const signAndSendLedger = async (contractCall, value = 0, gasPrice = 5) => {
     });
 };
 
-const signAndSendKeystore = async (contractCall, value = 0, gasPrice = 5) => {
+const signAndSendKeystore = async (contractCall, value = 0, gasPrice = 12) => {
   const account = keystore.getWallet();
   log(`KEYSTORE account ${account.address}`);
 
@@ -177,7 +177,7 @@ const signAndSendKeystore = async (contractCall, value = 0, gasPrice = 5) => {
 
   window._web3.eth.sendSignedTransaction(`0x${tx.serialize().toString('hex')}`)
     .on('transactionHash', (transactionHash) => {
-      log('KEYSTORE transactionHash', transactionHash);
+      log(`KEYSTORE Vote successful: https://etherscan.io/tx/${transactionHash}`);
     })
     .on('receipt', (res) => {
       log('KEYSTORE receipt', res);
