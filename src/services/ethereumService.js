@@ -130,7 +130,7 @@ const signAndSendLedger = async (contractCall, value = 0, gasPrice = 12) => {
   });
   log('LEDGER tx2', tx2);
 
-  window._web3.eth.sendSignedTransaction(`0x${tx2.serialize().toString('hex')}`)
+  return window._web3.eth.sendSignedTransaction(`0x${tx2.serialize().toString('hex')}`)
     .on('transactionHash', (transactionHash) => {
       log('LEDGER transactionHash', transactionHash);
     })
@@ -175,7 +175,7 @@ const signAndSendKeystore = async (contractCall, value = 0, gasPrice = 12) => {
   await account.signRawTransaction(tx);
   log('KEYSTORE signed tx', tx);
 
-  window._web3.eth.sendSignedTransaction(`0x${tx.serialize().toString('hex')}`)
+  return window._web3.eth.sendSignedTransaction(`0x${tx.serialize().toString('hex')}`)
     .on('transactionHash', (transactionHash) => {
       log(`KEYSTORE Vote successful: https://etherscan.io/tx/${transactionHash}`);
     })
