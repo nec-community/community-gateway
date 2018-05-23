@@ -2,6 +2,7 @@ import { FETCHED_TOKENS } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   tokens: [],
+  endingTime: new Date(),
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -10,6 +11,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         tokens: action.tokens,
+        endingTime: action.endingTime,
       };
     default:
       return state;

@@ -47,3 +47,23 @@ export const nameOfNetwork = (networkId) => {
 
 export const toDecimal = (num, decimals = 2) =>
   num.substr(0, num.indexOf('.') + decimals + 1);
+
+export const dateToMonth = (d) => {
+  return [
+    'January', 'February', 'March', 'April',
+    'May', 'June', 'July', 'August',
+    'September', 'October', 'November', 'December',
+  ][d.getMonth()];
+};
+
+export const dateToWeekday = (d) => {
+  return ['Sunday', 'Monday', 'Tuesday', 'Wednesday',
+    'Thursday', 'Friday', 'Saturday'][d.getDay()];
+};
+
+export const ordinalExtension = (n) => {
+  if (n === 1) return 'st';
+  if (n === 2) return 'nd';
+  if (n === 3) return 'rd';
+  return 'th'
+};
