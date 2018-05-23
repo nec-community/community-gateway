@@ -18,14 +18,6 @@ class Tokens extends Component {
     this.calculate = this.calculate.bind(this);
   }
 
-  componentDidMount() {
-    this.props.getTokenBalance();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.account !== this.props.account) this.props.getTokenBalance();
-  }
-
   async calculate(e) {
     const val = e.target.value;
     if (val.length > 12) return;

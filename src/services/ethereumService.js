@@ -130,7 +130,7 @@ const signAndSendLedger = async (contractCall, value = 0, gasPrice = 12) => {
   });
   log('LEDGER tx2', tx2);
 
-  window._web3.eth.sendSignedTransaction(`0x${tx2.serialize().toString('hex')}`)
+  return window._web3.eth.sendSignedTransaction(`0x${tx2.serialize().toString('hex')}`)
     .on('transactionHash', (transactionHash) => {
       log('LEDGER transactionHash', transactionHash);
     })
@@ -175,7 +175,7 @@ const signAndSendKeystore = async (contractCall, value = 0, gasPrice = 12) => {
   await account.signRawTransaction(tx);
   log('KEYSTORE signed tx', tx);
 
-  window._web3.eth.sendSignedTransaction(`0x${tx.serialize().toString('hex')}`)
+  return window._web3.eth.sendSignedTransaction(`0x${tx.serialize().toString('hex')}`)
     .on('transactionHash', (transactionHash) => {
       log(`KEYSTORE Vote successful: https://etherscan.io/tx/${transactionHash}`);
     })
@@ -226,8 +226,8 @@ const getVotingTokenBalance = async (_account) => {
   }
   const account = _account || await getAccount();
   log(`voting token balance for ${account}`);
-  const tokenContract = await getVotingTokenContract(_votingToken);
-  return tokenContract.methods.balanceOf(account).call();
+  const votingTokenContract = await getVotingTokenContract(_votingToken);
+  return votingTokenContract.methods.balanceOf(account).call();
 };
 
 // dev
@@ -373,10 +373,12 @@ const getTokenDetails = async () => {
   const tokenProposalContract = await getTokenProposalContract();
   let totalVotes;
   let yesVotes;
+  let endingTime = new Date();
   try {
     const details = await tokenProposalContract.methods.proposal(1).call();
     yesVotes = details._votes.map(x => weiToEth(x));
     totalVotes = yesVotes.reduce((a, b) => parseInt(a, 10) + parseInt(b, 10), 0);
+    endingTime = new Date(details._startTime * 1000 + details._duration * 1000)
   } catch (err) {
     totalVotes = 0;
     yesVotes = new Array(10 + 1).join('0').split('').map(parseFloat);
@@ -386,6 +388,7 @@ const getTokenDetails = async () => {
   return {
     yesVotes,
     totalVotes,
+    endingTime,
   };
 };
 

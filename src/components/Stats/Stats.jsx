@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { dateToMonth, ordinalExtension } from '../../services/utils';
 
 import './Stats.scss';
 
@@ -10,14 +11,6 @@ class Stats extends Component {
     const now = new Date();
     while (d < now) d.setDate(d.getDate() + 30);
     return d;
-  }
-
-  dateToMonth(d) {
-    return [
-      'January', 'February', 'March', 'April',
-      'May', 'June', 'July', 'August',
-      'September', 'October', 'November', 'December',
-    ][d.getMonth()].toUpperCase();
   }
 
   toDecimal(num, decimals) {
@@ -46,8 +39,8 @@ class Stats extends Component {
               <div className="stat-wrapper">
                 <div className="stat">{this.getNextDate().getDate()}</div>
                 <div className="stat-addon">
-                  <div className="secondary">th</div>
-                  <div>{this.dateToMonth(this.getNextDate())}</div>
+                  <div className="secondary">{ordinalExtension(this.getNextDate().getDate())}</div>
+                  <div>{dateToMonth(this.getNextDate()).toUpperCase()}</div>
                 </div>
               </div>
             </div>
