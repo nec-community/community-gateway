@@ -3,9 +3,10 @@ import eth from '../services/ethereumService';
 import { openLogin } from './accountActions';
 import { notify, notifyError } from './notificationActions';
 
-const fetchedTokens = tokens => ({
+const fetchedTokens = (tokens, endingTime) => ({
   type: FETCHED_TOKENS,
   tokens,
+  endingTime,
 });
 
 export const getTokenVotes = () => async (dispatch) => {
@@ -103,7 +104,7 @@ export const getTokenVotes = () => async (dispatch) => {
       website: 'https://lympo.io/',
     },
   ];
-  dispatch(fetchedTokens(tokens));
+  dispatch(fetchedTokens(tokens, votes.endingTime));
 };
 
 export const voteForToken = id => async (dispatch, getState) => {

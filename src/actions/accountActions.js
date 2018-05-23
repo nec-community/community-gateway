@@ -13,12 +13,13 @@ import config from '../constants/config.json';
 import { nameOfNetwork, log, toDecimal } from '../services/utils';
 import { notify, notifyError } from './notificationActions';
 
-export const accountSuccess = (account, type, balance, necBalance, isAdmin) => ({
+export const accountSuccess = (account, type, balance, necBalance, votingTokenBalance, isAdmin) => ({
   type: GET_ACCOUNT_SUCCESS,
   account,
   accountType: type,
   balance,
   necBalance,
+  votingTokenBalance,
   isAdmin,
 });
 
@@ -40,8 +41,9 @@ export const loginMetamask = silent => async (dispatch, getState) => {
       notify(`Metamask account found ${account}`, 'success')(dispatch);
       const balance = await ethService.getBalance(account);
       const necBalance = await ethService.getTokenBalance(account);
+      const votingBalance = await ethService.getVotingTokenBalance(account);
       const isAdmin = await ethService.isAdmin(account);
-      dispatch(accountSuccess(account, 'metamask', balance, necBalance, isAdmin));
+      dispatch(accountSuccess(account, 'metamask', balance, necBalance, votingBalance, isAdmin));
     }
   } catch (err) {
     ethService.setupWeb3();
@@ -59,8 +61,9 @@ export const loginLedger = path => async (dispatch) => {
     log(`Ledger account found ${account}`);
     const balance = await ethService.getBalance(account);
     const necBalance = await ethService.getTokenBalance(account);
+    const votingBalance = await ethService.getVotingTokenBalance(account);
     const isAdmin = await ethService.isAdmin(account);
-    dispatch(accountSuccess(account, 'ledger', balance, necBalance, isAdmin));
+    dispatch(accountSuccess(account, 'ledger', balance, necBalance, votingBalance, isAdmin));
     notify(`Ledger account found ${account}`, 'success')(dispatch);
   } catch (err) {
     if (err.message) {
@@ -81,8 +84,9 @@ export const loginKeystore = (keystoreJson, password) => async (dispatch) => {
     log(`Keystore account found ${account}`);
     const balance = await ethService.getBalance(account);
     const necBalance = await ethService.getTokenBalance(account);
+    const votingBalance = await ethService.getVotingTokenBalance(account);
     const isAdmin = await ethService.isAdmin(account);
-    dispatch(accountSuccess(account, 'keystore', balance, necBalance, isAdmin));
+    dispatch(accountSuccess(account, 'keystore', balance, necBalance, votingBalance, isAdmin));
     notify(`Keystore account found ${account}`, 'success')(dispatch);
   } catch (err) {
     dispatch(accountError(err.message));

@@ -22,11 +22,6 @@ function nFormatter(num) {
 class TokenListings extends Component {
   componentDidMount() {
     this.props.getTokenVotes();
-    this.props.getVotingTokenBalance();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.account !== this.props.account) this.props.getVotingTokenBalance();
   }
 
   render() {

@@ -226,8 +226,8 @@ const getVotingTokenBalance = async (_account) => {
   }
   const account = _account || await getAccount();
   log(`voting token balance for ${account}`);
-  const tokenContract = await getVotingTokenContract(_votingToken);
-  return tokenContract.methods.balanceOf(account).call();
+  const votingTokenContract = await getVotingTokenContract(_votingToken);
+  return votingTokenContract.methods.balanceOf(account).call();
 };
 
 // dev
@@ -373,10 +373,12 @@ const getTokenDetails = async () => {
   const tokenProposalContract = await getTokenProposalContract();
   let totalVotes;
   let yesVotes;
+  let endingTime = new Date();
   try {
     const details = await tokenProposalContract.methods.proposal(1).call();
     yesVotes = details._votes.map(x => weiToEth(x));
     totalVotes = yesVotes.reduce((a, b) => parseInt(a, 10) + parseInt(b, 10), 0);
+    endingTime = new Date(details._startTime * 1000 + details._duration * 1000)
   } catch (err) {
     totalVotes = 0;
     yesVotes = new Array(10 + 1).join('0').split('').map(parseFloat);
@@ -386,6 +388,7 @@ const getTokenDetails = async () => {
   return {
     yesVotes,
     totalVotes,
+    endingTime,
   };
 };
 
