@@ -39,7 +39,7 @@ export const loginMetamask = silent => async (dispatch, getState) => {
     if (getState().account.account !== account) {
       log(`Metamask account found ${account}`);
       notify(`Metamask account found ${account}`, 'success')(dispatch);
-      const balance = toDecimal(ethService.weiToEth(await ethService.getBalance(account)));
+      const balance = toDecimal(await ethService.getBalance(account));
       const necBalance = toDecimal(ethService.weiToEth(await ethService.getTokenBalance(account)));
       const votingBalance = toDecimal(ethService.weiToEth(await ethService.getVotingTokenBalance(account)));
       const isAdmin = await ethService.isAdmin(account);
@@ -59,7 +59,7 @@ export const loginLedger = path => async (dispatch) => {
     log(`Path ${path}`);
     const account = await ethService.ledgerLogin(path);
     log(`Ledger account found ${account}`);
-    const balance = toDecimal(ethService.weiToEth(await ethService.getBalance(account)));
+    const balance = toDecimal(await ethService.getBalance(account));
     const necBalance = toDecimal(ethService.weiToEth(await ethService.getTokenBalance(account)));
     const votingBalance = toDecimal(ethService.weiToEth(await ethService.getVotingTokenBalance(account)));
     const isAdmin = await ethService.isAdmin(account);
@@ -82,7 +82,7 @@ export const loginKeystore = (keystoreJson, password) => async (dispatch) => {
     log(keystore);
     const account = keystore.address;
     log(`Keystore account found ${account}`);
-    const balance = toDecimal(ethService.weiToEth(await ethService.getBalance(account)));
+    const balance = toDecimal(await ethService.getBalance(account));
     const necBalance = toDecimal(ethService.weiToEth(await ethService.getTokenBalance(account)));
     const votingBalance = toDecimal(ethService.weiToEth(await ethService.getVotingTokenBalance(account)));
     const isAdmin = await ethService.isAdmin(account);
