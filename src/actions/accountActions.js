@@ -38,18 +38,20 @@ export const loginMetamask = silent => async (dispatch, getState) => {
     const account = await ethService.getAccount();
     if (getState().account.account !== account) {
       log(`Metamask account found ${account}`);
-      notify(`Metamask account found ${account}`, 'success')(dispatch);
       const balance = toDecimal(await ethService.getBalance(account));
       const necBalance = toDecimal(ethService.weiToEth(await ethService.getTokenBalance(account)));
       const votingBalance = toDecimal(ethService.weiToEth(await ethService.getVotingTokenBalance(account)));
       const isAdmin = await ethService.isAdmin(account);
       dispatch(accountSuccess(account, 'metamask', balance, necBalance, votingBalance, isAdmin));
+      notify(`Metamask account found ${account}`, 'success')(dispatch);
     }
   } catch (err) {
     ethService.setupWeb3();
     if (!silent) {
       dispatch(accountError(err.message));
       notify(err.message, 'error')(dispatch);
+    } else {
+      console.error(err.message)
     }
   }
 };
