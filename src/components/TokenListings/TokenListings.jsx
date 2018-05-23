@@ -64,8 +64,10 @@ class TokenListings extends Component {
                   }
                 </div>
                 {(this.props.votingTokenBalance > 0.1) &&
-                <span><div
-                  className="row-2">Vote for the token you wish to support below!</div></span>
+                <span>
+                  <br />
+                  <div className="row-2">Vote for the token you wish to support below!</div>
+                </span>
                 }
               </div>
               }

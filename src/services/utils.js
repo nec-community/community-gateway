@@ -46,7 +46,9 @@ export const nameOfNetwork = (networkId) => {
 };
 
 export const toDecimal = (num, decimals = 2) =>
-  num.substr(0, num.indexOf('.') + decimals + 1);
+  num.indexOf('.') !== -1
+    ? num.substr(0, num.indexOf('.') + decimals + 1)
+    : num;
 
 export const dateToMonth = (d) => {
   return [
