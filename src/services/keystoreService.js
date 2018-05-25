@@ -21,8 +21,6 @@ const KeystoreTypes = {
 };
 
 function signRawTxWithPrivKey(privKey, t) {
-  console.log(privKey);
-  console.log(t);
   t.sign(privKey);
   return t.serialize();
 }
@@ -185,6 +183,3 @@ export default {
   unlockKeystore,
   getWallet,
 };
-
-// const ks = '{"version":3,"id":"b2b7ecab-f33c-405c-ac7f-ae9bd1edafc2","address":"2f797b1e6c8ae924738b0cc837556b8741e44d9e","Crypto":{"ciphertext":"fa4800c231422386c08869ffbd9b9f6f79e40ffa0a2ff81b5281cd1e8f90cfcc","cipherparams":{"iv":"f402f7e21b7f278b6a1e566868daec8e"},"cipher":"aes-128-ctr","kdf":"scrypt","kdfparams":{"dklen":32,"salt":"4480cc9b94595e9b046948b3adb7aab2fbb2379b9e103980e80c212a90575b29","n":8192,"r":8,"p":1},"mac":"55dd415fcb79486d1ac1c63aaed5e45452b412ade4d0ac2af84e6e1e4de802b3"}}';
-// console.log(unlockKeystore(ks, 'Create New Wallet'));

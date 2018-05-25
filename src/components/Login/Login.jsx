@@ -39,7 +39,6 @@ class Login extends Component {
       const keystoreJson = fileReader.result;
       try {
         const passReq = keystoreService.isKeystorePassRequired(keystoreJson);
-        console.log('passReq', passReq);
         this.setState({
           passReq,
         });
