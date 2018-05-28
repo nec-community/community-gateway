@@ -7,6 +7,7 @@ import eth from '../services/ethereumService';
 import grenache from '../services/grenacheService';
 import { openLogin } from './accountActions';
 import { notify, notifyError } from './notificationActions';
+import { log } from '../services/utils';
 
 const fetchedProposals = proposals => ({
   type: FETCHED_PROPOSALS,
@@ -15,7 +16,7 @@ const fetchedProposals = proposals => ({
 
 export const getProposals = () => async (dispatch) => {
   const proposals = await Promise.all(await eth.getProposals());
-  console.log(proposals);
+  log(proposals);
   dispatch(fetchedProposals(proposals));
 };
 
@@ -26,7 +27,7 @@ const fetchedActiveProposals = proposals => ({
 
 export const getActiveProposals = () => async (dispatch) => {
   const proposals = await Promise.all(await eth.getActiveProposals());
-  console.log(proposals);
+  log(proposals);
   dispatch(fetchedActiveProposals(proposals));
 };
 
@@ -37,7 +38,7 @@ const fetchedNonApprovedProposals = proposals => ({
 
 export const getNonApprovedProposals = () => async (dispatch) => {
   const proposals = await Promise.all(await eth.getNonApprovedProposals());
-  console.log(proposals);
+  log(proposals);
   dispatch(fetchedNonApprovedProposals(proposals));
 };
 

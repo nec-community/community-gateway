@@ -32,7 +32,6 @@ const getAccount = () => (
       if (!accounts.length) throw new Error('No accounts (Possibly locked)');
       resolve(accounts[0]);
     } catch (err) {
-      // console.log(err);
       reject(err);
     }
   })
