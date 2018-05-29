@@ -7,6 +7,7 @@ import Landing from './components/Landing/Landing';
 import Admin from './components/Admin/Admin';
 import FAQ from './components/FAQ/FAQ';
 import TokenListings from './components/TokenListings/TokenListings';
+import PreviousTokenListing from './components/PreviousTokenListing/PreviousTokenListing';
 
 const Routes = () => (
   <Switch>
@@ -17,6 +18,7 @@ const Routes = () => (
     <Route exact path="/admin" component={Admin} />
     <Route exact path="/faq" component={FAQ} />
     <Route exact path="/listings" component={TokenListings} />
+    <Route exact path="/previousTokenVote" component={PreviousTokenListing} />
   </Switch>
 );
 
