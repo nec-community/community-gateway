@@ -1,0 +1,208 @@
+@import '../../common/variables';
+
+.previouslistings {
+  margin: auto;
+  padding: 10px 0;
+  h1 {
+    font-size: 50px;
+    margin: 100px 0 25px;
+    font-weight: 300;
+  }
+  h5 {
+    font-size: 25px;
+    margin: 0px 0 50px;
+    font-weight: 300;
+  }
+  .active-section {
+    background-color: $color2;
+    padding: 10px 0 50px;
+    .description:after {
+      background: linear-gradient(to bottom, rgba($color2, 0), rgba($color2, 1)) !important;
+    }
+  }
+  .header-desc-container {
+    margin: 0 auto 30px;
+    .left-header {
+      margin-bottom: 20px;
+    }
+    .info-tip {
+      padding: 10px;
+      border-radius: 3px;
+      background-color: rgba($color4, 1);
+      font-weight: 300;
+      margin-bottom: 20px;
+    }
+    @media screen and (min-width: 768px) {
+      .left-header {
+        vertical-align: top;
+        display: inline-block;
+        width: 70%;
+        margin-bottom: 0;
+      }
+      .right-header {
+        vertical-align: top;
+        display: inline-block;
+        width: 27%;
+        margin-left: 3%;
+      }
+    }
+    .right-header {
+      .account-balance {
+        height: 100%;
+        .row-1 {
+          font-weight: bold;
+          font-size: 20px;
+        }
+        .row-2 {
+          text-align: right;
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  .listing-wrapper {
+    border-top: 1px solid white;
+    @media screen and (min-width: 768px) {
+      display: flex;
+      border: 0;
+    }
+    &:first-child {
+      border: 0;
+      .logo-wrapper,
+      .details-wrapper,
+      .results-wrapper {
+        border: 0;
+        padding-top: 20px;
+      }
+    }
+    .details-wrapper {
+      flex: 1 1 100%;
+      border-top: 0;
+      @media screen and (min-width: 768px) {
+        border-top: 1px solid white;
+        padding: 40px 0;
+      }
+      p {
+        margin: 10px 0;
+        line-height: 1.5em;
+        font-size: 14px;
+        letter-spacing: 0.02em;
+      }
+      .started {
+        color: $color4;
+      }
+      .title {
+        display: block;
+        font-weight: bold;
+        line-height: 1.5em;
+        text-decoration: none;
+        font-size: 28px;
+        letter-spacing: 0.02em;
+      }
+      .description {
+        white-space: pre-wrap;
+        max-height: 105px;
+        font-size: 14px;
+        overflow: hidden;
+        position: relative;
+        color: green;
+        &:after {
+          content: '';
+          display: block;
+          background: linear-gradient(to bottom, rgba($color1, 0), rgba($color1, 1));
+          width: 100%;
+          height: 5px;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          pointer-events: none;
+        }
+      }
+    }
+    .logo-wrapper {
+      display: flex;
+      justify-content: center;
+      padding-top: 40px;
+      @media screen and (min-width: 768px) {
+        padding-right: 20px;
+      }
+      img {
+        height: auto;
+        padding: 15px 15px;
+        width: 100%;
+        max-width: 300px;
+        @media screen and (min-width: 768px) {
+          width: 120px;
+        }
+      }
+    }
+    .vote-wrapper {
+      color: white;
+      text-decoration: none;
+      line-height: 40px;
+      font-size: 35px;
+      letter-spacing: 0.02em;
+      margin-top: 20px;
+      display: inline-block;
+      position: relative;
+      left: 20%;
+      border-radius: 5px;
+      background-color: rgba($color4, 0.5);
+      padding: 5px;
+      cursor: pointer;
+    }
+    .results-wrapper {
+      flex: 0 1 25%;
+      display: flex;
+      padding: 40px 20px;
+      justify-content: center;
+      border: 0;
+      @media screen and (min-width: 768px) {
+        border-top: 1px solid white;
+      }
+      .word {
+        font-weight: bold;
+        line-height: 38px;
+        font-size: 23px;
+      }
+      .number {
+        height: 50px;
+        font-size: 33px;
+        position: relative;
+        left: 20%;
+        line-height: 50px;
+        color: $color4;
+        &:after {
+          content: 'EVT';
+          line-height: 50px;
+          font-size: 23px;
+          margin: 5px 0 0 5px;
+          display: inline-block;
+          vertical-align: top;
+        }
+      }
+      .yes {
+        .bar {
+          display: inline-block;
+          width: 130px;
+          height: 14px;
+          margin: 13px 10px;
+          vertical-align: top;
+          background-color: $color4;
+          .bar-yes {
+            display: inline-block;
+            width: 0%;
+            height: 14px;
+            vertical-align: top;
+            background-color: white;
+            transition: width 1s;
+          }
+        }
+      }
+      .no {
+        color: $color4;
+      }
+    }
+  }
+}
