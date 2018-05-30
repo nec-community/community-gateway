@@ -6,7 +6,7 @@ import { getTokenVotes, voteForToken } from '../../actions/tokenActions';
 import { getVotingTokenBalance } from '../../actions/accountActions';
 import './TokenListings.scss';
 
-function nFormatter(num) {
+function nFormatter (num) {
   if (num >= 1000000) {
     return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'mil ';
   }
@@ -19,6 +19,8 @@ function nFormatter(num) {
   return num;
 }
 
+const padToTwo = num => (num > 9) ? num : `0${num}`;
+
 class TokenListings extends Component {
   constructor() {
     super();
@@ -26,13 +28,14 @@ class TokenListings extends Component {
       daysRemaining: 0,
       hoursRemaining: 0,
       minutesRemaining: 0,
+      secondsRemaining: 0,
     };
     this.refreshTime = this.refreshTime.bind(this);
   }
   componentDidMount() {
     this.props.getTokenVotes();
     this.refreshTime();
-    setInterval(this.refreshTime, 1000 * 10)
+    setInterval(this.refreshTime, 1000)
   }
 
   componentDidUpdate(prevProps) {
@@ -44,29 +47,44 @@ class TokenListings extends Component {
     const daysRemaining = Math.floor(timeRemaining / (24 * 60 * 60 * 1000));
     const hoursRemaining = Math.floor((timeRemaining % (24 * 60 * 60 * 1000)) / 60 / 60 / 1000);
     const minutesRemaining = Math.floor((timeRemaining % (60 * 60 * 1000)) / 60 / 1000);
+    const secondsRemaining = Math.floor((timeRemaining % (60 * 1000)) / 1000);
     this.setState({
       daysRemaining,
       hoursRemaining,
       minutesRemaining,
+      secondsRemaining,
     });
   }
 
   render() {
-    const { daysRemaining, hoursRemaining, minutesRemaining } = this.state;
+    const { endingTime } = this.props;
+    const {
+      daysRemaining,
+      hoursRemaining,
+      minutesRemaining,
+      secondsRemaining
+    } = this.state;
     return (
       <div className="listings">
         <div className="container">
           <h1>Ethfinex Listing Leaderboard</h1>
-          <h5>The top 4 tokens
-            in{' '}
-            {
-              daysRemaining > 0 &&
-              <span>{ daysRemaining } day{daysRemaining !== 1 && 's'}, </span>
-            }
-            { hoursRemaining } hour{ hoursRemaining !== 1 && 's' } and{' '}
-            { minutesRemaining } minute{ minutesRemaining !== 1 && 's' }{' '}
-            will become tradable on Ethfinex
-          </h5>
+          {
+            endingTime < 0 &&
+            <h5>Voting is currently not open</h5>
+          }
+          {
+            endingTime > 0 &&
+            <h5>The top 4 tokens will become tradable on Ethfinex</h5>
+          }
+          {
+            endingTime > 0 &&
+            <div className="countdown">
+              <span data-tooltip="Days">{ padToTwo(daysRemaining) }</span>:
+              <span data-tooltip="Hours">{ padToTwo(hoursRemaining) }</span>:
+              <span data-tooltip="Mins">{ padToTwo(minutesRemaining) }</span>:
+              <span data-tooltip="Secs">{ padToTwo(secondsRemaining) }</span>
+            </div>
+          }
 
           <div className="header-desc-container">
             <div className="left-header">
