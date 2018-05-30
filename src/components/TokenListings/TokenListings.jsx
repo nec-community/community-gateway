@@ -20,14 +20,39 @@ function nFormatter(num) {
 }
 
 class TokenListings extends Component {
+  constructor() {
+    super();
+    this.state = {
+      daysRemaining: 0,
+      hoursRemaining: 0,
+      minutesRemaining: 0,
+    };
+    this.refreshTime = this.refreshTime.bind(this);
+  }
   componentDidMount() {
     this.props.getTokenVotes();
+    this.refreshTime();
+    setInterval(this.refreshTime, 1000 * 10)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.endingTime !== this.props.endingTime ) this.refreshTime();
+  }
+
+  refreshTime() {
+    const timeRemaining = this.props.endingTime - (new Date());
+    const daysRemaining = Math.floor(timeRemaining / (24 * 60 * 60 * 1000));
+    const hoursRemaining = Math.floor((timeRemaining % (24 * 60 * 60 * 1000)) / 60 / 60 / 1000);
+    const minutesRemaining = Math.floor((timeRemaining % (60 * 60 * 1000)) / 60 / 1000);
+    this.setState({
+      daysRemaining,
+      hoursRemaining,
+      minutesRemaining,
+    });
   }
 
   render() {
-    const timeRemaining = this.props.endingTime - (new Date());
-    const daysRemaining = Math.floor(timeRemaining / (24 * 60 * 60 * 1000));
-    const hoursRemaining = Math.ceil((timeRemaining % (24 * 60 * 60 * 1000)) / 60 / 60 / 1000);
+    const { daysRemaining, hoursRemaining, minutesRemaining } = this.state;
     return (
       <div className="listings">
         <div className="container">
@@ -36,10 +61,11 @@ class TokenListings extends Component {
             in{' '}
             {
               daysRemaining > 0 &&
-              <span>{ daysRemaining } day{daysRemaining !== 1 && 's'} and </span>
+              <span>{ daysRemaining } day{daysRemaining !== 1 && 's'}, </span>
             }
-            {hoursRemaining} hour{hoursRemaining !== 1 && 's'} will
-            become tradable on Ethfinex
+            { hoursRemaining } hour{ hoursRemaining !== 1 && 's' } and{' '}
+            { minutesRemaining } minute{ minutesRemaining !== 1 && 's' }{' '}
+            will become tradable on Ethfinex
           </h5>
 
           <div className="header-desc-container">
