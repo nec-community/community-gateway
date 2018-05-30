@@ -10,7 +10,7 @@
   }
   h5 {
     font-size: 25px;
-    margin: 0px 0 50px;
+    margin: 0;
     font-weight: 300;
   }
   .active-section {
@@ -20,8 +20,31 @@
       background: linear-gradient(to bottom, rgba($color2, 0), rgba($color2, 1)) !important;
     }
   }
+  .countdown {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 20px 0 40px;
+    span {
+      position: relative;
+      display: inline-block;
+      margin: 0 5px;
+      &:first-child {
+        margin-left: 0;
+      }
+      &::after {
+        content: attr(data-tooltip);
+        display: block;
+        position: absolute;
+        bottom: -10px;
+        left: 3px;
+        font-size: 16px;
+        opacity: .7;
+        font-weight: normal;
+      }
+    }
+  }
   .header-desc-container {
-    margin: 0 auto 30px;
+    margin: 20px auto 30px;
     .left-header {
       margin-bottom: 20px;
     }
