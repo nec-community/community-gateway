@@ -71,6 +71,14 @@ class AllProposals extends Component {
             <div className="waves reverse" />
           </div>
         }
+
+        {
+          !this.props.proposals.filter(p => p._active).length &&
+          <div className="container">
+            No proposals are currently active.
+          </div>
+        }
+
         <div className="past-section">
           <div className="container">
             {
