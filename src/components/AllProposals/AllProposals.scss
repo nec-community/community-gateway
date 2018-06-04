@@ -38,25 +38,10 @@
         padding-top: 0;
       }
     }
-    .remaining {
+    .proposal-countdown-wrapper {
       padding: 40px 0;
       min-width: 200px;
       flex: 1 1 200px;
-      display: flex;
-      .number {
-        font-weight: bold;
-        font-size: 60px;
-        line-height: 60px;
-        margin-right: 5px;
-      }
-      .days {
-        font-size: 32px;
-        font-weight: 300;
-      }
-      .more {
-        font-size: 12px;
-        font-weight: 300;
-      }
     }
     .details-wrapper {
       flex: 1 1 100%;

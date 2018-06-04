@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getProposals } from '../../actions/proposalActions';
+import ProposalCountdown from '../ProposalCountdown/ProposalCountdown';
 import './AllProposals.scss';
 
 class AllProposals extends Component {
@@ -28,15 +29,7 @@ class AllProposals extends Component {
                 {
                   this.props.proposals.filter(p => p._active).map(proposal => (
                     <div key={proposal._token} className="proposal-wrapper">
-                      <div className="remaining">
-                        <div className="number">{proposal.remainingDays}</div>
-                        <div>
-                          <div className="days">
-                            day{proposal.remainingDays === 1 ? '' : 's'}
-                          </div>
-                          <div className="more">remaining</div>
-                        </div>
-                      </div>
+                      <ProposalCountdown endTime={proposal.endTime} />
 
                       <div className="details-wrapper">
                         <Link

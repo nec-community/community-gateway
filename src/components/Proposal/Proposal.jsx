@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import eth from '../../services/ethereumService';
 import { voteForProposal } from '../../actions/proposalActions';
+import { timeUntilDate } from '../../services/utils';
+import ProposalCountdown from '../ProposalCountdown/ProposalCountdown';
 
 import './Proposal.scss';
 
@@ -48,13 +50,7 @@ class Proposal extends Component {
           <div key={proposal._token} className="proposal-wrapper">
             <p className="title">{proposal.title}</p>
             <div className="proposal-inner-wrapper">
-              <div className="remaining">
-                <div className="number">{proposal.remainingDays}</div>
-                <div>
-                  <div className="days">day{proposal.remainingDays === 1 ? '' : 's'}</div>
-                  <div className="more">remaining</div>
-                </div>
-              </div>
+              <ProposalCountdown endTime={proposal.endTime} />
               <div className="details-wrapper">
                 <p className="started">Started {proposal.startTime.toLocaleDateString()}</p>
                 <p className="submitter">Submitted by {proposal._proposer}</p>

@@ -69,3 +69,19 @@ export const ordinalExtension = (n) => {
   if (n === 3) return 'rd';
   return 'th'
 };
+
+export const timeUntilDate = (date) => {
+  const now = new Date();
+  const diff = date.valueOf() - now.valueOf();
+  if (diff < 0) return { count: 0, unit: 'days' };
+  if (diff >= (2 * 24 * 60 * 60 * 1000)) {// 2 days
+    const remainingDays = Math.floor(diff / (24 * 60 * 60 * 1000));
+    return { count: remainingDays, unit: `day${remainingDays > 1 ? 's' : ''}` };
+  }
+  if (diff >= (60 * 60 * 1000)) { // 1 hour
+    const remainingHours = Math.floor(diff / (60 * 60 * 1000));
+    return { count: remainingHours, unit: `hour${remainingHours > 1 ? 's' : ''}` };
+  }
+  const remainingMinutes =  Math.floor(diff / (60 * 1000));
+  return { count: remainingMinutes, unit: `min${remainingMinutes > 1 ? 's' : ''}` };
+};
