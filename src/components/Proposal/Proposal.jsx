@@ -58,6 +58,7 @@ class Proposal extends Component {
               <div className="details-wrapper">
                 <p className="started">Started {proposal.startTime.toLocaleDateString()}</p>
                 <p className="submitter">Submitted by {proposal._proposer}</p>
+                <p className="token">Voting token address {proposal._token}</p>
                 <p className="description">{proposal.description}</p>
 
                 <div className="results-wrapper">
