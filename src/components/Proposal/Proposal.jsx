@@ -107,7 +107,7 @@ class Proposal extends Component {
                 }
 
                 <div className="help">
-                  <h3>How to vote?</h3>
+                  <h3>How do I vote?</h3>
                   <p>
                     Each proposal has its own token which is created at the start of the vote. If you had
                     250 NEC when the vote began you will also have 250 voting tokens, which are spent to
@@ -116,6 +116,10 @@ class Proposal extends Component {
                     other ERC20 compatible token, so if you wish to delegate them to someone you trust to vote
                     on your behalf you may do so.
                   </p>
+                </div>
+                <div className="notice">
+                  All proposals require a minimum quorum of 50 million votes to be reached. These
+                  proposals are advisory in nature and the outcomes are not considered binding
                 </div>
               </div>
               <div className="remaining" />

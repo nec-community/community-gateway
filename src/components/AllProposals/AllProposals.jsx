@@ -15,6 +15,10 @@ class AllProposals extends Component {
       <div className="all-proposals">
         <div className="container">
           <h1>All Proposals</h1>
+          <p className="notice">
+            All proposals require a minimum quorum of 50 million votes to be reached. <br />
+            These proposals are advisory in nature and the outcomes are not considered binding
+          </p>
         </div>
         {
           this.props.proposals.filter(p => p._active).length !== 0 &&
@@ -75,7 +79,9 @@ class AllProposals extends Component {
         {
           !this.props.proposals.filter(p => p._active).length &&
           <div className="container">
-            No proposals are currently active.
+            <div className="no-proposals">
+              No proposals are currently active.
+            </div>
           </div>
         }
 
