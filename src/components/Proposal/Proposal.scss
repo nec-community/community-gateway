@@ -8,24 +8,8 @@
         display: flex;
       }
     }
-    .remaining {
-      width: 200px;
-      display: flex;
+    .proposal-countdown-wrapper {
       margin-top: 80px;
-      .number {
-        font-weight: bold;
-        font-size: 60px;
-        line-height: 60px;
-        margin-right: 5px;
-      }
-      .days {
-        font-size: 32px;
-        font-weight: 300;
-      }
-      .more {
-        font-size: 12px;
-        font-weight: 300;
-      }
     }
     .title {
       font-size: 70px;
@@ -37,6 +21,7 @@
       line-height: 29px;
       font-size: 18px;
       .submitter,
+      .token,
       .started {
         color: $color4;
         text-align: right;
@@ -148,6 +133,9 @@
         line-height: 29px;
         font-size: 18px;
       }
+    }
+    .notice {
+      font-weight: 300;
     }
   }
 }

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import eth from '../../services/ethereumService';
 import { voteForProposal } from '../../actions/proposalActions';
+import { timeUntilDate } from '../../services/utils';
+import ProposalCountdown from '../ProposalCountdown/ProposalCountdown';
 
 import './Proposal.scss';
 
@@ -48,16 +50,11 @@ class Proposal extends Component {
           <div key={proposal._token} className="proposal-wrapper">
             <p className="title">{proposal.title}</p>
             <div className="proposal-inner-wrapper">
-              <div className="remaining">
-                <div className="number">{proposal.remainingDays}</div>
-                <div>
-                  <div className="days">day{proposal.remainingDays === 1 ? '' : 's'}</div>
-                  <div className="more">remaining</div>
-                </div>
-              </div>
+              <ProposalCountdown endTime={proposal.endTime} />
               <div className="details-wrapper">
                 <p className="started">Started {proposal.startTime.toLocaleDateString()}</p>
                 <p className="submitter">Submitted by {proposal._proposer}</p>
+                <p className="token">Voting token address {proposal._token}</p>
                 <p className="description">{proposal.description}</p>
 
                 <div className="results-wrapper">
@@ -106,7 +103,7 @@ class Proposal extends Component {
                 }
 
                 <div className="help">
-                  <h3>How to vote?</h3>
+                  <h3>How do I vote?</h3>
                   <p>
                     Each proposal has its own token which is created at the start of the vote. If you had
                     250 NEC when the vote began you will also have 250 voting tokens, which are spent to
@@ -115,6 +112,10 @@ class Proposal extends Component {
                     other ERC20 compatible token, so if you wish to delegate them to someone you trust to vote
                     on your behalf you may do so.
                   </p>
+                </div>
+                <div className="notice">
+                  All proposals require a minimum quorum of 50 million votes to be reached. These
+                  proposals are advisory in nature and the outcomes are not considered binding
                 </div>
               </div>
               <div className="remaining" />

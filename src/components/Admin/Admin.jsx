@@ -14,10 +14,6 @@ class Admin extends Component {
   render() {
     return (
       <div className="admin">
-        {
-          !this.props.isAdmin &&
-          <Redirect to="/"/>
-        }
         <div className="container">
           <h1>Submitted Proposals</h1>
           <div className="active-section">
@@ -31,16 +27,34 @@ class Admin extends Component {
                     <p className="duration">Duration: {proposal.duration} days</p>
                     <p className="proposer">Submitted by: {proposal._proposer}</p>
                     <p className="description">{proposal.description}</p>
-                    <a onClick={() => eth.approveProposal(proposal.id, this.props.accountType)}>
-                      Approve
-                    </a>
-                    <br />
-                    <a onClick={() => eth.denyProposal(proposal.id, this.props.accountType)}>
-                      Deny
-                    </a>
+                    {
+                      !this.props.isAdmin &&
+                      <p className="description">
+                        This proposal is pending approval by the administrators
+                      </p>
+                    }
+                    {
+                      this.props.isAdmin &&
+                      <div>
+                        <a onClick={() => eth.approveProposal(proposal.id, this.props.accountType)}>
+                          Approve
+                        </a>
+                        <br />
+                        <a onClick={() => eth.denyProposal(proposal.id, this.props.accountType)}>
+                          Deny
+                        </a>
+                      </div>
+                    }
                   </div>
                 </div>
               ))
+            }
+
+            {
+              !this.props.proposals.length &&
+              <div className="empty">
+                No proposals are currently pending.
+              </div>
             }
           </div>
         </div>

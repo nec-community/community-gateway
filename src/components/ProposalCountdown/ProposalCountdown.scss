@@ -1,0 +1,18 @@
+.proposal-countdown-wrapper {
+  width: 200px;
+  display: flex;
+  .number {
+    font-weight: bold;
+    font-size: 60px;
+    line-height: 60px;
+    margin-right: 5px;
+  }
+  .unit {
+    font-size: 32px;
+    font-weight: 300;
+  }
+  .remaining {
+    font-size: 12px;
+    font-weight: 300;
+  }
+}

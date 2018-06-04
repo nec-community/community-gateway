@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getProposals } from '../../actions/proposalActions';
+import ProposalCountdown from '../ProposalCountdown/ProposalCountdown';
 import './AllProposals.scss';
 
 class AllProposals extends Component {
@@ -15,6 +16,10 @@ class AllProposals extends Component {
       <div className="all-proposals">
         <div className="container">
           <h1>All Proposals</h1>
+          <p className="notice">
+            All proposals require a minimum quorum of 50 million votes to be reached. <br />
+            These proposals are advisory in nature and the outcomes are not considered binding
+          </p>
         </div>
         {
           this.props.proposals.filter(p => p._active).length !== 0 &&
@@ -24,15 +29,7 @@ class AllProposals extends Component {
                 {
                   this.props.proposals.filter(p => p._active).map(proposal => (
                     <div key={proposal._token} className="proposal-wrapper">
-                      <div className="remaining">
-                        <div className="number">{proposal.remainingDays}</div>
-                        <div>
-                          <div className="days">
-                            day{proposal.remainingDays === 1 ? '' : 's'}
-                          </div>
-                          <div className="more">remaining</div>
-                        </div>
-                      </div>
+                      <ProposalCountdown endTime={proposal.endTime} />
 
                       <div className="details-wrapper">
                         <Link
@@ -71,6 +68,16 @@ class AllProposals extends Component {
             <div className="waves reverse" />
           </div>
         }
+
+        {
+          !this.props.proposals.filter(p => p._active).length &&
+          <div className="container">
+            <div className="no-proposals">
+              No proposals are currently active.
+            </div>
+          </div>
+        }
+
         <div className="past-section">
           <div className="container">
             {

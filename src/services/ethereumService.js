@@ -349,10 +349,7 @@ const getProposalDetails = async (id) => {
   else noPercentage = Math.floor(noPercentage * 100) / 100;
 
   const startTime = new Date(parseInt(`${details._startTime}000`, 10));
-  const remainingDays = Math.floor(
-    ((startTime.valueOf() + parseInt(`${details._duration}000`, 10)) - (new Date()).valueOf())
-    / (24 * 60 * 60 * 1000),
-  );
+  const endTime = new Date(startTime.valueOf() + parseInt(`${details._duration}000`, 10));
   return {
     id,
     ...details,
@@ -362,7 +359,7 @@ const getProposalDetails = async (id) => {
     noPercentage,
     duration: details._duration / 24 / 60 / 60,
     startTime,
-    remainingDays,
+    endTime,
     totalYes,
     totalNo,
   };

@@ -15,7 +15,7 @@ const Routes = () => (
     <Route exact path="/proposal/:proposalId" component={Proposal} />
     <Route exact path="/all" component={AllProposals} />
     <Route exact path="/submit" component={Submit} />
-    <Route exact path="/admin" component={Admin} />
+    <Route exact path="/pending" component={Admin} />
     <Route exact path="/faq" component={FAQ} />
     <Route exact path="/listings" component={TokenListings} />
     <Route exact path="/previousTokenVote" component={PreviousTokenListing} />
