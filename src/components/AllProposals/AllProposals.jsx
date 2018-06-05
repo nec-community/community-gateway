@@ -52,12 +52,12 @@ class AllProposals extends Component {
                             />
                           </div>
                           <div className="number">{`${Math.floor(proposal.yesPercentage)}`}</div>
-                          <div className="votes-number">{proposal.totalYes} NEC</div>
+                          <div className="votes-number">{proposal.totalYes} VT</div>
                         </div>
                         <div className="no">
                           <span className="word">no</span>
                           <div className="number">{`${Math.floor(proposal.noPercentage)}`}</div>
-                          <div className="votes-number">{proposal.totalNo} NEC</div>
+                          <div className="votes-number">{proposal.totalNo} VT</div>
                         </div>
                       </div>
                     </div>
@@ -103,12 +103,12 @@ class AllProposals extends Component {
                         <div className="bar-yes" style={{ width: `${proposal.yesPercentage}%` }} />
                       </div>
                       <div className="number">{`${Math.floor(proposal.yesPercentage)}`}</div>
-                      <div className="votes-number">{proposal.totalYes} NEC</div>
+                      <div className="votes-number">{proposal.totalYes} VT</div>
                     </div>
                     <div className="no">
                       <span className="word">no</span>
                       <div className="number">{`${Math.floor(proposal.noPercentage)}`}</div>
-                      <div className="votes-number">{proposal.totalNo} NEC</div>
+                      <div className="votes-number">{proposal.totalNo} VT</div>
                     </div>
                   </div>
                 </div>

@@ -15,6 +15,7 @@ class Proposal extends Component {
     this.state = {
       proposal: {},
       voted: true,
+      proposalBalance: '0',
     };
   }
 
@@ -22,9 +23,16 @@ class Proposal extends Component {
     const { match: { params: { proposalId } } } = this.props;
     const proposal = await eth.getProposalDetails(proposalId);
     const voted = this.props.account && await eth.hasUserVoted(proposal.id, this.props.account);
+    const _proposalBalance = await eth.userBalanceOnProposal(
+      this.props.account,
+      proposal._token
+    );
+    const proposalBalance = eth.weiToEth(_proposalBalance);
+    console.log(proposalBalance);
     this.setState({
       proposal,
       voted,
+      proposalBalance,
     });
   }
 
@@ -52,9 +60,13 @@ class Proposal extends Component {
             <div className="proposal-inner-wrapper">
               <ProposalCountdown endTime={proposal.endTime} />
               <div className="details-wrapper">
-                <p className="started">Started {proposal.startTime.toLocaleDateString()}</p>
-                <p className="submitter">Submitted by {proposal._proposer}</p>
-                <p className="token">Voting token address {proposal._token}</p>
+                <p className="started">Started: {proposal.startTime.toLocaleDateString()}</p>
+                <p className="submitter">Submitted by: {proposal._proposer}</p>
+                <p className="token">Voting token address: {proposal._token}</p>
+                {
+                  this.state.proposalBalance !== '0' &&
+                  <p className="balance">Your balance*: {this.state.proposalBalance} VT</p>
+                }
                 <p className="description">{proposal.description}</p>
 
                 <div className="results-wrapper">
@@ -74,22 +86,23 @@ class Proposal extends Component {
                 <div className="results-wrapper">
                   <div className="yes">
                     <div className="number">{`${proposal.yesPercentage}`}</div>
-                    <div className="votes-number">{proposal.totalYes} NEC</div>
+                    <div className="votes-number">{proposal.totalYes} VT</div>
                   </div>
                   <div className="no">
                     <div className="number">{`${proposal.noPercentage}`}</div>
-                    <div className="votes-number">{proposal.totalNo} NEC</div>
+                    <div className="votes-number">{proposal.totalNo} VT</div>
                   </div>
                 </div>
 
-
                 {
-                  this.props.tokenBalance === '0' &&
-                  <p className="vote-wrapper error">NEC balance required on your account to submit a proposal</p>
+                  this.state.proposalBalance === '0' &&
+                  <p className="vote-wrapper error">
+                    Voting token balance required on your account to vote*
+                  </p>
                 }
 
                 {
-                  this.props.tokenBalance !== '0' &&
+                  this.state.proposalBalance !== '0' &&
                   !this.state.voted &&
                   <p className="vote-wrapper">
                     <a onClick={() => this.props.voteForProposal(proposal.id, true)}>Vote Yes</a>
@@ -117,8 +130,11 @@ class Proposal extends Component {
                   All proposals require a minimum quorum of 50 million votes to be reached. These
                   proposals are advisory in nature and the outcomes are not considered binding
                 </div>
+                <div className="balance-notice">
+                  *Voting token balances represent the NEC balances held at the time of the proposal
+                  being approved, and do not necessarily reflect an account’s current NEC balance.
+                </div>
               </div>
-              <div className="remaining" />
             </div>
           </div>
         }

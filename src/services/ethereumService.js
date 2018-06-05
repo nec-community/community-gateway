@@ -68,8 +68,8 @@ const getProposalContract = async () =>
 const getTokenProposalContract = async () =>
   new window._web3.eth.Contract(config.tokenProposalContract.abi, config.tokenProposalContract.address);
 
-const getTokenContract = async () =>
-  new window._web3.eth.Contract(config.tokenContract.abi, config.tokenContract.address);
+const getTokenContract = async (_address) =>
+  new window._web3.eth.Contract(config.tokenContract.abi, _address || config.tokenContract.address);
 
 const getVotingTokenContract = async _votingToken =>
   new window._web3.eth.Contract(config.tokenContract.abi, _votingToken);
@@ -320,6 +320,11 @@ const hasUserVoted = async (proposalId, address) => {
   return events.length > 0 && (events[0].returnValues.yes ? 'Yes' : 'No');
 };
 
+const userBalanceOnProposal = async (account, proposalToken) => {
+  const tokenContract = await getTokenContract(proposalToken);
+  return tokenContract.methods.balanceOf(account).call();
+};
+
 const getProposalDetails = async (id) => {
   const proposalContract = await getProposalContract();
   const details = await proposalContract.methods.proposal(id).call();
@@ -488,6 +493,7 @@ export default {
   voteTokens,
   getTokenDetails,
   hasUserVoted,
+  userBalanceOnProposal,
   calculateNecReward,
   burnNec,
   fetchData,
