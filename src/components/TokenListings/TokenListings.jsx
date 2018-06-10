@@ -130,7 +130,7 @@ class TokenListings extends Component {
 
             <div className="container">
               {
-                this.props.votes.sort((a, b) => (b.totalYes - a.totalYes)).map((token, index) => (
+                this.props.votes.sort((a, b) => (b.totalYes - a.totalYes || b.token.toLowerCase() > a.token.toLowerCase())).map((token, index) => (
                   <div key={token.id} className="listing-wrapper">
 
                     <div className="logo-wrapper">
