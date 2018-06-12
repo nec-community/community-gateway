@@ -23,6 +23,13 @@ class ProposalCountdown extends Component {
     });
   }
   render() {
+    if (this.state.count === 0)
+      return (
+        <div className="proposal-countdown-wrapper">
+          <div className="unit">Finished</div>
+        </div>
+      );
+
     return (
       <div className="proposal-countdown-wrapper">
         <div className="number">{this.state.count}</div>
