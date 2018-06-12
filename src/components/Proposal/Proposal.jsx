@@ -95,6 +95,7 @@ class Proposal extends Component {
                 </div>
 
                 {
+                  !proposal._finalized &&
                   this.state.proposalBalance === '0' &&
                   <p className="vote-wrapper error">
                     Voting token balance required on your account to vote*
@@ -102,6 +103,7 @@ class Proposal extends Component {
                 }
 
                 {
+                  !proposal._finalized &&
                   this.state.proposalBalance !== '0' &&
                   !this.state.voted &&
                   <p className="vote-wrapper">
@@ -111,21 +113,32 @@ class Proposal extends Component {
                 }
 
                 {
+                  proposal._finalized &&
+                  <p className="final-results">
+                    Final result: { proposal.yesPercentage > proposal.noPercentage ? 'Yes' : 'No' }
+                  </p>
+                }
+
+                {
                   this.state.voted &&
                   <p className="voted">You voted { this.state.voted }.</p>
                 }
+                <p className="voted">You voted Yes.</p>
 
-                <div className="help">
-                  <h3>How do I vote?</h3>
-                  <p>
-                    Each proposal has its own token which is created at the start of the vote. If you had
-                    250 NEC when the vote began you will also have 250 voting tokens, which are spent to
-                    cast your vote as either 'Yes' or 'No', and then destroyed. This ensures that it is only
-                    possible to vote for each proposal once. The voting tokens can be transferred like any
-                    other ERC20 compatible token, so if you wish to delegate them to someone you trust to vote
-                    on your behalf you may do so.
-                  </p>
-                </div>
+                {
+                  !proposal._finalized &&
+                  <div className="help">
+                    <h3>How do I vote?</h3>
+                    <p>
+                      Each proposal has its own token which is created at the start of the vote. If you had
+                      250 NEC when the vote began you will also have 250 voting tokens, which are spent to
+                      cast your vote as either 'Yes' or 'No', and then destroyed. This ensures that it is only
+                      possible to vote for each proposal once. The voting tokens can be transferred like any
+                      other ERC20 compatible token, so if you wish to delegate them to someone you trust to vote
+                      on your behalf you may do so.
+                    </p>
+                  </div>
+                }
                 <div className="notice">
                   All proposals require a minimum quorum of 50 million votes to be reached. These
                   proposals are advisory in nature and the outcomes are not considered binding
