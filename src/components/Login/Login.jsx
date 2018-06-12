@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loginLedger, loginMetamask, loginKeystore, openLogin, closeLogin } from '../../actions/accountActions';
+import { ledgerListAddresses, loginLedger, loginMetamask, loginKeystore, openLogin, closeLogin } from '../../actions/accountActions';
 import keystoreService from '../../services/keystoreService';
 
 import './Login.scss';
@@ -14,9 +14,13 @@ class Login extends Component {
       passReq: false,
       fileName: '',
       fileError: '',
+      ledgerAccounts: [],
+      ledgerPage: 0,
     };
 
     this.switch = this.switch.bind(this);
+    this.ledgerList = this.ledgerList.bind(this);
+    this.paginateLedger = this.paginateLedger.bind(this);
     this.readKeystore = this.readKeystore.bind(this);
   }
 
@@ -25,6 +29,8 @@ class Login extends Component {
   switch(slug) {
     this.setState({
       shown: slug,
+    }, () => {
+      if (slug === 'ledger') this.ledgerList();
     });
   }
 
@@ -52,6 +58,20 @@ class Login extends Component {
       }
     };
     fileReader.readAsText(inputFile, 'utf-8');
+  }
+
+  async ledgerList () {
+    const path = this.ledgerPath.value;
+    const ledgerAccounts = await this.props.ledgerListAddresses(path, this.state.ledgerPage);
+    this.setState({ ledgerAccounts });
+  }
+
+  paginateLedger (increment) {
+    if (this.state.ledgerPage + increment < 0) return;
+    this.setState(
+      { ledgerPage: this.state.ledgerPage + increment },
+      () => this.ledgerList()
+    );
   }
 
   render() {
@@ -100,12 +120,41 @@ class Login extends Component {
                       <input
                         type="text"
                         ref={(input) => { this.ledgerPath = input; }}
-                        defaultValue="44'/60'/0'/0"
+                        defaultValue="44'/60'/0'"
                       />
                     </label>
-                    <button onClick={() => this.props.loginLedger(this.ledgerPath.value)}>Connect
-                      Ledger
+                    <button onClick={() => this.ledgerList()}>
+                      Connect Ledger
                     </button>
+                    <table cellSpacing={0}>
+                      <tbody>
+                        <tr className="meta-row">
+                          <th>Address</th>
+                          <th>ETH Balance</th>
+                          <th>NEC Balance</th>
+                        </tr>
+                        {
+                          this.state.ledgerAccounts.map(acc => (
+                            <tr key={acc.address} onClick={() => this.props.loginLedger(acc.path)}>
+                              <td>{acc.address}</td>
+                              <td>{acc.balance}</td>
+                              <td>{acc.NECbalance}</td>
+                            </tr>
+                          ))
+                        }
+                        <tr className="meta-row">
+                          <td colSpan={3}>
+                            <div className="pagination">
+                              <a onClick={() => this.paginateLedger(1)}>More accounts</a>
+                              {
+                                this.state.ledgerPage > 0 &&
+                                <a onClick={() => this.paginateLedger(-1)}>Previous accounts</a>
+                              }
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 }
                 {
@@ -164,6 +213,7 @@ Login.propTypes = {
   loginLedger: PropTypes.func.isRequired,
   loginMetamask: PropTypes.func.isRequired,
   loginKeystore: PropTypes.func.isRequired,
+  ledgerListAddresses: PropTypes.func.isRequired,
   openLogin: PropTypes.func.isRequired,
   closeLogin: PropTypes.func.isRequired,
   accountType: PropTypes.string.isRequired,
@@ -179,6 +229,7 @@ export default connect(mapStateToProps, {
   loginLedger,
   loginMetamask,
   loginKeystore,
+  ledgerListAddresses,
   openLogin,
   closeLogin,
 })(Login);

@@ -78,7 +78,7 @@ const getControllerContract = async () =>
   new window._web3.eth.Contract(config.controllerContract.abi, config.controllerContract.address);
 
 
-const ledgerLogin = async (path = defaultPath) => {
+const ledgerLogin = async (path) => {
   ledgerPath = path;
   if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
   const eth = new ledger.eth(ledgerComm);
@@ -86,11 +86,24 @@ const ledgerLogin = async (path = defaultPath) => {
   return account.address;
 };
 
+const ledgerListAccounts = async (pathPrefix, start, n) => {
+  if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
+  const eth = new ledger.eth(ledgerComm);
+  const accounts = [];
+  for (let i = 0; i < n; i ++) {
+    const path = pathPrefix + '/' + (start + i);
+    const account = await eth.getAddress_async(path);
+    account.path = path;
+    accounts.push(account)
+  }
+  return accounts;
+};
+
 const signAndSendLedger = async (contractCall, value = 0, gasPrice = config.defaultGasPrice) => {
   if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
   const eth = new ledger.eth(ledgerComm);
   const account = await eth.getAddress_async(ledgerPath);
-  log(`LEDGER account ${account}`);
+  log(`LEDGER account ${account.address}`);
 
   const encodedAbi = contractCall.encodeABI();
   log(`LEDGER encodedAbi ${encodedAbi}`);
@@ -498,6 +511,7 @@ export default {
   burnNec,
   fetchData,
   ledgerLogin,
+  ledgerListAccounts,
   signAndSendLedger,
   approveProposal,
   denyProposal,

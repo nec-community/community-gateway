@@ -96,9 +96,11 @@
     }
     .login-input-wrapper {
       padding: 50px 20px;
-      max-width: 500px;
-      margin: auto;
       text-align: center;
+      > div {
+        max-width: 500px;
+        margin: auto;
+      }
       h2 {
         font-size: 24px;
       }
@@ -179,6 +181,56 @@
           background-color: #d33133;
           color: white;
           padding: 10px;
+        }
+      }
+      .ledger-login-wrapper {
+        max-width: 700px;
+        h2 {
+          max-width: 500px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        table {
+          margin: 0 auto;
+          width: 100%;
+          max-width: 600px;
+        }
+        th {
+          font-weight: normal;
+          border-bottom: 1px solid $color1;
+          padding: 10px 5px;
+          &:first-child {
+            padding-left: 0;
+            text-align: left;
+          }
+        }
+        td {
+          padding: 5px 5px;
+          &:first-child {
+            text-align: left;
+          }
+        }
+        tr{
+          cursor: pointer;
+          &:nth-child(2n + 3) {
+            background-color: $color1;
+          }
+          &:hover {
+            background-color: lighten($color1, 5%);
+          }
+        }
+        .meta-row {
+          background-color: transparent !important;
+          cursor: default;
+          .pagination {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            padding-top: 10px;
+            a {
+              cursor: pointer;
+            }
+          }
         }
       }
     }

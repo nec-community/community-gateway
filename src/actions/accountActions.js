@@ -56,6 +56,27 @@ export const loginMetamask = silent => async (dispatch, getState) => {
   }
 };
 
+export const ledgerListAddresses = (path, page) => async (dispatch) => {
+  try {
+    const addressesPerPage = 5;
+    const accounts = await ethService.ledgerListAccounts(path, page * addressesPerPage, addressesPerPage);
+    return Promise.all(accounts.map(async (acc) => {
+      acc.balance = toDecimal(await ethService.getBalance(acc.address));
+      acc.NECbalance = toDecimal(ethService.weiToEth(await ethService.getTokenBalance(acc.address)));
+      return acc;
+    }));
+  } catch (err) {
+    if (err.message) {
+      dispatch(accountError(err.message));
+      return notify(err.message, 'error')(dispatch);
+    }
+    if (err === 'Invalid status 6801') err += ' - Ledger possibly locked';
+    dispatch(accountError(err));
+    notify(err, 'error')(dispatch);
+    return [];
+  }
+};
+
 export const loginLedger = path => async (dispatch) => {
   try {
     log(`Path ${path}`);
