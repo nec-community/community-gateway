@@ -88,7 +88,7 @@ class TokenListings extends Component {
 
           <div className="header-desc-container">
             <div className="left-header">
-              Ethfinex <a href='https://etherscan.io/token/0xd7e7a876058d8e67efb26ad7b10a4007d90396bc' target='_blank'>Voting Tokens</a> are
+              Ethfinex <a href='https://etherscan.io/token/0x99ee6275a7ec7165c63fb7cfeb8b8e1a73722733' target='_blank'>Voting Tokens</a> are
               issued to traders in proportion to their NEC holdings,
               allowing loyal users more of a say without spending Nectar tokens.
               To find out more about the voting process and how projects are selected to be voted on,
@@ -130,7 +130,13 @@ class TokenListings extends Component {
 
             <div className="container">
               {
-                this.props.votes.sort((a, b) => (b.totalYes - a.totalYes)).map((token, index) => (
+                this.props.votes.sort(function(a, b) {
+                    if (a.totalYes - b.totalYes > 0) return -1;
+                  	if (b.totalYes - a.totalYes > 0) return 1;
+
+                    if (a.token.toLowerCase() > b.token.toLowerCase()) return 1;
+                  	if (a.token.toLowerCase() < b.token.toLowerCase()) return -1;
+                  }).map((token, index) => (
                   <div key={token.id} className="listing-wrapper">
 
                     <div className="logo-wrapper">
