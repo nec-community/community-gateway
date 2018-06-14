@@ -23,11 +23,8 @@ class PreviousTokenListing extends Component {
   constructor() {
     super();
 
-    const periods = Object.keys(previousTokenData);
-    const periodIndex = periods.length - 1;
-
     this.state = {
-      periodIndex,
+      periodIndex: 0,
     };
   }
 
