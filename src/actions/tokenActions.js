@@ -15,7 +15,7 @@ export const getTokenVotes = () => async (dispatch) => {
     {
       id: 0,
       token: 'Loom',
-      description: 'Loom token will allow the transfer of data and digital assess between DApps on the Loom Network and the Ethereum mainnet. Loom acts as a lifetime membership card for online games and social apps, and is focused on second layer scaling solutions.',
+      description: 'Loom Network is the next-generation blockchain platform for highly scalable games and social apps. The Loom SDK now makes it possible for developers to easily create their own high throughput sidechains or choose to run their DApps on shared chains (such as ZombieChain), all of which are backed by the trust and security of Ethereum.',
       totalYes: votes.yesVotes[0],
       total: votes.totalVotes,
       logo: 'https://cdn-images-1.medium.com/max/1200/1*K76UVoLq-FOL7l-_Fag-Qw@2x.png',
