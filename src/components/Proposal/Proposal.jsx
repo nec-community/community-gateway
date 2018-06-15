@@ -123,7 +123,6 @@ class Proposal extends Component {
                   this.state.voted &&
                   <p className="voted">You voted { this.state.voted }.</p>
                 }
-                <p className="voted">You voted Yes.</p>
 
                 {
                   !proposal._finalized &&
