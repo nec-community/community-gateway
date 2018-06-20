@@ -79,7 +79,7 @@ export const getTokenVotes = () => async (dispatch) => {
       id: 7,
       token: 'Cindicator',
       description: 'Cindicator CND tokens give access to tools needed to make effective investment and trading decisions under the the high uncertainty of the new economy, by combining a large number of diverse financial analysts and a set of machine-learning models into a single system.',
-      totalYes: votes.yesVotes[2],
+      totalYes: votes.yesVotes[7],
       total: votes.totalVotes,
       logo: 'https://coinlookup.co/wp-content/uploads/2018/03/cindicator.png',
       discussions: 'https://cindicator.com/',
