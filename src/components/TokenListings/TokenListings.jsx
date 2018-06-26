@@ -49,6 +49,7 @@ class TokenListings extends Component {
     const minutesRemaining = Math.floor((timeRemaining % (60 * 60 * 1000)) / 60 / 1000);
     const secondsRemaining = Math.floor((timeRemaining % (60 * 1000)) / 1000);
     this.setState({
+      timeRemaining,
       daysRemaining,
       hoursRemaining,
       minutesRemaining,
@@ -59,6 +60,7 @@ class TokenListings extends Component {
   render() {
     const { endingTime } = this.props;
     const {
+      timeRemaining,
       daysRemaining,
       hoursRemaining,
       minutesRemaining,
@@ -69,15 +71,15 @@ class TokenListings extends Component {
         <div className="container">
           <h1>Ethfinex Listing Leaderboard</h1>
           {
-            endingTime < 0 &&
-            <h5>Voting is currently not open</h5>
+            timeRemaining < 0 &&
+            <h5>Voting for this round has now completed</h5>
           }
           {
-            endingTime > 0 &&
-            <h5>The top 4 tokens will become tradable on Ethfinex</h5>
+            timeRemaining > 0 &&
+            <h5>The top 3 tokens will become tradable on Ethfinex</h5>
           }
           {
-            endingTime > 0 &&
+            timeRemaining > 0 &&
             <div className="countdown">
               <span data-tooltip="Days">{ padToTwo(daysRemaining) }</span>:
               <span data-tooltip="Hours">{ padToTwo(hoursRemaining) }</span>:
@@ -88,7 +90,7 @@ class TokenListings extends Component {
 
           <div className="header-desc-container">
             <div className="left-header">
-              Ethfinex <a href='https://etherscan.io/token/0x99ee6275a7ec7165c63fb7cfeb8b8e1a73722733' target='_blank'>Voting Tokens</a> are
+              Ethfinex <a href='https://etherscan.io/address/0x1da899dfba6cca073a5283f1855453ebfd13ecfb' target='_blank'>Voting Tokens</a> are
               issued to traders in proportion to their NEC holdings,
               allowing loyal users more of a say without spending Nectar tokens.
               To find out more about the voting process and how projects are selected to be voted on,

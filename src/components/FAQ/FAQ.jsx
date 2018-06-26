@@ -58,6 +58,58 @@ class FAQ extends Component {
               of Ethereum locked in the Nectar smart contract.
             </p>
           </div>
+        </div>
+        <div className="faq-wrapper-dark">
+          <div className="faq-container">
+            <h2>What is the Ethfinex Voting Token (EVT)?</h2>
+            <p className="info-tip">
+            The Ethfinex Voting Token is a bi-monthly distributed token used for the voting of ERC20 tokens to be listed on Ethfinex. You can view the currently ongoing vote <a href="#/listings" target="_blank"> here </a>. These tokens are distributed to Nectar Token (NEC) holders every time a vote starts in a 1:1 ratio, eg. a user holding 5,000 NEC on the date and time that the voting begins, would receive 5,000 EVT.
+            </p>
+          </div>
+          <div className="faq-container">
+            <h2>Are EVTs used only for voting?</h2>
+            <p className="info-tip">
+            Whilst the main purpose for the Ethfinex Voting Token is for the community to vote which tokens will be listed, users are able to trade EVT on the platform, with the EVT/USD pair.
+            </p>
+          </div>
+          <div className="faq-container">
+            <h2>Is EVT a long term investment token?</h2>
+            <p className="info-tip">
+            EVT is a terrible long term investment. The tokens expire and disappear every two weeks, at the end of a voting period. New EVT tokens are then distributed to NEC holders. The EVT market is stopped 3 hours before voting ends, to ensure plenty of time is left for remaining EVT tokens to be withdrawn for voting purposes.
+            </p>
+          </div>
+          <div className="faq-container">
+            <h2>What happens to my EVT if I do not vote?</h2>
+            <p className="info-tip">
+            EVT are spent when voting for one of the tokens on the list, or trading on the Ethfinex platform. All remaining EVT not used in voting expire at the end of the two week period and the EVT markets on Ethfinex are then cleared. Users will be required to vote or sell the EVT before expiration to avoid any loss.
+            </p>
+          </div>
+          <div className="faq-container">
+            <h2>If I withdraw my EVT to an external wallet, will they still expire?</h2>
+            <p className="info-tip">
+            Tokens withdrawn to external wallets will also expire and balances will disappear at the end of the voting period. This is automatic and will expire across all Wallets. EVT are then reissued based on users updated NEC balances, to be used in the next token listing vote and when the EVT market begins again.
+            </p>
+          </div>
+          <div className="faq-container">
+            <h2>When exactly do new EVTs get distributed?</h2>
+            <p className="info-tip">
+            New EVTs are distributed approximately 1-2 hours after the previous voting period ends.
+            </p>
+          </div>
+          <div className="faq-container">
+            <h2>If I withdraw my EVT to an external wallet, will they still expire?</h2>
+            <p className="info-tip">
+            Tokens withdrawn to external wallets will also expire and balances will disappear at the end of the voting period. This is automatic and will expire across all Wallets. EVT are then reissued based on users updated NEC balances, to be used in the next token listing vote and when the EVT market begins again.
+            </p>
+          </div>
+          <div className="faq-container">
+            <h2>If the token we are voting on does not go through, do we get the EVT back?</h2>
+            <p className="info-tip">
+            No, as the EVT tokens expire every 2 weeks when the voting period ends, the EVT market is cleared 3 hours before voting ends. Once voting ends the EVT tokens expire and new tokens with a new contract address are issued to NEC holders at the ratio of 1:1.
+            </p>
+          </div>
+        </div>
+        <div className="faq-wrapper">
           <div className="faq-container">
             <h2>What is a proposal?</h2>
             <p className="info-tip">
@@ -112,11 +164,11 @@ class FAQ extends Component {
           <div className="faq-container">
             <h2>How are token votes decided?</h2>
             <p className="info-tip">
-              Every few weeks 10 tokens are to be placed up for community vote.
+              Every few weeks 12 tokens are to be placed up for community vote.
               All holders of the Nectar token will receive an equal number of temporary voting tokens.
               These are spent to vote for any of the tokens on the list,
               and can also be transferred to others who you wish to vote on your behalf.
-              The 4 tokens on the list which receive the highest number of votes will
+              The 3 tokens on the list which receive the highest number of votes will
               then be listed at the end of the period. A new period will then begin,
               with redistribution of temporary voting tokens.
               You can see an example of the voting page <a href="#/listings" target="_blank"> here </a>.
