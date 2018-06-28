@@ -6,6 +6,8 @@ import {
   UPDATE_ETHFINEX_DATA,
   OPEN_LOGIN,
   CLOSE_LOGIN,
+  OPEN_HELP,
+  CLOSE_HELP,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -26,6 +28,7 @@ const INITIAL_STATE = {
     burningEnabled: false,
   },
   loginOpen: false,
+  helpOpen: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -77,6 +80,16 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loginOpen: false,
+      };
+    case OPEN_HELP:
+      return {
+        ...state,
+        helpOpen: true,
+      };
+    case CLOSE_HELP:
+      return {
+        ...state,
+        helpOpen: false,
       };
     default:
       return state;

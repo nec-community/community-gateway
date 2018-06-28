@@ -19,3 +19,6 @@ export const UPDATE_ETHFINEX_DATA = 'update_ethfinex_data';
 
 export const OPEN_LOGIN = 'open_login';
 export const CLOSE_LOGIN = 'close_login';
+
+export const OPEN_HELP = 'open_help';
+export const CLOSE_HELP = 'close_help';

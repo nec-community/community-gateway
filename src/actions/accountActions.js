@@ -6,6 +6,8 @@ import {
   UPDATE_ETHFINEX_DATA,
   OPEN_LOGIN,
   CLOSE_LOGIN,
+  OPEN_HELP,
+  CLOSE_HELP,
 } from './actionTypes';
 import ethService from '../services/ethereumService';
 import keystoreService from '../services/keystoreService';
@@ -173,6 +175,14 @@ export const openLogin = () => ({
 
 export const closeLogin = () => ({
   type: CLOSE_LOGIN,
+});
+
+export const openHelp = () => ({
+  type: OPEN_HELP,
+});
+
+export const closeHelp = () => ({
+  type: CLOSE_HELP,
 });
 
 export const burnNec = amount => async (dispatch, getState) => {
