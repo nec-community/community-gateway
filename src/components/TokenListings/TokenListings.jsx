@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Help from '../../components/Help/Help';
 import { getTokenVotes, voteForToken } from '../../actions/tokenActions';
 import { getVotingTokenBalance } from '../../actions/accountActions';
 import './TokenListings.scss';
@@ -68,6 +69,7 @@ class TokenListings extends Component {
     } = this.state;
     return (
       <div className="listings">
+      <Help />
         <div className="container">
           <h1>Ethfinex Listing Leaderboard</h1>
           {
