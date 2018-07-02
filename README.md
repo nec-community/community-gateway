@@ -18,6 +18,15 @@ Once a proposal has been accepted by an admin, it triggers a clone of the NEC to
 
 ![Example Proposal Screenshot](/proposal.jpg?raw=true "Example Proposal")
 
+## Listing Votes: Proposing A Token
+
+Every 2 weeks a new listing proposal begins, allowing a certain number of tokens to be selected by the
+community to be listed.
+
+To propose a token for voting, you can add the details yourself in a JSON file and [add a pull request](/proposed_tokens).
+
+More details about the process for submitting a token are available [here](https://support.ethfinex.com/hc/en-us/articles/115002526172-Listing-a-Token-on-Ethfinex).
+
 ## Mainnet Contracts
 ProposalManager.sol is deployed at:
 `0xB24Ed9d62d4c660FAF56a4cDdADa06C88b2d5DdB`
