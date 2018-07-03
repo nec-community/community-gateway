@@ -29,13 +29,13 @@ class Help extends Component {
               <p>EVT are automatically distributed to any wallet that holds Nectar tokens (NEC)
                at the time when a new vote begins. These EVT are spent when voting,
                and any unused tokens expire at the end of the vote. Anyone who receives
-               EVT can also sell them on <a href="www.ethfinex.com" target="_blank">Ethfinex.</a></p>
+               EVT can also sell them on <a href="https://www.ethfinex.com" target="_blank">Ethfinex.</a></p>
 
               <div className="left-bullet-wrapper">
               <ol>
               <p><strong>Need EVT?</strong></p>
 
-                <li>Create an account on <a href="www.ethfinex.com" target="_blank">Ethfinex.</a>;</li>
+                <li>Create an account on <a href="https://www.ethfinex.com" target="_blank">Ethfinex.</a>;</li>
                 <li><a href="https://support.ethfinex.com/hc/en-us/articles/115002246032-Making-a-Deposit" target="_blank">Deposit</a> ETH or any other ERC20 token;</li>
                 <li><a href="https://support.ethfinex.com/hc/en-us/articles/115002378891-Making-a-Trade" target="_blank">Convert</a> your ETH to USD;</li>
                 <li><a href="https://support.ethfinex.com/hc/en-us/articles/115002378891-Making-a-Trade" target="_blank">Buy</a> EVT;</li>
