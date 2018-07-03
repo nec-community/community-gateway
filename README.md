@@ -18,6 +18,8 @@ Once a proposal has been accepted by an admin, it triggers a clone of the NEC to
 
 ![Example Proposal Screenshot](/proposal.jpg?raw=true "Example Proposal")
 
+Token Listing Proposals are also voted on and managed by `TokenListingManager.sol`.
+
 ## Listing Votes: Proposing A Token
 
 Every 2 weeks a new listing proposal begins, allowing a certain number of tokens to be selected by the
@@ -28,6 +30,9 @@ To propose a token for voting, you can add the details yourself in a JSON file a
 More details about the process for submitting a token are available [here](https://support.ethfinex.com/hc/en-us/articles/115002526172-Listing-a-Token-on-Ethfinex).
 
 ## Mainnet Contracts
+TokenProposalManager.sol is deployed at:
+`0x2b2D7d874bBfb73F85b2F8A9EE0D9F3E93722622`
+
 ProposalManager.sol is deployed at:
 `0xB24Ed9d62d4c660FAF56a4cDdADa06C88b2d5DdB`
 with JSON Interface (ABI):
@@ -65,3 +70,7 @@ To start the website development build locally run ```yarn dev```
 To start the website production build locally run ```yarn prod-serve```
 
 To build production files in the dist directory run ```yarn prod```
+
+## License
+
+MIT
