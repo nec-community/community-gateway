@@ -83,7 +83,7 @@ class PreviousTokenListing extends Component {
                       >
                         {index + 1}. {token.token}
                         <p className="description">
-                          {(index < 4) &&
+                          {(index < tokens.winThreshold) &&
                           <span>Winner of the vote - listed on Ethfinex on {tokens.listedOn}</span>
                           }
                         </p>

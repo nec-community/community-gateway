@@ -1,6 +1,127 @@
 export default {
+  '26/06 - 10/07': {
+    listedOn: 'Thursday 13th July',
+    winThreshold: 3,
+    link: 'https://etherscan.io/token/0x1da899dfba6cca073a5283f1855453ebfd13ecfb?a=0x2b2d7d874bbfb73f85b2f8a9ee0d9f3e93722622',
+    data: [
+      {
+        id: 0,
+        token: 'Loom',
+        totalYes: 860,
+        total: 88883844,
+        logo: 'https://cdn-images-1.medium.com/max/1200/1*K76UVoLq-FOL7l-_Fag-Qw@2x.png',
+        discussions: 'https://loomx.io/',
+        website: 'https://loomx.io/',
+      }, {
+        id: 1,
+        token: 'Data (DTA)',
+        totalYes: 21100000,
+        total: 88883844,
+        logo: 'https://data.eco/images/logo.DATA.svg',
+        discussions: 'https://data.eco/',
+        website: 'https://data.eco/',
+      }, {
+        id: 2,
+        token: 'Republic Protocol',
+        totalYes: 10300000,
+        total: 88883844,
+        logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2539.png',
+        discussions: 'https://republicprotocol.com/',
+        website: 'https://republicprotocol.com/',
+      }, {
+        id: 3,
+        token: 'Kin',
+        totalYes: 528,
+        total: 88883844,
+        logo: 'https://www.kik.com/images/kin/kin-logo-onblue.svg',
+        discussions: 'https://www.ethfinex.com/token_listings/25/social_category/146/KIN',
+        website: 'https://www.kik.com/kin/',
+      }, {
+        id: 4,
+        token: 'DragonChain',
+        totalYes: 13800000,
+        total: 88883844,
+        logo: 'https://dragonchain.com/assets/images/dragon.png',
+        discussions: 'https://www.ethfinex.com/token_listings/13/social_category/76/DRGN',
+        website: 'https://dragonchain.com/',
+      }, {
+        id: 5,
+        token: 'Hydro Protocol',
+        totalYes: 24300000,
+        total: 88883844,
+        logo: 'https://www.currencycalculate.com/res/img/cryptocurrencies/hydro-protocol.png',
+        discussions: 'https://thehydrofoundation.com/',
+        website: 'https://thehydrofoundation.com/',
+      }, {
+        id: 6,
+        token: 'Hubii',
+        totalYes: 12300,
+        total: 88883844,
+        logo: 'https://cdn-images-1.medium.com/max/1600/0*NVI3KkOEvbz0_Ff0.',
+        discussions: 'https://www.ethfinex.com/token_listings/36/social_category/212/HBT',
+        website: 'https://www.hubii.com/',
+      }, {
+        id: 7,
+        token: 'Stox',
+        totalYes: 672,
+        total: 88883844,
+        logo: 'https://coinnext.net/wp-content/uploads/2017/12/stox.png',
+        discussions: 'https://www.stox.com/',
+        website: 'https://www.stox.com/',
+      }, {
+        id: 8,
+        token: 'Lala World',
+        totalYes: 0,
+        total: 88883844,
+        logo: 'https://en.bitcoinwiki.org/upload/en/images/thumb/9/98/LaLa_World_Logo.png/300px-LaLa_World_Logo.png',
+        discussions: 'https://www.ethfinex.com/token_listings/34/social_category/200/LALA',
+        website: 'https://lalaworld.io/',
+      }, {
+        id: 9,
+        token: 'Ethos',
+        totalYes: 0,
+        total: 88883844,
+        logo: 'https://image.ibb.co/j2fCC8/Ethos_Logo_white_knockout.png',
+        discussions: 'https://www.ethos.io/',
+        website: 'https://www.ethos.io/',
+      }, {
+        id: 10,
+        token: 'IPSX',
+        totalYes: 0,
+        total: 88883844,
+        logo: 'https://cryptoindex.co/coinlogo/ip-exchange.png',
+        discussions: 'https://www.ipsx.com/',
+        website: 'https://www.ipsx.com/',
+      }, {
+        id: 11,
+        token: 'Human Protocol',
+        totalYes: 18500000,
+        total: 88883844,
+        logo: 'https://hcaptcha.com/static/img/site/human-token.png',
+        discussions: 'https://hcaptcha.com/',
+        website: 'https://hcaptcha.com/',
+      }, {
+        id: 12,
+        token: 'Naga',
+        totalYes: 0,
+        total: 88883844,
+        logo: 'https://i.vimeocdn.com/portrait/21759767_300x300',
+        discussions: 'https://naga.com/coin/',
+        website: 'https://naga.com/coin/',
+      }, {
+        id: 13,
+        token: 'Exchange Union',
+        totalYes: 0,
+        total: 88883844,
+        logo: 'https://seeklogo.com/images/E/exchange-union-xuc-logo-D69254C1A4-seeklogo.com.png',
+        discussions: 'https://www.exchangeunion.com/',
+        website: 'https://www.exchangeunion.com/',
+      },
+    ]
+  },
   '12/06 - 26/06': {
     listedOn: 'Thursday 28th June',
+    winThreshold: 4,
     link: 'https://etherscan.io/token/0x99ee6275a7ec7165c63fb7cfeb8b8e1a73722733?a=0x2b2d7d874bbfb73f85b2f8a9ee0d9f3e93722622',
     data: [
       {
@@ -104,6 +225,7 @@ export default {
   },
   '29/05 - 12/06': {
     listedOn: 'Thursday 14th June',
+    winThreshold: 4,
     link: 'https://etherscan.io/token/0xd7e7a876058d8e67efb26ad7b10a4007d90396bc?a=0x2b2d7d874bbfb73f85b2f8a9ee0d9f3e93722622',
     data: [
       {
@@ -207,6 +329,7 @@ export default {
   },
   '15/05 - 29/05': {
     listedOn: 'Thursday 31st May',
+    winThreshold: 4,
     link: 'https://etherscan.io/address/0x64575dc58f1927dbf5633b3168d55a0012da340c#tokentxns',
     data: [
       {
