@@ -97,12 +97,6 @@ class FAQ extends Component {
             </p>
           </div>
           <div className="faq-container">
-            <h2>If I withdraw my EVT to an external wallet, will they still expire?</h2>
-            <p className="info-tip">
-            Tokens withdrawn to external wallets will also expire and balances will disappear at the end of the voting period. This is automatic and will expire across all Wallets. EVT are then reissued based on users updated NEC balances, to be used in the next token listing vote and when the EVT market begins again.
-            </p>
-          </div>
-          <div className="faq-container">
             <h2>If the token we are voting on does not go through, do we get the EVT back?</h2>
             <p className="info-tip">
             No, as the EVT tokens expire every 2 weeks when the voting period ends, the EVT market is cleared 3 hours before voting ends. Once voting ends the EVT tokens expire and new tokens with a new contract address are issued to NEC holders at the ratio of 1:1.
