@@ -51,7 +51,7 @@ export const getTokenVotes = () => async (dispatch) => {
     }, {
       id: 4,
       token: 'BlockPass (PASS)',
-      description: 'Blockpass gives individuals control over their own data whilst eliminating the friction of repetitively submitting KYC data for every financial service they sign up for. For businesses, Blockpass is a shared KYC platform where a pool of pre-verified users is shared between businesses thus reducing the cost and time of onboarding new customers.',
+      description: 'Blockpass gives individuals control over their own data whilst eliminating the friction of repetitively submitting KYC data for every financial service they sign up for. For businesses, Blockpass is a shared KYC platform where a pool of pre-verified users is shared thus reducing the cost and time of onboarding new customers.',
       totalYes: votes.yesVotes[4],
       total: votes.totalVotes,
       logo: 'https://miro.medium.com/fit/c/240/240/1*JrzELkcCFLgUzMhp5TD1dg.png',
@@ -78,7 +78,7 @@ export const getTokenVotes = () => async (dispatch) => {
     }, {
       id: 7,
       token: 'Digix Gold (DGX)',
-      description: 'Digix is a blockchain based platform offering digital tokens backed by 99.99% gold cast bars from London Bullion Market Association-approved refiners. Acting as a digital representation of physical gold, each DGX token represents 1 gram of gold on Ethereum. The transparency, security, traceability of the blockchain ensures that DGX tokens can be transacted and transferred with full visibility and auditability.',
+      description: 'Digix is a blockchain based platform offering digital tokens backed by 99.99% gold cast bars from London Bullion Market Association-approved refiners. Acting as a digital representation of physical gold, each DGX token represents 1 gram. The transparency, security, traceability of the blockchain ensures that DGX tokens can be transferred with full visibility and auditability.',
       totalYes: votes.yesVotes[7],
       total: votes.totalVotes,
       logo: 'https://assets.coingecko.com/coins/images/4171/large/DGX_Token.png?1530715109',
@@ -123,10 +123,10 @@ export const getTokenVotes = () => async (dispatch) => {
     }, {
       id: 12,
       token: 'The Abyss (ABYSS)',
-      description: 'The Abyss is a digital distribution platform for video games. It offers a motivational and multilevel referral system, allowing gamers to earn from in-game and social activities, and other gamers’ payments as well. By joining The Abyss, developers will reduce their marketing expenses and receive an extra income from referral payments made in other games on the platform.',
+      description: 'The Abyss is a digital distribution platform for video games. It offers a motivational and multilevel referral system, allowing gamers to earn from in-game and social activities, and other gamers’ payments as well. The Abyss conducted the world\'s first DAICO.',
       totalYes: votes.yesVotes[12],
       total: votes.totalVotes,
-      logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2847.png',
+      logo: 'https://image.ibb.co/kHWSR8/256_R.png',
       discussions: 'https://t.me/theabyss',
       website: 'https://www.theabyss.com/',
     }, {
