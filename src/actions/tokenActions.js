@@ -86,8 +86,8 @@ export const getTokenVotes = () => async (dispatch) => {
       website: 'https://digix.global/',
     }, {
       id: 8,
-      token: 'Matrix (MAN)',
-      description: 'Matrix is an open source blockchain platform capable of supporting smart contracts and machine learning services. Built on AI toolsets, users are able to execute smart contracts in a more efficient way, with ease, speed and safety fundamental aspects of the process.',
+      token: 'MATRIX (MAN)',
+      description: 'MATRIX is an open source blockchain platform capable of supporting smart contracts and machine learning services. Built on AI toolsets, users are able to execute smart contracts in a more efficient way, with ease, speed and safety fundamental aspects of the process.',
       totalYes: votes.yesVotes[8],
       total: votes.totalVotes,
       logo: 'https://cryptoindex.co/coinlogo/matrix-ai-network.png',
