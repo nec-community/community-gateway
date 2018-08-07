@@ -35,7 +35,7 @@ class PreviousTokenListing extends Component {
       <div className="listings previouslistings">
         <div className="container">
           <h1>Previous Community Vote Results</h1>
-          <h5>4 tokens were selected by the Ethfinex community
+          <h5>{tokens.winThreshold} tokens were selected by the Ethfinex community
             between {Object.keys(previousTokenData)[this.state.periodIndex]}</h5>
 
           <div className="header-desc-container">
