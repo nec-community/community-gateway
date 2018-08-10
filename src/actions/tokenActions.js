@@ -132,7 +132,7 @@ export const getTokenVotes = () => async (dispatch) => {
     }, {
       id: 13,
       token: 'Civic (CVC)',
-      description: 'Harnessing the power of design, technology and social intelligence, Ethos proposes a universal wallet & fiat gateway designed to make buying, trading, and managing your crypto assets consumer-friendly.',
+      description: 'Civic makes it easy to control and protect your identity with blockchain-powered decentralized authentication solutions, reusable identity elements & KYC tools.',
       totalYes: votes.yesVotes[13],
       total: votes.totalVotes,
       logo: 'https://cdn-images-1.medium.com/max/397/1*PnSOAdezv4moUQ2kCuJxCA.png',
