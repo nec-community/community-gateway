@@ -144,7 +144,7 @@
                         "name": "this",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3038,
+                        "referencedDeclaration": 2341,
                         "src": "1107:4:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_contract$_DestructibleMiniMeTokenFactory_$138",
@@ -237,7 +237,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3013,
+                          "referencedDeclaration": 2316,
                           "src": "1287:3:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -347,7 +347,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3013,
+                          "referencedDeclaration": 2316,
                           "src": "1344:3:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -759,7 +759,7 @@
                         "name": "this",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3038,
+                        "referencedDeclaration": 2341,
                         "src": "1107:4:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_contract$_DestructibleMiniMeTokenFactory_$138",
@@ -852,7 +852,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3013,
+                          "referencedDeclaration": 2316,
                           "src": "1287:3:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -962,7 +962,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3013,
+                          "referencedDeclaration": 2316,
                           "src": "1344:3:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -1285,10 +1285,10 @@
     "4447": {
       "events": {},
       "links": {},
-      "address": "0xca932b4453443366c9c725b2897677a04b7c3280",
-      "transactionHash": "0x04027adca70190d8bf524a2881e7b8d09818f2f444a3f539703056668ec82b11"
+      "address": "0xe2d92c37fd34f94e4633371db85a91d16c2dc3f5",
+      "transactionHash": "0x9050e819c8cbe4cc8839fc71fcddb6354bfab1088ba45f6d57c8b3a807a28c6c"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-08-17T12:38:07.118Z"
+  "updatedAt": "2018-08-17T14:31:31.475Z"
 }
