@@ -1,6 +1,16 @@
-const ProposalManager = artifacts.require("./ProposalManager.sol");
+const TLM = artifacts.require("./TokenListingManager.sol");
+const NectarToken = artifacts.require("./MiniMeToken.sol");
+const DestructibleMiniMeFactory = artifacts.require("./DestructibleMiniMeTokenFactory.sol");
 
 module.exports = function(deployer) {
 	
-	deployer.deploy(ProposalManager);
+	deployer.then(async () => {
+		await deployer.deploy(DestructibleMiniMeFactory);
+		let factory = await DestructibleMiniMeFactory.deployed();
+		
+		await deployer.deploy(NectarToken, factory.address, '0x0', 0, "Nectar", 18, "NEC", true);
+		let token = await NectarToken.deployed();
+
+		return deployer.deploy(TLM, factory.address, token.address);
+	});
 };

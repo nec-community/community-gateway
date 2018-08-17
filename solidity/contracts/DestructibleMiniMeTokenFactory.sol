@@ -1,40 +1,7 @@
-pragma solidity 0.4.22;
-import "./MiniMeToken.sol";
+pragma solidity ^0.4.24;
 
-/*
-    Copyright 2017, Will Harborne (Ethfinex)
-*/
+import "./DestructibleMiniMeToken.sol";
 
-contract DestructibleMiniMeToken is MiniMeToken {
-
-  address terminator;
-
-  function DestructibleMiniMeToken(
-      address _tokenFactory,
-      address _parentToken,
-      uint _parentSnapShotBlock,
-      string _tokenName,
-      uint8 _decimalUnits,
-      string _tokenSymbol,
-      bool _transfersEnabled,
-      address _terminator
-  ) public MiniMeToken(
-      _tokenFactory,
-      _parentToken,
-      _parentSnapShotBlock,
-      _tokenName,
-      _decimalUnits,
-      _tokenSymbol,
-      _transfersEnabled
-    ) {
-        terminator = _terminator;
-      }
-
-  function recycle() public {
-    require(msg.sender == terminator);
-    selfdestruct(terminator);
-  }
-}
 
 contract DestructibleMiniMeTokenFactory {
 
@@ -65,7 +32,7 @@ contract DestructibleMiniMeTokenFactory {
             _tokenSymbol,
             _transfersEnabled,
             msg.sender
-            );
+        );
 
         newToken.changeController(msg.sender);
         return newToken;

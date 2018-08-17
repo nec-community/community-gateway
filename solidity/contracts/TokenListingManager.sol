@@ -1,59 +1,83 @@
-pragma solidity 0.4.22;
+pragma solidity ^0.4.24;
 
-import "./DestructibleMiniMeToken.sol";
+import "./DestructibleMiniMeTokenFactory.sol";
 import "./Ownable.sol";
 
 /*
     Copyright 2018, Will Harborne @ Ethfinex
 */
 
+/*
+    Improvement ideas
+
+    Basic Parameters:
+        Number of candidates included in the vote
+        Number of winners in the vote
+        Criteria to win the vote (i.e. top 3, all tokens receiving over a certain number of votes)
+        Duration of vote 
+
+    Advanced Vote Styles:
+        Carry over of votes and tokens to next round (i.e. half life on votes carried over to next round)
+        Infinitely growing list of tokens included on list instead of replaced each time
+        Allow delegation of votes to be set automatically by users (i.e. delegate votes always to go to a certain address to vote on your behalf)
+        Have two separate lists which can be voted on using the same tokens (i.e. pre-ICO tokens on one list and post-ICO tokens on another)
+        Most numbers of distinct voters over a certain size of EVT instead of total number of EVT to win
+
+
+    *** add finish proposal (can be called after timeout)
+
+
+    we can set some maximum on maximum possible number of candidates
+    second seems to be pretty much same as 
+*/
+
 /// @title ProposalManager Contract
 /// @author Will Harborne @ Ethfinex
 contract TokenListingManager is Ownable {
 
-    address constant NECTAR_TOKEN = 0xCc80C051057B774cD75067Dc48f8987C4Eb97A5e;
-    address constant TOKEN_FACTORY = 0x6EB97237B8bc26E8057793200207bB0a2A83C347;
-    uint constant VOTING_DURATION = 14;
+    address public constant NECTAR_TOKEN = 0xCc80C051057B774cD75067Dc48f8987C4Eb97A5e;
+    address public constant TOKEN_FACTORY = 0x6EB97237B8bc26E8057793200207bB0a2A83C347;
 
     struct TokenProposal {
-        address[10] consideredTokens;
+        address[] consideredTokens;
         uint startBlock;
         uint startTime;
         uint duration;
         address votingToken;
-        uint[10] yesVotes;
+        uint[] yesVotes;
     }
 
-    TokenProposal[] tokenBatches;
+    TokenProposal[] public tokenBatches;
 
     DestructibleMiniMeTokenFactory public tokenFactory;
-    address nectarToken;
-    mapping(address => bool) admins;
+    address public nectarToken;
+    mapping(address => bool) public admins;
 
     modifier onlyAdmins() {
         require(isAdmin(msg.sender));
         _;
     }
 
-    function TokenListingManager() public {
-        tokenFactory = DestructibleMiniMeTokenFactory(TOKEN_FACTORY);
-        nectarToken = NECTAR_TOKEN;
+    constructor(address _tokenFactory, address _nectarToken) public {
+        tokenFactory = DestructibleMiniMeTokenFactory(_tokenFactory);
+        nectarToken = _nectarToken;
         admins[msg.sender] = true;
     }
 
     /// @notice Admins are able to approve proposal that someone submitted
     /// @param tokens the list of tokens in consideration during this period
-    function startTokenVotes(address[10] tokens) public onlyAdmins {
+    function startTokenVotes(address[] tokens, uint duration) public onlyAdmins {
         uint _proposalId = tokenBatches.length;
-        if(_proposalId > 0) {
-          TokenProposal memory op = tokenBatches[_proposalId - 1];
-          DestructibleMiniMeToken(op.votingToken).recycle();
+        if (_proposalId > 0) {
+            TokenProposal memory op = tokenBatches[_proposalId - 1];
+            DestructibleMiniMeToken(op.votingToken).recycle();
         }
         tokenBatches.length++;
         TokenProposal storage p = tokenBatches[_proposalId];
-        p.duration = VOTING_DURATION * (1 days);
+        p.duration = duration * (1 days);
 
         p.consideredTokens = tokens;
+        p.yesVotes = new uint[](tokens.length);
 
         p.votingToken = tokenFactory.createDestructibleCloneToken(
                 nectarToken,
@@ -91,6 +115,11 @@ contract TokenListingManager is Ownable {
         emit Vote(_proposalId, msg.sender, tokenBatches[_proposalId].consideredTokens[_tokenIndex], amount);
     }
 
+    /// @notice Get number of proposals so you can know which is the last one
+    function numberOfProposals() public view returns(uint) {
+        return tokenBatches.length;
+    }
+
     /// @notice Any admin is able to add new admin
     /// @param _newAdmin Address of new admin
     function addAdmin(address _newAdmin) public onlyAdmins {
@@ -111,8 +140,8 @@ contract TokenListingManager is Ownable {
         uint _duration,
         bool _active,
         bool _finalized,
-        uint[10] _votes,
-        address[10] _tokens,
+        uint[] _votes,
+        address[] _tokens,
         address _votingToken,
         bool _hasBalance
     ) {
@@ -130,11 +159,31 @@ contract TokenListingManager is Ownable {
         _hasBalance = (p.votingToken == 0x0) ? false : (DestructibleMiniMeToken(p.votingToken).balanceOf(msg.sender) > 0);
     }
 
+    function isAdmin(address _admin) public view returns(bool) {
+        return admins[_admin];
+    }
+
+    function proxyPayment(address ) public payable returns(bool) {
+        return false;
+    }
+
+    function onTransfer(address, address, uint ) public pure returns(bool) {
+        return true;
+    }
+
+    function onApprove(address, address, uint ) public pure returns(bool) {
+        return true;
+    }
+
+    function getBlockNumber() internal constant returns (uint) {
+        return block.number;
+    }
+
     function appendUintToString(string inStr, uint v) private pure returns (string str) {
         uint maxlength = 100;
         bytes memory reversed = new bytes(maxlength);
         uint i = 0;
-        if (v==0) {
+        if (v == 0) {
             reversed[i++] = byte(48);
         } else {
             while (v != 0) {
@@ -153,26 +202,6 @@ contract TokenListingManager is Ownable {
             s[j + inStrb.length] = reversed[i - 1 - j];
         }
         str = string(s);
-    }
-
-    function isAdmin(address _admin) public view returns(bool) {
-        return admins[_admin];
-    }
-
-    function proxyPayment(address ) public payable returns(bool) {
-        return false;
-    }
-
-    function onTransfer(address , address , uint ) public pure returns(bool) {
-        return true;
-    }
-
-    function onApprove(address , address , uint ) public pure returns(bool) {
-        return true;
-    }
-
-    function getBlockNumber() internal constant returns (uint) {
-        return block.number;
     }
 
     event Vote(uint indexed idProposal, address indexed _voter, address chosenToken, uint amount);
