@@ -39,6 +39,10 @@ contract TokenListingManagerAdvanced is Ownable {
     mapping(address => bool) public allWinners;
     mapping(address => bool) public tokenExists;
 
+    mapping(address => address[]) public myVotes;
+    mapping(address => address) public myDelegate;
+    mapping(address => bool) public isDelegate;
+
     modifier onlyAdmins() {
         require(isAdmin(msg.sender));
         _;
@@ -66,7 +70,7 @@ contract TokenListingManagerAdvanced is Ownable {
 
         if (_criteria == 1) {
             // in other case all tokens would be winners
-            require(_extraData < _tokens.length);
+            require(_extraData < consideredTokens.length);
         }
 
         uint _proposalId = tokenBatches.length;
@@ -121,6 +125,8 @@ contract TokenListingManagerAdvanced is Ownable {
     /// @notice Vote for specific token with yes
     /// @param _tokenIndex is the position from 0-9 in the token array of the chosen token
     function vote(uint _tokenIndex, uint _amount) public {
+        require(myDelegate[msg.sender] == address(0));
+
         // voting only on the most recent set of proposed tokens
         require(tokenBatches.length > 0);
         uint _proposalId = tokenBatches.length - 1;
@@ -129,14 +135,84 @@ contract TokenListingManagerAdvanced is Ownable {
 
         require(now < p.startTime + p.duration);
 
-        uint amount = DestructibleMiniMeToken(p.votingToken).balanceOf(msg.sender);
-        require(amount >= _amount);
+        uint toBurn = _amount;
+        uint balance = DestructibleMiniMeToken(p.votingToken).balanceOf(msg.sender);
+        
+        if (balance >= toBurn) {
+            DestructibleMiniMeToken(p.votingToken).destroyTokens(msg.sender, toBurn);
+            toBurn = 0;
+        } else {
+            DestructibleMiniMeToken(p.votingToken).destroyTokens(msg.sender, balance);
+            toBurn -= balance;
+        }
+        
+        for (uint i=0; i < myVotes[msg.sender].length; i++) {
+            if (toBurn == 0) {
+                break;
+            }
 
-        require(DestructibleMiniMeToken(p.votingToken).transferFrom(msg.sender, address(this), _amount));
+            address user = myVotes[msg.sender][i];
+            balance = DestructibleMiniMeToken(p.votingToken).balanceOf(user);
+        
+            if (balance >= toBurn) {
+                DestructibleMiniMeToken(p.votingToken).destroyTokens(user, toBurn);
+                toBurn = 0;
+            } else {
+                DestructibleMiniMeToken(p.votingToken).destroyTokens(user, balance);
+                toBurn -= balance;
+            }
+        }
+        // if not 0 that means that user sent more to burn than he has
+        require(toBurn == 0);
 
         yesVotes[_tokenIndex] += _amount;
 
         emit Vote(_proposalId, msg.sender, consideredTokens[_tokenIndex], _amount);
+    }
+
+    function registerAsDelegate() public {
+        if (myDelegate[msg.sender] != address(0)) {
+            address delegate = myDelegate[msg.sender];
+
+            for (uint i=0; i < myVotes[delegate].length; i++) {
+                if (myVotes[delegate][i] == msg.sender) {
+                    myVotes[delegate][i] = myVotes[delegate][myVotes[delegate].length-1];
+
+                    delete myVotes[delegate][myVotes[delegate].length-1];
+                    myVotes[delegate].length--;
+
+                    break;
+                }
+            }
+            myDelegate[msg.sender] = address(0);
+        }
+
+        isDelegate[msg.sender] = true;
+    }
+
+    /// @notice Delegate vote to other address
+    /// @param _to address who will be able to vote instead of you
+    function delegateVote(address _to) public {
+        require(isDelegate[_to]);
+        require(!isDelegate[msg.sender]);
+
+        if (myDelegate[msg.sender] != address(0)) {
+            address delegate = myDelegate[msg.sender];
+
+            for (uint i=0; i < myVotes[delegate].length; i++) {
+                if (myVotes[delegate][i] == msg.sender) {
+                    myVotes[delegate][i] = myVotes[delegate][myVotes[delegate].length-1];
+
+                    delete myVotes[delegate][myVotes[delegate].length-1];
+                    myVotes[delegate].length--;
+
+                    break;
+                }
+            }
+        }
+
+        myDelegate[msg.sender] = _to;
+        myVotes[_to].push(msg.sender);
     }
 
     function getWinners(uint _proposalId) public view returns(address[] winners) {
