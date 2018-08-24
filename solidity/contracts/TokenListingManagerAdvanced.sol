@@ -9,19 +9,17 @@ import "./Ownable.sol";
 
 /// @title ProposalManager Contract
 /// @author Will Harborne @ Ethfinex
-contract TokenListingManager is Ownable {
+contract TokenListingManagerAdvanced is Ownable {
 
     address public constant NECTAR_TOKEN = 0xCc80C051057B774cD75067Dc48f8987C4Eb97A5e;
     address public constant TOKEN_FACTORY = 0x6EB97237B8bc26E8057793200207bB0a2A83C347;
     uint public constant MAX_CANDIDATES = 20;
 
     struct TokenProposal {
-        address[] consideredTokens;
         uint startBlock;
         uint startTime;
         uint duration;
         address votingToken;
-        uint[] yesVotes;
         // criteria values
         // 0. only first one win the vote; 
         // 1. top N (number in extraData) win the vote;
@@ -32,9 +30,14 @@ contract TokenListingManager is Ownable {
 
     TokenProposal[] public tokenBatches;
 
+    uint[] public yesVotes;
+    address[] public consideredTokens;
+
     DestructibleMiniMeTokenFactory public tokenFactory;
     address public nectarToken;
     mapping(address => bool) public admins;
+    mapping(address => bool) public allWinners;
+    mapping(address => bool) public tokenExists;
 
     modifier onlyAdmins() {
         require(isAdmin(msg.sender));
@@ -52,8 +55,14 @@ contract TokenListingManager is Ownable {
     /// @param _duration number of days for voting
     /// @param _criteria number that determines how winner is selected
     /// @param _extraData extra data for criteria parameter
-    function startTokenVotes(address[] _tokens, uint _duration, uint _criteria, uint _extraData) public onlyAdmins {
+    /// @param _previousWinners addresses that won previous proposal
+    function startTokenVotes(address[] _tokens, uint _duration, uint _criteria, uint _extraData, address[] _previousWinners) public onlyAdmins {
         require(_tokens.length <= MAX_CANDIDATES);
+        require(_previousWinners.length <= consideredTokens.length);
+
+        for (uint i=0; i < _previousWinners.length; i++) {
+            allWinners[_previousWinners[i]] = true;
+        }
 
         if (_criteria == 1) {
             // in other case all tokens would be winners
@@ -68,9 +77,30 @@ contract TokenListingManager is Ownable {
         tokenBatches.length++;
         TokenProposal storage p = tokenBatches[_proposalId];
         p.duration = _duration * (1 days);
+       
+        i = 0;
+        while (i < consideredTokens.length) {
+            if (allWinners[consideredTokens[i]]) {
+                consideredTokens[i] = consideredTokens[consideredTokens.length-1];
+                yesVotes[i] = yesVotes[yesVotes.length-1];
 
-        p.consideredTokens = _tokens;
-        p.yesVotes = new uint[](_tokens.length);
+                delete yesVotes[yesVotes.length-1];
+                delete consideredTokens[consideredTokens.length-1];
+                yesVotes.length--;
+                consideredTokens.length--;
+            } else {
+                yesVotes[i] = yesVotes[i] / 2;
+                i++;
+            }
+        }
+
+        for (i = 0; i < _tokens.length; i++) {
+            require(!tokenExists[_tokens[i]]);
+
+            consideredTokens.push(_tokens[i]);
+            yesVotes.push(0);
+            tokenExists[_tokens[i]] = true;
+        }
 
         p.votingToken = tokenFactory.createDestructibleCloneToken(
                 nectarToken,
@@ -94,7 +124,6 @@ contract TokenListingManager is Ownable {
         // voting only on the most recent set of proposed tokens
         require(tokenBatches.length > 0);
         uint _proposalId = tokenBatches.length - 1;
-        require(_tokenIndex < 10);
 
         TokenProposal memory p = tokenBatches[_proposalId];
 
@@ -105,9 +134,9 @@ contract TokenListingManager is Ownable {
 
         require(DestructibleMiniMeToken(p.votingToken).transferFrom(msg.sender, address(this), _amount));
 
-        tokenBatches[_proposalId].yesVotes[_tokenIndex] += _amount;
+        yesVotes[_tokenIndex] += _amount;
 
-        emit Vote(_proposalId, msg.sender, tokenBatches[_proposalId].consideredTokens[_tokenIndex], _amount);
+        emit Vote(_proposalId, msg.sender, consideredTokens[_tokenIndex], _amount);
     }
 
     function getWinners(uint _proposalId) public view returns(address[] winners) {
@@ -120,13 +149,13 @@ contract TokenListingManager is Ownable {
             winners = new address[](1);
             uint max = 0;
 
-            for (uint i=0; i < p.consideredTokens.length; i++) {
-                if (p.yesVotes[i] > p.yesVotes[max]) {
+            for (uint i=0; i < consideredTokens.length; i++) {
+                if (yesVotes[i] > yesVotes[max]) {
                     max = i;
                 }
             }
 
-            winners[0] = p.consideredTokens[max];
+            winners[0] = consideredTokens[max];
         }
 
         // there is N winners in criteria 1
@@ -136,13 +165,13 @@ contract TokenListingManager is Ownable {
 
             // for each token we check if he has more votes than last one,
             // if it has we put it in array and always keep array sorted
-            for (i = 0; i < p.consideredTokens.length; i++) {
+            for (i = 0; i < consideredTokens.length; i++) {
                 uint last = p.extraData - 1;
-                if (p.yesVotes[i] > p.yesVotes[indexesWithMostVotes[last]]) {
+                if (yesVotes[i] > yesVotes[indexesWithMostVotes[last]]) {
                     indexesWithMostVotes[last] = i;
 
                     for (uint j=last; j > 0; j--) {
-                        if (p.yesVotes[indexesWithMostVotes[j]] > p.yesVotes[indexesWithMostVotes[j-1]]) {
+                        if (yesVotes[indexesWithMostVotes[j]] > yesVotes[indexesWithMostVotes[j-1]]) {
                             uint help = indexesWithMostVotes[j];
                             indexesWithMostVotes[j] = indexesWithMostVotes[j-1];
                             indexesWithMostVotes[j-1] = help; 
@@ -152,24 +181,24 @@ contract TokenListingManager is Ownable {
             }
 
             for (i = 0; i < p.extraData; i++) {
-                winners[i] = p.consideredTokens[indexesWithMostVotes[i]];
+                winners[i] = consideredTokens[indexesWithMostVotes[i]];
             }
         }
 
         // everybody who has over N votes are winners in criteria 2
         if (p.criteria == 2) {
             uint numOfTokens = 0;
-            for (i = 0; i < p.consideredTokens.length; i++) {
-                if (p.yesVotes[i] > p.extraData) {
+            for (i = 0; i < consideredTokens.length; i++) {
+                if (yesVotes[i] > p.extraData) {
                     numOfTokens++;
                 }
             }
 
             winners = new address[](numOfTokens);
             uint count = 0;
-            for (i = 0; i < p.consideredTokens.length; i++) {
-                if (p.yesVotes[i] > p.extraData) {
-                    winners[count] = p.consideredTokens[i];
+            for (i = 0; i < consideredTokens.length; i++) {
+                if (yesVotes[i] > p.extraData) {
+                    winners[count] = consideredTokens[i];
                     count++;
                 }
             }
@@ -214,8 +243,8 @@ contract TokenListingManager is Ownable {
         _duration = p.duration;
         _finalized = (_startTime+_duration < now);
         _active = !_finalized && (p.startBlock < getBlockNumber());
-        _votes = p.yesVotes;
-        _tokens = p.consideredTokens;
+        _votes = yesVotes;
+        _tokens = consideredTokens;
         _votingToken = p.votingToken;
         _hasBalance = (p.votingToken == 0x0) ? false : (DestructibleMiniMeToken(p.votingToken).balanceOf(msg.sender) > 0);
     }
