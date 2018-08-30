@@ -1,6 +1,8 @@
-var HDWalletProvider = require("truffle-hdwallet-provider");
+const dotenv           = require('dotenv').config();
+const HDWalletProvider = require('truffle-hdwallet-provider-privkey');
 
-var mnemonic = "";
+
+const mnemonic = process.env.ETHEREUM_ACCOUNT_MNEMONIC;
 
 module.exports = {
     solc: {
@@ -23,7 +25,23 @@ module.exports = {
                 return new HDWalletProvider(mnemonic, "https://testnet.decenter.com")
             },
             gas: 4698712
+        },
+        kovan: {
+            provider: function() {
+                return new HDWalletProvider(mnemonic, `https://kovan.decenter.com/`);
+            },
+            network_id: 42,
+            gasPrice: 2000000000, // 2 GWei
+            gas: 5400000,
+        },
+        rinkeby: {
+            provider: function() {
+                return new HDWalletProvider(mnemonic, `https://rinkeby.decenter.com/`);
+            },
+            network_id: 4,
+            gasPrice: 2000000000, // 2 GWei
+            gas: 5400000,
         }  
-    }
+    },
 };
 
