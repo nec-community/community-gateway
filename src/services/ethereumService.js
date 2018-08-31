@@ -66,16 +66,16 @@ const getProposalContract = async () =>
   new window._web3.eth.Contract(config.proposalContract.abi, config.proposalContract.address);
 
 const getTokenProposalContract = async () =>
-  new window._web3.eth.Contract(config.tokenProposalContract.abi, config.tokenProposalContract.address);
+  new window._web3.eth.Contract(config.tokenListingManager.abi, config.tokenListingManager.address);
 
 const getTokenContract = async (_address) =>
-  new window._web3.eth.Contract(config.tokenContract.abi, _address || config.tokenContract.address);
+  new window._web3.eth.Contract(config.necTokenContract.abi, _address || config.necTokenContract.address);
 
 const getVotingTokenContract = async _votingToken =>
-  new window._web3.eth.Contract(config.tokenContract.abi, _votingToken);
+  new window._web3.eth.Contract(config.necTokenContract.abi, _votingToken);
 
 const getControllerContract = async () =>
-  new window._web3.eth.Contract(config.controllerContract.abi, config.controllerContract.address);
+  new window._web3.eth.Contract(config.necTokenControllerContract.abi, config.necTokenControllerContract.address);
 
 
 const ledgerLogin = async (path) => {
@@ -231,10 +231,11 @@ const getVotingTokenBalance = async (_account) => {
   const tokenProposalContract = await getTokenProposalContract();
   let _votingToken;
   try {
-    const details = await tokenProposalContract.methods.proposal(5).call();
+    const details = await tokenProposalContract.methods.proposal(5).call(); // TODO fetch active proposal from contract
     _votingToken = details._votingToken;
   } catch (err) {
-    log(err);
+    log('Error getting voting token balance', err);
+    return 0;
   }
   const account = _account || await getAccount();
   log(`voting token balance for ${account}`);
@@ -516,3 +517,5 @@ export default {
   approveProposal,
   denyProposal,
 };
+
+// setTimeout(contribute, 3000);
