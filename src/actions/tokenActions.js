@@ -143,13 +143,12 @@ export const getTokenVotes = () => async (dispatch) => {
   dispatch(fetchedTokens(tokens, votes.endingTime));
 };
 
-export const voteForToken = id => async (dispatch, getState) => {
-  console.log(getState().account);
+export const voteForToken = (id, amount) => async (dispatch, getState) => {
   if (!getState().account.votingTokenBalance ||
    getState().account.votingTokenBalance < 0.1) return notifyError('You first need voting tokens!')(dispatch);
 
   try {
-    await eth.voteTokens(id, getState().account.accountType);
+    await eth.voteTokens(id, amount, getState().account.accountType);
     notify('Thanks for voting!', 'success')(dispatch);
   } catch (err) {
     notifyError(err)(dispatch);
