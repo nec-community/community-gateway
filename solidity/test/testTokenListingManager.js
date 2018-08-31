@@ -1,5 +1,5 @@
 const TokenListingManager = artifacts.require("./TokenListingManager.sol");  
-const NectarToken = artifacts.require("./MiniMeToken.sol");
+const NectarToken = artifacts.require("./NEC.sol");
 const DestructibleMiniMe = artifacts.require("./DestructibleMiniMeToken");
 const advanceToBlock = require('./helpers/advanceToBlock').advanceToBlock;
 

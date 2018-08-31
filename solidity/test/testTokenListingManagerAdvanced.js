@@ -1,5 +1,5 @@
 const TokenListingManagerAdvanced = artifacts.require("./TokenListingManagerAdvanced.sol");  
-const NectarToken = artifacts.require("./MiniMeToken.sol");
+const NectarToken = artifacts.require("./NEC.sol");
 const DestructibleMiniMe = artifacts.require("./DestructibleMiniMeToken");
 const advanceToBlock = require('./helpers/advanceToBlock').advanceToBlock;
 
@@ -85,7 +85,7 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
 
         await tlm.vote(myVote, myBalance);
 
-        let winners = await tlm.getWinners(proposalId);
+        let winners = await tlm.getWinners();
         
         assert.equal(winners[0], proposal[6][myVote], "Token I voted for should be the only winner with criteria 0");
     });
@@ -109,7 +109,8 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
         await tlm.vote(myVote, myBalance);
         await tlm.vote(otherVote, otherBalance, {'from': accounts[1]});
 
-        let winners = await tlm.getWinners(proposalId);
+        let winners = await tlm.getWinners();
+        proposal = await tlm.proposal(proposalId);
         
         assert.equal(winners[0], proposal[6][myVote], "Token I voted for should be first winner with criteria 1");
         assert.equal(winners[1], proposal[6][otherVote], "Token other voted for should be second winner with criteria 1");
@@ -121,7 +122,7 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
 
         proposal = await tlm.proposal(proposalId);
         let myVote = 1;
-        let otherVote = 3;
+        let otherVote = 6;
 
         let tokens = proposal[6];
         let votingToken = DestructibleMiniMe.at(proposal[7]);
@@ -134,7 +135,7 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
         await tlm.vote(myVote, myBalance);
         await tlm.vote(otherVote, otherBalance/2, {'from': accounts[1]});
 
-        let winners = await tlm.getWinners(proposalId);
+        let winners = await tlm.getWinners();
         
         assert.equal(winners[0], proposal[6][myVote], "Token I voted for should be first winner with criteria 1");
         assert.ok(winners.length == 1, "Only my token should be winner");
@@ -166,8 +167,8 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
 
         proposal = await tlm.proposal(proposalId);
         
-        assert.equal(proposal[5][myVote], myBalance/2 , "Token I voted for should have half of my balance in new round");
-        assert.equal(proposal[5][otherVote], otherBalance/2 , "Token other voted for should have half of other balance in new round");
+        assert.equal(parseInt(proposal[5][myVote]), parseInt(myBalance/2) , "Token I voted for should have half of my balance in new round");
+        assert.equal(parseInt(proposal[5][otherVote]), parseInt(otherBalance/2) , "Token other voted for should have half of other balance in new round");
     });
 
     it("...should be able to delegate votes", async () => {
@@ -185,12 +186,12 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
 
         assert.ok(tokens.length > 0, "Number of tokens must be greater than 0");
 
-        await tlm.registerAsDelegate();
+        await tlm.registerAsDelegate("storageHash");
         await tlm.delegateVote(accounts[0], {'from': accounts[1]});
 
         await tlm.vote(myVote, parseInt(myBalance)+parseInt(otherBalance));
 
-        let winners = await tlm.getWinners(proposalId);
+        let winners = await tlm.getWinners();
         proposal = await tlm.proposal(proposalId);
 
         assert.equal(winners[0], proposal[6][myVote], "Token I voted for should be first winner");
@@ -215,13 +216,13 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
 
         assert.ok(tokens.length > 0, "Number of tokens must be greater than 0");
 
-        await tlm.registerAsDelegate();
+        await tlm.registerAsDelegate("storageHash");
         await tlm.delegateVote(accounts[0], {'from': accounts[1]});
 
         await tlm.vote(myVote, parseInt(myBalance));
         await tlm.vote(otherVote, parseInt(otherBalance));
 
-        let winners = await tlm.getWinners(proposalId);
+        let winners = await tlm.getWinners();
         proposal = await tlm.proposal(proposalId);
         
         assert.equal(parseInt(myBalance), parseInt(proposal[5][myVote]), "Token I voted for should have votes of myBalance");

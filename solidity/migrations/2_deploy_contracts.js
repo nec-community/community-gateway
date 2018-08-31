@@ -5,6 +5,8 @@ const DestructibleMiniMeFactory = artifacts.require("./DestructibleMiniMeTokenFa
 const NectarController = artifacts.require("./NectarController.sol");
 const ProposalManager = artifacts.require("./ProposalManager.sol");
 
+
+// to use only for developing purposes!!!
 module.exports = function(deployer) {
 	
 	deployer.then(async () => {
