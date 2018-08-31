@@ -6,7 +6,7 @@
   "author": "Nikola Vukovic <nvukovic@decenter.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack-dev-server --https --history-api-fallback --compress --config ./build/webpack-dev.config.js --host=0.0.0.0",
+    "dev": "webpack-dev-server --history-api-fallback --compress --config ./build/webpack-dev.config.js --host=0.0.0.0",
     "prod": "webpack --config ./build/webpack-prod.config.js",
     "prod-serve": "webpack-dev-server --https --history-api-fallback --compress --config ./build/webpack-prod.config.js"
   },

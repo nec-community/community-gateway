@@ -4,6 +4,7 @@ import account from './accountReducer';
 import notification from './notificationReducer';
 import proposal from './proposalReducer';
 import token from './tokenReducer';
+import delegate from './delegateReducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   notification,
   proposal,
   token,
+  delegate,
 });
