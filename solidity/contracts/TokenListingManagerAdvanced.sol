@@ -28,7 +28,14 @@ contract TokenListingManagerAdvanced is Ownable {
         uint extraData;
     }
 
+    struct Delegate {
+        address user;
+        bytes32 storageHash;
+        bool exists;
+    }
+
     TokenProposal[] public tokenBatches;
+    Delegate[] public allDelegates;
 
     uint[] public yesVotes;
     address[] public consideredTokens;
@@ -170,7 +177,7 @@ contract TokenListingManagerAdvanced is Ownable {
         emit Vote(_proposalId, msg.sender, consideredTokens[_tokenIndex], _amount);
     }
 
-    function registerAsDelegate() public {
+    function registerAsDelegate(bytes32 _storageHash) public {
         if (myDelegate[msg.sender] != address(0)) {
             address delegate = myDelegate[msg.sender];
 
@@ -188,6 +195,15 @@ contract TokenListingManagerAdvanced is Ownable {
         }
 
         isDelegate[msg.sender] = true;
+        allDelegates.push(Delegate({
+            user: msg.sender,
+            storageHash: _storageHash,
+            exists: true
+        }));
+    }
+
+    function delegateCount() public view returns(uint) {
+        return allDelegates.length;
     }
 
     /// @notice Delegate vote to other address

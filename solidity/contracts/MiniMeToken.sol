@@ -35,12 +35,15 @@ contract ApproveAndCallFallBack {
 /// @dev The actual token contract, the default controller is the msg.sender
 ///  that deploys the contract, so usually this token will be deployed by a
 ///  token controller contract, which Giveth will call a "Campaign"
+/// @dev The actual token contract, the default controller is the msg.sender
+///  that deploys the contract, so usually this token will be deployed by a
+///  token controller contract, which Giveth will call a "Campaign"
 contract MiniMeToken is Controlled {
 
     string public name;                //The Token's name: e.g. DigixDAO Tokens
     uint8 public decimals;             //Number of decimals of the smallest unit
     string public symbol;              //An identifier: e.g. REP
-    string public version = 'MMT_0.2'; //An arbitrary versioning scheme
+    string public version = 'EFX_0.1'; //An arbitrary versioning scheme
 
 
     /// @dev `Checkpoint` is the structure that attaches a block number to a
@@ -79,6 +82,9 @@ contract MiniMeToken is Controlled {
 
     // Flag that determines if the token is transferable or not.
     bool public transfersEnabled;
+
+    // Tracks the history of the `pledgedFees` belonging to token holders
+    Checkpoint[] totalPledgedFeesHistory; // in wei
 
     // The factory used to create new clone tokens
     MiniMeTokenFactory public tokenFactory;
@@ -124,6 +130,8 @@ contract MiniMeToken is Controlled {
 // ERC20 Methods
 ///////////////////
 
+    uint constant MAX_UINT = 2**256 - 1;
+
     /// @notice Send `_amount` tokens to `_to` from `msg.sender`
     /// @param _to The address of the recipient
     /// @param _amount The amount of tokens to be transferred
@@ -151,8 +159,10 @@ contract MiniMeToken is Controlled {
             require(transfersEnabled);
 
             // The standard ERC 20 transferFrom functionality
-            require(allowed[_from][msg.sender] >= _amount);
-            allowed[_from][msg.sender] -= _amount;
+            if (allowed[_from][msg.sender] < MAX_UINT) {
+                require(allowed[_from][msg.sender] >= _amount);
+                allowed[_from][msg.sender] -= _amount;
+            }
         }
         doTransfer(_from, _to, _amount);
         return true;
@@ -168,7 +178,7 @@ contract MiniMeToken is Controlled {
     ) internal {
 
            if (_amount == 0) {
-               emit Transfer(_from, _to, _amount);    // Follow the spec to louch the event when transfer 0
+               Transfer(_from, _to, _amount);    // Follow the spec to louch the event when transfer 0
                return;
            }
 
@@ -179,7 +189,7 @@ contract MiniMeToken is Controlled {
 
            // If the amount being transfered is more than the balance of the
            //  account the transfer throws
-           uint previousBalanceFrom = balanceOfAt(_from, block.number);
+           var previousBalanceFrom = balanceOfAt(_from, block.number);
 
            require(previousBalanceFrom >= _amount);
 
@@ -194,12 +204,12 @@ contract MiniMeToken is Controlled {
 
            // Then update the balance array with the new value for the address
            //  receiving the tokens
-           uint previousBalanceTo = balanceOfAt(_to, block.number);
+           var previousBalanceTo = balanceOfAt(_to, block.number);
            require(previousBalanceTo + _amount >= previousBalanceTo); // Check for overflow
            updateValueAtNow(balances[_to], previousBalanceTo + _amount);
 
            // An event to make the transfer easy to find on the blockchain
-           emit Transfer(_from, _to, _amount);
+           Transfer(_from, _to, _amount);
 
     }
 
@@ -230,7 +240,7 @@ contract MiniMeToken is Controlled {
         }
 
         allowed[msg.sender][_spender] = _amount;
-        emit Approval(msg.sender, _spender, _amount);
+        Approval(msg.sender, _spender, _amount);
         return true;
     }
 
@@ -328,6 +338,62 @@ contract MiniMeToken is Controlled {
     }
 
 ////////////////
+// Query pledgedFees // in wei
+////////////////
+
+   /// @dev This function makes it easy to get the total pledged fees
+   /// @return The total number of fees belonging to token holders
+   function totalPledgedFees() public constant returns (uint) {
+       return totalPledgedFeesAt(block.number);
+   }
+
+   /// @notice Total amount of fees at a specific `_blockNumber`.
+   /// @param _blockNumber The block number when the totalPledgedFees is queried
+   /// @return The total amount of pledged fees at `_blockNumber`
+   function totalPledgedFeesAt(uint _blockNumber) public constant returns(uint) {
+
+       // These next few lines are used when the totalPledgedFees of the token is
+       //  requested before a check point was ever created for this token, it
+       //  requires that the `parentToken.totalPledgedFeesAt` be queried at the
+       //  genesis block for this token as that contains totalPledgedFees of this
+       //  token at this block number.
+       if ((totalPledgedFeesHistory.length == 0)
+           || (totalPledgedFeesHistory[0].fromBlock > _blockNumber)) {
+           if (address(parentToken) != 0) {
+               return parentToken.totalPledgedFeesAt(min(_blockNumber, parentSnapShotBlock));
+           } else {
+               return 0;
+           }
+
+       // This will return the expected totalPledgedFees during normal situations
+       } else {
+           return getValueAt(totalPledgedFeesHistory, _blockNumber);
+       }
+   }
+
+////////////////
+// Pledge Fees To Token Holders or Reduce Pledged Fees // in wei
+////////////////
+
+   /// @notice Pledges fees to the token holders, later to be claimed by burning
+   /// @param _value The amount sent to the vault by controller, reserved for token holders
+   function pledgeFees(uint _value) public onlyController returns (bool) {
+       uint curTotalFees = totalPledgedFees();
+       require(curTotalFees + _value >= curTotalFees); // Check for overflow
+       updateValueAtNow(totalPledgedFeesHistory, curTotalFees + _value);
+       return true;
+   }
+
+   /// @notice Reduces pledged fees to the token holders, i.e. during upgrade or token burning
+   /// @param _value The amount of pledged fees which are being distributed to token holders, reducing liability
+   function reducePledgedFees(uint _value) public onlyController returns (bool) {
+       uint curTotalFees = totalPledgedFees();
+       require(curTotalFees >= _value);
+       updateValueAtNow(totalPledgedFeesHistory, curTotalFees - _value);
+       return true;
+   }
+
+////////////////
 // Clone Token Method
 ////////////////
 
@@ -361,7 +427,7 @@ contract MiniMeToken is Controlled {
         cloneToken.changeController(msg.sender);
 
         // An event to make the token easy to find on the blockchain
-        emit NewCloneToken(address(cloneToken), _snapshotBlock);
+        NewCloneToken(address(cloneToken), _snapshotBlock);
         return address(cloneToken);
     }
 
@@ -381,7 +447,7 @@ contract MiniMeToken is Controlled {
         require(previousBalanceTo + _amount >= previousBalanceTo); // Check for overflow
         updateValueAtNow(totalSupplyHistory, curTotalSupply + _amount);
         updateValueAtNow(balances[_owner], previousBalanceTo + _amount);
-        emit Transfer(0, _owner, _amount);
+        Transfer(0, _owner, _amount);
         return true;
     }
 
@@ -398,7 +464,7 @@ contract MiniMeToken is Controlled {
         require(previousBalanceFrom >= _amount);
         updateValueAtNow(totalSupplyHistory, curTotalSupply - _amount);
         updateValueAtNow(balances[_owner], previousBalanceFrom - _amount);
-        emit Transfer(_owner, 0, _amount);
+        Transfer(_owner, 0, _amount);
         return true;
     }
 
@@ -496,14 +562,14 @@ contract MiniMeToken is Controlled {
     ///  set to 0 in case you want to extract ether.
     function claimTokens(address _token) public onlyController {
         if (_token == 0x0) {
-            controller.transfer(address(this).balance);
+            controller.transfer(this.balance);
             return;
         }
 
         MiniMeToken token = MiniMeToken(_token);
         uint balance = token.balanceOf(this);
         token.transfer(controller, balance);
-        emit ClaimedTokens(_token, controller, balance);
+        ClaimedTokens(_token, controller, balance);
     }
 
 ////////////////
