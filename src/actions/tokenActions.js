@@ -144,6 +144,7 @@ export const getTokenVotes = () => async (dispatch) => {
 };
 
 export const voteForToken = id => async (dispatch, getState) => {
+  console.log(getState().account);
   if (!getState().account.votingTokenBalance ||
    getState().account.votingTokenBalance < 0.1) return notifyError('You first need voting tokens!')(dispatch);
 

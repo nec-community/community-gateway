@@ -68,6 +68,9 @@ const getProposalContract = async () =>
 const getTokenProposalContract = async () =>
   new window._web3.eth.Contract(config.tokenListingManager.abi, config.tokenListingManager.address);
 
+const getAdvancedTokenProposalContract = async () =>
+  new window._web3.eth.Contract(config.tokenListingManagerAdvanced.abi, config.tokenListingManagerAdvanced.address);
+
 const getTokenContract = async (_address) =>
   new window._web3.eth.Contract(config.necTokenContract.abi, _address || config.necTokenContract.address);
 
@@ -76,7 +79,6 @@ const getVotingTokenContract = async _votingToken =>
 
 const getControllerContract = async () =>
   new window._web3.eth.Contract(config.necTokenControllerContract.abi, config.necTokenControllerContract.address);
-
 
 const ledgerLogin = async (path) => {
   ledgerPath = path;
@@ -90,11 +92,11 @@ const ledgerListAccounts = async (pathPrefix, start, n) => {
   if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
   const eth = new ledger.eth(ledgerComm);
   const accounts = [];
-  for (let i = 0; i < n; i ++) {
+  for (let i = 0; i < n; i++) {
     const path = pathPrefix + '/' + (start + i);
     const account = await eth.getAddress_async(path);
     account.path = path;
-    accounts.push(account)
+    accounts.push(account);
   }
   return accounts;
 };
@@ -198,7 +200,6 @@ const signAndSendKeystore = async (contractCall, value = 0, gasPrice = config.de
       log('KEYSTORE error', err);
     });
 };
-
 
 const totalPledgedFees = async () => {
   const tokenContract = await getTokenContract();
@@ -393,7 +394,7 @@ const getTokenDetails = async () => {
     const details = await tokenProposalContract.methods.proposal(5).call();
     yesVotes = details._votes.map(x => weiToEth(x));
     totalVotes = yesVotes.reduce((a, b) => parseInt(a, 10) + parseInt(b, 10), 0);
-    endingTime = new Date(details._startTime * 1000 + details._duration * 1000)
+    endingTime = new Date(details._startTime * 1000 + details._duration * 1000);
   } catch (err) {
     totalVotes = 0;
     yesVotes = new Array(14 + 1).join('0').split('').map(parseFloat);
@@ -426,6 +427,58 @@ const getNonApprovedProposals = async () => {
   const proposalIDs = await proposalContract.methods.getNotApprovedProposals().call();
   log('getActiveProposals', proposalIDs);
   return proposalIDs.map(id => getProposalDetails(id));
+};
+
+const getDelegates = async () =>
+  new Promise(async (resolve, reject) => {
+    const advancedTokenProposalContract = await getAdvancedTokenProposalContract();
+    const delegateCount = await advancedTokenProposalContract.methods.delegateCount().call();
+    console.log(delegateCount);
+    const ids = [...Array(parseInt(delegateCount, 10)).keys()];
+    const promises = ids.map(id => advancedTokenProposalContract.methods.allDelegates(id).call());
+
+    Promise.all(promises)
+      .then(async (delegates) => {
+        console.log(delegates);
+        resolve(delegates);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+    // return [
+    //   {
+    //     address: '0x00158a74921620b39e5c3afe4dca79feb2c2c143',
+    //     description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classiacal ' +
+    //       'Lorem Ipsum is not simply random text. It has roots in a piece of classiacal',
+    //   },
+    //   {
+    //     address: '0x00158a74921620b39e5c3afe4dca79feb2c2c143',
+    //     description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classiacal ' +
+    //       'Lorem Ipsum is not simply random text. It has roots in a piece of classiacal',
+    //   },
+    //   {
+    //     address: '0x00158a74921620b39e5c3afe4dca79feb2c2c143',
+    //     description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classiacal ' +
+    //       'Lorem Ipsum is not simply random text. It has roots in a piece of classiacal',
+    //   },
+    //   {
+    //     address: '0x00158a74921620b39e5c3afe4dca79feb2c2c143',
+    //     description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classiacal ' +
+    //       'Lorem Ipsum is not simply random text. It has roots in a piece of classiacal',
+    //   },
+    // ];
+  });
+
+const becomeDelegate = async (storageHash, accountType) => {
+  const advancedTokenProposalContract = await getAdvancedTokenProposalContract();
+  console.log(storageHash, web3.fromAscii(storageHash));
+  const contractCall = advancedTokenProposalContract.methods.registerAsDelegate(window._web3.utils.toHex(storageHash));
+  if (accountType === 'ledger') return signAndSendLedger(contractCall);
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall);
+  const account = await getAccount();
+  return contractCall.send({
+    from: account,
+  });
 };
 
 const getEthPrice = async () => {
@@ -516,6 +569,8 @@ export default {
   signAndSendLedger,
   approveProposal,
   denyProposal,
+  getDelegates,
+  becomeDelegate,
 };
 
 // setTimeout(contribute, 3000);

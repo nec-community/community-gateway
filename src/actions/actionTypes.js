@@ -13,6 +13,8 @@ export const FETCHED_PROPOSALS = 'fetched_proposals';
 export const FETCHED_ACTIVE_PROPOSALS = 'fetched_active_proposals';
 export const FETCHED_NONAPPROVED_PROPOSALS = 'fetched_nonapproved_proposals';
 
+export const FETCHED_DELEGATES = 'fetched_delegates';
+
 export const FETCHED_TOKENS = 'fetched_tokens';
 
 export const UPDATE_ETHFINEX_DATA = 'update_ethfinex_data';

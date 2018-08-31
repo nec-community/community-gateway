@@ -51,6 +51,7 @@ class App extends Component {
               <Link to="/all">All Proposals</Link>
               <Link to="/pending">Pending Proposals</Link>
               <Link to="/submit">Submit a Proposal</Link>
+              <Link to="/delegateVotes">Delegate a vote</Link>
               <Link to="/faq">FAQ</Link>
             </div>
           </nav>
