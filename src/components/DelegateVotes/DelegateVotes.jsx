@@ -46,9 +46,8 @@ class DelegateVotes extends Component {
         <div className="container">
           <h1>Delegates</h1>
           <p className="page-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed <br />
-            do eiusmod tempor incididunt ut labore et dolore magna <br />
-            aliqua. Ut enim ad minim veniam
+            The Ethfinex Voting token makes voting power liquid, dissociable for different topics, and allows it to be transferred. <br />
+            This has made it possible to implement a basic form of <a href="https://en.wikipedia.org/wiki/Delegative_democracy" target="_blank">liquid democracy</a>.
           </p>
         </div>
         <div className="delegate-section form-wrapper">
@@ -57,9 +56,10 @@ class DelegateVotes extends Component {
               Allow others to delegate their vote to you
             </h2>
             <p className="section-description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed <br />
-              do eiusmod tempor incididunt ut labore et dolore magna <br />
-              aliqua. Ut enim ad minim veniam
+              The delegates section enables you put yourself forward
+              to represent the interests of other community members. For example,
+              you can choose to nominate yourself as a delegate who's policy is
+              to vote each round for whichever token has highest trading volume on other exchanges.
             </p>
             <textarea
               name="description"
@@ -67,10 +67,10 @@ class DelegateVotes extends Component {
               value={this.state.description}
               onChange={this.handleInputChange}
               required
-              placeholder="Proposal description"
+              placeholder="'I solemnly swear to represent the interests of those who place trust in me by voting for...'"
             />
             <div className="submit-wrapper">
-              <button onClick={this.submitDelegate}>Promote</button>
+              <button onClick={this.submitDelegate}>Stand as a representative</button>
             </div>
           </div>
         </div>
@@ -80,9 +80,8 @@ class DelegateVotes extends Component {
               Delegate your vote
             </div>
             <p className="section-description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed <br />
-              do eiusmod tempor incididunt ut labore et dolore magna <br />
-              aliqua. Ut enim ad minim veniam
+              If you prefer not to participate in every token listing vote as a Nectar token holder you can choose a delegate who best represents your interests. <br />
+              At any time you may withdraw your delegation to take control of your own voting tokens.
             </p>
 
             {
@@ -97,7 +96,7 @@ class DelegateVotes extends Component {
                     </p>
                   </div>
                   <div className="vote-for-delegate submit-wrapper">
-                    <button onClick={this.chooseDelegate}>Give voice</button>
+                    <button onClick={this.chooseDelegate}>Choose delegate</button>
 
                     {/*<div className="checkbox-text">*/}
                       {/*<label className="checkbox">*/}
