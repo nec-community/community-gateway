@@ -1,6 +1,7 @@
 import { FETCHED_TOKENS } from './actionTypes';
 import eth from '../services/ethereumService';
 import { notify, notifyError } from './notificationActions';
+import { getVotingTokenBalance } from './accountActions';
 import tokenData from './tokenData';
 
 const fetchedTokens = (tokens, endingTime) => ({
@@ -29,6 +30,8 @@ export const voteForToken = (id, amount) => async (dispatch, getState) => {
   try {
     await eth.voteTokens(id, amount, getState().account.accountType);
     notify('Thanks for voting!', 'success')(dispatch);
+    getTokenVotes()(dispatch);
+    getVotingTokenBalance()(dispatch, getState);
   } catch (err) {
     notifyError(err)(dispatch);
   }

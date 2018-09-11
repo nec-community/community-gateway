@@ -25,7 +25,7 @@ class TokenListingVoteModal extends Component {
   vote() {
     const { id } = this.props.tokenData;
     this.props.voteForToken(id, this.state.amount);
-    this.props.closeHelp();
+    this.props.closeModal();
   }
 
   render() {
@@ -34,7 +34,7 @@ class TokenListingVoteModal extends Component {
       <div className="modal-wrapper">
         <div className="modal-inner-wrapper">
           <h2>Vote for {token}</h2>
-          <button className="close-button" onClick={this.props.closeHelp} />
+          <button className="close-button" onClick={this.props.closeModal} />
           <p>
             You can distribute your EVT to multiple tokens.
             Choose how many EVT you’d like to assing to {token}.
@@ -67,7 +67,7 @@ class TokenListingVoteModal extends Component {
 
 TokenListingVoteModal.propTypes = {
   votingTokenBalance: PropTypes.string.isRequired,
-  closeHelp: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
   tokenData: PropTypes.object.isRequired,
   voteForToken: PropTypes.func.isRequired,
 };
