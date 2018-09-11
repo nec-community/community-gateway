@@ -120,10 +120,12 @@ contract TokenListingManagerAdvanced is Ownable {
     function vote(uint _tokenIndex, uint _amount) public {
         require(myDelegate[msg.sender] == address(0));
         require(!isWinner[consideredTokens[_tokenIndex]]);
-
+        
         // voting only on the most recent set of proposed tokens
         require(tokenBatches.length > 0);
         uint _proposalId = tokenBatches.length - 1;
+        
+        require(isActive(_proposalId));
 
         TokenProposal memory p = tokenBatches[_proposalId];
 
@@ -423,6 +425,11 @@ contract TokenListingManagerAdvanced is Ownable {
 
     function getBlockNumber() internal constant returns (uint) {
         return block.number;
+    }
+
+    function isActive(uint id) internal view returns (bool) {
+        bool _finalized = (_startTime+_duration < now);
+        return !_finalized && (tokenBatches[id].startBlock < getBlockNumber());
     }
 
     function appendUintToString(string inStr, uint v) private pure returns (string str) {
