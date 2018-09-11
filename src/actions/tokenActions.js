@@ -31,15 +31,6 @@ export const getTokenVotes = () => async (dispatch) => {
       discussions: 'https://t.me/cnn_blockchain_official',
       website: 'https://cnntoken.io',
     }, {
-      id: 2,
-      token: 'FuzeX (FXT)',
-      description: 'FuzeX seamlessly integrates cryptocurrencies with fiat as an all in one payment solution. The fuzex card will be utilised just like a regular debit card.',
-      totalYes: votes.yesVotes[2],
-      total: votes.totalVotes,
-      logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2723.png',
-      discussions: 'https://t.me/FuzeX',
-      website: 'https://fuzex.co/',
-    }, {
       id: 3,
       token: 'VideoCoin (VID)',
       description: 'VideoCoin provides video encoding, video storage and content distribution services. Users are incentivised with VID tokens as rewards to promote organic platform growth.',
