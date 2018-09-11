@@ -15,12 +15,26 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
         await nectar.generateTokens(accounts[0], 2 * amount);
         await nectar.generateTokens(accounts[1], amount);
     });
-
+   
     it("...should be able to start voting proposal if you are admin", async () => {
-        
         let proposal = await tlm.startTokenVotes(['0x0', '0x1', '0x2'], 17, 0, 0, []);
 
         assert.equal(proposal.logs[0].event, 'NewTokens', "Event for new tokens should be emitted");
+    });
+
+    it("...should be able to start voting proposal with criteria 1 ", async () => {
+        let proposal = await tlm.startTokenVotes(['0x88', '0x99', '0x77'], 17, 1, 2, []);
+
+        assert.equal(proposal.logs[0].event, 'NewTokens', "Event for new tokens should be emitted");
+    });
+
+    it("...shouldn't be able to start voting proposal if you add the same token", async () => {
+        try {
+            await tlm.startTokenVotes(['0x0', '0x7', '0x8'], 17, 0, 0, []);
+        } catch(err) {
+            assert.ok(err.message.includes('revert'), "Transaction should be reverted if called from non admin");
+        }
+
     });
 
     it("...shouldn't be able to start voting proposal if you are not admin", async () => {
@@ -49,6 +63,25 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
         let parentToken = await votingToken.parentToken();
 
         assert.equal(parentToken, nectar.address, "Parent token for proposal should be same as nectar token");
+    });
+
+    it("...shouldn't be able to vote on last proposal, if the amount is too big", async () => {
+        let numberOfProposals = await tlm.numberOfProposals();
+        let proposalId = numberOfProposals - 1;
+        let proposal = await tlm.proposal(proposalId);
+        let myVote = 1;
+
+        let tokens = proposal[6];
+        let votingToken = DestructibleMiniMe.at(proposal[7]);
+        let myBalance = await votingToken.balanceOf(accounts[4]);
+
+        assert.ok(tokens.length > 0, "Number of tokens must be greater than 0");
+
+        try {
+            await tlm.vote(myVote, myBalance + 1, {from: accounts[4]});
+        } catch(err) {
+            assert.ok(err.message.includes('revert'), "Transaction should be reverted if amount is too big");
+        }
     });
 
     it("...should be able to vote on last proposal", async () => {
@@ -141,6 +174,26 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
         assert.ok(winners.length == 1, "Only my token should be winner");
     });
 
+    it("...shouldn't be able to vote for an already set winner token", async () => {
+        let proposal = await tlm.startTokenVotes(['0x38', '0x39', '0x46'], 2, 0, 0, ['0x1']);
+        let proposalId = proposal.logs[0].args['idProposal'];
+
+        proposal = await tlm.proposal(proposalId);
+        let myVote = 1;
+
+        let tokens = proposal[6];
+        let votingToken = DestructibleMiniMe.at(proposal[7]);
+        let myBalance = await votingToken.balanceOf(accounts[0]);
+
+        assert.ok(tokens.length > 0, "Number of tokens must be greater than 0");
+
+        try {
+            await tlm.vote(myVote, myBalance);
+        } catch(err) {
+            assert.ok(err.message.includes('revert'), "Transaction should be reverted if token is already set");
+        }
+    });
+
     it("...should be able to carry over votes for tokens", async () => {
         let proposal = await tlm.startTokenVotes(['0x24', '0x25'], 2, 2, amount+1, []);
         let proposalId = proposal.logs[0].args['idProposal'];
@@ -200,6 +253,40 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
         assert.equal(proposal[5][myVote], parseInt(myBalance)+parseInt(otherBalance), "Token I voted for should have my + other balance after I vote");
     });
 
+    it("...shouldn't be able to delegate votes if you're already a delegate", async () => {
+        await tlm.registerAsDelegate("storageHash", {from: accounts[4]});
+
+        try {
+            await tlm.delegateVote(accounts[1], {'from': accounts[4]});
+        } catch(err) {
+            assert.ok(err.message.includes('revert'), "Transaction should be reverted if you're already a delegate");
+        }
+    });
+
+
+    it("...shouldn't be able to vote if the user already delegated his votes", async () => {
+        let proposal = await tlm.startTokenVotes(['0x51', '0x62'], 2, 0, 0, []);
+        let proposalId = proposal.logs[0].args['idProposal'];
+
+        proposal = await tlm.proposal(proposalId);
+        let myVote = proposal[6].length - 1;
+
+        let tokens = proposal[6];
+        let votingToken = DestructibleMiniMe.at(proposal[7]);
+
+        let balance = await votingToken.balanceOf(accounts[2]);
+
+        assert.ok(tokens.length > 0, "Number of tokens must be greater than 0");
+
+        await tlm.delegateVote(accounts[0], {'from': accounts[2]});
+
+        try {
+            await tlm.vote(myVote, parseInt(balance), {'from': accounts[2]});
+        } catch(err) {
+            assert.ok(err.message.includes('revert'), "Transaction should be reverted if called from non admin");
+        }
+    });
+
     it("...should be able to delegate votes and vote for two different proposals", async () => {
         let proposal = await tlm.startTokenVotes(['0x30', '0x31'], 2, 1, 2, []);
         let proposalId = proposal.logs[0].args['idProposal'];
@@ -229,4 +316,35 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
         assert.equal(parseInt(otherBalance), parseInt(proposal[5][otherVote]), "Token other voted for should have votes of otherBalance");
         assert.ok(winners.length == 2, "There should be two winners");
     });
+
+    it("...should be able to add new admins if you are a admin", async () => {
+        await tlm.addAdmin(accounts[1], {from: accounts[0]});
+
+        const isAdmin = await tlm.isAdmin(accounts[1]);
+        assert.ok(isAdmin == true, "account[1] is a new admin now");
+    });
+
+    it("...shouldn't be able to add new admin if you are not a admin", async () => {
+        try {
+            await tlm.addAdmin(accounts[1], {from: accounts[4]});
+        } catch(err) {
+            assert.ok(err.message.includes('revert'), "Transaction should be reverted if called from non admin");
+        }
+    });
+
+    it("...should be able to remove an admin if you're the owner", async () => {
+        await tlm.removeAdmin(accounts[1], {from: accounts[0]});
+
+        const isAdmin = await tlm.isAdmin(accounts[1]);
+        assert.ok(isAdmin == false, "account[1] is removed from admin list");
+    });
+
+    it("...shouldn't be able to remove an admin if you're not the owner", async () => {
+        try {
+            await tlm.removeAdmin(accounts[1], {from: accounts[4]});
+        } catch(err) {
+            assert.ok(err.message.includes('revert'), "Transaction should be reverted if called from non owner");
+        }
+    });
+
 });
