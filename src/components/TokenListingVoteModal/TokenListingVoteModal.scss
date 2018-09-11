@@ -31,6 +31,7 @@
       border: 0;
       outline: 0;
       cursor: pointer;
+      margin: 0;
       &:hover {
         background: url('/images/x.svg') 100% center no-repeat;
       }
@@ -124,6 +125,7 @@
         padding: 0 4px;
         font-size: 20px;
         font-weight: bold;
+        border-bottom: 1px solid;
       }
       label {
         font-size: 14px;

@@ -47,7 +47,14 @@ class TokenListingVoteModal extends Component {
               min={0}
               max={this.props.votingTokenBalance}
             />
-            <input type="text" value={this.state.amount} onChange={this.handleInputChange} /><label>EVT</label>
+            <input
+              type="text"
+              value={this.state.amount}
+              onChange={this.handleInputChange}
+              style={{
+                width: `${(this.state.amount.toString().length * 13) + 10}px`,
+              }}
+            /><label>EVT</label>
           </p>
           <div>
             <button onClick={this.vote}>Vote</button>
