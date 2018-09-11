@@ -27,13 +27,13 @@ nav {
   width: 100%;
   transition: .2s background-color;
   padding: 15px 30px;
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 1080px) {
     display: flex;
     justify-content: space-between;
     padding: 30px 40px;
   }
   .nav-links {
-    @media screen and (max-width: 767px) {
+    @media screen and (max-width: 1079px) {
       display: none;
       a {
         display: block;
@@ -42,7 +42,7 @@ nav {
       }
     }
   }
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1079px) {
     &.open {
       background-color: $color1;
       box-shadow: 0 0 5px 5px rgba($color2, .7);
@@ -64,7 +64,7 @@ nav {
     text-align: right;
     display: none;
     float: right;
-    @media screen and (max-width: 767px) {
+    @media screen and (max-width: 1079px) {
       display: block;
     }
     a {
