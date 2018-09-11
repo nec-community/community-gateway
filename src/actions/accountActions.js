@@ -70,7 +70,8 @@ export const ledgerListAddresses = (path, page) => async (dispatch) => {
   } catch (err) {
     if (err.message) {
       dispatch(accountError(err.message));
-      return notify(err.message, 'error')(dispatch);
+      notify(err.message, 'error')(dispatch);
+      return [];
     }
     if (err === 'Invalid status 6801') err += ' - Ledger possibly locked';
     dispatch(accountError(err));
