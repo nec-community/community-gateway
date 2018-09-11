@@ -104,7 +104,7 @@ contract TokenListingManagerAdvanced is Ownable {
                 getBlockNumber(),
                 appendUintToString("EfxTokenVotes-", _proposalId),
                 MiniMeToken(nectarToken).decimals(),
-                appendUintToString("EfxTokenVotes-", _proposalId),
+                appendUintToString("EVT-", _proposalId),
                 true);
 
         p.startTime = now;
