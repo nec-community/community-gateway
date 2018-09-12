@@ -26,13 +26,12 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
 
         proposal = await tlm.proposal(proposalId);
 
-        let votingToken1 = DestructibleMiniMe.at(proposal[7], { from: accounts[5] });
-        let votingToken2 = DestructibleMiniMe.at(proposal[7], { from: accounts[6] });
+        let votingToken = DestructibleMiniMe.at(proposal[7], { from: accounts[5] });
 
-        await votingToken1.transfer(accounts[6], amount, { from: accounts[5] });
+        await votingToken.transfer(accounts[6], amount, { from: accounts[5] });
 
-        let myBalance1 = await votingToken1.balanceOf(accounts[5]);
-        let myBalance2 = await votingToken2.balanceOf(accounts[6]);
+        let myBalance1 = await votingToken.balanceOf(accounts[5]);
+        let myBalance2 = await votingToken.balanceOf(accounts[6]);
 
         assert.ok(myBalance1.valueOf() == 0 && myBalance2.valueOf() == amount * 2, "funds should get updated");
     });
@@ -280,7 +279,14 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
     });
 
     it("...should be able to delegate votes", async () => {
-        let proposal = await tlm.startTokenVotes(['0x28', '0x29'], 2, 0, 0, []);
+        let proposal = await tlm.startTokenVotes(['0x1001'], 0, 0, 0, []);
+
+        await advanceToBlock(web3.eth.blockNumber+5);
+
+        await tlm.registerAsDelegate("storageHash");
+        await tlm.delegateVote(accounts[0], {'from': accounts[1]});
+
+        proposal = await tlm.startTokenVotes(['0x28', '0x29'], 2, 0, 0, []);
         let proposalId = proposal.logs[0].args['idProposal'];
 
         proposal = await tlm.proposal(proposalId);
@@ -293,9 +299,6 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
         let otherBalance = await votingToken.balanceOf(accounts[1]);
 
         assert.ok(tokens.length > 0, "Number of tokens must be greater than 0");
-
-        await tlm.registerAsDelegate("storageHash");
-        await tlm.delegateVote(accounts[0], {'from': accounts[1]});
 
         await tlm.vote(myVote, parseInt(myBalance)+parseInt(otherBalance));
 
@@ -309,6 +312,9 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
     });
 
     it("...shouldn't be able to delegate votes if you're already a delegate", async () => {
+        let proposal = await tlm.startTokenVotes(['0x1002'], 0, 0, 0, []);
+        await advanceToBlock(web3.eth.blockNumber+5);
+
         await tlm.registerAsDelegate("storageHash", {from: accounts[4]});
 
         try {
@@ -320,7 +326,12 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
 
 
     it("...shouldn't be able to vote if the user already delegated his votes", async () => {
-        let proposal = await tlm.startTokenVotes(['0x51', '0x62'], 2, 0, 0, []);
+        let proposal = await tlm.startTokenVotes(['0x1003'], 0, 0, 0, []);
+        await advanceToBlock(web3.eth.blockNumber+5); 
+
+        await tlm.delegateVote(accounts[0], {'from': accounts[2]});
+
+        proposal = await tlm.startTokenVotes(['0x51', '0x62'], 2, 0, 0, []);
         let proposalId = proposal.logs[0].args['idProposal'];
 
         proposal = await tlm.proposal(proposalId);
@@ -333,43 +344,11 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
 
         assert.ok(tokens.length > 0, "Number of tokens must be greater than 0");
 
-        await tlm.delegateVote(accounts[0], {'from': accounts[2]});
-
         try {
             await tlm.vote(myVote, parseInt(balance), {'from': accounts[2]});
         } catch(err) {
             assert.ok(err.message.includes('revert'), "Transaction should be reverted if called from non admin");
         }
-    });
-
-    it("...should be able to delegate votes and vote for two different proposals", async () => {
-        let proposal = await tlm.startTokenVotes(['0x30', '0x31'], 2, 1, 2, []);
-        let proposalId = proposal.logs[0].args['idProposal'];
-
-        proposal = await tlm.proposal(proposalId);
-        let myVote = proposal[6].length - 1;
-        let otherVote = proposal[6].length - 2;
-
-        let tokens = proposal[6];
-        let votingToken = DestructibleMiniMe.at(proposal[7]);
-
-        let myBalance = await votingToken.balanceOf(accounts[0]);
-        let otherBalance = await votingToken.balanceOf(accounts[1]);
-
-        assert.ok(tokens.length > 0, "Number of tokens must be greater than 0");
-
-        await tlm.registerAsDelegate("storageHash");
-        await tlm.delegateVote(accounts[0], {'from': accounts[1]});
-
-        await tlm.vote(myVote, parseInt(myBalance));
-        await tlm.vote(otherVote, parseInt(otherBalance));
-
-        let winners = await tlm.getWinners();
-        proposal = await tlm.proposal(proposalId);
-        
-        assert.equal(parseInt(myBalance), parseInt(proposal[5][myVote]), "Token I voted for should have votes of myBalance");
-        assert.equal(parseInt(otherBalance), parseInt(proposal[5][otherVote]), "Token other voted for should have votes of otherBalance");
-        assert.ok(winners.length == 2, "There should be two winners");
     });
 
     it("...should be able to add new admins if you are a admin", async () => {

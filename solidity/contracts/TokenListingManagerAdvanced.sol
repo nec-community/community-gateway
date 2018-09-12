@@ -62,6 +62,7 @@ contract TokenListingManagerAdvanced is Ownable {
         tokenFactory = DestructibleMiniMeTokenFactory(_tokenFactory);
         nectarToken = _nectarToken;
         admins[msg.sender] = true;
+        isDelegate[address(0)] = true;
     }
 
     /// @notice Admins are able to approve proposal that someone submitted
@@ -122,19 +123,18 @@ contract TokenListingManagerAdvanced is Ownable {
     function vote(uint _tokenIndex, uint _amount) public {
         require(myDelegate[msg.sender] == address(0));
         require(!isWinner[consideredTokens[_tokenIndex]]);
-        
+
         // voting only on the most recent set of proposed tokens
         require(tokenBatches.length > 0);
         uint _proposalId = tokenBatches.length - 1;
-        
+
         require(isActive(_proposalId));
+        require(!isVoted[_proposalId][msg.sender]);
 
         TokenProposal memory p = tokenBatches[_proposalId];
 
-        require(now < p.startTime + p.duration);
-
         if (lastVote[consideredTokens[_tokenIndex]] < _proposalId) {
-            // if voting for this token for first time, we need to deduce votes
+            // if voting for this token for first time in current proposal, we need to deduce votes
             // we deduce number of yes votes for diff of current proposal and lastVote time multiplied by 2
             yesVotes[_tokenIndex] /= 2*(_proposalId - lastVote[consideredTokens[_tokenIndex]]);
             lastVote[consideredTokens[_tokenIndex]] = _proposalId;
@@ -142,32 +142,30 @@ contract TokenListingManagerAdvanced is Ownable {
 
         uint toBurn = _amount;
         uint balance = DestructibleMiniMeToken(p.votingToken).balanceOf(msg.sender);
-        
+
         if (balance >= toBurn) {
             toBurn = 0;
         } else {
             toBurn -= balance;
         }
-        
-        for (uint i=0; i < myVotes[msg.sender].length; i++) {
-            if (toBurn == 0) {
-                break;
-            }
 
-            address user = myVotes[msg.sender][i];
-            balance = DestructibleMiniMeToken(p.votingToken).balanceOf(user);
-        
-            if (balance >= toBurn) {
-                toBurn = 0;
-            } else {
-                toBurn -= balance;
+        if (isDelegate[msg.sender]) {
+            for (uint i=0; i < myVotes[msg.sender].length; i++) {
+                address user = myVotes[msg.sender][i];
+                balance = DestructibleMiniMeToken(p.votingToken).balanceOf(user);
+
+                if (balance >= toBurn) {
+                    toBurn = 0;
+                } else {
+                    toBurn -= balance;
+                }
             }
         }
+
         // if not 0 that means that user sent more to burn than he has
         require(toBurn == 0);
 
         yesVotes[_tokenIndex] += _amount;
-
         // set the info that the user voted in this round
         isVoted[_proposalId][msg.sender] = true;
 
@@ -175,6 +173,10 @@ contract TokenListingManagerAdvanced is Ownable {
     }
 
     function registerAsDelegate(bytes32 _storageHash) public {
+        // if not this, user is able to delegate vote and then after his delegate votes
+        // he can register as delegate and vote again
+        require(!isActive(tokenBatches.length - 1));
+        
         if (myDelegate[msg.sender] != address(0)) {
             address delegate = myDelegate[msg.sender];
 
@@ -208,11 +210,7 @@ contract TokenListingManagerAdvanced is Ownable {
     function delegateVote(address _to) public {
         require(isDelegate[_to]);
         require(!isDelegate[msg.sender]);
-
-        bool active;
-        (,,,active,,,,,) = proposal(tokenBatches.length - 1);
-
-        require(active);
+        require(!isActive(tokenBatches.length - 1));
 
         if (myDelegate[msg.sender] != address(0)) {
             address delegate = myDelegate[msg.sender];
@@ -232,9 +230,6 @@ contract TokenListingManagerAdvanced is Ownable {
         myDelegate[msg.sender] = _to;
         myVotes[_to].push(msg.sender);
     }
-
-    event Log(address a, uint votes);
-    event LogWin(address a);
 
     function getWinners() public view returns(address[] winners) {
         uint _proposalId = tokenBatches.length - 1;
@@ -376,7 +371,7 @@ contract TokenListingManagerAdvanced is Ownable {
         _startTime = p.startTime;
         _duration = p.duration;
         _finalized = (_startTime+_duration < now);
-        _active = !_finalized && (p.startBlock < getBlockNumber());
+        _active = isActive(_proposalId);
         _votes = getVotes();
         _tokens = getConsideredTokens();
         _votingToken = p.votingToken;
@@ -425,7 +420,7 @@ contract TokenListingManagerAdvanced is Ownable {
     function onTransfer(address _from, address _to, uint _amount) public view returns(bool) {
         uint _proposalId = tokenBatches.length - 1;
 
-        if (myDelegate[_from] == 0x0 && isVoted[_proposalId][_from] == false) {
+        if (!isVoted[_proposalId][myDelegate[_from]] && !isVoted[_proposalId][_from]) {
             return true;
         } else {
             return false;
@@ -441,10 +436,11 @@ contract TokenListingManagerAdvanced is Ownable {
     }
 
     function isActive(uint id) internal view returns (bool) {
-        bool _finalized = (_startTime+_duration < now);
-        return !_finalized && (tokenBatches[id].startBlock < getBlockNumber());
+        TokenProposal memory p = tokenBatches[id];
+        bool _finalized = (p.startTime + p.duration < now);
+        return !_finalized && (p.startBlock < getBlockNumber());
     }
-
+    
     function appendUintToString(string inStr, uint v) private pure returns (string str) {
         uint maxlength = 100;
         bytes memory reversed = new bytes(maxlength);
