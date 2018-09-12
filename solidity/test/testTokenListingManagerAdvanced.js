@@ -13,7 +13,62 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
         amount = 100000;
 
         await nectar.generateTokens(accounts[0], 2 * amount);
-        await nectar.generateTokens(accounts[1], amount);
+
+        const accs = accounts.slice(1);
+        const fundsPromises = accs.map(a => nectar.generateTokens(a,amount));
+        await Promise.all(fundsPromises);
+
+    });
+
+    it("...should transfer tokens between users if they didn't vote and don't have a delegate set", async () => {
+        let proposal = await tlm.startTokenVotes(['0x111', '0x112'], 4, 0, 0, []);
+        let proposalId = proposal.logs[0].args['idProposal'];
+
+        proposal = await tlm.proposal(proposalId);
+
+        let votingToken1 = DestructibleMiniMe.at(proposal[7], { from: accounts[5] });
+        let votingToken2 = DestructibleMiniMe.at(proposal[7], { from: accounts[6] });
+
+        await votingToken1.transfer(accounts[6], amount, { from: accounts[5] });
+
+        let myBalance1 = await votingToken1.balanceOf(accounts[5]);
+        let myBalance2 = await votingToken2.balanceOf(accounts[6]);
+
+        assert.ok(myBalance1.valueOf() == 0 && myBalance2.valueOf() == amount * 2, "funds should get updated");
+    });
+
+    it('...should call delegate vote for a 100 users and let the choosen delegate vote', async () => {
+
+        if (accounts.length < 101) {
+            return;
+        }
+
+        let proposal = await tlm.startTokenVotes(['0x99', '0x98'], 4, 0, 0, []);
+        let proposalId = proposal.logs[0].args['idProposal'];
+
+        proposal = await tlm.proposal(proposalId);
+        let myVote = proposal[6].length - 1;
+
+        let tokens = proposal[6];
+        let votingToken = DestructibleMiniMe.at(proposal[7]);
+
+        let myBalance = await votingToken.balanceOf(accounts[0]);
+
+        assert.ok(tokens.length > 0, "Number of tokens must be greater than 0");
+
+        await tlm.registerAsDelegate("storageHash", {from: accounts[0]});
+
+        const accs = accounts.slice(1);
+
+        const delegatePromises = accs.map(a => tlm.delegateVote(accounts[0], {from: a}));
+
+        await Promise.all(delegatePromises);
+
+        const res = await tlm.vote(myVote, (100000*100));
+
+        console.log(res.receipt.cumulativeGasUsed);
+
+        assert.ok(res.receipt.cumulativeGasUsed < 1200000);
     });
    
     it("...should be able to start voting proposal if you are admin", async () => {
