@@ -200,7 +200,7 @@ class TokenListings extends Component {
         <div className="waves reverse" />
         {
           this.state.showModal &&
-          <TokenListingVoteModal closeHelp={this.toggleModal} tokenData={this.state.tokenData} />
+          <TokenListingVoteModal closeModal={this.toggleModal} tokenData={this.state.tokenData} />
         }
       </div>
     );
