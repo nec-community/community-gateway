@@ -12,7 +12,6 @@ const fetchedTokens = (tokens, endingTime) => ({
 
 export const getTokenVotes = () => async (dispatch) => {
   const proposalData = await eth.getTokenProposalDetails();
-  console.log(proposalData._tokens);
   const tokens = proposalData._tokens
     .map(address => tokenData[address])
     .map((token, i) => ({

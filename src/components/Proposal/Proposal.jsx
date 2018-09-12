@@ -28,7 +28,6 @@ class Proposal extends Component {
       proposal._token
     );
     const proposalBalance = eth.weiToEth(_proposalBalance);
-    console.log(proposalBalance);
     this.setState({
       proposal,
       voted,

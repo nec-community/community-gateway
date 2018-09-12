@@ -436,49 +436,32 @@ const getNonApprovedProposals = async () => {
   return proposalIDs.map(id => getProposalDetails(id));
 };
 
+const isTokenProposalActive = async () => {
+  const advancedTokenProposalContract = getAdvancedTokenProposalContract();
+  return advancedTokenProposalContract.methods.isActive().call();
+};
+
 const getDelegates = async () =>
   new Promise(async (resolve, reject) => {
     const advancedTokenProposalContract = getAdvancedTokenProposalContract();
     const delegateCount = await advancedTokenProposalContract.methods.delegateCount().call();
-    console.log(delegateCount);
+    log(delegateCount);
     const ids = [...Array(parseInt(delegateCount, 10)).keys()];
     const promises = ids.map(id => advancedTokenProposalContract.methods.allDelegates(id).call());
 
     Promise.all(promises)
       .then(async (delegates) => {
-        console.log(delegates);
+        log(delegates);
         resolve(delegates);
       })
       .catch((error) => {
         reject(error);
       });
-    // return [
-    //   {
-    //     address: '0x00158a74921620b39e5c3afe4dca79feb2c2c143',
-    //     description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classiacal ' +
-    //       'Lorem Ipsum is not simply random text. It has roots in a piece of classiacal',
-    //   },
-    //   {
-    //     address: '0x00158a74921620b39e5c3afe4dca79feb2c2c143',
-    //     description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classiacal ' +
-    //       'Lorem Ipsum is not simply random text. It has roots in a piece of classiacal',
-    //   },
-    //   {
-    //     address: '0x00158a74921620b39e5c3afe4dca79feb2c2c143',
-    //     description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classiacal ' +
-    //       'Lorem Ipsum is not simply random text. It has roots in a piece of classiacal',
-    //   },
-    //   {
-    //     address: '0x00158a74921620b39e5c3afe4dca79feb2c2c143',
-    //     description: 'Lorem Ipsum is not simply random text. It has roots in a piece of classiacal ' +
-    //       'Lorem Ipsum is not simply random text. It has roots in a piece of classiacal',
-    //   },
-    // ];
   });
 
 const becomeDelegate = async (storageHash, accountType) => {
   const advancedTokenProposalContract = getAdvancedTokenProposalContract();
-  console.log(storageHash, web3.fromAscii(storageHash));
+  log(storageHash, web3.fromAscii(storageHash));
   const contractCall = advancedTokenProposalContract.methods.registerAsDelegate(window._web3.utils.toHex(storageHash));
   if (accountType === 'ledger') return signAndSendLedger(contractCall);
   if (accountType === 'keystore') return signAndSendKeystore(contractCall);
@@ -486,6 +469,24 @@ const becomeDelegate = async (storageHash, accountType) => {
   return contractCall.send({
     from: account,
   });
+};
+
+const delegateVote = async (to, accountType) => {
+  const advancedTokenProposalContract = getAdvancedTokenProposalContract();
+  const contractCall = advancedTokenProposalContract.methods.delegateVote(to);
+  if (accountType === 'ledger') return signAndSendLedger(contractCall);
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall);
+  const account = await getAccount();
+  return contractCall.send({
+    from: account,
+  });
+};
+
+const undelegate = accountType => delegateVote('0x0000000000000000000000000000000000000000', accountType);
+
+const getDelegate = (account) => {
+  const advancedTokenProposalContract = getAdvancedTokenProposalContract();
+  return advancedTokenProposalContract.methods.myDelegate(account).call();
 };
 
 const getEthPrice = async () => {
@@ -577,6 +578,10 @@ export default {
   signAndSendLedger,
   approveProposal,
   denyProposal,
+  isTokenProposalActive,
   getDelegates,
   becomeDelegate,
+  delegateVote,
+  undelegate,
+  getDelegate,
 };

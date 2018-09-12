@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getDelegates, becomeDelegate } from '../../actions/delegateActions';
+import {
+  getDelegates,
+  becomeDelegate,
+  delegateVote,
+  getMyDelegate,
+  undelegate,
+} from '../../actions/delegateActions';
 import './DelegateVotes.scss';
 import '../Submit/Submit.scss';
 
@@ -15,18 +21,32 @@ class DelegateVotes extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.submitDelegate = this.submitDelegate.bind(this);
+    this.delegateVote = this.delegateVote.bind(this);
+    this.undelegateVote = this.undelegateVote.bind(this);
   }
 
   componentDidMount() {
+    this.props.getMyDelegate();
     this.props.getDelegates();
   }
 
-  submitDelegate() {
-    this.props.becomeDelegate(this.state.description);
+  componentWillUpdate(nextProps) {
+    if (nextProps.account !== this.props.account) this.props.getMyDelegate();
   }
 
-  chooseDelegate() {
-    return true;
+  async submitDelegate() {
+    await this.props.becomeDelegate(this.state.description);
+    this.props.getDelegates();
+  }
+
+  async delegateVote(to) {
+    await this.props.delegateVote(to);
+    this.props.getMyDelegate();
+  }
+
+  async undelegateVote() {
+    await this.props.undelegate();
+    this.props.getMyDelegate();
   }
 
   handleInputChange(event) {
@@ -85,8 +105,24 @@ class DelegateVotes extends Component {
             </p>
 
             {
+              !this.props.canPickDelegates &&
+              <p className="info-tip undelegate">
+                A token listing proposal is active - you can not change your delegate currently.
+              </p>
+            }
+
+            {
+              this.props.myDelegate !== '0x0000000000000000000000000000000000000000' &&
+              <p className="info-tip undelegate">
+                You've delegated your vote to {this.props.myDelegate}.
+                <br />
+                <a onClick={() => this.undelegateVote()}>Undelegate vote</a>
+              </p>
+            }
+
+            {
               delegates.map(delegate => (
-                <div className="single-delegate">
+                <div className="single-delegate" key={delegate.user}>
                   <div className="delegate-information">
                     <p className="delegate-address">
                       {delegate.user}
@@ -96,15 +132,7 @@ class DelegateVotes extends Component {
                     </p>
                   </div>
                   <div className="vote-for-delegate submit-wrapper">
-                    <button onClick={this.chooseDelegate}>Choose delegate</button>
-
-                    {/*<div className="checkbox-text">*/}
-                      {/*<label className="checkbox">*/}
-                        {/*<input type="checkbox" value="value" onChange={this.handleInputChange} />*/}
-                        {/*<span className="label"></span>*/}
-                      {/*</label>*/}
-                      {/*Delegate all future votes*/}
-                    {/*</div>*/}
+                    <button onClick={() => this.delegateVote(delegate.user)}>Choose delegate</button>
                   </div>
                 </div>
               ))
@@ -120,13 +148,25 @@ DelegateVotes.propTypes = {
   getDelegates: PropTypes.func.isRequired,
   delegates: PropTypes.array.isRequired,
   becomeDelegate: PropTypes.func.isRequired,
+  delegateVote: PropTypes.func.isRequired,
+  undelegate: PropTypes.func.isRequired,
+  getMyDelegate: PropTypes.func.isRequired,
+  canPickDelegates: PropTypes.bool.isRequired,
+  myDelegate: PropTypes.string.isRequired,
+  account: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
   delegates: state.delegate.delegates,
+  myDelegate: state.delegate.myDelegate,
+  canPickDelegates: state.delegate.canPickDelegates,
+  account: state.account.account,
 });
 
 export default connect(mapStateToProps, {
   getDelegates,
   becomeDelegate,
+  delegateVote,
+  undelegate,
+  getMyDelegate,
 })(DelegateVotes);

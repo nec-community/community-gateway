@@ -23,7 +23,7 @@ export const notify = (message, type = 'success', length = 5000) => (dispatch) =
 
 export const notifyError = err => (dispatch) => {
   let message = err.message ? err.message : err;
-  if (message.indexOf('MetaMask') !== -1) {
+  if (message.indexOf('MetaMask') !== -1 && message.indexOf('\n') > -1) {
     message = message.substr(message.indexOf('MetaMask'));
     message = message.substr(0, message.indexOf('\n'));
   }
