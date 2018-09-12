@@ -51,6 +51,8 @@ contract TokenListingManagerAdvanced is Ownable {
     mapping(address => address) public myDelegate;
     mapping(address => bool) public isDelegate;
 
+    mapping(uint => mapping(address => bool)) public isVoted;
+
     modifier onlyAdmins() {
         require(isAdmin(msg.sender));
         _;
@@ -142,10 +144,8 @@ contract TokenListingManagerAdvanced is Ownable {
         uint balance = DestructibleMiniMeToken(p.votingToken).balanceOf(msg.sender);
         
         if (balance >= toBurn) {
-            DestructibleMiniMeToken(p.votingToken).destroyTokens(msg.sender, toBurn);
             toBurn = 0;
         } else {
-            DestructibleMiniMeToken(p.votingToken).destroyTokens(msg.sender, balance);
             toBurn -= balance;
         }
         
@@ -158,10 +158,8 @@ contract TokenListingManagerAdvanced is Ownable {
             balance = DestructibleMiniMeToken(p.votingToken).balanceOf(user);
         
             if (balance >= toBurn) {
-                DestructibleMiniMeToken(p.votingToken).destroyTokens(user, toBurn);
                 toBurn = 0;
             } else {
-                DestructibleMiniMeToken(p.votingToken).destroyTokens(user, balance);
                 toBurn -= balance;
             }
         }
@@ -169,6 +167,9 @@ contract TokenListingManagerAdvanced is Ownable {
         require(toBurn == 0);
 
         yesVotes[_tokenIndex] += _amount;
+
+        // set the info that the user voted in this round
+        isVoted[_proposalId][msg.sender] = true;
 
         emit Vote(_proposalId, msg.sender, consideredTokens[_tokenIndex], _amount);
     }
@@ -207,6 +208,11 @@ contract TokenListingManagerAdvanced is Ownable {
     function delegateVote(address _to) public {
         require(isDelegate[_to]);
         require(!isDelegate[msg.sender]);
+
+        bool active;
+        (,,,active,,,,,) = proposal(tokenBatches.length - 1);
+
+        require(active);
 
         if (myDelegate[msg.sender] != address(0)) {
             address delegate = myDelegate[msg.sender];
@@ -415,8 +421,15 @@ contract TokenListingManagerAdvanced is Ownable {
         return false;
     }
 
-    function onTransfer(address, address, uint ) public pure returns(bool) {
-        return true;
+    // transfer can use someone who didn't vote and doesn't have a set delegate
+    function onTransfer(address _from, address _to, uint _amount) public view returns(bool) {
+        uint _proposalId = tokenBatches.length - 1;
+
+        if (myDelegate[_from] == 0x0 && isVoted[_proposalId][_from] == false) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     function onApprove(address, address, uint ) public pure returns(bool) {
