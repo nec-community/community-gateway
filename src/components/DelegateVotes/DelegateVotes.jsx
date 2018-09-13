@@ -71,72 +71,87 @@ class DelegateVotes extends Component {
           </p>
         </div>
         <div className="delegate-section form-wrapper">
-          <div className="container">
-            <h2 className="small-title">
-              Allow others to delegate their vote to you
-            </h2>
-            <p className="section-description">
-              The delegates section enables you put yourself forward
-              to represent the interests of other community members. For example,
-              you can choose to nominate yourself as a delegate who's policy is
-              to vote each round for whichever token has highest trading volume on other exchanges.
-            </p>
-            <textarea
-              name="description"
-              id="description"
-              value={this.state.description}
-              onChange={this.handleInputChange}
-              required
-              placeholder="'I solemnly swear to represent the interests of those who place trust in me by voting for...'"
-            />
-            <div className="submit-wrapper">
-              <button onClick={this.submitDelegate}>Stand as a representative</button>
+          <div className="container flex">
+            <img src="/images/delegate-icon.svg" alt="" />
+            <div>
+              <h2 className="small-title">
+                Allow others to delegate their vote to you
+              </h2>
+              <p className="section-description">
+                The delegates section enables you put yourself forward
+                to represent the interests of other community members. For example,
+                you can choose to nominate yourself as a delegate who's policy is
+                to vote each round for whichever token has highest trading volume on other
+                exchanges.
+              </p>
+              <textarea
+                name="description"
+                id="description"
+                value={this.state.description}
+                onChange={this.handleInputChange}
+                required
+                placeholder="'I solemnly swear to represent the interests of those who place trust in me by voting for...'"
+              />
+              <div className="submit-wrapper">
+                <button onClick={this.submitDelegate}>Stand as a representative</button>
+              </div>
             </div>
           </div>
         </div>
         <div className="votes-section form-wrapper">
-          <div className="container">
-            <div className="small-title">
-              Delegate your vote
+          <div className="container flex">
+            <img src="/images/delegators-icon.svg" alt="" />
+            <div>
+              <div className="small-title">
+                Delegate your vote
+              </div>
+              <p className="section-description">
+                If you prefer not to participate in every token listing vote as a Nectar token
+                holder you can choose a delegate who best represents your interests. <br />
+                At any time you may withdraw your delegation to take control of your own voting
+                tokens.
+              </p>
+
+              {
+                !this.props.canPickDelegates &&
+                <p className="info-tip undelegate">
+                  A token listing proposal is active - you can not change your delegate currently.
+                </p>
+              }
+
+              {
+                this.props.myDelegate !== '0x0000000000000000000000000000000000000000' &&
+                <p className="info-tip undelegate">
+                  You've delegated your vote to {this.props.myDelegate}.
+                  <br />
+                  <a onClick={() => this.undelegateVote()}>Undelegate vote</a>
+                </p>
+              }
+
+              {
+                delegates.length === 0 && <p>No delegates</p>
+              }
+
+              {
+                delegates.map(delegate => (
+                  <div className="single-delegate" key={delegate.user}>
+                    <div className="delegate-information">
+                      <p className="delegate-address">
+                        {delegate.user}
+                      </p>
+                      <p className="delegate-mission">
+                        {delegate.description}
+                      </p>
+                    </div>
+                    <div className="vote-for-delegate submit-wrapper">
+                      <button onClick={() => this.delegateVote(delegate.user)}>
+                        Choose delegate
+                      </button>
+                    </div>
+                  </div>
+                ))
+              }
             </div>
-            <p className="section-description">
-              If you prefer not to participate in every token listing vote as a Nectar token holder you can choose a delegate who best represents your interests. <br />
-              At any time you may withdraw your delegation to take control of your own voting tokens.
-            </p>
-
-            {
-              !this.props.canPickDelegates &&
-              <p className="info-tip undelegate">
-                A token listing proposal is active - you can not change your delegate currently.
-              </p>
-            }
-
-            {
-              this.props.myDelegate !== '0x0000000000000000000000000000000000000000' &&
-              <p className="info-tip undelegate">
-                You've delegated your vote to {this.props.myDelegate}.
-                <br />
-                <a onClick={() => this.undelegateVote()}>Undelegate vote</a>
-              </p>
-            }
-
-            {
-              delegates.map(delegate => (
-                <div className="single-delegate" key={delegate.user}>
-                  <div className="delegate-information">
-                    <p className="delegate-address">
-                      {delegate.user}
-                    </p>
-                    <p className="delegate-mission">
-                      {delegate.description}
-                    </p>
-                  </div>
-                  <div className="vote-for-delegate submit-wrapper">
-                    <button onClick={() => this.delegateVote(delegate.user)}>Choose delegate</button>
-                  </div>
-                </div>
-              ))
-            }
           </div>
         </div>
       </div>
