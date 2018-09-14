@@ -175,7 +175,7 @@ contract TokenListingManagerAdvanced is Ownable {
     function registerAsDelegate(bytes32 _storageHash) public {
         // if not this, user is able to delegate vote and then after his delegate votes
         // he can register as delegate and vote again
-        require(!isActive(tokenBatches.length - 1));
+        require(tokenBatches.length == 0 || !isActive(tokenBatches.length - 1));
         
         if (myDelegate[msg.sender] != address(0)) {
             address delegate = myDelegate[msg.sender];
@@ -210,7 +210,7 @@ contract TokenListingManagerAdvanced is Ownable {
     function delegateVote(address _to) public {
         require(isDelegate[_to]);
         require(!isDelegate[msg.sender]);
-        require(!isActive(tokenBatches.length - 1));
+        require(tokenBatches.length == 0 || !isActive(tokenBatches.length - 1));
 
         if (myDelegate[msg.sender] != address(0)) {
             address delegate = myDelegate[msg.sender];
@@ -232,6 +232,7 @@ contract TokenListingManagerAdvanced is Ownable {
     }
 
     function getWinners() public view returns(address[] winners) {
+        require(tokenBatches.length > 0);
         uint _proposalId = tokenBatches.length - 1;
 
         TokenProposal memory p = tokenBatches[_proposalId];
@@ -399,6 +400,8 @@ contract TokenListingManagerAdvanced is Ownable {
     }
 
     function getCurrentVotes(uint index) public view returns(uint) {
+        require(tokenBatches.length > 0);
+
         uint _proposalId = tokenBatches.length - 1;
         uint vote = yesVotes[index];
         if (_proposalId > lastVote[consideredTokens[index]]) {
@@ -418,6 +421,8 @@ contract TokenListingManagerAdvanced is Ownable {
 
     // transfer can use someone who didn't vote and doesn't have a set delegate
     function onTransfer(address _from, address _to, uint _amount) public view returns(bool) {
+        if (tokenBatches.length == 0) return true;
+
         uint _proposalId = tokenBatches.length - 1;
 
         if (!isVoted[_proposalId][myDelegate[_from]] && !isVoted[_proposalId][_from]) {
