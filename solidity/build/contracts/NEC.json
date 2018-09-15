@@ -3532,8 +3532,115 @@
       "links": {},
       "address": "0x494ca449da25ed9c6e49e0cd0f714738d760b414",
       "transactionHash": "0xfecf37e54358fa417497cf7437876ed630d44aa186b5d9cc70c610e36d1f5031"
+    },
+    "4447": {
+      "events": {
+        "0x696de425f79f4a40bc6d2122ca50507f0efbeabbff86a84871b7196ab8ea8df7": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "who",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "Burned",
+          "type": "event"
+        },
+        "0xf931edb47c50b4b4104c187b5814a9aef5f709e17e2ecf9617e860cacade929c": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_token",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "_controller",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "ClaimedTokens",
+          "type": "event"
+        },
+        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "_to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        },
+        "0x086c875b377f900b07ce03575813022f05dd10ed7640b5282cf6d3c3fc352ade": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_cloneToken",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_snapshotBlock",
+              "type": "uint256"
+            }
+          ],
+          "name": "NewCloneToken",
+          "type": "event"
+        },
+        "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "_spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xf25186b5081ff5ce73482ad761db0eb0d25abfbf",
+      "transactionHash": "0xec1b37cf40e0e166746b12edda187993607c12bee6d9946023309861ce71d332"
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-14T10:11:28.940Z"
+  "updatedAt": "2018-09-15T01:01:58.694Z"
 }

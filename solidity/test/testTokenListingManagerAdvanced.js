@@ -42,7 +42,7 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
             return;
         }
 
-        let proposal = await tlm.startTokenVotes(['0x99', '0x98'], 4, 0, 0, []);
+        let proposal = await tlm.startTokenVotes(['0x991', '0x981'], 4, 0, 0, []);
         let proposalId = proposal.logs[0].args['idProposal'];
 
         proposal = await tlm.proposal(proposalId);
@@ -65,7 +65,7 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
 
         const res = await tlm.vote(myVote, (100000*100));
 
-        console.log(res.receipt.cumulativeGasUsed);
+        // console.log(res.receipt.cumulativeGasUsed);
 
         assert.ok(res.receipt.cumulativeGasUsed < 1200000);
     });
@@ -158,7 +158,7 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
     });
 
     it("...should be able to return winner when criteria is 0", async () => {
-        let proposal = await tlm.startTokenVotes(['0x6', '0x7', '0x8', '0x9', '0x10', '0x11'], 2, 0, 0, ['0x4']);
+        let proposal = await tlm.startTokenVotes(['0x6', '0x7', '0x8', '0x9', '0x10', '0x11'], 2, 0, 0, ['0x4', '0x981']);
         let proposalId = proposal.logs[0].args['idProposal'];
 
         proposal = await tlm.proposal(proposalId);
@@ -183,7 +183,7 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
 
         proposal = await tlm.proposal(proposalId);
         let myVote = 1;
-        let otherVote = 3;
+        let otherVote = 2;
 
         let tokens = proposal[6];
         let votingToken = DestructibleMiniMe.at(proposal[7]);
@@ -193,9 +193,10 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
 
         assert.ok(tokens.length > 0, "Number of tokens must be greater than 0");
 
+        await tlm.undelegateVote({'from': accounts[1]});
         await tlm.vote(myVote, myBalance);
         await tlm.vote(otherVote, otherBalance, {'from': accounts[1]});
-
+        
         let winners = await tlm.getWinners();
         proposal = await tlm.proposal(proposalId);
         
@@ -209,7 +210,7 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
 
         proposal = await tlm.proposal(proposalId);
         let myVote = 1;
-        let otherVote = 6;
+        let otherVote = 8;
 
         let tokens = proposal[6];
         let votingToken = DestructibleMiniMe.at(proposal[7]);
@@ -283,8 +284,9 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
 
         await advanceToBlock(web3.eth.blockNumber+5);
 
-        await tlm.registerAsDelegate("storageHash");
-        await tlm.delegateVote(accounts[0], {'from': accounts[1]});
+        await tlm.undelegateVote({'from': accounts[4]});
+        await tlm.registerAsDelegate("storageHash", {'from': accounts[4]});
+        await tlm.delegateVote(accounts[4], {'from': accounts[1]});
 
         proposal = await tlm.startTokenVotes(['0x28', '0x29'], 2, 0, 0, []);
         let proposalId = proposal.logs[0].args['idProposal'];
@@ -295,12 +297,12 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
         let tokens = proposal[6];
         let votingToken = DestructibleMiniMe.at(proposal[7]);
 
-        let myBalance = await votingToken.balanceOf(accounts[0]);
+        let myBalance = await votingToken.balanceOf(accounts[4]);
         let otherBalance = await votingToken.balanceOf(accounts[1]);
 
         assert.ok(tokens.length > 0, "Number of tokens must be greater than 0");
 
-        await tlm.vote(myVote, parseInt(myBalance)+parseInt(otherBalance));
+        await tlm.vote(myVote, parseInt(myBalance)+parseInt(otherBalance), {'from': accounts[4]});
 
         let winners = await tlm.getWinners();
         proposal = await tlm.proposal(proposalId);
@@ -315,8 +317,6 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
         let proposal = await tlm.startTokenVotes(['0x1002'], 0, 0, 0, []);
         await advanceToBlock(web3.eth.blockNumber+5);
 
-        await tlm.registerAsDelegate("storageHash", {from: accounts[4]});
-
         try {
             await tlm.delegateVote(accounts[1], {'from': accounts[4]});
         } catch(err) {
@@ -329,6 +329,7 @@ contract('TokenListingManagerAdvanced', async (accounts) => {
         let proposal = await tlm.startTokenVotes(['0x1003'], 0, 0, 0, []);
         await advanceToBlock(web3.eth.blockNumber+5); 
 
+        await tlm.undelegateVote({'from': accounts[2]});
         await tlm.delegateVote(accounts[0], {'from': accounts[2]});
 
         proposal = await tlm.startTokenVotes(['0x51', '0x62'], 2, 0, 0, []);

@@ -36,6 +36,7 @@ contract TokenListingManagerAdvanced is Ownable {
 
     TokenProposal[] public tokenBatches;
     Delegate[] public allDelegates;
+    mapping(address => uint) addressToDelegate;
 
     uint[] public yesVotes;
     address[] public consideredTokens;
@@ -73,7 +74,6 @@ contract TokenListingManagerAdvanced is Ownable {
     /// @param _previousWinners addresses that won previous proposal
     function startTokenVotes(address[] _tokens, uint _duration, uint _criteria, uint _extraData, address[] _previousWinners) public onlyAdmins {
         require(_tokens.length <= MAX_CANDIDATES);
-        require(_previousWinners.length <= consideredTokens.length);
 
         for (uint i=0; i < _previousWinners.length; i++) {
             isWinner[_previousWinners[i]] = true;
@@ -120,6 +120,7 @@ contract TokenListingManagerAdvanced is Ownable {
 
     /// @notice Vote for specific token with yes
     /// @param _tokenIndex is the position from 0-9 in the token array of the chosen token
+    /// @param _amount number of votes you give for this token
     function vote(uint _tokenIndex, uint _amount) public {
         require(myDelegate[msg.sender] == address(0));
         require(!isWinner[consideredTokens[_tokenIndex]]);
@@ -129,7 +130,7 @@ contract TokenListingManagerAdvanced is Ownable {
         uint _proposalId = tokenBatches.length - 1;
 
         require(isActive(_proposalId));
-        require(!isVoted[_proposalId][msg.sender]);
+        require(!gaveVote(msg.sender));
 
         TokenProposal memory p = tokenBatches[_proposalId];
 
@@ -140,30 +141,14 @@ contract TokenListingManagerAdvanced is Ownable {
             lastVote[consideredTokens[_tokenIndex]] = _proposalId;
         }
 
-        uint toBurn = _amount;
         uint balance = DestructibleMiniMeToken(p.votingToken).balanceOf(msg.sender);
 
-        if (balance >= toBurn) {
-            toBurn = 0;
-        } else {
-            toBurn -= balance;
+        for (uint i=0; i < myVotes[msg.sender].length; i++) {
+            address user = myVotes[msg.sender][i];
+            balance += DestructibleMiniMeToken(p.votingToken).balanceOf(user);
         }
-
-        if (isDelegate[msg.sender]) {
-            for (uint i=0; i < myVotes[msg.sender].length; i++) {
-                address user = myVotes[msg.sender][i];
-                balance = DestructibleMiniMeToken(p.votingToken).balanceOf(user);
-
-                if (balance >= toBurn) {
-                    toBurn = 0;
-                } else {
-                    toBurn -= balance;
-                }
-            }
-        }
-
-        // if not 0 that means that user sent more to burn than he has
-        require(toBurn == 0);
+        
+        require(_amount <= balance);
 
         yesVotes[_tokenIndex] += _amount;
         // set the info that the user voted in this round
@@ -172,26 +157,31 @@ contract TokenListingManagerAdvanced is Ownable {
         emit Vote(_proposalId, msg.sender, consideredTokens[_tokenIndex], _amount);
     }
 
+    function unregisterAsDelegate() public {
+        require(myVotes[msg.sender].length == 0);
+        require(isDelegate[msg.sender]);
+
+        address lastDelegate = allDelegates[allDelegates.length - 1].user;
+        uint currDelegatePos = addressToDelegate[msg.sender];
+        // set last delegate to new pos
+        addressToDelegate[lastDelegate] = currDelegatePos;
+        allDelegates[currDelegatePos] = allDelegates[allDelegates.length - 1];
+
+        // delete this delegate
+        delete allDelegates[allDelegates.length - 1];
+        allDelegates.length--;
+
+        // set bool to false
+        isDelegate[msg.sender] = false;
+    }
+
     function registerAsDelegate(bytes32 _storageHash) public {
-        // if not this, user is able to delegate vote and then after his delegate votes
-        // he can register as delegate and vote again
-        require(tokenBatches.length == 0 || !isActive(tokenBatches.length - 1));
-        
-        if (myDelegate[msg.sender] != address(0)) {
-            address delegate = myDelegate[msg.sender];
-
-            for (uint i=0; i < myVotes[delegate].length; i++) {
-                if (myVotes[delegate][i] == msg.sender) {
-                    myVotes[delegate][i] = myVotes[delegate][myVotes[delegate].length-1];
-
-                    delete myVotes[delegate][myVotes[delegate].length-1];
-                    myVotes[delegate].length--;
-
-                    break;
-                }
-            }
-            myDelegate[msg.sender] = address(0);
-        }
+        // can't register as delegate if already gave vote
+        require(!gaveVote(msg.sender));
+        // can't register as delegate if you have delegate (undelegate first)
+        require(myDelegate[msg.sender] == address(0));
+        // can't call this method if you are already delegate
+        require(!isDelegate[msg.sender]);
 
         isDelegate[msg.sender] = true;
         allDelegates.push(Delegate({
@@ -199,36 +189,50 @@ contract TokenListingManagerAdvanced is Ownable {
             storageHash: _storageHash,
             exists: true
         }));
+
+        addressToDelegate[msg.sender] = allDelegates.length-1;
     }
 
-    function delegateCount() public view returns(uint) {
-        return allDelegates.length;
+    function undelegateVote() public {
+        // can't undelegate if I already gave vote in this round
+        require(!gaveVote(msg.sender));
+        // I must have delegate if I want to undelegate
+        require(myDelegate[msg.sender] != address(0));
+
+        address delegate = myDelegate[msg.sender];
+
+        for (uint i=0; i < myVotes[delegate].length; i++) {
+            if (myVotes[delegate][i] == msg.sender) {
+                myVotes[delegate][i] = myVotes[delegate][myVotes[delegate].length-1];
+
+                delete myVotes[delegate][myVotes[delegate].length-1];
+                myVotes[delegate].length--;
+
+                break;
+            }
+        }
+
+        myDelegate[msg.sender] = address(0);
     }
 
     /// @notice Delegate vote to other address
     /// @param _to address who will be able to vote instead of you
     function delegateVote(address _to) public {
-        require(isDelegate[_to]);
+        // not possible to delegate if I already voted
+        require(!gaveVote(msg.sender));
+        // can't set delegate if I am delegate
         require(!isDelegate[msg.sender]);
-        require(tokenBatches.length == 0 || !isActive(tokenBatches.length - 1));
-
-        if (myDelegate[msg.sender] != address(0)) {
-            address delegate = myDelegate[msg.sender];
-
-            for (uint i=0; i < myVotes[delegate].length; i++) {
-                if (myVotes[delegate][i] == msg.sender) {
-                    myVotes[delegate][i] = myVotes[delegate][myVotes[delegate].length-1];
-
-                    delete myVotes[delegate][myVotes[delegate].length-1];
-                    myVotes[delegate].length--;
-
-                    break;
-                }
-            }
-        }
+        // I can only set delegate to someone who is registered delegate
+        require(isDelegate[_to]);
+        // I can't have delegate if I'm setting one (call undelegate first)
+        require(myDelegate[msg.sender] == address(0));
 
         myDelegate[msg.sender] = _to;
         myVotes[_to].push(msg.sender);
+    }
+
+    function delegateCount() public view returns(uint) {
+        return allDelegates.length;
     }
 
     function getWinners() public view returns(address[] winners) {
@@ -421,19 +425,23 @@ contract TokenListingManagerAdvanced is Ownable {
 
     // transfer can use someone who didn't vote and doesn't have a set delegate
     function onTransfer(address _from, address _to, uint _amount) public view returns(bool) {
-        if (tokenBatches.length == 0) return true;
-
-        uint _proposalId = tokenBatches.length - 1;
-
-        if (!isVoted[_proposalId][myDelegate[_from]] && !isVoted[_proposalId][_from]) {
-            return true;
-        } else {
-            return false;
-        }
+        return !gaveVote(_from);
     }
 
     function onApprove(address, address, uint ) public pure returns(bool) {
         return true;
+    }
+
+    function gaveVote(address _user) public view returns(bool) {
+        if (tokenBatches.length == 0) return false;
+
+        uint _proposalId = tokenBatches.length - 1;
+
+        if (isVoted[_proposalId][myDelegate[_user]] || isVoted[_proposalId][_user]) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     function getBlockNumber() internal constant returns (uint) {
