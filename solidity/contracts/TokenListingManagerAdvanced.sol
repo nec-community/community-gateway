@@ -52,7 +52,7 @@ contract TokenListingManagerAdvanced is Ownable {
     mapping(address => address) public myDelegate;
     mapping(address => bool) public isDelegate;
 
-    mapping(uint => mapping(address => bool)) public isVoted;
+    mapping(uint => mapping(address => bool)) public isVotedInRound;
 
     modifier onlyAdmins() {
         require(isAdmin(msg.sender));
@@ -143,22 +143,24 @@ contract TokenListingManagerAdvanced is Ownable {
 
         uint balance = DestructibleMiniMeToken(p.votingToken).balanceOf(msg.sender);
 
-        for (uint i=0; i < myVotes[msg.sender].length; i++) {
-            address user = myVotes[msg.sender][i];
-            balance += DestructibleMiniMeToken(p.votingToken).balanceOf(user);
+        // user is able to have someone in myVotes if he unregistered and some people didn't undelegated him after that
+        if (isDelegate[msg.sender]) {
+            for (uint i=0; i < myVotes[msg.sender].length; i++) {
+                address user = myVotes[msg.sender][i];
+                balance += DestructibleMiniMeToken(p.votingToken).balanceOf(user);
+            }
         }
         
         require(_amount <= balance);
 
         yesVotes[_tokenIndex] += _amount;
         // set the info that the user voted in this round
-        isVoted[_proposalId][msg.sender] = true;
+        isVotedInRound[_proposalId][msg.sender] = true;
 
         emit Vote(_proposalId, msg.sender, consideredTokens[_tokenIndex], _amount);
     }
 
     function unregisterAsDelegate() public {
-        require(myVotes[msg.sender].length == 0);
         require(isDelegate[msg.sender]);
 
         address lastDelegate = allDelegates[allDelegates.length - 1].user;
@@ -423,7 +425,7 @@ contract TokenListingManagerAdvanced is Ownable {
         return false;
     }
 
-    // transfer can use someone who didn't vote and doesn't have a set delegate
+    // only users that didn't gave vote in current round can transfer tokens 
     function onTransfer(address _from, address _to, uint _amount) public view returns(bool) {
         return !gaveVote(_from);
     }
@@ -437,7 +439,7 @@ contract TokenListingManagerAdvanced is Ownable {
 
         uint _proposalId = tokenBatches.length - 1;
 
-        if (isVoted[_proposalId][myDelegate[_user]] || isVoted[_proposalId][_user]) {
+        if (isVotedInRound[_proposalId][myDelegate[_user]] || isVotedInRound[_proposalId][_user]) {
             return true;
         } else {
             return false;
