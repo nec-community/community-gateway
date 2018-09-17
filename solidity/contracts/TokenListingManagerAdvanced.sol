@@ -13,7 +13,7 @@ contract TokenListingManagerAdvanced is Ownable {
 
     address public constant NECTAR_TOKEN = 0xCc80C051057B774cD75067Dc48f8987C4Eb97A5e;
     address public constant TOKEN_FACTORY = 0x6EB97237B8bc26E8057793200207bB0a2A83C347;
-    uint public constant MAX_CANDIDATES = 20;
+    uint public constant MAX_CANDIDATES = 50;
 
     struct TokenProposal {
         uint startBlock;
@@ -21,10 +21,10 @@ contract TokenListingManagerAdvanced is Ownable {
         uint duration;
         address votingToken;
         // criteria values
-        // 0. only first one win the vote; 
+        // 0. only first one win the vote;
         // 1. top N (number in extraData) win the vote;
         // 2. All over N (number in extra data) votes win the vote;
-        uint criteria; 
+        uint criteria;
         uint extraData;
     }
 
@@ -52,7 +52,7 @@ contract TokenListingManagerAdvanced is Ownable {
     mapping(address => address) public myDelegate;
     mapping(address => bool) public isDelegate;
 
-    mapping(uint => mapping(address => bool)) public isVotedInRound;
+    mapping(uint => mapping(address => uint256)) public votesSpentThisRound;
 
     modifier onlyAdmins() {
         require(isAdmin(msg.sender));
@@ -130,7 +130,6 @@ contract TokenListingManagerAdvanced is Ownable {
         uint _proposalId = tokenBatches.length - 1;
 
         require(isActive(_proposalId));
-        require(!gaveVote(msg.sender));
 
         TokenProposal memory p = tokenBatches[_proposalId];
 
@@ -150,12 +149,12 @@ contract TokenListingManagerAdvanced is Ownable {
                 balance += DestructibleMiniMeToken(p.votingToken).balanceOf(user);
             }
         }
-        
-        require(_amount <= balance);
+
+        require(votesSpentThisRound[_proposalId][msg.sender] + _amount <= balance)
 
         yesVotes[_tokenIndex] += _amount;
         // set the info that the user voted in this round
-        isVotedInRound[_proposalId][msg.sender] = true;
+        votesSpentThisRound[_proposalId][msg.sender] += _amount;
 
         emit Vote(_proposalId, msg.sender, consideredTokens[_tokenIndex], _amount);
     }
@@ -290,7 +289,7 @@ contract TokenListingManagerAdvanced is Ownable {
                             if (getCurrentVotes(indexesWithMostVotes[j]) < getCurrentVotes(indexesWithMostVotes[k])) {
                                 uint help = indexesWithMostVotes[j];
                                 indexesWithMostVotes[j] = indexesWithMostVotes[k];
-                                indexesWithMostVotes[k] = help; 
+                                indexesWithMostVotes[k] = help;
                             }
                         }
                     }
@@ -304,7 +303,7 @@ contract TokenListingManagerAdvanced is Ownable {
                         if (getCurrentVotes(indexesWithMostVotes[j]) > getCurrentVotes(indexesWithMostVotes[j-1])) {
                             help = indexesWithMostVotes[j];
                             indexesWithMostVotes[j] = indexesWithMostVotes[j-1];
-                            indexesWithMostVotes[j-1] = help; 
+                            indexesWithMostVotes[j-1] = help;
                         }
                     }
                 }
@@ -387,7 +386,7 @@ contract TokenListingManagerAdvanced is Ownable {
 
     function getConsideredTokens() public view returns(address[] tokens) {
         tokens = new address[](consideredTokens.length);
-        
+
         for (uint i = 0; i < consideredTokens.length; i++) {
             if (!isWinner[consideredTokens[i]]) {
                 tokens[i] = consideredTokens[i];
@@ -399,7 +398,7 @@ contract TokenListingManagerAdvanced is Ownable {
 
     function getVotes() public view returns(uint[] votes) {
         votes = new uint[](consideredTokens.length);
-        
+
         for (uint i = 0; i < consideredTokens.length; i++) {
             votes[i] = getCurrentVotes(i);
         }
@@ -425,7 +424,7 @@ contract TokenListingManagerAdvanced is Ownable {
         return false;
     }
 
-    // only users that didn't gave vote in current round can transfer tokens 
+    // only users that didn't gave vote in current round can transfer tokens
     function onTransfer(address _from, address _to, uint _amount) public view returns(bool) {
         return !gaveVote(_from);
     }
@@ -439,7 +438,7 @@ contract TokenListingManagerAdvanced is Ownable {
 
         uint _proposalId = tokenBatches.length - 1;
 
-        if (isVotedInRound[_proposalId][myDelegate[_user]] || isVotedInRound[_proposalId][_user]) {
+        if (votesSpentThisRound[_proposalId][myDelegate[_user]] + votesSpentThisRound[_proposalId][_user] > 0 ) {
             return true;
         } else {
             return false;
@@ -455,7 +454,7 @@ contract TokenListingManagerAdvanced is Ownable {
         bool _finalized = (p.startTime + p.duration < now);
         return !_finalized && (p.startBlock < getBlockNumber());
     }
-    
+
     function appendUintToString(string inStr, uint v) private pure returns (string str) {
         uint maxlength = 100;
         bytes memory reversed = new bytes(maxlength);
