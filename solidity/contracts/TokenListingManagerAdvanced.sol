@@ -150,7 +150,7 @@ contract TokenListingManagerAdvanced is Ownable {
             }
         }
 
-        require(votesSpentThisRound[_proposalId][msg.sender] + _amount <= balance)
+        require(votesSpentThisRound[_proposalId][msg.sender] + _amount <= balance);
 
         yesVotes[_tokenIndex] += _amount;
         // set the info that the user voted in this round
