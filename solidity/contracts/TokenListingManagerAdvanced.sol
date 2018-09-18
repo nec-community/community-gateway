@@ -150,6 +150,7 @@ contract TokenListingManagerAdvanced is Ownable {
             }
         }
 
+        require(_amount <= balance);
         require(votesSpentThisRound[_proposalId][msg.sender] + _amount <= balance);
 
         yesVotes[_tokenIndex] += _amount;
