@@ -1,0 +1,10 @@
+{
+  "address": "0x1bD4E709a076Fb71ea1014293a739f2b19CA565D",
+  "symbol": "LTR",
+  "decimals": "8",
+  "token": "Labtorum",
+  "description": "Labtorum is an ERC20 wallet application that provides information about profit on trading, so that users can get profit while trading. With the user experience that we currently apply to the application view to facilitate the creation, recovery, import / export wallet and transaction in this application.",
+  "logo": "https://www.labtorum.com/image/squarelogo.png",
+  "discussions": "https://t.me/official_labtorum_global",
+  "website": "https://www.labtorum.com/",
+}
