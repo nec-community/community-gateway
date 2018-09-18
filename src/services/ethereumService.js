@@ -48,7 +48,7 @@ const getBalance = async (_account) => {
 
 const isAdmin = async (_account) => {
   const account = _account || await getAccount();
-  const proposalContract = await getProposalContract();
+  const proposalContract = getProposalContract();
   return proposalContract.methods.isAdmin(account).call();
 };
 
@@ -62,21 +62,20 @@ const getBlockNumber = () => window._web3.eth.getBlockNumber();
 
 const getNetwork = () => window._web3.eth.net.getId();
 
-const getProposalContract = async () =>
+const getProposalContract = () =>
   new window._web3.eth.Contract(config.proposalContract.abi, config.proposalContract.address);
 
-const getTokenProposalContract = async () =>
-  new window._web3.eth.Contract(config.tokenProposalContract.abi, config.tokenProposalContract.address);
+const getAdvancedTokenProposalContract = () =>
+  new window._web3.eth.Contract(config.tokenListingManagerAdvanced.abi, config.tokenListingManagerAdvanced.address);
 
-const getTokenContract = async (_address) =>
-  new window._web3.eth.Contract(config.tokenContract.abi, _address || config.tokenContract.address);
+const getTokenContract = _address =>
+  new window._web3.eth.Contract(config.necTokenContract.abi, _address || config.necTokenContract.address);
 
-const getVotingTokenContract = async _votingToken =>
-  new window._web3.eth.Contract(config.tokenContract.abi, _votingToken);
+const getVotingTokenContract = _votingToken =>
+  new window._web3.eth.Contract(config.necTokenContract.abi, _votingToken);
 
-const getControllerContract = async () =>
-  new window._web3.eth.Contract(config.controllerContract.abi, config.controllerContract.address);
-
+const getControllerContract = () =>
+  new window._web3.eth.Contract(config.necTokenControllerContract.abi, config.necTokenControllerContract.address);
 
 const ledgerLogin = async (path) => {
   ledgerPath = path;
@@ -90,11 +89,11 @@ const ledgerListAccounts = async (pathPrefix, start, n) => {
   if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
   const eth = new ledger.eth(ledgerComm);
   const accounts = [];
-  for (let i = 0; i < n; i ++) {
+  for (let i = 0; i < n; i++) {
     const path = pathPrefix + '/' + (start + i);
     const account = await eth.getAddress_async(path);
     account.path = path;
-    accounts.push(account)
+    accounts.push(account);
   }
   return accounts;
 };
@@ -199,14 +198,13 @@ const signAndSendKeystore = async (contractCall, value = 0, gasPrice = config.de
     });
 };
 
-
 const totalPledgedFees = async () => {
-  const tokenContract = await getTokenContract();
+  const tokenContract = getTokenContract();
   return tokenContract.methods.totalPledgedFees().call();
 };
 
 const totalSupply = async () => {
-  const tokenContract = await getTokenContract();
+  const tokenContract = getTokenContract();
   return tokenContract.methods.totalSupply().call();
 };
 
@@ -223,28 +221,13 @@ const estimatePayout = async (tokensToBurn) => {
 const getTokenBalance = async (_account) => {
   const account = _account || await getAccount();
   log(`token balance for ${account}`);
-  const tokenContract = await getTokenContract();
+  const tokenContract = getTokenContract();
   return tokenContract.methods.balanceOf(account).call();
-};
-
-const getVotingTokenBalance = async (_account) => {
-  const tokenProposalContract = await getTokenProposalContract();
-  let _votingToken;
-  try {
-    const details = await tokenProposalContract.methods.proposal(7).call();
-    _votingToken = details._votingToken;
-  } catch (err) {
-    log(err);
-  }
-  const account = _account || await getAccount();
-  log(`voting token balance for ${account}`);
-  const votingTokenContract = await getVotingTokenContract(_votingToken);
-  return votingTokenContract.methods.balanceOf(account).call();
 };
 
 // dev
 const contribute = async () => {
-  const controllerContract = await getControllerContract();
+  const controllerContract = getControllerContract();
   const account = await getAccount();
   log(`Contributing from account ${account}`);
   return controllerContract.methods.contributeForMakers(account).send({
@@ -255,7 +238,7 @@ const contribute = async () => {
 
 // dev
 const authorize = async (address) => {
-  const controllerContract = await getControllerContract();
+  const controllerContract = getControllerContract();
   const account = await getAccount();
   return controllerContract.methods.authoriseMaker(address).send({
     from: account,
@@ -263,7 +246,7 @@ const authorize = async (address) => {
 };
 
 const approveProposal = async (id, accountType) => {
-  const proposalContract = await getProposalContract();
+  const proposalContract = getProposalContract();
   const contractCall = proposalContract.methods.approveProposal(id);
   if (accountType === 'ledger') return signAndSendLedger(contractCall);
   if (accountType === 'keystore') return signAndSendKeystore(contractCall);
@@ -274,7 +257,7 @@ const approveProposal = async (id, accountType) => {
 };
 
 const denyProposal = async (id, accountType) => {
-  const proposalContract = await getProposalContract();
+  const proposalContract = getProposalContract();
   const contractCall = proposalContract.methods.denyProposal(id);
   if (accountType === 'ledger') return signAndSendLedger(contractCall);
   if (accountType === 'keystore') return signAndSendKeystore(contractCall);
@@ -285,7 +268,7 @@ const denyProposal = async (id, accountType) => {
 };
 
 const submitProposal = async (duration, hash, accountType) => {
-  const proposalContract = await getProposalContract();
+  const proposalContract = getProposalContract();
   const contractCall = proposalContract.methods.addProposal(duration, window._web3.utils.toHex(hash));
   if (accountType === 'ledger') return signAndSendLedger(contractCall);
   if (accountType === 'keystore') return signAndSendKeystore(contractCall);
@@ -296,7 +279,7 @@ const submitProposal = async (duration, hash, accountType) => {
 };
 
 const vote = async (id, vote, accountType) => {
-  const proposalContract = await getProposalContract();
+  const proposalContract = getProposalContract();
   const contractCall = proposalContract.methods.vote(id, vote);
   if (accountType === 'ledger') return signAndSendLedger(contractCall);
   if (accountType === 'keystore') return signAndSendKeystore(contractCall);
@@ -306,9 +289,9 @@ const vote = async (id, vote, accountType) => {
   });
 };
 
-const voteTokens = async (tokenId, accountType) => {
-  const tokenProposalContract = await getTokenProposalContract();
-  const contractCall = tokenProposalContract.methods.vote(tokenId);
+const voteTokens = async (tokenId, amount, accountType) => {
+  const tokenProposalContract = getAdvancedTokenProposalContract();
+  const contractCall = tokenProposalContract.methods.vote(tokenId, ethToWei(amount));
   if (accountType === 'ledger') return signAndSendLedger(contractCall);
   if (accountType === 'keystore') return signAndSendKeystore(contractCall);
   const account = await getAccount();
@@ -319,7 +302,7 @@ const voteTokens = async (tokenId, accountType) => {
 
 const hasUserVoted = async (proposalId, address) => {
   if (!address) return false;
-  const proposalContract = await getProposalContract();
+  const proposalContract = getProposalContract();
   const events = await proposalContract.getPastEvents('Vote', {
     filter: {
       idProposal: proposalId.toString(),
@@ -334,12 +317,12 @@ const hasUserVoted = async (proposalId, address) => {
 };
 
 const userBalanceOnProposal = async (account, proposalToken) => {
-  const tokenContract = await getTokenContract(proposalToken);
+  const tokenContract = getTokenContract(proposalToken);
   return tokenContract.methods.balanceOf(account).call();
 };
 
 const getProposalDetails = async (id) => {
-  const proposalContract = await getProposalContract();
+  const proposalContract = getProposalContract();
   const details = await proposalContract.methods.proposal(id).call();
   log(details);
   const storageHash = details._storageHash.substr(2, 40);
@@ -383,48 +366,136 @@ const getProposalDetails = async (id) => {
   };
 };
 
-const getTokenDetails = async () => {
-  const tokenProposalContract = await getTokenProposalContract();
-  let totalVotes;
-  let yesVotes;
-  let endingTime = new Date();
-  try {
-    const details = await tokenProposalContract.methods.proposal(7).call();
-    yesVotes = details._votes.map(x => weiToEth(x));
-    totalVotes = yesVotes.reduce((a, b) => parseInt(a, 10) + parseInt(b, 10), 0);
-    endingTime = new Date(details._startTime * 1000 + details._duration * 1000)
-  } catch (err) {
-    totalVotes = 0;
-    yesVotes = new Array(14 + 1).join('0').split('').map(parseFloat);
-    log(err);
-  }
+const getActiveTokenListingProposal = async () => {
+  const tokenListingManager = getAdvancedTokenProposalContract();
+  let activeProposal = await tokenListingManager.methods.numberOfProposals().call();
+  activeProposal = parseInt(activeProposal, 10) - 1;
+  if (activeProposal < 0) return false;
+  const proposalData = await tokenListingManager.methods.proposal(activeProposal).call();
+  log('Active token proposal', proposalData);
+  return proposalData;
+};
 
-  return {
-    yesVotes,
-    totalVotes,
-    endingTime,
-  };
+const getTokenProposalDetails = async () => {
+  try {
+    const details = await getActiveTokenListingProposal();
+    if (!details) throw new Error('No active token proposal');
+    const yesVotes = details._votes.map(x => weiToEth(x));
+    const totalVotes = yesVotes.reduce((a, b) => parseInt(a, 10) + parseInt(b, 10), 0);
+    const endingTime = new Date(details._startTime * 1000 + details._duration * 1000);
+    return {
+      ...details,
+      yesVotes,
+      totalVotes,
+      endingTime,
+    };
+  } catch (err) {
+    log(err);
+    return {
+      totalVotes: 0,
+      yesVotes: new Array(14 + 1).join('0').split('').map(parseFloat),
+      endingTime: new Date(),
+    };
+  }
+};
+
+const getVotingTokenBalance = async (_account) => {
+  let _votingToken;
+  try {
+    const details = await getActiveTokenListingProposal();
+    if (!details) return 0;
+    _votingToken = details._votingToken;
+  } catch (err) {
+    log('Error getting voting token balance', err);
+    return 0;
+  }
+  const account = _account || await getAccount();
+  log(`voting token balance for ${account}`);
+  const votingTokenContract = getVotingTokenContract(_votingToken);
+  return votingTokenContract.methods.balanceOf(account).call();
 };
 
 const getProposals = async () => {
-  const proposalContract = await getProposalContract();
+  const proposalContract = getProposalContract();
   const proposalIDs = await proposalContract.methods.getApprovedProposals().call();
   log('getApprovedProposals', proposalIDs);
   return proposalIDs.map(id => getProposalDetails(id));
 };
 
 const getActiveProposals = async () => {
-  const proposalContract = await getProposalContract();
+  const proposalContract = getProposalContract();
   const proposalIDs = await proposalContract.methods.getActiveProposals().call();
   log('getActiveProposals', proposalIDs);
   return proposalIDs.map(id => getProposalDetails(id));
 };
 
 const getNonApprovedProposals = async () => {
-  const proposalContract = await getProposalContract();
+  const proposalContract = getProposalContract();
   const proposalIDs = await proposalContract.methods.getNotApprovedProposals().call();
   log('getActiveProposals', proposalIDs);
   return proposalIDs.map(id => getProposalDetails(id));
+};
+
+const getDelegates = async () =>
+  new Promise(async (resolve, reject) => {
+    const advancedTokenProposalContract = getAdvancedTokenProposalContract();
+    const delegateCount = await advancedTokenProposalContract.methods.delegateCount().call();
+    log(delegateCount);
+    const ids = [...Array(parseInt(delegateCount, 10)).keys()];
+    const promises = ids.map(id => advancedTokenProposalContract.methods.allDelegates(id).call());
+
+    Promise.all(promises)
+      .then(async (delegates) => {
+        log(delegates);
+        resolve(delegates);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
+const becomeDelegate = async (storageHash, accountType) => {
+  const advancedTokenProposalContract = getAdvancedTokenProposalContract();
+  log(storageHash, web3.fromAscii(storageHash));
+  const contractCall = advancedTokenProposalContract.methods.registerAsDelegate(window._web3.utils.toHex(storageHash));
+  if (accountType === 'ledger') return signAndSendLedger(contractCall);
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall);
+  const account = await getAccount();
+  return contractCall.send({
+    from: account,
+  });
+};
+
+const delegateVote = async (to, accountType) => {
+  const advancedTokenProposalContract = getAdvancedTokenProposalContract();
+  const contractCall = advancedTokenProposalContract.methods.delegateVote(to);
+  if (accountType === 'ledger') return signAndSendLedger(contractCall);
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall);
+  const account = await getAccount();
+  return contractCall.send({
+    from: account,
+  });
+};
+
+const undelegate = async accountType => {
+  const advancedTokenProposalContract = getAdvancedTokenProposalContract();
+  const contractCall = advancedTokenProposalContract.methods.undelegateVote();
+  if (accountType === 'ledger') return signAndSendLedger(contractCall);
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall);
+  const account = await getAccount();
+  return contractCall.send({
+    from: account,
+  });
+};
+
+const getDelegate = (account) => {
+  const advancedTokenProposalContract = getAdvancedTokenProposalContract();
+  return advancedTokenProposalContract.methods.myDelegate(account).call();
+};
+
+const hasVotedOnTokenListing = async (account) => {
+  const advancedTokenProposalContract = getAdvancedTokenProposalContract();
+  return advancedTokenProposalContract.methods.gaveVote(account).call();
 };
 
 const getEthPrice = async () => {
@@ -446,7 +517,7 @@ const calculateNecReward = async (volume) => {
   const feeInEth = volumeFee / ethPrice;
   log(`Volume fee in eth ${feeInEth}`);
   if (!necConversionRate) {
-    const controllerContract = await getControllerContract();
+    const controllerContract = getControllerContract();
     necConversionRate = await controllerContract.methods.getFeeToTokenConversion(1).call();
   }
   const necReward = necConversionRate * feeInEth;
@@ -455,7 +526,7 @@ const calculateNecReward = async (volume) => {
 };
 
 const burnNec = async (necTokens, accountType) => {
-  const tokenContract = await getTokenContract();
+  const tokenContract = getTokenContract();
   log(`Burning ${necTokens} NEC tokens`);
   const contractCall = tokenContract.methods.burnAndRetrieve(necTokens);
   if (accountType === 'ledger') return signAndSendLedger(contractCall);
@@ -469,9 +540,9 @@ const burnNec = async (necTokens, accountType) => {
 const fetchData = async () => {
   ethPrice = await getEthPrice();
   necPrice = await getNecPrice();
-  const controllerContract = await getControllerContract();
+  const controllerContract = getControllerContract();
   necConversionRate = await controllerContract.methods.getFeeToTokenConversion(1).call();
-  const tokenContract = await getTokenContract();
+  const tokenContract = getTokenContract();
   burningEnabled = await tokenContract.methods.burningEnabled().call();
   totalFee = toDecimal(weiToEth(await totalPledgedFees()), 2);
   totalTokens = toDecimal(weiToEth(await totalSupply()), 2);
@@ -504,7 +575,8 @@ export default {
   getNonApprovedProposals,
   vote,
   voteTokens,
-  getTokenDetails,
+  getActiveTokenListingProposal,
+  getTokenProposalDetails,
   hasUserVoted,
   userBalanceOnProposal,
   calculateNecReward,
@@ -515,4 +587,10 @@ export default {
   signAndSendLedger,
   approveProposal,
   denyProposal,
+  getDelegates,
+  becomeDelegate,
+  delegateVote,
+  undelegate,
+  getDelegate,
+  hasVotedOnTokenListing,
 };

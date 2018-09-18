@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Help from '../../components/Help/Help';
+import TokenListingVoteModal from '../TokenListingVoteModal/TokenListingVoteModal'
 import { getTokenVotes, voteForToken } from '../../actions/tokenActions';
 import { getVotingTokenBalance } from '../../actions/accountActions';
 import './TokenListings.scss';
@@ -30,9 +31,14 @@ class TokenListings extends Component {
       hoursRemaining: 0,
       minutesRemaining: 0,
       secondsRemaining: 0,
+      showModal: false,
+      tokenData: {},
     };
     this.refreshTime = this.refreshTime.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+    this.vote = this.vote.bind(this);
   }
+
   componentDidMount() {
     this.props.getTokenVotes();
     this.refreshTime();
@@ -41,6 +47,17 @@ class TokenListings extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.endingTime !== this.props.endingTime ) this.refreshTime();
+  }
+
+  toggleModal() {
+    this.setState({
+      showModal: !this.state.showModal,
+    });
+  }
+
+  vote(tokenData) {
+    this.setState({ tokenData });
+    this.toggleModal();
   }
 
   refreshTime() {
@@ -134,6 +151,12 @@ class TokenListings extends Component {
 
             <div className="container">
               {
+                !this.props.isProposalActive &&
+                <div className="no-active-vote">
+                  <h5>Voting is currently not active. You can view the results of <Link to='/previousTokenVote'>previous votes</Link>. </h5>
+                </div>
+              }
+              {
                 this.props.votes.sort(function(a, b) {
                     if (a.totalYes - b.totalYes > 0) return -1;
                   	if (b.totalYes - a.totalYes > 0) return 1;
@@ -170,7 +193,7 @@ class TokenListings extends Component {
                           />
                         </div>
                         <div className="number">{nFormatter(token.totalYes)}</div>
-                        <a className="vote-wrapper" onClick={() => this.props.voteForToken(token.id)}>VOTE</a>
+                        <a className="vote-wrapper" onClick={() => this.vote(token)}>VOTE</a>
                       </div>
                     </div>
 
@@ -181,6 +204,10 @@ class TokenListings extends Component {
           </div>
         </div>
         <div className="waves reverse" />
+        {
+          this.state.showModal &&
+          <TokenListingVoteModal closeModal={this.toggleModal} tokenData={this.state.tokenData} />
+        }
       </div>
     );
   }
@@ -195,10 +222,12 @@ TokenListings.propTypes = {
   account: PropTypes.string.isRequired,
   getVotingTokenBalance: PropTypes.func.isRequired,
   endingTime: PropTypes.object.isRequired,
+  isProposalActive: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   votes: state.token.tokens,
+  isProposalActive: state.token.isActive,
   endingTime: state.token.endingTime,
   votingTokenBalance: state.account.votingTokenBalance,
   accountType: state.account.accountType,

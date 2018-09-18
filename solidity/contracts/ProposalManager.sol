@@ -40,9 +40,9 @@ contract ProposalManager is Ownable {
         _; 
     }
 
-    function ProposalManager() public {
-        tokenFactory = MiniMeTokenFactory(TOKEN_FACTORY);
-        nectarToken = NECTAR_TOKEN;
+    function ProposalManager(address _tokenFactory, address _nectarToken) public {
+        tokenFactory = MiniMeTokenFactory(_tokenFactory);
+        nectarToken = _nectarToken;
         admins[msg.sender] = true;
     }
 

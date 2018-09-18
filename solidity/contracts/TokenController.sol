@@ -1,6 +1,3 @@
-pragma solidity ^0.4.18;
-
-/// @dev The token controller contract must implement these functions
 contract TokenController {
     /// @notice Called when `_owner` sends ether to the MiniMe Token contract
     /// @param _owner The address that sent the ether to create tokens
@@ -23,4 +20,10 @@ contract TokenController {
     /// @return False if the controller does not authorize the approval
     function onApprove(address _owner, address _spender, uint _amount) public
         returns(bool);
+
+    /// @notice Notifies the controller about a token burn
+    /// @param _owner The address of the burner
+    /// @param _amount The amount to burn
+    /// @return False if the controller does not authorize the burn
+    function onBurn(address _owner, uint _amount) public returns(bool);
 }

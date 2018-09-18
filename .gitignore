@@ -6,3 +6,4 @@ src/constants/config.json
 server/config.js
 server/*.db
 dist/
+.env

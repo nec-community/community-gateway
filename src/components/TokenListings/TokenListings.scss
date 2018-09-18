@@ -48,13 +48,6 @@
     .left-header {
       margin-bottom: 20px;
     }
-    .info-tip {
-      padding: 10px;
-      border-radius: 3px;
-      background-color: rgba($color4, 1);
-      font-weight: 300;
-      margin-bottom: 20px;
-    }
     @media screen and (min-width: 768px) {
       .left-header {
         vertical-align: top;
@@ -83,6 +76,9 @@
         }
       }
     }
+  }
+  .no-active-vote {
+    padding: 50px 0;
   }
   .listing-wrapper {
     border-top: 1px solid white;

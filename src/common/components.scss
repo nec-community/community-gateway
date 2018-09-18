@@ -41,9 +41,18 @@
   }
 }
 
-@keyframes wave {
+@keyframes wave1 {
   from {
-    transform: translateX(-50%)
+    transform: translateX(-480px)
+  }
+  to {
+    transform: translateX(0%)
+  }
+}
+
+@keyframes wave2 {
+  from {
+    transform: translateX(-720px)
   }
   to {
     transform: translateX(0%)
@@ -65,9 +74,9 @@
     content: '';
     display: block;
     height: 200px;
-    width: 200%;
+    width: 2880px;
     background: url('/images/wave1.png');
-    animation: wave 45s infinite linear;
+    animation: wave1 30s infinite linear;
   }
   &:after {
     position: absolute;
@@ -76,8 +85,16 @@
     content: '';
     display: block;
     height: 200px;
-    width: 200%;
+    width: 2880px;
     background: url('/images/wave2.png');
-    animation: wave 60s infinite linear;
+    animation: wave2 20s infinite linear;
   }
+}
+
+.info-tip {
+  padding: 10px;
+  border-radius: 3px;
+  background-color: rgba(white, .05);
+  font-weight: 300;
+  margin: 0;
 }
