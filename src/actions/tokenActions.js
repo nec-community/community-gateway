@@ -5,10 +5,11 @@ import { getVotingTokenBalance } from './accountActions';
 import tokenData from './tokenData';
 import { log } from '../services/utils';
 
-const fetchedTokens = (tokens, endingTime) => ({
+const fetchedTokens = (tokens, endingTime, isActive) => ({
   type: FETCHED_TOKENS,
   tokens,
   endingTime,
+  isActive,
 });
 
 export const getTokenVotes = () => async (dispatch) => {
@@ -27,7 +28,7 @@ export const getTokenVotes = () => async (dispatch) => {
       totalYes: proposalData.yesVotes[i],
       total: proposalData.totalVotes,
     }));
-  dispatch(fetchedTokens(tokens, proposalData.endingTime));
+  dispatch(fetchedTokens(tokens, proposalData.endingTime, proposalData._active));
 };
 
 export const voteForToken = (id, amount) => async (dispatch, getState) => {

@@ -151,7 +151,7 @@ class TokenListings extends Component {
 
             <div className="container">
               {
-                this.props.votes.length === 0 &&
+                !this.props.isProposalActive &&
                 <div className="no-active-vote">
                   <h5>Voting is currently not active. You can view the results of <Link to='/previousTokenVote'>previous votes</Link>. </h5>
                 </div>
@@ -222,10 +222,12 @@ TokenListings.propTypes = {
   account: PropTypes.string.isRequired,
   getVotingTokenBalance: PropTypes.func.isRequired,
   endingTime: PropTypes.object.isRequired,
+  isProposalActive: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   votes: state.token.tokens,
+  isProposalActive: state.token.isActive,
   endingTime: state.token.endingTime,
   votingTokenBalance: state.account.votingTokenBalance,
   accountType: state.account.accountType,
