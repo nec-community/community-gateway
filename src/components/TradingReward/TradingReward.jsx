@@ -43,7 +43,7 @@ class TradingReward extends Component {
           <div className="line-indent" />
           <p>
             You can earn new NEC tokens in proportion to your maker volume (matched limit orders).
-            Tokens become harder to earn each month. Calculate how many you would earn
+            Tokens become harder to earn each month. Estimate how many you would earn
             based on your trading volume.
           </p>
         </div>
