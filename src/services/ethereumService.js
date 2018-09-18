@@ -65,9 +65,6 @@ const getNetwork = () => window._web3.eth.net.getId();
 const getProposalContract = () =>
   new window._web3.eth.Contract(config.proposalContract.abi, config.proposalContract.address);
 
-const getTokenProposalContract = () =>
-  new window._web3.eth.Contract(config.tokenListingManager.abi, config.tokenListingManager.address);
-
 const getAdvancedTokenProposalContract = () =>
   new window._web3.eth.Contract(config.tokenListingManagerAdvanced.abi, config.tokenListingManagerAdvanced.address);
 
