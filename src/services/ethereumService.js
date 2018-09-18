@@ -373,6 +373,7 @@ const getActiveTokenListingProposal = async () => {
   const tokenListingManager = getAdvancedTokenProposalContract();
   let activeProposal = await tokenListingManager.methods.numberOfProposals().call();
   activeProposal = parseInt(activeProposal, 10) - 1;
+  if (activeProposal < 0) return false;
   const proposalData = await tokenListingManager.methods.proposal(activeProposal).call();
   log('Active token proposal', proposalData);
   return proposalData;
@@ -381,6 +382,7 @@ const getActiveTokenListingProposal = async () => {
 const getTokenProposalDetails = async () => {
   try {
     const details = await getActiveTokenListingProposal();
+    if (!details) throw new Error('No active token proposal');
     const yesVotes = details._votes.map(x => weiToEth(x));
     const totalVotes = yesVotes.reduce((a, b) => parseInt(a, 10) + parseInt(b, 10), 0);
     const endingTime = new Date(details._startTime * 1000 + details._duration * 1000);
@@ -404,6 +406,7 @@ const getVotingTokenBalance = async (_account) => {
   let _votingToken;
   try {
     const details = await getActiveTokenListingProposal();
+    if (!details) return 0;
     _votingToken = details._votingToken;
   } catch (err) {
     log('Error getting voting token balance', err);
@@ -434,11 +437,6 @@ const getNonApprovedProposals = async () => {
   const proposalIDs = await proposalContract.methods.getNotApprovedProposals().call();
   log('getActiveProposals', proposalIDs);
   return proposalIDs.map(id => getProposalDetails(id));
-};
-
-const isTokenProposalActive = async () => {
-  const advancedTokenProposalContract = getAdvancedTokenProposalContract();
-  return advancedTokenProposalContract.methods.isActive().call();
 };
 
 const getDelegates = async () =>
@@ -482,11 +480,25 @@ const delegateVote = async (to, accountType) => {
   });
 };
 
-const undelegate = accountType => delegateVote('0x0000000000000000000000000000000000000000', accountType);
+const undelegate = async accountType => {
+  const advancedTokenProposalContract = getAdvancedTokenProposalContract();
+  const contractCall = advancedTokenProposalContract.methods.undelegateVote();
+  if (accountType === 'ledger') return signAndSendLedger(contractCall);
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall);
+  const account = await getAccount();
+  return contractCall.send({
+    from: account,
+  });
+};
 
 const getDelegate = (account) => {
   const advancedTokenProposalContract = getAdvancedTokenProposalContract();
   return advancedTokenProposalContract.methods.myDelegate(account).call();
+};
+
+const hasVotedOnTokenListing = async (account) => {
+  const advancedTokenProposalContract = getAdvancedTokenProposalContract();
+  return advancedTokenProposalContract.methods.gaveVote(account).call();
 };
 
 const getEthPrice = async () => {
@@ -578,10 +590,10 @@ export default {
   signAndSendLedger,
   approveProposal,
   denyProposal,
-  isTokenProposalActive,
   getDelegates,
   becomeDelegate,
   delegateVote,
   undelegate,
   getDelegate,
+  hasVotedOnTokenListing,
 };

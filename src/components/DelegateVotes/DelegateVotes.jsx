@@ -84,17 +84,30 @@ class DelegateVotes extends Component {
                 to vote each round for whichever token has highest trading volume on other
                 exchanges.
               </p>
-              <textarea
-                name="description"
-                id="description"
-                value={this.state.description}
-                onChange={this.handleInputChange}
-                required
-                placeholder="'I solemnly swear to represent the interests of those who place trust in me by voting for...'"
-              />
-              <div className="submit-wrapper">
-                <button onClick={this.submitDelegate}>Stand as a representative</button>
-              </div>
+              {
+                !this.props.userHasVoted &&
+                <div>
+                  <textarea
+                    name="description"
+                    id="description"
+                    value={this.state.description}
+                    onChange={this.handleInputChange}
+                    required
+                    placeholder="'I solemnly swear to represent the interests of those who place trust in me by voting for...'"
+                  />
+                  <div className="submit-wrapper">
+                    <button onClick={this.submitDelegate} disabled={this.props.userHasVoted}>
+                      Stand as a representative
+                    </button>
+                  </div>
+                </div>
+              }
+              {
+                this.props.userHasVoted &&
+                <p className="info-tip undelegate">
+                  You've already voted in this round - you can not become a delegate at the moment.
+                </p>
+              }
             </div>
           </div>
         </div>
@@ -113,9 +126,9 @@ class DelegateVotes extends Component {
               </p>
 
               {
-                !this.props.canPickDelegates &&
+                this.props.userHasVoted &&
                 <p className="info-tip undelegate">
-                  A token listing proposal is active - you can not change your delegate currently.
+                  You've already voted in this round - you can not change your delegate at the moment.
                 </p>
               }
 
@@ -144,7 +157,10 @@ class DelegateVotes extends Component {
                       </p>
                     </div>
                     <div className="vote-for-delegate submit-wrapper">
-                      <button onClick={() => this.delegateVote(delegate.user)}>
+                      <button
+                        onClick={() => this.delegateVote(delegate.user)}
+                        disabled={this.props.userHasVoted}
+                      >
                         Choose delegate
                       </button>
                     </div>
@@ -166,7 +182,7 @@ DelegateVotes.propTypes = {
   delegateVote: PropTypes.func.isRequired,
   undelegate: PropTypes.func.isRequired,
   getMyDelegate: PropTypes.func.isRequired,
-  canPickDelegates: PropTypes.bool.isRequired,
+  userHasVoted: PropTypes.bool.isRequired,
   myDelegate: PropTypes.string.isRequired,
   account: PropTypes.string.isRequired,
 };
@@ -174,7 +190,7 @@ DelegateVotes.propTypes = {
 const mapStateToProps = state => ({
   delegates: state.delegate.delegates,
   myDelegate: state.delegate.myDelegate,
-  canPickDelegates: state.delegate.canPickDelegates,
+  userHasVoted: state.delegate.userHasVoted,
   account: state.account.account,
 });
 

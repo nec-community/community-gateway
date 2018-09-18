@@ -91,6 +91,10 @@
         background: lighten(#041824, 2%);
         box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
       }
+      &:disabled {
+        background: #0e1c24 !important;
+        color: gray;
+      }
     }
   }
 }

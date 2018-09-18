@@ -3,6 +3,7 @@ import eth from '../services/ethereumService';
 import { notify, notifyError } from './notificationActions';
 import { getVotingTokenBalance } from './accountActions';
 import tokenData from './tokenData';
+import { log } from '../services/utils';
 
 const fetchedTokens = (tokens, endingTime) => ({
   type: FETCHED_TOKENS,
@@ -12,8 +13,15 @@ const fetchedTokens = (tokens, endingTime) => ({
 
 export const getTokenVotes = () => async (dispatch) => {
   const proposalData = await eth.getTokenProposalDetails();
+  if (!proposalData._tokens) {
+    log('No active token proposal');
+    return;
+  }
   const tokens = proposalData._tokens
-    .map(address => tokenData[address])
+    .map(address => tokenData[address] || {
+      token: 'Unknown',
+      description: 'No data found',
+    })
     .map((token, i) => ({
       ...token,
       totalYes: proposalData.yesVotes[i],

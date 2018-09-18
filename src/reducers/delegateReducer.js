@@ -2,8 +2,8 @@ import { FETCHED_DELEGATES, MY_DELEGATE } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   delegates: [],
-  canPickDelegates: true,
   myDelegate: '0x0000000000000000000000000000000000000000',
+  userHasVoted: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -12,12 +12,12 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         delegates: action.delegates,
-        canPickDelegates: action.canPickDelegates
       };
     case MY_DELEGATE:
       return {
         ...state,
         myDelegate: action.myDelegate,
+        userHasVoted: action.userHasVoted,
       };
     default:
       return state;

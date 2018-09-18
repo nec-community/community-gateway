@@ -151,6 +151,12 @@ class TokenListings extends Component {
 
             <div className="container">
               {
+                this.props.votes.length === 0 &&
+                <div className="no-active-vote">
+                  <h5>Voting is currently not active. You can view the results of <Link to='/previousTokenVote'>previous votes</Link>. </h5>
+                </div>
+              }
+              {
                 this.props.votes.sort(function(a, b) {
                     if (a.totalYes - b.totalYes > 0) return -1;
                   	if (b.totalYes - a.totalYes > 0) return 1;
