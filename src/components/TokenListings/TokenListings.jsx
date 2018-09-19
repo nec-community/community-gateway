@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Help from '../../components/Help/Help';
 import TokenListingVoteModal from '../TokenListingVoteModal/TokenListingVoteModal'
 import { getTokenVotes, voteForToken } from '../../actions/tokenActions';
-import { getVotingTokenBalance } from '../../actions/accountActions';
+import { getVotingTokenBalance, getVotesSpentBalance } from '../../actions/accountActions';
 import './TokenListings.scss';
 
 function nFormatter (num) {
@@ -122,15 +122,15 @@ class TokenListings extends Component {
               {this.props.account &&
               <div className="account-balance">
                 <div className="row-1">
-                  {(this.props.votingTokenBalance > 0.1) &&
-                  <span> You currently have {nFormatter(this.props.votingTokenBalance)} voting tokens!</span>
+                  {((this.props.votingTokenBalance - this.props.votesSpentBalance) > 0.1) &&
+                  <span> You currently have {nFormatter(this.props.votingTokenBalance - this.props.votesSpentBalance)} voting tokens!</span>
                   }
-                  {(this.props.votingTokenBalance <= 0.1) &&
+                  {((this.props.votingTokenBalance - this.props.votesSpentBalance) <= 0.1) &&
                   <span> You do not have any voting tokens.<br /><br />
                         Visit <a href='https://www.ethfinex.com' target='_blank'>Ethfinex</a> to buy some.</span>
                   }
                 </div>
-                {(this.props.votingTokenBalance > 0.1) &&
+                {((this.props.votingTokenBalance - this.props.votesSpentBalance) > 0.1) &&
                 <span>
                   <br />
                   <div className="row-2">Vote for the token you wish to support below!</div>
@@ -221,6 +221,7 @@ TokenListings.propTypes = {
   accountType: PropTypes.string.isRequired,
   account: PropTypes.string.isRequired,
   getVotingTokenBalance: PropTypes.func.isRequired,
+  getVotesSpentBalance: PropTypes.func.isRequired,
   endingTime: PropTypes.object.isRequired,
   isProposalActive: PropTypes.bool.isRequired,
 };
@@ -230,12 +231,14 @@ const mapStateToProps = state => ({
   isProposalActive: state.token.isActive,
   endingTime: state.token.endingTime,
   votingTokenBalance: state.account.votingTokenBalance,
+  votesSpentBalance: state.account.votesSpentBalance,
   accountType: state.account.accountType,
   account: state.account.account,
 });
 
 export default connect(mapStateToProps, {
   getVotingTokenBalance,
+  getVotesSpentBalance,
   getTokenVotes,
   voteForToken,
 })(TokenListings);

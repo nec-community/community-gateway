@@ -3,6 +3,7 @@ import {
   GET_ACCOUNT_ERROR,
   TOKEN_BALANCE,
   VOTING_TOKEN_BALANCE,
+  VOTES_SPENT_BALANCE,
   UPDATE_ETHFINEX_DATA,
   OPEN_LOGIN,
   CLOSE_LOGIN,
@@ -15,13 +16,14 @@ import config from '../constants/config.json';
 import { nameOfNetwork, log, toDecimal } from '../services/utils';
 import { notify, notifyError } from './notificationActions';
 
-export const accountSuccess = (account, type, balance, necBalance, votingTokenBalance, isAdmin) => ({
+export const accountSuccess = (account, type, balance, necBalance, votingTokenBalance, votesSpentBalance, isAdmin) => ({
   type: GET_ACCOUNT_SUCCESS,
   account,
   accountType: type,
   balance,
   necBalance,
   votingTokenBalance,
+  votesSpentBalance,
   isAdmin,
 });
 
@@ -43,8 +45,9 @@ export const loginMetamask = silent => async (dispatch, getState) => {
       const balance = toDecimal(await ethService.getBalance(account));
       const necBalance = toDecimal(ethService.weiToEth(await ethService.getTokenBalance(account)));
       const votingBalance = toDecimal(ethService.weiToEth(await ethService.getVotingTokenBalance(account)));
+      const spentBalance = toDecimal(ethService.weiToEth(await ethService.getVotesSpentBalance(account)));
       const isAdmin = await ethService.isAdmin(account);
-      dispatch(accountSuccess(account, 'metamask', balance, necBalance, votingBalance, isAdmin));
+      dispatch(accountSuccess(account, 'metamask', balance, necBalance, votingBalance, spentBalance, isAdmin));
       notify(`Metamask account found ${account}`, 'success')(dispatch);
     }
   } catch (err) {
@@ -88,8 +91,9 @@ export const loginLedger = path => async (dispatch) => {
     const balance = toDecimal(await ethService.getBalance(account));
     const necBalance = toDecimal(ethService.weiToEth(await ethService.getTokenBalance(account)));
     const votingBalance = toDecimal(ethService.weiToEth(await ethService.getVotingTokenBalance(account)));
+    const spentBalance = toDecimal(ethService.weiToEth(await ethService.getVotesSpentBalance(account)));
     const isAdmin = await ethService.isAdmin(account);
-    dispatch(accountSuccess(account, 'ledger', balance, necBalance, votingBalance, isAdmin));
+    dispatch(accountSuccess(account, 'ledger', balance, necBalance, votingBalance, spentBalance, isAdmin));
     notify(`Ledger account found ${account}`, 'success')(dispatch);
   } catch (err) {
     if (err.message) {
@@ -111,8 +115,9 @@ export const loginKeystore = (keystoreJson, password) => async (dispatch) => {
     const balance = toDecimal(await ethService.getBalance(account));
     const necBalance = toDecimal(ethService.weiToEth(await ethService.getTokenBalance(account)));
     const votingBalance = toDecimal(ethService.weiToEth(await ethService.getVotingTokenBalance(account)));
+    const spentBalance = toDecimal(ethService.weiToEth(await ethService.getVotesSpentBalance(account)));
     const isAdmin = await ethService.isAdmin(account);
-    dispatch(accountSuccess(account, 'keystore', balance, necBalance, votingBalance, isAdmin));
+    dispatch(accountSuccess(account, 'keystore', balance, necBalance, votingBalance, spentBalance, isAdmin));
     notify(`Keystore account found ${account}`, 'success')(dispatch);
   } catch (err) {
     dispatch(accountError(err.message));
@@ -151,9 +156,21 @@ const votingTokenBalance = balance => ({
   balance,
 });
 
+const votesSpentBalance = balance => ({
+  type: VOTES_SPENT_BALANCE,
+  balance,
+});
+
 export const getVotingTokenBalance = () => async (dispatch, getState) => {
   const balance = await ethService.getVotingTokenBalance(getState().account.account);
   dispatch(votingTokenBalance(
+    ethService.weiToEth(balance),
+  ));
+};
+
+export const getVotesSpentBalance = () => async (dispatch, getState) => {
+  const balance = await ethService.getVotesSpentBalance(getState().account.account);
+  dispatch(votesSpentBalance(
     ethService.weiToEth(balance),
   ));
 };
