@@ -1,6 +1,6 @@
 export default {
   '0x63f584FA56E60e4D0fE8802b27C7e6E3b33E007f': {
-    id: 0,
+    id: null,
     token: 'Contentbox (BOX)',
     description: 'Contentbox aims to build an ecosystem for the digital content industry. Being decentralized, autonomous and open source community driven, Contentbox will benefit all involved in content creation, from creators to distributors, consumers to advertisers by providing platform features such as shared content and user  pools, along with a unified payout system.',
     logo: 'https://i.imgur.com/2nbWY1t.png',
@@ -9,7 +9,7 @@ export default {
     relaunchSpecialBonusVotes: 0,
   },
   '0x5Af2Be193a6ABCa9c8817001F45744777Db30756': {
-    id: 1,
+    id: 0,
     token: 'Ethos (ETHOS)',
     description: 'Harnessing the power of design, technology and social intelligence, Ethos proposes a universal wallet & fiat gateway designed to make buying, trading, and managing your crypto assets consumer-friendly.',
     logo: 'https://image.ibb.co/j2fCC8/Ethos_Logo_white_knockout.png',
@@ -17,7 +17,7 @@ export default {
     website: 'https://www.ethos.io/',
   },
   '0xBEB9eF514a379B997e0798FDcC901Ee474B6D9A1': {
-    id: 2,
+    id: 1,
     token: 'Melon (MLN)',
     description: 'Melonport is the first of its kind in autonomous systems, designed specifically for the purposes of crypto asset management. They aim to provide a system of tools that empower users to set-up, manage and invest in digital assets.',
     logo: 'https://d33wubrfki0l68.cloudfront.net/a925598e7831981f53d573bb90b63ca172a90726/98ed3/assets/images/loading-logo.png',
@@ -25,7 +25,7 @@ export default {
     website: 'https://melonport.com/',
   },
   '0x419c4dB4B9e25d6Db2AD9691ccb832C8D9fDA05E': {
-    id: 3,
+    id: 2,
     token: 'DragonChain (DRGN)',
     description: 'Originally created as Disney\'s private blockchain, Dragonchain will be a new blockchain targeted at enterprise as well as an incubator for other projects.',
     logo: 'https://dragonchain.com/assets/images/dragon.png',
@@ -33,7 +33,7 @@ export default {
     website: 'https://dragonchain.com/',
   },
   '0xDd6C68bb32462e01705011a4e2Ad1a60740f217F': {
-    id: 4,
+    id: 3,
     token: 'Hubii (HBT)',
     description: 'Hubii Network is a blockchain-based decentralised content marketplace that facilitates transactions between creators, distributors and consumers by leveraging the power of smart contracts.',
     logo: 'https://cdn-images-1.medium.com/max/1600/0*NVI3KkOEvbz0_Ff0.',
@@ -57,7 +57,7 @@ export default {
     website: 'https://bankex.com/',
   },
   '0x006BeA43Baa3f7A6f765F14f10A1a1b08334EF45': {
-    id: 7,
+    id: 4,
     token: 'Stox (STX)',
     description: 'Predicting the outcome of events, from Sports and Politics to Finance & World Cup. Stox targets mainstream audiences via an Ethereum based prediction market platform.',
     logo: 'https://coinnext.net/wp-content/uploads/2017/12/stox.png',
@@ -89,7 +89,7 @@ export default {
     website: 'https://www.wings.ai/',
   },
   '0x0b76544F6C413a555F309Bf76260d1E02377c02A': {
-    id: 11,
+    id: 12,
     token: 'Internet Node Token (INT)',
     description: 'INT will build a framework for machines and devices and create a token which will be used to facilitate the exchange amongst these nodes. INT will enable new business models focused on interconnected and autonomous devices.',
     logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2399.png',
@@ -97,7 +97,7 @@ export default {
     website: 'https://intchain.io/',
   },
   '0x46b9Ad944d1059450Da1163511069C718F699D31': {
-    id: 12,
+    id: 13,
     token: 'Credits (CS)',
     description: 'Credits is a blockchain platform enabling the development of dApps in a wide range of industries, from banking to logistics. With a decentralized data model and integrated smart contract functionality, the Credits financial system and inherent CS token provide a complete solution to businesses with Blockchain interest.',
     logo: 'https://i.imgur.com/whRRJIb.png',
@@ -105,7 +105,7 @@ export default {
     website: 'https://credits.com',
   },
   '0xcA2796F9F61dc7b238Aab043971e49c6164DF375': {
-    id: 13,
+    id: 14,
     token: 'Yggdrash (YEED)',
     description: 'YGGDRASH is a trust-based, "multi-dimensional" blockchain system. YGGDRASH aims to connect disparate blockchain networks through use of \'branches\' designed to improve data capacity, speed and expandability. YYGDRASH ultimately aims to function as an ecosystem through which businesses can build flexible blockchain platforms.',
     logo: 'https://investment-prod.s3.amazonaws.com/email/ygg/YGG.png',
@@ -113,7 +113,7 @@ export default {
     website: 'https://yggdrash.io/',
   },
   '0x1122B6a0E00DCe0563082b6e2953f3A943855c1F': {
-    id: 14,
+    id: 15,
     token: 'Centrality (CENNZ)',
     description: 'Centrality is a venture studio that partners with leading innovators in key industries to create a marketplace of applications. These applications allow consumers to manage everyday tasks and experiences using peer-to-peer transactions - all via one login and using blockchain-enabled infrastructure.',
     logo: 'https://image.ibb.co/nqYU4T/CENNZ_blue.png',
@@ -121,7 +121,7 @@ export default {
     website: 'https://www.centrality.ai',
   },
   '0x0AbdAce70D3790235af448C88547603b945604ea': {
-    id: 15,
+    id: 17,
     token: 'District0x (DNT)',
     description: 'District0x is creating a network of marketplaces and communities (“districts”) that exist and interact with each other within the district0x digital environment. Using the DNT token, all ‘citizens’ will be able to post listings, offer skills and create marketplaces for their products and services as fully decentralised autonomous organisations (DAOs).',
     logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/1856.png',
@@ -129,7 +129,7 @@ export default {
     website: 'https://district0x.io/',
   },
   '0xb5A5F22694352C15B00323844aD545ABb2B11028': {
-    id: 16,
+    id: 18,
     token: 'Icon (ICX)',
     description: 'Icon (ICX) is the token of a public blockchain connecting a network of private permissioned blockchains, thereby making them interoperable. Each private chain runs an Icon node and can take part in governance of the network.',
     logo: 'https://coinmarketdaddy.com/upload/coin/11523185991.png',
@@ -137,7 +137,7 @@ export default {
     website: 'https://icon.foundation/',
   },
   '0x55648De19836338549130B1af587F16beA46F66B': {
-    id: 17,
+    id: 19,
     token: 'Publica (PBL)',
     description: 'Publica is a platform aiming to revolutionise the publishing industry by offering authors the ability to crowdfunding their works through the blockchain. Utilising smart contracts, Publica’s ecosystem will back the automated performance of agreements like derivative rights for movies, games, and sequels. Readers are able to then fund development of not yet realised works.',
     logo: 'https://cryptoindex.co/coinlogo/publica.png',
@@ -145,7 +145,7 @@ export default {
     website: 'https://www.exchangeunion.com/',
   },
   '0x436F0F3a982074c4a05084485D421466a994FE53': {
-    id: 18,
+    id: 20,
     token: 'Rate3 (RTE)',
     description: 'Rate3 bridges the gap between enterprises and the blockchain through asset tokenization on the ethereum and stellar networks, as well as a cross-chain identity management protocol.  Incentivizing users of the platform with staking and third party service providers with RTE tokens promotes an active ecosystem.',
     logo: 'https://i.imgur.com/ycazGCt.png',
@@ -153,7 +153,7 @@ export default {
     website: 'https://www.rate3.network/',
   },
   '0xfe5F141Bf94fE84bC28deD0AB966c16B17490657': {
-    id: 19,
+    id: 22,
     token: 'Libra Credit (LBA)',
     description: 'LibraCredit is a decentralized lending platform that enables open access to credit without location restrictions. With crypto to crypto and crypto to fiat lending goals, the Libra Credit ecosystem is comprised of a proprietary AI-based Credit Model, along with customer acquisition, exchange, lending and identity verification partnerships.',
     logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2760.png',
@@ -161,7 +161,7 @@ export default {
     website: 'https://www.libracredit.io/',
   },
   '0x983F6d60db79ea8cA4eB9968C6aFf8cfA04B3c63': {
-    id: 20,
+    id: 24,
     token: 'Sonm (SNM)',
     description: 'Decentralized worldwide fog supercomputer for any general purpose computing from CGI rendering to scientific computations, with global scalability and existing applications including infrastructure for blockchain applications, machine learning, video rendering, site hosting, scientific research, and mining.',
     logo: 'https://image.ibb.co/j4cEyz/SONM.jpg',
@@ -169,7 +169,7 @@ export default {
     website: 'https://sonm.com/',
   },
   '0x5CA9a71B1d01849C0a95490Cc00559717fCF0D1d': {
-    id: 21,
+    id: 25,
     token: 'Aeternity (AE)',
     description: 'æternity aims to be a scalable blockchain platform that particularly focuses on enabling high bandwidth transacting, purely-functional smart contracts, and decentralized oracles.',
     logo: 'https://logos-download.com/wp-content/uploads/2018/05/Aeternity_logo_coin.png',
@@ -201,7 +201,7 @@ export default {
     website: 'https://edenchain.io/',
   },
   '0xc324a2f6b05880503444451B8b27e6f9e63287Cb': {
-    id: 25,
+    id: 21,
     token: 'Exchange Union (XUC)',
     description: 'Exchange Union (XU) will create a \'meta-exchange\' which will form a decentralised network of digital asset exchanges, enabling instantaneous, trustless trades between various platforms whilst providing opportunities for new trading pairs, and aim to achieve best execution for customers.',
     logo: 'https://seeklogo.com/images/E/exchange-union-xuc-logo-D69254C1A4-seeklogo.com.png',
@@ -233,7 +233,7 @@ export default {
     website: 'https://musereum.org/',
   },
   '0x40395044Ac3c0C57051906dA938B54BD6557F212': {
-    id: 29,
+    id: 26,
     token: 'MobileGo (MGO)',
     description: 'A dedicated token to bring eSports to everyone. Token is dedicated to esports related activities. The main focus is to provide simple way for developers to integrate competitive gameplay with rewards and peer-to-peer interaction in any kind of games, while make users more incentivised to participate in that kind of activities. Same token would act as influencer reward, and more - but everything related to esports ecosystem.',
     logo: 'https://cdn.freebiesupply.com/logos/large/2x/mobilego-logo-png-transparent.png',
@@ -249,7 +249,7 @@ export default {
     website: 'https://oneledger.io/',
   },
   '0xd4fa1460F537bb9085d22C7bcCB5DD450Ef28e3a': {
-    id: 31,
+    id: null,
     token: 'Populous (PPT)',
     description: 'Populous World is creating a platform that allows business to trade invoices on the blockchain. The Populous Platform Tokens serve as a profit sharing mechanism and creates a trading environment for investors and invoice sellers alike.',
     logo: 'https://image.ibb.co/gXaVto/Populous.png',
@@ -257,7 +257,7 @@ export default {
     website: 'https://populous.world/',
   },
   '0xb7cB1C96dB6B22b0D3d9536E0108d062BD488F74': {
-    id: 32,
+    id: 11,
     token: 'Walton (WTC)',
     description: 'Waltonchain is a decentralized platform combining blockchain with the Internet of Things (IoT) via RFID technology. Their blockchain is implemented in the foundational layer, through their patented RFID chips, which are able to read and write directly to the blockchain, creating a genuine, trustworthy, and traceable business ecosystem.',
     logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/1925.png',
@@ -265,7 +265,7 @@ export default {
     website: 'https://www.waltonchain.org/',
   },
   '0x2008e3057BD734e10AD13c9EAe45Ff132aBc1722': {
-    id: 33,
+    id: null,
     token: 'Zebi (ZCO)',
     description: 'Zebi is a enterprise grade company that specializes in providing Blockchain based offerings to governments and companies, enabling that to leverage and protect their high value and sensitive data. Zebi’s has created a solution to make high value and sensitive data readily available for legitimate use.',
     logo: 'https://cryptoindex.co/coinlogo/zebi.png',
@@ -273,7 +273,7 @@ export default {
     website: 'https://www.zebi.io',
   },
   '0x514910771AF9Ca656af840dff83E8264EcF986CA': {
-    id: 34,
+    id: 23,
     token: 'Chainlink (LINK)',
     description: 'ChainLink is blockchain middleware that allows smart contracts to access key off-chain resources like data feeds, various web APIs, and traditional bank account payments.',
     logo: 'https://cdn.worldvectorlogo.com/logos/chainlink-1.svg',
@@ -281,7 +281,7 @@ export default {
     website: 'https://www.smartcontract.com/link#chainlink',
   },
   '0xf0Ee6b27b759C9893Ce4f094b49ad28fd15A23e4': {
-    id: 35,
+    id: null,
     token: 'Enigma (ENG)',
     description: 'Enigma uses privacy technologies to build the first platform for scalable, end-to-end decentralized applications. With Enigma, "smart contracts" become "secret contracts", where input data is kept hidden from nodes in the Enigma network that execute code.',
     logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2044.png',
@@ -289,7 +289,7 @@ export default {
     website: 'https://enigma.co/',
   },
   '0x72dD4b6bd852A3AA172Be4d6C5a6dbEc588cf131': {
-    id: 36,
+    id: 16,
     token: 'Naga (NGC)',
     description: 'The Naga Coin is the fuel that makes the trading of cryptocurrencies, virtual products and stocks accessible to everyone on the NAGA platform. It will serve as a decentralised unit of account for all parts of the NAGA ecosystem such as a virtual goods marketplace  and an academy for becoming a trading expert. ',
     logo: 'https://i.vimeocdn.com/portrait/21759767_300x300',
@@ -297,7 +297,7 @@ export default {
     website: 'https://naga.com/coin/',
   },
   '0xF629cBd94d3791C9250152BD8dfBDF380E2a3B9c': {
-    id: 37,
+    id: 27,
     token: 'Enjin (ENJ)',
     description: 'Customizable cryptocurrency and virtual goods platform for gaming. Enjin Coin serves as a reserve currency and certificate of authenticity for game items minted on the platform.',
     logo: 'https://enjincoin.io/images/enjin-coin-logo.png',
@@ -305,7 +305,7 @@ export default {
     website: 'https://enjincoin.io/',
   },
   '0x6863bE0e7CF7ce860A574760e9020D519a8bDC47': {
-    id: 38,
+    id: 28,
     token: 'On.Live (ONL)',
     description: 'The OnLive Platform revolutionises both the video broadcast and remote consultations markets. It offers unlimited scalability and availability utilising Blockchain Technology and a completely decentralised Peer-to-Peer network. Anyone can contribute to the system if they have the processing power and bandwidth. Smart incentivisation of these contributions guarantees decentralisation and creates a new economy driven by ONL tokens.',
     logo: 'https://on.live/media/onlive_lcon_white.png',
@@ -321,7 +321,7 @@ export default {
     website: 'https://www.tatatu.com',
   },
   '0x61725f3db4004AFE014745B21DAb1E1677CC328b': {
-    id: 40,
+    id: 7,
     token: 'BlockEx (DAXT)',
     description: 'The Digital Asset Exchange Token (symbol: DAXT) is BlockEx’s token. It is a utility token allowing holders access to ICOs on a pre-sale basis before the public at large.',
     logo: 'https://image.ibb.co/dGCsSd/logo_png_rj.png',

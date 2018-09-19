@@ -3,6 +3,7 @@ import {
   GET_ACCOUNT_ERROR,
   TOKEN_BALANCE,
   VOTING_TOKEN_BALANCE,
+  VOTES_SPENT_BALANCE,
   UPDATE_ETHFINEX_DATA,
   OPEN_LOGIN,
   CLOSE_LOGIN,
@@ -41,6 +42,7 @@ export default (state = INITIAL_STATE, action) => {
         accountBalance: action.balance,
         tokenBalance: action.necBalance,
         votingTokenBalance: action.votingTokenBalance,
+        votesSpentBalance: action.votesSpentBalance,
         accountError: '',
         isAdmin: action.isAdmin,
         loginOpen: false,
@@ -65,6 +67,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         votingTokenBalance: action.balance,
+      };
+    case VOTES_SPENT_BALANCE:
+      return {
+        ...state,
+        votesSpentBalance: action.balance,
       };
     case UPDATE_ETHFINEX_DATA:
       return {

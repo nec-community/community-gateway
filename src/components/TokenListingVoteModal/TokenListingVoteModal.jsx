@@ -9,7 +9,8 @@ class TokenListingVoteModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      amount: this.props.votingTokenBalance,
+      amount: this.props.votingTokenBalance - this.props.votesSpentBalance,
+
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.vote = this.vote.bind(this);
@@ -45,7 +46,7 @@ class TokenListingVoteModal extends Component {
               value={this.state.amount}
               onChange={this.handleInputChange}
               min={0}
-              max={this.props.votingTokenBalance}
+              max={this.props.votingTokenBalance - this.props.votesSpentBalance}
             />
             <input
               type="text"
@@ -74,6 +75,7 @@ TokenListingVoteModal.propTypes = {
 
 const mapStateToProps = state => ({
   votingTokenBalance: state.account.votingTokenBalance,
+  votesSpentBalance: state.account.votesSpentBalance,
 });
 
 export default connect(mapStateToProps, {

@@ -415,6 +415,21 @@ const getVotingTokenBalance = async (_account) => {
   return votingTokenContract.methods.balanceOf(account).call();
 };
 
+const getVotesSpentBalance = async (_account) => {
+  const tokenListingManager = getAdvancedTokenProposalContract();
+  let activeProposal;
+  try {
+    activeProposal = await tokenListingManager.methods.numberOfProposals().call();
+    if (!activeProposal) return 0;
+    activeProposal = parseInt(activeProposal, 10) - 1;
+  } catch (err) {
+    log('Error getting votes spent', err);
+    return 0;
+  }
+  const account = _account || await getAccount();
+  return tokenListingManager.methods.votesSpentThisRound(activeProposal, account).call();
+};
+
 const getProposals = async () => {
   const proposalContract = getProposalContract();
   const proposalIDs = await proposalContract.methods.getApprovedProposals().call();
@@ -567,6 +582,7 @@ export default {
   ethToWei,
   getTokenBalance,
   getVotingTokenBalance,
+  getVotesSpentBalance,
   estimatePayout,
   submitProposal,
   getProposalDetails,
