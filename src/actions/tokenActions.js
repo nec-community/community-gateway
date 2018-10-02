@@ -19,15 +19,27 @@ export const getTokenVotes = () => async (dispatch) => {
     return;
   }
   const tokens = proposalData._tokens
-    .map(address => tokenData[address] || {
-      token: 'Unknown',
-      description: 'No data found',
+    .map(address => {
+      if (tokenData[address])
+        return {
+          address,
+          ...tokenData[address]
+        };
+      return {
+        address,
+        token: address,
+        description: 'No data found',
+      };
     })
     .map((token, i) => ({
       ...token,
       totalYes: proposalData.yesVotes[i],
       total: proposalData.totalVotes,
-    }));
+    }))
+    .filter((token) => {
+      console.log(token);
+      return token.address !== '0x0000000000000000000000000000000000000000';
+    });
   dispatch(fetchedTokens(tokens, proposalData.endingTime, proposalData._active));
 };
 
