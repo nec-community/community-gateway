@@ -410,9 +410,20 @@ const getVotingTokenBalance = async (_account) => {
     return 0;
   }
   const account = _account || await getAccount();
-  log(`voting token balance for ${account}`);
+
   const votingTokenContract = getVotingTokenContract(_votingToken);
-  return votingTokenContract.methods.balanceOf(account).call();
+  const ownBalance = await votingTokenContract.methods.balanceOf(account).call();
+  log(`voting token balance for ${account} = ${ownBalance}`);
+
+  const delegatedBalance = await delegatedTokenBalance(account, _votingToken)
+  log(`delegated voting token balance for ${account} = ${delegatedBalance}`);
+
+  let totalBalance = new window._web3.utils.BN(ownBalance);
+  totalBalance = totalBalance.add(new window._web3.utils.BN(delegatedBalance));
+
+  log(`total voting token balance for ${account} = ${totalBalance}`);
+
+  return totalBalance.toString();
 };
 
 const getVotesSpentBalance = async (_account) => {
@@ -509,8 +520,26 @@ const getDelegate = (account) => {
 };
 
 const hasVotedOnTokenListing = async (account) => {
+  const activeProposal = await getActiveTokenListingProposal();
+  if (!activeProposal._active) return false;
   const advancedTokenProposalContract = getAdvancedTokenProposalContract();
   return advancedTokenProposalContract.methods.gaveVote(account).call();
+};
+
+const delegatedTokenBalance = async (account, _votingToken) => {
+  const advancedTokenProposalContract = getAdvancedTokenProposalContract();
+  let balance = new window._web3.utils.BN('0');
+  for (let i = 0; i < 1000000; i++) {
+    try {
+      const delegator = await advancedTokenProposalContract.methods.myVotes(account, i).call();
+      const votingTokenContract = getVotingTokenContract(_votingToken);
+      const delegatorBalance = await votingTokenContract.methods.balanceOf(delegator).call();
+      balance = balance.add(new window._web3.utils.BN(delegatorBalance));
+    } catch (e) {
+      break;
+    }
+  }
+  return balance.toString();
 };
 
 const getEthPrice = async () => {
