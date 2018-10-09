@@ -63,7 +63,7 @@ class DelegateVotes extends Component {
 
   formatDescription(id) {
     var text = document.getElementById(`delegate-description-${id}`).innerHTML;
-    text = text.replace(new RegExp('https?:\\/\\/[a-zA-Z0-9_\\-.\\/#%:=?&\']+', 'g'), '<a rel="noopener noreferrer" target="_blank" href="$&">$&</a>');
+    text = text.replace(new RegExp('https?:\\/\\/[a-zA-Z0-9_\\-.\\/#%:=?&\'@]+', 'g'), '<a rel="noopener noreferrer" target="_blank" href="$&">$&</a>');
     document.getElementById(`delegate-description-${id}`).innerHTML = text;
   }
 
