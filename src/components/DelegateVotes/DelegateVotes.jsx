@@ -34,6 +34,11 @@ class DelegateVotes extends Component {
     if (nextProps.account !== this.props.account) this.props.getMyDelegate();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.delegates !== this.props.delegates)
+      this.props.delegates.forEach(delegate => this.formatDescription(delegate.user))
+  }
+
   async submitDelegate() {
     await this.props.becomeDelegate(this.state.description);
     this.props.getDelegates();
@@ -54,6 +59,12 @@ class DelegateVotes extends Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  formatDescription(id) {
+    var text = document.getElementById(`delegate-description-${id}`).innerHTML;
+    text = text.replace(new RegExp('https?:\\/\\/[a-zA-Z0-9_\\-.\\/#%:=?&\'@]+', 'g'), '<a rel="noopener noreferrer" target="_blank" href="$&">$&</a>');
+    document.getElementById(`delegate-description-${id}`).innerHTML = text;
   }
 
   render() {
@@ -152,7 +163,7 @@ class DelegateVotes extends Component {
                       <p className="delegate-address">
                         {delegate.user}
                       </p>
-                      <p className="delegate-mission">
+                      <p className="delegate-mission" id={`delegate-description-${delegate.user}`}>
                         {delegate.description}
                       </p>
                     </div>
