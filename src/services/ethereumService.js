@@ -33,6 +33,7 @@ const setupWeb3 = () => {
 
 const isMetamaskApproved = async () => {
   if (!window.ethereum) return true;
+  if (!window.ethereum.isApproved) return true;
   return ethereum.isApproved()
 }
 
