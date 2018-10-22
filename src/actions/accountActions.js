@@ -34,7 +34,10 @@ export const accountError = error => ({
 
 export const loginMetamask = silent => async (dispatch, getState) => {
   try {
+    const isMetamaskApproved = await ethService.isMetamaskApproved();
+    if (silent && !isMetamaskApproved) throw new Error('Provider not preapproved');
     ethService.setWeb3toMetamask();
+    if (window.ethereum) await window.ethereum.enable();
     const network = await ethService.getNetwork();
     if (config.network !== network) {
       throw new Error(`Wrong network - please set Metamask to ${nameOfNetwork(config.network)}`);
@@ -51,12 +54,12 @@ export const loginMetamask = silent => async (dispatch, getState) => {
       notify(`Metamask account found ${account}`, 'success')(dispatch);
     }
   } catch (err) {
+    const errorMessage = err.message || err;
     ethService.setupWeb3();
+    console.error(err);
     if (!silent) {
-      dispatch(accountError(err.message));
-      notify(err.message, 'error')(dispatch);
-    } else {
-      console.error(err.message)
+      dispatch(accountError(errorMessage));
+      notify(errorMessage, 'error')(dispatch);
     }
   }
 };

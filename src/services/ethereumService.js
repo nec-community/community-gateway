@@ -18,12 +18,23 @@ let totalTokens;
 let burningEnabled;
 
 const setWeb3toMetamask = () => {
-  window._web3 = new Web3(web3.currentProvider);
+  if (window.ethereum) {
+    return window._web3 = new Web3(ethereum);
+  }
+  else if (window.web3) {
+    return window._web3 = new Web3(web3.currentProvider);
+  }
+  else throw new Error('Web3 provider not found')
 };
 
 const setupWeb3 = () => {
   window._web3 = new Web3(config.providerUrl);
 };
+
+const isMetamaskApproved = async () => {
+  if (!window.ethereum) return true;
+  return ethereum.isApproved()
+}
 
 const getAccount = () => (
   new Promise(async (resolve, reject) => {
@@ -603,6 +614,7 @@ const fetchData = async () => {
 export default {
   setWeb3toMetamask,
   setupWeb3,
+  isMetamaskApproved,
   getAccount,
   getBalance,
   getNetwork,
