@@ -35,14 +35,20 @@ export const accountError = error => ({
 export const loginMetamask = silent => async (dispatch, getState) => {
   try {
     const isMetamaskApproved = await ethService.isMetamaskApproved();
-    if (silent && !isMetamaskApproved) throw new Error('Provider not preapproved');
+
+    if (silent && !isMetamaskApproved)
+      throw new Error('Provider not preapproved');
+
+    await ethService.metamaskApprove();
+
     ethService.setWeb3toMetamask();
-    if (window.ethereum) await window.ethereum.enable();
+
     const network = await ethService.getNetwork();
-    if (config.network !== network) {
+    if (config.network !== network)
       throw new Error(`Wrong network - please set Metamask to ${nameOfNetwork(config.network)}`);
-    }
+
     const account = await ethService.getAccount();
+
     if (getState().account.account !== account) {
       log(`Metamask account found ${account}`);
       const balance = toDecimal(await ethService.getBalance(account));
