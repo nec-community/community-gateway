@@ -109,7 +109,7 @@ class TokenListings extends Component {
 
           <div className="header-desc-container">
             <div className="left-header">
-              Ethfinex <a href='https://etherscan.io/token/0x64cbae542068f8dca9f356c8736e4c9844267805' target='_blank'>Voting Tokens</a> are
+              Ethfinex <a href='https://etherscan.io/token/0x36108dc5f46c2630db44a1d645876ea04aa61f9e' target='_blank'>Voting Tokens</a> are
               issued to traders in proportion to their NEC holdings,
               allowing loyal users more of a say without spending Nectar tokens.
               To find out more about the voting process and how projects are selected to be voted on,
