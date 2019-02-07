@@ -459,7 +459,10 @@ const getNonApprovedProposals = async () => {
   const proposalContract = getProposalContract();
   const proposalIDs = await proposalContract.methods.getNotApprovedProposals().call();
   log('getActiveProposals', proposalIDs);
-  return proposalIDs.map(id => getProposalDetails(id));
+  return proposalIDs
+    .sort((a, b) => parseInt(b) - parseInt(a))
+    .filter(id => !(config.hiddenProposals || []).includes(parseInt(id)))
+    .map(id => getProposalDetails(id));
 };
 
 const getDelegates = async () =>
