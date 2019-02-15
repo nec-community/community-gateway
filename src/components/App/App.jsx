@@ -17,11 +17,9 @@ class App extends Component {
     };
   }
   componentWillMount() {
-    if (typeof web3 !== 'undefined') {
-      this.props.loginMetamask(true);
-    } else {
-      window._web3 = new Web3(config.providerUrl);
-    }
+    // Set default provider & silently attempt to login with Metamask (don't display errors)
+    window._web3 = new Web3(config.providerUrl);
+    this.props.loginMetamask(true);
     this.props.fetchEthfinexData();
   }
 
