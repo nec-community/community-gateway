@@ -36,8 +36,16 @@ class MissionProposal extends Component {
                 and give us a yardstick to ensure each action we take brings us closer to our mission.
                 </p>
                 <p className="description-followup">
-                If you need help with your decision, you can head to our blog post
-                which explains how we got to these two options. [blog post link here]
+                If you need help with your decision, you can head to our&nbsp;
+                  <a
+                    href="https://blog.ethfinex.com/your-mission-is-our-mission/"
+                    title="Find out more about Ethfinex mission statement and voting"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    blog post
+                  </a>
+                &nbsp;which explains how we got to these two options.
                 </p>
                 <p className="description-followup">
                 Choose your Mission Statement from the following:
