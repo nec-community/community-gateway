@@ -65,6 +65,9 @@ const getNetwork = () => window._web3.eth.net.getId();
 const getProposalContract = () =>
   new window._web3.eth.Contract(config.proposalContract.abi, config.proposalContract.address);
 
+const getSimpleVoteContract = () =>
+  new window._web3.eth.Contract(config.simpleVoteContract.abi, config.simpleVoteContract.address);
+
 const getAdvancedTokenProposalContract = () =>
   new window._web3.eth.Contract(config.tokenListingManagerAdvanced.abi, config.tokenListingManagerAdvanced.address);
 
@@ -281,6 +284,17 @@ const submitProposal = async (duration, hash, accountType) => {
 const vote = async (id, vote, accountType) => {
   const proposalContract = getProposalContract();
   const contractCall = proposalContract.methods.vote(id, vote);
+  if (accountType === 'ledger') return signAndSendLedger(contractCall);
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall);
+  const account = await getAccount();
+  return contractCall.send({
+    from: account,
+  });
+};
+
+const voteMission = async (vote, accountType) => {
+  const simpleVoteContract = getSimpleVoteContract();
+  const contractCall = simpleVoteContract.methods.vote(vote);
   if (accountType === 'ledger') return signAndSendLedger(contractCall);
   if (accountType === 'keystore') return signAndSendKeystore(contractCall);
   const account = await getAccount();
@@ -619,6 +633,7 @@ export default {
   getActiveProposals,
   getNonApprovedProposals,
   vote,
+  voteMission,
   voteTokens,
   getActiveTokenListingProposal,
   getTokenProposalDetails,

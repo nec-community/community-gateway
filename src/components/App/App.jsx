@@ -48,6 +48,7 @@ class App extends Component {
             <div className="nav-links">
               <Link to="/">Home</Link>
               <Link to="/listings">Token Listings</Link>
+              <Link to="/mission">Define our Mission</Link>
               <Link to="/delegateVotes">Delegate Votes</Link>
               <Link to="/all">All Proposals</Link>
               <Link to="/pending">Pending Proposals</Link>
