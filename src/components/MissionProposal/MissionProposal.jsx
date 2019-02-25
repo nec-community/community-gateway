@@ -62,7 +62,7 @@ class MissionProposal extends Component {
                     <div className="bar-wrapper">
                       <span className="word">A</span>
                       <div className="bar">
-                        <div className="bar-yes" style={{ width: `${50}%` }} />
+                        <div className="bar-yes" style={{ width: `${64}%` }} />
                       </div>
                     </div>
                   </div>
@@ -73,10 +73,10 @@ class MissionProposal extends Component {
 
                 <div className="results-wrapper">
                   <div className="yes">
-                    <div className="number">?</div>
+                    <div className="number">64</div>
                   </div>
                   <div className="no">
-                    <div className="number">?</div>
+                    <div className="number">36</div>
                   </div>
                 </div>
 
@@ -89,8 +89,8 @@ class MissionProposal extends Component {
 
                 {
                   <p className="vote-wrapper error">
-                    Results will be revealed only after 22.02.2019 at 12:00 pm UTC.
-                    You may change your decision at any time until then.
+                    Option A was chosen!<br/>
+                    "Empowering you to lead the financial evolution."
                   </p>
                 }
 

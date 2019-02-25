@@ -66,11 +66,13 @@ export const voteForProposal = (id, vote) => async (dispatch, getState) => {
 };
 
 export const voteForMission = vote => async (dispatch, getState) => {
-  if (!getState().account.accountType) return dispatch(openLogin());
+  notify('Voting already finished!', 'success')(dispatch);
+  /* if (!getState().account.accountType) return dispatch(openLogin());
   try {
     await eth.voteMission(vote, getState().account.accountType);
     notify('Thanks for voting!', 'success')(dispatch);
   } catch (err) {
     notifyError(err)(dispatch);
   }
+  */
 };
