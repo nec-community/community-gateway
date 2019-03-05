@@ -9,20 +9,25 @@ import FAQ from './components/FAQ/FAQ';
 import TokenListings from './components/TokenListings/TokenListings';
 import PreviousTokenListing from './components/PreviousTokenListing/PreviousTokenListing';
 import DelegateVotes from './components/DelegateVotes/DelegateVotes';
-import MissionProposal from './components/MissionProposal/MissionProposal';
+import TokenPool from './components/TokenPool/TokenPool';
+import TokenAbout from './components/TokenAbout/TokenAbout';
 
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={Landing} />
+
+    <Route exact path="/proposals" component={AllProposals} />
     <Route exact path="/proposal/:proposalId" component={Proposal} />
-    <Route exact path="/all" component={AllProposals} />
     <Route exact path="/submit" component={Submit} />
     <Route exact path="/pending" component={Admin} />
+    <Route exact path="/delegate-votes" component={DelegateVotes} />
+
+    <Route exact path="/tokens" component={TokenAbout} />
+    <Route exact path="/token-pool" component={TokenPool} />
+    <Route exact path="/previous-token-votes" component={PreviousTokenListing} />
+    <Route exact path="/token-leaderboard" component={TokenListings} />
+
     <Route exact path="/faq" component={FAQ} />
-    <Route exact path="/listings" component={TokenListings} />
-    <Route exact path="/previousTokenVote" component={PreviousTokenListing} />
-    <Route exact path="/delegateVotes" component={DelegateVotes} />
-    <Route exact path="/mission" component={MissionProposal} />
   </Switch>
 );
 

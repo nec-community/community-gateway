@@ -2,6 +2,7 @@ import ledger from 'ledgerco';
 import Tx from 'ethereumjs-tx';
 import Web3 from 'web3';
 import config from '../constants/config.json';
+import abis from '../constants/abis.json';
 import { log, toDecimal } from './utils';
 import grenache from './grenacheService';
 import keystore from './keystoreService';
@@ -75,22 +76,22 @@ const getBlockNumber = () => window._web3.eth.getBlockNumber();
 const getNetwork = () => window._web3.eth.net.getId();
 
 const getProposalContract = () =>
-  new window._web3.eth.Contract(config.proposalContract.abi, config.proposalContract.address);
+  new window._web3.eth.Contract(abis.proposalContract, config.proposalContract);
 
 const getSimpleVoteContract = () =>
-  new window._web3.eth.Contract(config.simpleVoteContract.abi, config.simpleVoteContract.address);
+  new window._web3.eth.Contract(abis.simpleVoteContract, config.simpleVoteContract);
 
 const getAdvancedTokenProposalContract = () =>
-  new window._web3.eth.Contract(config.tokenListingManagerAdvanced.abi, config.tokenListingManagerAdvanced.address);
+  new window._web3.eth.Contract(abis.tokenListingManagerAdvanced, config.tokenListingManagerAdvanced);
 
 const getTokenContract = _address =>
-  new window._web3.eth.Contract(config.necTokenContract.abi, _address || config.necTokenContract.address);
+  new window._web3.eth.Contract(abis.necTokenContract, _address || config.necTokenContract);
 
 const getVotingTokenContract = _votingToken =>
-  new window._web3.eth.Contract(config.necTokenContract.abi, _votingToken);
+  new window._web3.eth.Contract(abis.necTokenContract, _votingToken);
 
 const getControllerContract = () =>
-  new window._web3.eth.Contract(config.necTokenControllerContract.abi, config.necTokenControllerContract.address);
+  new window._web3.eth.Contract(abis.necTokenControllerContract, config.necTokenControllerContract);
 
 const ledgerLogin = async (path) => {
   ledgerPath = path;

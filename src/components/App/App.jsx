@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { HashRouter, Link } from 'react-router-dom';
+import { BrowserRouter, Link } from 'react-router-dom';
 import Web3 from 'web3';
 import config from '../../constants/config.json';
 import Routes from '../../routes';
@@ -25,7 +25,7 @@ class App extends Component {
 
   render() {
     return (
-      <HashRouter>
+      <BrowserRouter>
         <div>
           <div className={`notification-wrapper ${this.props.showNotif ? 'active' : ''}`}>
             <div className={`notification-inner-wrapper ${this.props.notifType}`}>
@@ -45,13 +45,24 @@ class App extends Component {
             </div>
             <div className="nav-links">
               <Link to="/">Home</Link>
-              <Link to="/listings">Token Listings</Link>
-              <Link to="/mission">Define our Mission</Link>
-              <Link to="/delegateVotes">Delegate Votes</Link>
-              <Link to="/all">All Proposals</Link>
-              <Link to="/pending">Pending Proposals</Link>
-              <Link to="/submit">Submit a Proposal</Link>
-              <Link to="/faq">FAQ</Link>
+              <div className="dropdown-wrapper">
+                <a>Token Listings</a>
+                <div>
+                  <Link onClick={() => this.setState({open: false})} to="/tokens">About</Link>
+                  <Link onClick={() => this.setState({open: false})} to="/token-leaderboard">Leaderboard</Link>
+                  <Link onClick={() => this.setState({open: false})} to="/token-pool">The Pool</Link>
+                </div>
+              </div>
+              <div className="dropdown-wrapper">
+                <a>Proposals</a>
+                <div>
+                  <Link onClick={() => this.setState({open: false})} to="/delegate-votes">Delegate Votes</Link>
+                  <Link onClick={() => this.setState({open: false})} to="/proposals">All Proposals</Link>
+                  <Link onClick={() => this.setState({open: false})} to="/pending">Pending Proposals</Link>
+                  <Link onClick={() => this.setState({open: false})} to="/submit">Submit a Proposal</Link>
+                </div>
+              </div>
+              <Link onClick={() => this.setState({open: false})} to="/faq">FAQ</Link>
             </div>
           </nav>
           <Routes />
@@ -68,7 +79,7 @@ class App extends Component {
             </div>
           </footer>
         </div>
-      </HashRouter>
+      </BrowserRouter>
     );
   }
 }

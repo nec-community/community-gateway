@@ -80,7 +80,11 @@ module.exports = {
       {
         from: './src/constants/images/',
         to: 'images/',
-      }
+      },
+      {
+        from: './src/constants/videos/',
+        to: 'videos/',
+      },
     ])
   ]
 };

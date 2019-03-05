@@ -74,13 +74,17 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new FaviconsWebpackPlugin(path.resolve('nec.png')),
     new WriteFilePlugin({
-      test: /^images/,
+      test: /^(images|videos)/,
     }),
     new CopyWebpackPlugin([
       {
         from: './src/constants/images/',
         to: 'images/',
-      }
+      },
+      {
+        from: './src/constants/videos/',
+        to: 'videos/',
+      },
     ])
   ]
 };

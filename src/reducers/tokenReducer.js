@@ -1,9 +1,10 @@
-import { FETCHED_TOKENS } from '../actions/actionTypes';
+import { FETCHED_TOKENS, FETCHED_POOL_TOKENS } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   tokens: [],
   endingTime: new Date(),
   isActive: false,
+  pool: [],
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -14,6 +15,11 @@ export default (state = INITIAL_STATE, action) => {
         tokens: action.tokens,
         endingTime: action.endingTime,
         isActive: action.isActive,
+      };
+    case FETCHED_POOL_TOKENS:
+      return {
+        ...state,
+        pool: action.poolTokens,
       };
     default:
       return state;

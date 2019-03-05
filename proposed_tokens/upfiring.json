@@ -6,5 +6,5 @@
   "description": "Upfiring is a fully decentralized, open-source, P2P file-sharing desktop application for Windows, MacOS, and Linux that encrypts and distributes files between peers using a modified bittorrent protocol. The application allows users to generate custom encrypted .ufr files with embedded price data and seed them on the Upfiring network. Users earn UFR tokens in exchange for seeding and keeping files online. Seeder smart contracts deployed to the Ethereum network mediate the movement of files across the network, maintain seeder UFR balances, and allow for the decryption of files when warranted.",
   "logo": "https://i.ibb.co/QPDZSGm/upfiringlogo1000x1000.png",
   "discussions": "https://t.me/UpfiringCommunity",
-  "website": "https://www.upfiring.com",
+  "website": "https://www.upfiring.com"
 }
