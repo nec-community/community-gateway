@@ -119,7 +119,7 @@ class TokenAbout extends Component {
                 <p>
                   We appreciate this isn’t the easiest process to summarise in a short paragraph, so
                   if you’d like to learn more about how the Kleros process works, head <a
-                  href="https://kleros.io" target="_blank" rel="noopener noreferrer"
+                  href="https://tokens.kleros.io" target="_blank" rel="noopener noreferrer"
                   >here</a> for more details or ask us in the <a
                   href="https://t.me/ethfinextelegram" target="_blank" rel="noopener noreferrer"
                   >Ethfinex Telegram Group</a>.
@@ -328,9 +328,8 @@ class TokenAbout extends Component {
 
                 <h4>I voted for a winning token, what do I get?</h4>
                 <p>
-                  Congratulations! If you voted for a winning token, you will receive 20% of the
-                  Ethfinex trading fees for the first month the token is listed, and 10% thereafter
-                  for 12 months after the vote ended.
+                  Congratulations! If you voted for a winning token, you will receive 10% of the
+                  Ethfinex trading fees for that token for 12 months after the vote ended.
                 </p>
                 <p>
                   The fees are distributed pro-rata based on the proportion of votes. This means

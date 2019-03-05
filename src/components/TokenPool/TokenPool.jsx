@@ -60,7 +60,7 @@ class TokenPool extends Component {
                 challenge, the Token loses the Community Approved badge.
               </p>
               <p>
-                Ethfinex reserves the right to delist tokens in the event they do not meet certain
+                Ethfinex reserves the right not to list a token in the event they fail to meet any
                 of the listing criteria.
               </p>
               <p>
@@ -72,7 +72,7 @@ class TokenPool extends Component {
               </p>
             </div>
             <div className="right-header">
-              <a className="side-badge" href="https://kleros.io" target="_blank" rel="noopener noreferrer">
+              <a className="side-badge" href="https://tokens.kleros.io" target="_blank" rel="noopener noreferrer">
                 Submit a token through Kleros
               </a>
             </div>
