@@ -1,4 +1,5 @@
-import ledger from 'ledgerco';
+import TransportU2F from '@ledgerhq/hw-transport-u2f';
+import Eth from '@ledgerhq/hw-app-eth';
 import Tx from 'ethereumjs-tx';
 import Web3 from 'web3';
 import config from '../constants/config.json';
@@ -93,21 +94,28 @@ const getVotingTokenContract = _votingToken =>
 const getControllerContract = () =>
   new window._web3.eth.Contract(abis.necTokenControllerContract, config.necTokenControllerContract);
 
+const getLedgerTransport = async () => {
+  if (!ledgerComm) {
+    ledgerComm = await TransportU2F.create();
+  }
+  return ledgerComm;
+}
+
 const ledgerLogin = async (path) => {
   ledgerPath = path;
-  if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
-  const eth = new ledger.eth(ledgerComm);
-  const account = await eth.getAddress_async(ledgerPath);
+  const _transport = await getLedgerTransport();
+  const eth = new Eth(_transport);
+  const account = await eth.getAddress(ledgerPath);
   return account.address;
 };
 
 const ledgerListAccounts = async (pathPrefix, start, n) => {
-  if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
-  const eth = new ledger.eth(ledgerComm);
+  const _transport = await getLedgerTransport();
+  const eth = new Eth(_transport);
   const accounts = [];
   for (let i = 0; i < n; i++) {
     const path = pathPrefix + '/' + (start + i);
-    const account = await eth.getAddress_async(path);
+    const account = await eth.getAddress(path);
     account.path = path;
     accounts.push(account);
   }
@@ -115,9 +123,9 @@ const ledgerListAccounts = async (pathPrefix, start, n) => {
 };
 
 const signAndSendLedger = async (contractCall, value = 0, gasPrice = config.defaultGasPrice) => {
-  if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
-  const eth = new ledger.eth(ledgerComm);
-  const account = await eth.getAddress_async(ledgerPath);
+  const _transport = await getLedgerTransport();
+  const eth = new Eth(_transport);
+  const account = await eth.getAddress(ledgerPath);
   log(`LEDGER account ${account.address}`);
 
   const encodedAbi = contractCall.encodeABI();
@@ -133,20 +141,20 @@ const signAndSendLedger = async (contractCall, value = 0, gasPrice = config.defa
     to: contractCall._parent._address,
     data: encodedAbi,
     value: window._web3.utils.numberToHex(value),
-    chainId: config.network,
-    v: config.network,
   };
 
   const gasLimit = await window._web3.eth.estimateGas(rawTx);
   log(`LEDGER gasLimit ${gasLimit}`);
   rawTx.gasLimit = window._web3.utils.numberToHex(gasLimit);
+  rawTx.chainId = config.network;
+  rawTx.v = config.network;
 
   log('LEDGER rawTx', rawTx);
 
   const tx = new Tx(rawTx);
   log('LEDGER tx', tx);
 
-  const signedTx = await eth.signTransaction_async(ledgerPath, tx.serialize().toString('hex'));
+  const signedTx = await eth.signTransaction(ledgerPath, tx.serialize().toString('hex'));
   log('LEDGER signedTx', signedTx);
 
   const tx2 = new Tx({
@@ -186,13 +194,13 @@ const signAndSendKeystore = async (contractCall, value = 0, gasPrice = config.de
     to: contractCall._parent._address,
     data: encodedAbi,
     value: window._web3.utils.numberToHex(value),
-    chainId: config.network,
-    v: config.network,
   };
 
   const gasLimit = await window._web3.eth.estimateGas(rawTx);
   log(`KEYSTORE gasLimit ${gasLimit}`);
   rawTx.gasLimit = window._web3.utils.numberToHex(gasLimit);
+  rawTx.chainId = config.network;
+  rawTx.v = config.network;
 
   log('KEYSTORE rawTx', rawTx);
 

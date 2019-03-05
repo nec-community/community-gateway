@@ -4,15 +4,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
+require('@babel/polyfill');
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './src/index.html',
   filename: 'index.html',
-  inject: 'body'
+  inject: 'body',
 });
 
 module.exports = {
-  entry: './src/index.jsx',
+  entry: ['@babel/polyfill', './src/index.jsx'],
   devtool: 'inline-source-map',
   node: {
     fs: 'empty',
@@ -21,6 +22,8 @@ module.exports = {
   },
   devServer: {
     hot: true,
+    // disableHostCheck: true,
+    // port: 80,
   },
   output: {
     path: path.resolve('dist'),
