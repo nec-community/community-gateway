@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.0;
 
 import "./DestructibleMiniMeTokenFactory.sol";
 import "./Ownable.sol";
@@ -20,28 +20,34 @@ contract TokenListingManager is Ownable {
         uint startBlock;
         uint startTime;
         uint duration;
-        address votingToken;
+        DestructibleMiniMeToken votingToken;
         uint[] yesVotes;
         // criteria values
-        // 0. only first one win the vote; 
+        // 0. only first one win the vote;
         // 1. top N (number in extraData) win the vote;
         // 2. All over N (number in extra data) votes win the vote;
-        uint criteria; 
+        uint criteria;
         uint extraData;
+        bool concluded;
+        mapping(address => mapping(address => uint256)) votesForToken;
     }
 
     TokenProposal[] public tokenBatches;
 
     DestructibleMiniMeTokenFactory public tokenFactory;
-    address public nectarToken;
+    address payable public nectarToken;
     mapping(address => bool) public admins;
+
+    mapping(address => bool) public isWinner;
+    mapping(address => uint256) public winningVotes;
+    mapping(address => uint) public proposalWhenTokenWon;
 
     modifier onlyAdmins() {
         require(isAdmin(msg.sender));
         _;
     }
 
-    constructor(address _tokenFactory, address _nectarToken) public {
+    constructor(address _tokenFactory, address payable _nectarToken) public {
         tokenFactory = DestructibleMiniMeTokenFactory(_tokenFactory);
         nectarToken = _nectarToken;
         admins[msg.sender] = true;
@@ -52,7 +58,7 @@ contract TokenListingManager is Ownable {
     /// @param _duration number of days for voting
     /// @param _criteria number that determines how winner is selected
     /// @param _extraData extra data for criteria parameter
-    function startTokenVotes(address[] _tokens, uint _duration, uint _criteria, uint _extraData) public onlyAdmins {
+    function startTokenVotes(address[] memory _tokens, uint _duration, uint _criteria, uint _extraData) public onlyAdmins {
         require(_tokens.length <= MAX_CANDIDATES);
 
         if (_criteria == 1) {
@@ -62,8 +68,7 @@ contract TokenListingManager is Ownable {
 
         uint _proposalId = tokenBatches.length;
         if (_proposalId > 0) {
-            TokenProposal memory op = tokenBatches[_proposalId - 1];
-            DestructibleMiniMeToken(op.votingToken).recycle();
+          endTokenVote(_proposalId - 1);
         }
         tokenBatches.length++;
         TokenProposal storage p = tokenBatches[_proposalId];
@@ -84,8 +89,33 @@ contract TokenListingManager is Ownable {
         p.startBlock = getBlockNumber();
         p.criteria = _criteria;
         p.extraData = _extraData;
+        p.concluded = false;
 
         emit NewTokens(_proposalId);
+    }
+
+
+    /// @notice Anyone can end the vote if it has completed
+    function endTokenVote(uint _proposalId) public returns(bool) {
+
+        require(_proposalId <= tokenBatches.length);
+
+        TokenProposal storage op = tokenBatches[_proposalId];
+        require(op.startTime + op.duration < now);
+        if (op.concluded) {
+          return true;
+        }
+
+        uint[] memory _previousWinnerMap = getWinnerIndices(_proposalId);
+        for (uint i=0; i < _previousWinnerMap.length; i++) {
+            isWinner[op.consideredTokens[_previousWinnerMap[i]]] = true;
+            winningVotes[op.consideredTokens[_previousWinnerMap[i]]] = op.yesVotes[_previousWinnerMap[i]];
+            proposalWhenTokenWon[op.consideredTokens[_previousWinnerMap[i]]] = _proposalId;
+        }
+
+        DestructibleMiniMeToken(op.votingToken).recycle();
+        op.concluded = true;
+        return true;
     }
 
     /// @notice Vote for specific token with yes
@@ -96,28 +126,37 @@ contract TokenListingManager is Ownable {
         uint _proposalId = tokenBatches.length - 1;
         require(_tokenIndex < 10);
 
-        TokenProposal memory p = tokenBatches[_proposalId];
+        TokenProposal storage p = tokenBatches[_proposalId];
 
         require(now < p.startTime + p.duration);
 
         uint amount = DestructibleMiniMeToken(p.votingToken).balanceOf(msg.sender);
         require(amount >= _amount);
 
+        uint weightedAmount = getFactor(_amount);
+
         require(DestructibleMiniMeToken(p.votingToken).transferFrom(msg.sender, address(this), _amount));
 
-        tokenBatches[_proposalId].yesVotes[_tokenIndex] += _amount;
+        tokenBatches[_proposalId].yesVotes[_tokenIndex] += weightedAmount;
+        p.votesForToken[tokenBatches[_proposalId].consideredTokens[_tokenIndex]][msg.sender] += weightedAmount;
 
-        emit Vote(_proposalId, msg.sender, tokenBatches[_proposalId].consideredTokens[_tokenIndex], _amount);
+        emit Vote(_proposalId, msg.sender, tokenBatches[_proposalId].consideredTokens[_tokenIndex], weightedAmount);
     }
 
-    function getWinners(uint _proposalId) public view returns(address[] winners) {
+    function getFactor(uint _amount) view public returns (uint weighted) {
+      uint currentRound = tokenBatches.length - 1;
+      TokenProposal memory p = tokenBatches[currentRound];
+      weighted = 2 * _amount - ((now - p.startTime) * _amount / p.duration);
+    }
+
+    function getWinnerIndices(uint _proposalId) public view returns(uint[] memory winners) {
         require(_proposalId < tokenBatches.length);
 
         TokenProposal memory p = tokenBatches[_proposalId];
 
         // there is only one winner in criteria 0
         if (p.criteria == 0) {
-            winners = new address[](1);
+            winners = new uint[](1);
             uint max = 0;
 
             for (uint i=0; i < p.consideredTokens.length; i++) {
@@ -126,17 +165,17 @@ contract TokenListingManager is Ownable {
                 }
             }
 
-            winners[0] = p.consideredTokens[max];
+            winners[0] = max;
         }
 
         // there is N winners in criteria 1
         if (p.criteria == 1) {
             uint[] memory indexesWithMostVotes = new uint[](p.extraData);
-            winners = new address[](p.extraData);
+            winners = new uint[](p.extraData);
 
             // for each token we check if he has more votes than last one,
             // if it has we put it in array and always keep array sorted
-            for (i = 0; i < p.consideredTokens.length; i++) {
+            for (uint i = 0; i < p.consideredTokens.length; i++) {
                 uint last = p.extraData - 1;
                 if (p.yesVotes[i] > p.yesVotes[indexesWithMostVotes[last]]) {
                     indexesWithMostVotes[last] = i;
@@ -145,35 +184,40 @@ contract TokenListingManager is Ownable {
                         if (p.yesVotes[indexesWithMostVotes[j]] > p.yesVotes[indexesWithMostVotes[j-1]]) {
                             uint help = indexesWithMostVotes[j];
                             indexesWithMostVotes[j] = indexesWithMostVotes[j-1];
-                            indexesWithMostVotes[j-1] = help; 
+                            indexesWithMostVotes[j-1] = help;
                         }
                     }
                 }
             }
 
-            for (i = 0; i < p.extraData; i++) {
-                winners[i] = p.consideredTokens[indexesWithMostVotes[i]];
+            for (uint i = 0; i < p.extraData; i++) {
+                winners[i] = indexesWithMostVotes[i];
             }
         }
 
         // everybody who has over N votes are winners in criteria 2
         if (p.criteria == 2) {
             uint numOfTokens = 0;
-            for (i = 0; i < p.consideredTokens.length; i++) {
+            for (uint i = 0; i < p.consideredTokens.length; i++) {
                 if (p.yesVotes[i] > p.extraData) {
                     numOfTokens++;
                 }
             }
 
-            winners = new address[](numOfTokens);
+            winners = new uint[](numOfTokens);
             uint count = 0;
-            for (i = 0; i < p.consideredTokens.length; i++) {
+            for (uint i = 0; i < p.consideredTokens.length; i++) {
                 if (p.yesVotes[i] > p.extraData) {
-                    winners[count] = p.consideredTokens[i];
+                    winners[count] = i;
                     count++;
                 }
             }
         }
+    }
+
+    function getUserVotesForWinner(address _token, address _voter) external view returns(uint256) {
+      uint roundWhenWon = proposalWhenTokenWon[_token];
+      return tokenBatches[roundWhenWon].votesForToken[_token][_voter];
     }
 
     /// @notice Get number of proposals so you can know which is the last one
@@ -201,8 +245,8 @@ contract TokenListingManager is Ownable {
         uint _duration,
         bool _active,
         bool _finalized,
-        uint[] _votes,
-        address[] _tokens,
+        uint[] memory _votes,
+        address[] memory _tokens,
         address _votingToken,
         bool _hasBalance
     ) {
@@ -216,8 +260,8 @@ contract TokenListingManager is Ownable {
         _active = !_finalized && (p.startBlock < getBlockNumber());
         _votes = p.yesVotes;
         _tokens = p.consideredTokens;
-        _votingToken = p.votingToken;
-        _hasBalance = (p.votingToken == 0x0) ? false : (DestructibleMiniMeToken(p.votingToken).balanceOf(msg.sender) > 0);
+        _votingToken = address(p.votingToken);
+        _hasBalance = (_votingToken == address(0)) ? false : (DestructibleMiniMeToken(p.votingToken).balanceOf(msg.sender) > 0);
     }
 
     function isAdmin(address _admin) public view returns(bool) {
@@ -236,33 +280,28 @@ contract TokenListingManager is Ownable {
         return true;
     }
 
-    function getBlockNumber() internal constant returns (uint) {
+    function getBlockNumber() internal view returns (uint) {
         return block.number;
     }
 
-    function appendUintToString(string inStr, uint v) private pure returns (string str) {
-        uint maxlength = 100;
-        bytes memory reversed = new bytes(maxlength);
-        uint i = 0;
-        if (v == 0) {
-            reversed[i++] = byte(48);
-        } else {
-            while (v != 0) {
-                uint remainder = v % 10;
-                v = v / 10;
-                reversed[i++] = byte(48 + remainder);
-            }
-        }
-        bytes memory inStrb = bytes(inStr);
-        bytes memory s = new bytes(inStrb.length + i);
-        uint j;
-        for (j = 0; j < inStrb.length; j++) {
-            s[j] = inStrb[j];
-        }
-        for (j = 0; j < i; j++) {
-            s[j + inStrb.length] = reversed[i - 1 - j];
-        }
-        str = string(s);
+    function appendUintToString(string memory inStr, uint _i) internal pure returns (string memory _str) {
+    if (_i == 0) {
+        return "0";
+    }
+    uint j = _i;
+    uint len;
+    while (j != 0) {
+        len++;
+        j /= 10;
+    }
+    bytes memory bstr = new bytes(len);
+    uint k = len - 1;
+    while (_i != 0) {
+        bstr[k--] = byte(uint8(48 + _i % 10));
+        _i /= 10;
+    }
+
+    return string(abi.encodePacked(inStr, string(bstr)));
     }
 
     event Vote(uint indexed idProposal, address indexed _voter, address chosenToken, uint amount);

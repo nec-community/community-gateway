@@ -1,14 +1,15 @@
-import "./MiniMeToken.sol";
+pragma solidity ^0.5.0;
 
+import "./MiniMeToken.sol";
 
 contract NEC is MiniMeToken {
 
-  function NEC(
+  constructor(
     address _tokenFactory,
     address efxVaultWallet
   ) public MiniMeToken(
     _tokenFactory,
-    0x0,                    // no parent token
+    address(0),                    // no parent token
     0,                      // no snapshot block number from parent
     "Ethfinex Nectar Token", // Token name
     18,                     // Decimals
@@ -34,7 +35,7 @@ contract NEC is MiniMeToken {
     function burnAndRetrieve(uint256 _tokensToBurn) public returns (bool success) {
         require(burningEnabled);
 
-        var previousBalanceFrom = balanceOfAt(msg.sender, block.number);
+        uint256 previousBalanceFrom = balanceOfAt(msg.sender, block.number);
         if (previousBalanceFrom < _tokensToBurn) {
             return false;
         }
@@ -46,7 +47,7 @@ contract NEC is MiniMeToken {
             require(TokenController(controller).onBurn(msg.sender, _tokensToBurn));
         }
 
-        Burned(msg.sender, _tokensToBurn);
+        emit Burned(msg.sender, _tokensToBurn);
         return true;
     }
 

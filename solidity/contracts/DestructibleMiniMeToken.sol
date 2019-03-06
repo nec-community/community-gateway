@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.0;
 
 import "./MiniMeToken.sol";
 
@@ -8,17 +8,17 @@ import "./MiniMeToken.sol";
 
 contract DestructibleMiniMeToken is MiniMeToken {
 
-    address public terminator;
+    address payable public terminator;
 
     constructor(
         address _tokenFactory,
-        address _parentToken,
+        address payable _parentToken,
         uint _parentSnapShotBlock,
-        string _tokenName,
+        string memory _tokenName,
         uint8 _decimalUnits,
-        string _tokenSymbol,
+        string memory _tokenSymbol,
         bool _transfersEnabled,
-        address _terminator
+        address payable _terminator
     ) public MiniMeToken(
         _tokenFactory,
         _parentToken,

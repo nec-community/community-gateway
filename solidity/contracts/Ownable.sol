@@ -1,12 +1,12 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.5.0;
 
 contract Ownable {
-  
+
   address public owner;
 
   event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
-  function Ownable() public {
+  constructor() public {
     owner = msg.sender;
   }
 

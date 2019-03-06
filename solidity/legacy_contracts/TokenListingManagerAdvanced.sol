@@ -3,6 +3,12 @@ pragma solidity ^0.4.24;
 import "./DestructibleMiniMeTokenFactory.sol";
 import "./Ownable.sol";
 
+// TODO: dont extend the list, just refresh it each time
+// TODO: does 50% really work for carrying between votes? Probably not
+// Change end of vote from start of next one
+// Make it so that votes value is increased in first days and gets less valuable as time goes by
+
+
 /*
     Copyright 2018, Will Harborne @ Ethfinex
 */
@@ -45,6 +51,7 @@ contract TokenListingManagerAdvanced is Ownable {
     address public nectarToken;
     mapping(address => bool) public admins;
     mapping(address => bool) public isWinner;
+    mapping(address => uint256) public winningVotes;
     mapping(address => bool) public tokenExists;
     mapping(address => uint) public lastVote;
 
@@ -53,6 +60,7 @@ contract TokenListingManagerAdvanced is Ownable {
     mapping(address => bool) public isDelegate;
 
     mapping(uint => mapping(address => uint256)) public votesSpentThisRound;
+    mapping(address => mapping(address => uint256)) public votesForToken;
 
     modifier onlyAdmins() {
         require(isAdmin(msg.sender));
@@ -72,7 +80,7 @@ contract TokenListingManagerAdvanced is Ownable {
     /// @param _criteria number that determines how winner is selected
     /// @param _extraData extra data for criteria parameter
     /// @param _previousWinners addresses that won previous proposal
-    function startTokenVotes(address[] _tokens, uint _duration, uint _criteria, uint _extraData, address[] _previousWinners) public onlyAdmins {
+    function startTokenVotes(address[] memory _tokens, uint _duration, uint _criteria, uint _extraData, address[] memory _previousWinners) public onlyAdmins {
         require(_tokens.length <= MAX_CANDIDATES);
 
         for (uint i=0; i < _previousWinners.length; i++) {
@@ -93,7 +101,7 @@ contract TokenListingManagerAdvanced is Ownable {
         TokenProposal storage p = tokenBatches[_proposalId];
         p.duration = _duration * (1 days);
 
-        for (i = 0; i < _tokens.length; i++) {
+        for (uint i = 0; i < _tokens.length; i++) {
             require(!tokenExists[_tokens[i]]);
 
             consideredTokens.push(_tokens[i]);
@@ -154,6 +162,17 @@ contract TokenListingManagerAdvanced is Ownable {
         require(votesSpentThisRound[_proposalId][msg.sender] + _amount <= balance);
 
         yesVotes[_tokenIndex] += _amount;
+
+        // Log the votes for a particular token so that we can give them rewards
+        if (votesSpentThisRound[_proposalId][msg.sender] == 0 && lastVote[consideredTokens[_tokenIndex]] < _proposalId) {
+            // TODO: fix fact that this doesnt happen if they dont vote in the final round when it wins
+            // So they would still be marked as having voted the full amount from the first time around
+            // Potentially we want to reconsider the factor of 2 decay anyway which would simplify this
+            votesForToken[consideredTokens[_tokenIndex]][msg.sender] /= 2*(_proposalId - lastVote[consideredTokens[_tokenIndex]]);
+        }
+        votesForToken[consideredTokens[_tokenIndex]][msg.sender] += _amount;
+
+
         // set the info that the user voted in this round
         votesSpentThisRound[_proposalId][msg.sender] += _amount;
 
@@ -237,7 +256,7 @@ contract TokenListingManagerAdvanced is Ownable {
         return allDelegates.length;
     }
 
-    function getWinners() public view returns(address[] winners) {
+    function getWinners() public view returns(address[] memory winners) {
         require(tokenBatches.length > 0);
         uint _proposalId = tokenBatches.length - 1;
 
@@ -273,7 +292,7 @@ contract TokenListingManagerAdvanced is Ownable {
 
             // for each token we check if he has more votes than last one,
             // if it has we put it in array and always keep array sorted
-            for (i = 0; i < consideredTokens.length; i++) {
+            for (uint i = 0; i < consideredTokens.length; i++) {
                 if (isWinner[consideredTokens[i]]) {
                     continue;
                 }
@@ -285,7 +304,7 @@ contract TokenListingManagerAdvanced is Ownable {
 
                 // so we just do it once, sort all in descending order
                 if (count == p.extraData) {
-                    for (j = 0; j < indexesWithMostVotes.length; j++) {
+                    for (uint j = 0; j < indexesWithMostVotes.length; j++) {
                         for (uint k = j+1; k < indexesWithMostVotes.length; k++) {
                             if (getCurrentVotes(indexesWithMostVotes[j]) < getCurrentVotes(indexesWithMostVotes[k])) {
                                 uint help = indexesWithMostVotes[j];
@@ -302,7 +321,7 @@ contract TokenListingManagerAdvanced is Ownable {
 
                     for (uint j=last; j > 0; j--) {
                         if (getCurrentVotes(indexesWithMostVotes[j]) > getCurrentVotes(indexesWithMostVotes[j-1])) {
-                            help = indexesWithMostVotes[j];
+                            uint help = indexesWithMostVotes[j];
                             indexesWithMostVotes[j] = indexesWithMostVotes[j-1];
                             indexesWithMostVotes[j-1] = help;
                         }
@@ -310,7 +329,7 @@ contract TokenListingManagerAdvanced is Ownable {
                 }
             }
 
-            for (i = 0; i < p.extraData; i++) {
+            for (uint i = 0; i < p.extraData; i++) {
                 winners[i] = consideredTokens[indexesWithMostVotes[i]];
             }
         }
@@ -318,7 +337,7 @@ contract TokenListingManagerAdvanced is Ownable {
         // everybody who has over N votes are winners in criteria 2
         if (p.criteria == 2) {
             uint numOfTokens = 0;
-            for (i = 0; i < consideredTokens.length; i++) {
+            for (uint i = 0; i < consideredTokens.length; i++) {
                 if (isWinner[consideredTokens[i]]) {
                     continue;
                 }
@@ -328,8 +347,8 @@ contract TokenListingManagerAdvanced is Ownable {
             }
 
             winners = new address[](numOfTokens);
-            count = 0;
-            for (i = 0; i < consideredTokens.length; i++) {
+            uint count = 0;
+            for (uint i = 0; i < consideredTokens.length; i++) {
                 if (isWinner[consideredTokens[i]]) {
                     continue;
                 }
@@ -366,8 +385,8 @@ contract TokenListingManagerAdvanced is Ownable {
         uint _duration,
         bool _active,
         bool _finalized,
-        uint[] _votes,
-        address[] _tokens,
+        uint[] memory _votes,
+        address[] memory _tokens,
         address _votingToken,
         bool _hasBalance
     ) {
@@ -385,7 +404,7 @@ contract TokenListingManagerAdvanced is Ownable {
         _hasBalance = (p.votingToken == 0x0) ? false : (DestructibleMiniMeToken(p.votingToken).balanceOf(msg.sender) > 0);
     }
 
-    function getConsideredTokens() public view returns(address[] tokens) {
+    function getConsideredTokens() public view returns(address[] memory tokens) {
         tokens = new address[](consideredTokens.length);
 
         for (uint i = 0; i < consideredTokens.length; i++) {
@@ -397,7 +416,7 @@ contract TokenListingManagerAdvanced is Ownable {
         }
     }
 
-    function getVotes() public view returns(uint[] votes) {
+    function getVotes() public view returns(uint[] memory votes) {
         votes = new uint[](consideredTokens.length);
 
         for (uint i = 0; i < consideredTokens.length; i++) {
@@ -409,12 +428,12 @@ contract TokenListingManagerAdvanced is Ownable {
         require(tokenBatches.length > 0);
 
         uint _proposalId = tokenBatches.length - 1;
-        uint vote = yesVotes[index];
+        uint tally = yesVotes[index];
         if (_proposalId > lastVote[consideredTokens[index]]) {
             vote = yesVotes[index] / (2 * (_proposalId - lastVote[consideredTokens[index]]));
         }
 
-        return vote;
+        return tally;
     }
 
     function isAdmin(address _admin) public view returns(bool) {
@@ -446,7 +465,7 @@ contract TokenListingManagerAdvanced is Ownable {
         }
     }
 
-    function getBlockNumber() internal constant returns (uint) {
+    function getBlockNumber() internal view returns (uint) {
         return block.number;
     }
 
@@ -456,7 +475,7 @@ contract TokenListingManagerAdvanced is Ownable {
         return !_finalized && (p.startBlock < getBlockNumber());
     }
 
-    function appendUintToString(string inStr, uint v) private pure returns (string str) {
+    function appendUintToString(string memory inStr, uint v) private pure returns (string memory str) {
         uint maxlength = 100;
         bytes memory reversed = new bytes(maxlength);
         uint i = 0;
@@ -472,10 +491,10 @@ contract TokenListingManagerAdvanced is Ownable {
         bytes memory inStrb = bytes(inStr);
         bytes memory s = new bytes(inStrb.length + i);
         uint j;
-        for (j = 0; j < inStrb.length; j++) {
+        for (uint j = 0; j < inStrb.length; j++) {
             s[j] = inStrb[j];
         }
-        for (j = 0; j < i; j++) {
+        for (uint j = 0; j < i; j++) {
             s[j + inStrb.length] = reversed[i - 1 - j];
         }
         str = string(s);

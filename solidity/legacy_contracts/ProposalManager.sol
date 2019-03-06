@@ -35,12 +35,12 @@ contract ProposalManager is Ownable {
     address nectarToken;
     mapping(address => bool) admins;
 
-    modifier onlyAdmins() { 
+    modifier onlyAdmins() {
         require(isAdmin(msg.sender));
-        _; 
+        _;
     }
 
-    function ProposalManager(address _tokenFactory, address _nectarToken) public {
+    constructor(address _tokenFactory, address _nectarToken) public {
         tokenFactory = MiniMeTokenFactory(_tokenFactory);
         nectarToken = _nectarToken;
         admins[msg.sender] = true;
@@ -67,7 +67,7 @@ contract ProposalManager is Ownable {
         p.storageHash = _storageHash;
         p.duration = _duration * (1 days);
         p.proposer = msg.sender;
-        
+
         emit NewProposal(_proposalId, _duration, _storageHash);
     }
 
@@ -103,20 +103,20 @@ contract ProposalManager is Ownable {
     function vote(uint _proposalId, bool _yes) public {
         require(_proposalId < proposals.length);
         require(checkIfCurrentlyActive(_proposalId));
-        
+
         Proposal memory p = proposals[_proposalId];
 
-        uint amount = MiniMeToken(p.token).balanceOf(msg.sender);      
+        uint amount = MiniMeToken(p.token).balanceOf(msg.sender);
         require(amount > 0);
 
         require(MiniMeToken(p.token).transferFrom(msg.sender, address(this), amount));
 
         if (_yes) {
-            proposals[_proposalId].yesVotes += amount;    
+            proposals[_proposalId].yesVotes += amount;
         }else {
             proposals[_proposalId].noVotes += amount;
         }
-        
+
         emit Vote(_proposalId, msg.sender, _yes, amount);
     }
 
@@ -133,7 +133,7 @@ contract ProposalManager is Ownable {
     }
 
     /// @notice Get data about specific proposal
-    /// @param _proposalId Id of proposal 
+    /// @param _proposalId Id of proposal
     function proposal(uint _proposalId) public view returns(
         address _proposer,
         uint _startBlock,
@@ -176,7 +176,7 @@ contract ProposalManager is Ownable {
     /// @notice Get all not approved proposals
     /// @dev looping two times through array so we can make array with exact count
     ///       because of Solidity limitation to make dynamic array in memory
-    function getNotApprovedProposals() public view returns(uint[]) {
+    function getNotApprovedProposals() public view returns(uint[] memory) {
         uint count = 0;
         for (uint i=0; i<proposals.length; i++) {
             if (!proposals[i].approved && !proposals[i].denied) {
@@ -186,7 +186,7 @@ contract ProposalManager is Ownable {
 
         uint[] memory notApprovedProposals = new uint[](count);
         count = 0;
-        for (i=0; i<proposals.length; i++) {
+        for (uint i=0; i<proposals.length; i++) {
             if (!proposals[i].approved && !proposals[i].denied) {
                 notApprovedProposals[count] = i;
                 count++;
@@ -199,7 +199,7 @@ contract ProposalManager is Ownable {
     /// @notice Get all approved proposals
     /// @dev looping two times through array so we can make array with exact count
     ///       because of Solidity limitation to make dynamic array in memory
-    function getApprovedProposals() public view returns(uint[]) {
+    function getApprovedProposals() public view returns(uint[] memory) {
         uint count = 0;
         for (uint i=0; i<proposals.length; i++) {
             if (proposals[i].approved && !proposals[i].denied) {
@@ -209,7 +209,7 @@ contract ProposalManager is Ownable {
 
         uint[] memory approvedProposals = new uint[](count);
         count = 0;
-        for (i=0; i<proposals.length; i++) {
+        for (uint i=0; i<proposals.length; i++) {
             if (proposals[i].approved && !proposals[i].denied) {
                 approvedProposals[count] = i;
                 count++;
@@ -222,7 +222,7 @@ contract ProposalManager is Ownable {
     /// @notice Get all active proposals
     /// @dev looping two times through array so we can make array with exact count
     ///       because of Solidity limitation to make dynamic array in memory
-    function getActiveProposals() public view returns(uint[]) {
+    function getActiveProposals() public view returns(uint[] memory) {
         uint count = 0;
         for (uint i=0; i<proposals.length; i++) {
             if (checkIfCurrentlyActive(i)) {
@@ -232,7 +232,7 @@ contract ProposalManager is Ownable {
 
         uint[] memory activeProposals = new uint[](count);
         count = 0;
-        for (i=0; i<proposals.length; i++) {
+        for (uint i=0; i<proposals.length; i++) {
             if (checkIfCurrentlyActive(i)) {
                 activeProposals[count] = i;
                 count++;
@@ -242,13 +242,13 @@ contract ProposalManager is Ownable {
         return activeProposals;
     }
 
-    function appendUintToString(string inStr, uint v) private pure returns (string str) {
+    function appendUintToString(string memory inStr, uint v) private pure returns (string memory str) {
         uint maxlength = 100;
         bytes memory reversed = new bytes(maxlength);
         uint i = 0;
         if (v==0) {
-            reversed[i++] = byte(48);  
-        } else { 
+            reversed[i++] = byte(48);
+        } else {
             while (v != 0) {
                 uint remainder = v % 10;
                 v = v / 10;
@@ -277,9 +277,9 @@ contract ProposalManager is Ownable {
 
     function checkIfCurrentlyActive(uint _proposalId) private view returns(bool) {
         Proposal memory p = proposals[_proposalId];
-        return (p.startTime + p.duration > now && p.startTime < now && p.approved && !p.denied);    
-    }  
-    
+        return (p.startTime + p.duration > now && p.startTime < now && p.approved && !p.denied);
+    }
+
     function proxyPayment(address ) public payable returns(bool) {
         return false;
     }
@@ -292,7 +292,7 @@ contract ProposalManager is Ownable {
         return true;
     }
 
-    function getBlockNumber() internal constant returns (uint) {
+    function getBlockNumber() internal view returns (uint) {
         return block.number;
     }
 

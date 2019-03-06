@@ -1,3 +1,4 @@
+pragma solidity ^0.5.0;
 
 import "./TokenController.sol";
 import "./Whitelist.sol";
@@ -37,7 +38,7 @@ contract NectarController is TokenController, Whitelist {
     using SafeMath for uint256;
 
     NEC public tokenContract;   // The new token for this Campaign
-    address public vaultAddress;        // The address to hold the funds donated
+    address payable public vaultAddress;        // The address to hold the funds donated
 
     uint public periodLength = 30;       // Contribution windows length in days
     uint public startTime = 1518523865;  // Time of window 1 opening
@@ -49,11 +50,11 @@ contract NectarController is TokenController, Whitelist {
     /// @param _vaultAddress The address that will store the donated funds
     /// @param _tokenAddress Address of the token contract this contract controls
 
-    function NectarController(
-        address _vaultAddress,
-        address _tokenAddress
+    constructor(
+        address payable _vaultAddress,
+        address payable _tokenAddress
     ) public {
-        require(_vaultAddress != 0);                // To prevent burning ETH
+        require(_vaultAddress != address(0));                // To prevent burning ETH
         tokenContract = NEC(_tokenAddress); // The Deployed Token Contract
         vaultAddress = _vaultAddress;
         windowFinalBlock[0] = 5082733;
@@ -65,7 +66,7 @@ contract NectarController is TokenController, Whitelist {
     /// `_owner`. Payable is a required solidity modifier for functions to receive
     /// ether, without this modifier functions will throw if ether is sent to them
 
-    function ()  public payable {
+    function () external payable {
         doTakerPayment();
     }
 
@@ -134,7 +135,7 @@ contract NectarController is TokenController, Whitelist {
     /// @param _owner The address that calls `burn()`
     /// @param _tokensToBurn The amount in the `burn()` call
     /// @return False if the controller does not authorize the approval
-    function onBurn(address _owner, uint _tokensToBurn) public
+    function onBurn(address payable _owner, uint _tokensToBurn) public
         returns(bool)
     {
         // This plugin can only be called by the token contract
@@ -164,7 +165,7 @@ contract NectarController is TokenController, Whitelist {
     /// @param _owner The address that will hold the newly created tokens
     function doMakerPayment(address _owner) internal {
 
-        require ((tokenContract.controller() != 0) && (msg.value != 0) );
+        require ((tokenContract.controller() != address(0)) && (msg.value != 0) );
         tokenContract.pledgeFees(msg.value);
         require (vaultAddress.send(msg.value));
 
@@ -185,7 +186,7 @@ contract NectarController is TokenController, Whitelist {
     ///  contract receives to the `vault`, creating no tokens
     function doTakerPayment() internal {
 
-        require ((tokenContract.controller() != 0) && (msg.value != 0) );
+        require ((tokenContract.controller() != address(0)) && (msg.value != 0) );
         tokenContract.pledgeFees(msg.value);
         require (vaultAddress.send(msg.value));
 
@@ -197,7 +198,7 @@ contract NectarController is TokenController, Whitelist {
     /// for fees pledged by the owner
     function doProxyAccounting(address _owner, uint _pledgedAmount, uint _tokensToCreate) internal {
 
-        require ((tokenContract.controller() != 0));
+        require ((tokenContract.controller() != address(0)));
         if(windowFinalBlock[currentWindow()-1] == 0) {
             windowFinalBlock[currentWindow()-1] = block.number -1;
         }
@@ -214,7 +215,7 @@ contract NectarController is TokenController, Whitelist {
 
     /// @notice `onlyOwner` changes the location that ether is sent
     /// @param _newVaultAddress The address that will store the fees collected
-    function setVault(address _newVaultAddress) public onlyOwner {
+    function setVault(address payable _newVaultAddress) public onlyOwner {
         vaultAddress = _newVaultAddress;
     }
 
@@ -249,11 +250,11 @@ contract NectarController is TokenController, Whitelist {
       return input.mul(10 ** 10);
     }
 
-    function currentWindow() public constant returns (uint) {
+    function currentWindow() public view returns (uint) {
        return windowAt(block.timestamp);
     }
 
-    function windowAt(uint timestamp) public constant returns (uint) {
+    function windowAt(uint timestamp) public view returns (uint) {
       return timestamp < startTime
           ? 0
           : timestamp.sub(startTime).div(periodLength * 1 days) + 1;
@@ -284,10 +285,10 @@ contract NectarController is TokenController, Whitelist {
     /// @notice This method can be used by the owner to extract mistakenly
     ///  sent tokens to this contract.
     /// @param _token The address of the token contract that you want to recover
-    function claimTokens(address _token) public onlyOwner {
+    function claimTokens(address payable _token) public onlyOwner {
 
         NEC token = NEC(_token);
-        uint balance = token.balanceOf(this);
+        uint balance = token.balanceOf(address(this));
         token.transfer(owner, balance);
         emit ClaimedTokens(_token, owner, balance);
     }

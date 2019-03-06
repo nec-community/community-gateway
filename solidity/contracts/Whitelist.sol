@@ -1,3 +1,4 @@
+pragma solidity ^0.5.0;
 
 /// @dev `Owned` is a base level contract that assigns an `owner` that can be
 ///  later changed
@@ -9,7 +10,7 @@ contract Owned {
     address public owner;
 
     /// @notice The Constructor assigns the message sender to be `owner`
-    function Owned() public { owner = msg.sender;}
+    constructor() public { owner = msg.sender;}
 
     /// @notice `owner` can step down and assign some other address to this role
     /// @param _newOwner The address of the new owner. 0x0 can be used to create
@@ -21,14 +22,14 @@ contract Owned {
 
 contract Whitelist is Owned {
 
-  function Whitelist() {
+  constructor() public {
     admins[msg.sender] = true;
   }
 
   bool public listActive = true;
 
   // Only users who are on the whitelist
-  function isRegistered(address _user) public constant returns (bool) {
+  function isRegistered(address _user) public view returns (bool) {
     if (!listActive) {
       return true;
     } else {
@@ -76,7 +77,7 @@ contract Whitelist is Owned {
 
   /// @dev register
   /// @param newUsers - Array of users to add to the whitelist
-  function register(address[] newUsers) public onlyAdmins {
+  function register(address[] memory newUsers) public onlyAdmins {
     for (uint i = 0; i < newUsers.length; i++) {
       isOnList[newUsers[i]] = true;
     }
@@ -84,7 +85,7 @@ contract Whitelist is Owned {
 
   /// @dev deregister
   /// @param bannedUsers - Array of users to remove from the whitelist
-  function deregister(address[] bannedUsers) public onlyAdmins {
+  function deregister(address[] memory bannedUsers) public onlyAdmins {
     for (uint i = 0; i < bannedUsers.length; i++) {
       isOnList[bannedUsers[i]] = false;
     }
@@ -112,15 +113,15 @@ contract Whitelist is Owned {
 
   /////// Getters to allow the same whitelist to be used also by other contracts (including upgraded Controllers) ///////
 
-  function getRegistrationStatus(address _user) constant external returns (bool) {
+  function getRegistrationStatus(address _user) view external returns (bool) {
     return isOnList[_user];
   }
 
-  function getAuthorisationStatus(address _maker) constant external returns (bool) {
+  function getAuthorisationStatus(address _maker) view external returns (bool) {
     return isAuthorisedMaker[_maker];
   }
 
-  function getOwner() external constant returns (address) {
+  function getOwner() external view returns (address) {
     return owner;
   }
 

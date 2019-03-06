@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.0;
 
 import "./DestructibleMiniMeToken.sol";
 
@@ -16,15 +16,15 @@ contract DestructibleMiniMeTokenFactory {
     /// @param _transfersEnabled If true, tokens will be able to be transferred
     /// @return The address of the new token contract
     function createDestructibleCloneToken(
-        address _parentToken,
+        address payable _parentToken,
         uint _snapshotBlock,
-        string _tokenName,
+        string memory _tokenName,
         uint8 _decimalUnits,
-        string _tokenSymbol,
+        string memory _tokenSymbol,
         bool _transfersEnabled
     ) public returns (DestructibleMiniMeToken) {
         DestructibleMiniMeToken newToken = new DestructibleMiniMeToken(
-            this,
+            address(this),
             _parentToken,
             _snapshotBlock,
             _tokenName,
