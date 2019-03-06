@@ -108,28 +108,28 @@ class PreviousTokenListing extends Component {
                         </a>
                       </div>
 
-                      <div
-                        className="title"
-                      >
-                        {token.shortName}
-                        <span>{token.ticker}</span>
-                      </div>
-
-                      <div className="results-wrapper">
-                        <div className="yes">
-                          <div className="bar">
-                            <div
-                              className="bar-yes"
-                              style={{ width: `${99 * token.totalYes / token.total}%` }}
-                            />
+                      <div className="title-result-wrapper">
+                        <div
+                          className="title"
+                        >
+                          {token.shortName}
+                          <span>{token.ticker}</span>
+                        </div>
+                        <div className="results-wrapper">
+                          <div className="yes">
+                            <div className="bar">
+                              <div
+                                className="bar-yes"
+                                style={{ width: `${99 * token.totalYes / token.total}%` }}
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <div className="votes-number">{nFormatter(token.totalYes)}</div>
-                      <a className="vote-wrapper" onClick={(e) => {
-                        e.stopPropagation();
-                        this.vote(token);
-                      }}>VOTE</a>
+
+                      <div className="voting-wrapper">
+                        <div className="votes-number">{nFormatter(token.totalYes)}</div>
+                      </div>
                     </div>
                     <p className="description">
                       {token.description}
