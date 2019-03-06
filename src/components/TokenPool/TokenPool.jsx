@@ -100,15 +100,18 @@ class TokenPool extends Component {
 
                     <div className="token-logo-wrapper">
                       <img
-                        src={token.logo || `https://staging-cfs.s3.us-east-2.amazonaws.com/${token.symbolMultihash}`}
-                        alt="" />
+                        src={token.logo || `https://ipfs.kleros.io${token.symbolMultihash}`}
+                        alt={token.name}
+                      />
                     </div>
 
                     <div className="meta">
-                      <p
-                        className="description">{token.description ? token.description : 'No description available.'}</p>
+                      <p className="description">
+                        {token.description ? token.description : 'No description available.'}
+                      </p>
                       <a
                         target="_blank"
+                        rel="noopener noreferrer"
                         href={token.website}
                       >
                         {token.website ? 'Visit website' : 'No website available.'}

@@ -9,6 +9,6 @@
   "simpleVoteContract": "0x0000000000000000000000000000000000000000",
   "necTokenContract": "0x96da48216d5ed99f8e04f511b255edd743242574",
   "necTokenControllerContract": "0xc330aa14183a1962a187135d085e88b8b6e1d680",
-  "klerosT2CR": "0x7a2e4142f573994f76ffe9d8236ba141beed2810",
-  "klerosBadge": "0x708c559e414701d92e32f7f917ddfd68fe4175e2"
+  "klerosT2CR": "0x25dd2659a1430cdbd678615c7409164ae486c146",
+  "klerosBadge": "0xd58bdd286e8155b6223e2a62932ae3e0a9a75759"
 }
