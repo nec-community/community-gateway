@@ -48,7 +48,7 @@ class TokenPool extends Component {
               </p>
               <p>
                 Jurors are randomly chosen, anonymous and economically incentivised to vote in
-                accordance with their best analysis of the project. The court is open for 48 hours
+                accordance with their best analysis of the project. The court is open for 5 days
                 throughout which time new evidence can be presented in regard to whether the
                 criteria are met
               </p>
@@ -205,14 +205,27 @@ class TokenPool extends Component {
 
           <h3>5. Decentralisation</h3>
           <ul>
-            <li>The total minted supply of tokens is not controlled by a single entity or group of
-              entities under common control.
+            <li>
+              The total minted supply of tokens is not controlled by a single entity or group of
+              entities under common control, or will be controlled by a single entity or group of
+              entities after the token is released.
             </li>
             <li>Token ownership does not breach the following conditions:</li>
-            <li>No single entity owns more than 50% of the tokens;</li>
-            <li>The top ten addresses do not own more than 70% of the tokens;</li>
-            <li>At least 25% of the supply is freely circulating in the market.</li>
-            <li>The team which issued the token should have made efforts to be transparent about
+            <li>
+              No single entity owns more than 50% of the circulating supply of tokens or will own
+              more than 50% of the circulating supply after the token is released;
+            </li>
+            <li>
+              The top ten addresses do not own more than 70% of the circulating supply of tokens
+              or will own more than 50% of the circulating supply of tokens after the token is
+              released;
+            </li>
+            <li>
+              At least 10% of the total supply is freely circulating in the market or will be
+              freely circulating after the token is released;
+            </li>
+            <li>
+              The team which issued the token should have made efforts to be transparent about
               details of the token supply, circulating supply, and any inflation, as well as their
               own ownership of issued tokens.
             </li>
