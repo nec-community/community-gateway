@@ -6,15 +6,16 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+require('@babel/polyfill');
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './src/index.html',
   filename: 'index.html',
-  inject: 'body'
+  inject: 'body',
 });
 
 module.exports = {
-  entry: './src/index.jsx',
+  entry: ['@babel/polyfill', './src/index.jsx'],
   output: {
     path: path.resolve('dist'),
     filename: '[name].js',
@@ -80,7 +81,11 @@ module.exports = {
       {
         from: './src/constants/images/',
         to: 'images/',
-      }
+      },
+      {
+        from: './src/constants/videos/',
+        to: 'videos/',
+      },
     ])
   ]
 };
