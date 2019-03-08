@@ -30,7 +30,7 @@ class TokenPool extends Component {
             <div className="left-header">
               <p>
                 In order for a token to be eligible for listing on Ethfinex it needs to meet certain
-                listing criteria (full list <a onClick={() => scrollToSection('criteria')}>here</a>).
+                listing criteria (full list <a href="#criteria" onClick={() => scrollToSection('criteria')}>here</a>).
               </p>
               <p>
                 In line with our ethos of decentralised governance we hand over control of the
@@ -64,11 +64,13 @@ class TokenPool extends Component {
                 of the listing criteria.
               </p>
               <p>
-                For more information on Kleros click <a href="https://kleros.io/" target="_blank"
-                                                        rel="noopener noreferrer">here</a>.
+                For more information on Kleros click <a
+                href="https://blog.kleros.io/kleros-ethfinex-tcr-an-explainer/" target="_blank"
+                rel="noopener noreferrer">here</a>.
                 <br />
-                Find our our listing criteria <a href="#criteria"
-                                                 onClick={() => scrollToSection('criteria')}>here</a><br />
+                Find our our listing criteria <a
+                href="#criteria"
+                onClick={() => scrollToSection('criteria')}>here</a><br />
               </p>
             </div>
             <div className="right-header">
@@ -210,19 +212,9 @@ class TokenPool extends Component {
               entities under common control, or will be controlled by a single entity or group of
               entities after the token is released.
             </li>
-            <li>Token ownership does not breach the following conditions:</li>
-            <li>
-              No single entity owns more than 50% of the circulating supply of tokens or will own
-              more than 50% of the circulating supply after the token is released;
-            </li>
-            <li>
-              The top ten addresses do not own more than 70% of the circulating supply of tokens
-              or will own more than 50% of the circulating supply of tokens after the token is
-              released;
-            </li>
             <li>
               At least 10% of the total supply is freely circulating in the market or will be
-              freely circulating after the token is released;
+              freely circulating after the token is released.
             </li>
             <li>
               The team which issued the token should have made efforts to be transparent about
