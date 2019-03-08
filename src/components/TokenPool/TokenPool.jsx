@@ -30,7 +30,7 @@ class TokenPool extends Component {
             <div className="left-header">
               <p>
                 In order for a token to be eligible for listing on Ethfinex it needs to meet certain
-                listing criteria (full list <a onClick={() => scrollToSection('criteria')}>here</a>).
+                listing criteria (full list <a href="#criteria" onClick={() => scrollToSection('criteria')}>here</a>).
               </p>
               <p>
                 In line with our ethos of decentralised governance we hand over control of the
@@ -64,11 +64,13 @@ class TokenPool extends Component {
                 of the listing criteria.
               </p>
               <p>
-                For more information on Kleros click <a href="https://kleros.io/" target="_blank"
-                                                        rel="noopener noreferrer">here</a>.
+                For more information on Kleros click <a
+                href="https://blog.kleros.io/kleros-ethfinex-tcr-an-explainer/" target="_blank"
+                rel="noopener noreferrer">here</a>.
                 <br />
-                Find our our listing criteria <a href="#criteria"
-                                                 onClick={() => scrollToSection('criteria')}>here</a><br />
+                Find our our listing criteria <a
+                href="#criteria"
+                onClick={() => scrollToSection('criteria')}>here</a><br />
               </p>
             </div>
             <div className="right-header">
