@@ -51,6 +51,22 @@ class TokenAbout extends Component {
               <a href="#winners">The Winners</a>
             </h3>
           </div>
+
+          <div className="important-dates-wrapper">
+            <h3>Important dates</h3>
+            <div className="">
+              <span>Next draw. EVT distribution and market open</span>
+              <span>26 March</span>
+            </div>
+            <div className="">
+              <span>Next vote opens</span>
+              <span>2 April</span>
+            </div>
+            <div className="">
+              <span>Winner announced</span>
+              <span>9 April</span>
+            </div>
+          </div>
         </div>
 
 
@@ -238,12 +254,13 @@ class TokenAbout extends Component {
 
                 <h4>When can I vote?</h4>
                 <p>
-                  You can vote as soon as you receive EVTs (or purchase them from others). Remember
-                  these tokens will expire as soon as the voting closes.
+                  You will received your EVT on the day of drawing the tokens for the voting round.
+                  Voting will be open a week later.
                 </p>
                 <p>
-                  EVTs are distributed on the fourth Monday of every month for a period of five
-                  days. Voting will close at 5pm on the last Friday of the month.
+                  The process will take 2 weeks in total. EVT’s will be distributed on the last
+                  Tuesday of the month, commencing the education period which will last for 7 days.
+                  After this time (on the next Tuesday), we will open voting for the next 7 days.
                 </p>
 
                 <h4>How do I vote?</h4>
