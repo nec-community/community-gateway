@@ -171,10 +171,6 @@ class TokenPool extends Component {
 
           <h3>3. Technology and Product</h3>
           <ul>
-            <li>The token issuer’s publicly stated intention is to ensure the core aspects of the
-              project will be open source and therefore able to operate independently from the
-              original development team.
-            </li>
             <li>There must be evidence of novel technology in development. This may be evaluated for
               example by demonstrating:
             </li>

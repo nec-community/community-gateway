@@ -63,7 +63,7 @@
   .toc-wrapper {
     display: flex;
     flex-wrap: wrap;
-    padding-bottom: 50px;
+    padding-bottom: 10px;
     > h3 {
       flex: 0 0 250px;
       line-height: 34px;
@@ -98,6 +98,23 @@
       a {
         text-decoration: none;
       }
+    }
+  }
+  .important-dates-wrapper {
+    border-bottom: 1px solid white;
+    width: 600px;
+    margin-bottom: 50px;
+    h3 {
+      font-weight: normal;
+      margin: 15px 0;
+    }
+    div {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 42px;
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid white;
     }
   }
   .decorated {
