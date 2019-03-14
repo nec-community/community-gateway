@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Help from '../../components/Help/Help';
 import TokenListingVoteModal from '../TokenListingVoteModal/TokenListingVoteModal';
 import { getPoolTokens } from '../../actions/tokenActions';
-import { scrollToSection } from '../../services/scrollAnimation'
+import { scrollToSection, scrollToTop } from '../../services/scrollAnimation';
 import './TokenPool.scss';
 
 class TokenPool extends Component {
@@ -15,14 +15,14 @@ class TokenPool extends Component {
 
   componentDidMount() {
     this.props.getPoolTokens();
-    if (document.location.hash)
-      scrollToSection(document.location.hash)
+    if (document.location.hash) scrollToSection(document.location.hash);
+    else scrollToTop();
   }
 
   render() {
     const {} = this.state;
     return (
-      <div className="pool">
+      <div className="pool" id="top">
         <Help />
         <div className="container">
           <h1>The Pool</h1>
@@ -74,8 +74,17 @@ class TokenPool extends Component {
               </p>
             </div>
             <div className="right-header">
-              <a className="side-badge" href="https://tokens.kleros.io" target="_blank" rel="noopener noreferrer">
+              <a className="side-badge" href="https://tokens.kleros.io" target="_blank"
+                 rel="noopener noreferrer">
                 Submit a token through Kleros
+                <br />
+                (requires Metamask)
+              </a>
+              <br />
+              <br />
+              <a className="side-badge" href="https://blog.kleros.io/the-ethfinex-listing-guide/"
+                 target="_blank" rel="noopener noreferrer">
+                Quick guide on token submissions
               </a>
             </div>
           </div>

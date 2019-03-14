@@ -20,3 +20,7 @@ export const scrollToSection = (id) => {
   const duration = 150;
   _scrollTo(position, duration);
 };
+
+export const scrollToTop = () => {
+  window.scrollTo(0, 0);
+};
