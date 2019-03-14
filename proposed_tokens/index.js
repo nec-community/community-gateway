@@ -9,6 +9,7 @@ import MINDEXCOIN from './MINDEXCOIN.json';
 import WePower from './WePower.json';
 import upfiring from './upfiring.json';
 import Pinkiaton from './Pinkiaton.json';
+import Gnosis from './gnosis.json';
 
 export default [
   ABYSS,
@@ -22,6 +23,7 @@ export default [
   WePower,
   upfiring,
   Pinkiaton,
+  Gnosis,
 ].reduce((tmp, token) => {
   tmp[token.address.toLowerCase()] = token;
   return tmp;
