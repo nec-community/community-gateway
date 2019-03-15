@@ -119,11 +119,12 @@ contract TokenListingManager is Ownable {
     }
 
     /// @notice Vote for specific token with yes
+    /// @param _proposalId is the proposal's position in tokenBatches array
     /// @param _tokenIndex is the position from 0-9 in the token array of the chosen token
-    function vote(uint _tokenIndex, uint _amount) public {
+    function vote(uint _proposalId, uint _tokenIndex, uint _amount) public {
         // voting only on the most recent set of proposed tokens
         require(tokenBatches.length > 0);
-        uint _proposalId = tokenBatches.length - 1;
+        require(_proposalId == tokenBatches.length - 1);
         require(_tokenIndex < 10);
 
         TokenProposal storage p = tokenBatches[_proposalId];
@@ -212,6 +213,21 @@ contract TokenListingManager is Ownable {
                     count++;
                 }
             }
+        }
+    }
+
+    function getWinners() public view returns(address[] memory) {
+        if(tokenBatches.length == 0) {
+            return new address[](0);
+        }
+
+        uint[] memory winnerIndices = getWinnerIndices(tokenBatches.length - 1);
+
+        TokenProposal memory p = tokenBatches[tokenBatches.length - 1];
+
+        address[] memory winners = new address[](winnerIndices.length);
+        for (uint i = 0; i < winnerIndices.length; i++) {
+            winners[i] = p.consideredTokens[winnerIndices[i]];
         }
     }
 

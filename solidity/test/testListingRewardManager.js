@@ -2,6 +2,7 @@ const ListingRewardManager = artifacts.require("./ListingRewardManager.sol");
 const TokenListingManager = artifacts.require("./TokenListingManager.sol");
 const NectarToken = artifacts.require("./NEC.sol");
 const ERC20Mintable = artifacts.require("./ERC20Mintable");
+const DestructibleMiniMeToken = artifacts.require("./DestructibleMiniMeToken");
 const advanceToBlock = require('./helpers/advanceToBlock').advanceToBlock;
 
 const increaseTime = function(duration) {
@@ -84,14 +85,14 @@ contract('ListingRewardManager', async (accounts) => {
           let otherVote = 3;
 
           let tokens = proposal[6];
-          let votingToken = await ERC20Mintable.at(proposal[7]);
+          let votingToken = await DestructibleMiniMeToken.at(proposal[7]);
 
           let myBalance = await votingToken.balanceOf.call(accounts[0]);
           let otherBalance = await votingToken.balanceOf.call(accounts[1]);
 
           assert.ok(tokens.length > 0, "Number of tokens must be greater than 0");
-          await tlm.vote(myVote, myBalance);
-          await tlm.vote(otherVote, otherBalance, {'from': accounts[1]});
+          await tlm.vote(proposalId, myVote, myBalance);
+          await tlm.vote(proposalId, otherVote, otherBalance, {'from': accounts[1]});
           let winners = await tlm.getWinnerIndices(proposalId);
 
           assert.equal(tokens[winners[0]], testToken.address, "TestToken Should have won the vote");
@@ -140,8 +141,9 @@ contract('ListingRewardManager', async (accounts) => {
     });
 
     it("...should be possible for multiple voters to all claim correct amounts", async () => {
-        const testToken2 = await deployer.deploy(ERC20Mintable)
-        testToken2.mint(accounts[0], 1000000000000000)
+        const testToken2 = await ERC20Mintable.new()
+        await testToken2.mint(accounts[0], 1000000000000000)
+        await testToken2.approve(lrm.address, 1000000000000000);
 
         await increaseTime(7 * 24 * 60 * 60);
 
@@ -169,13 +171,13 @@ contract('ListingRewardManager', async (accounts) => {
                 let fourBalance = await votingToken.balanceOf.call(accounts[3]);
 
                 assert.ok(tokens.length > 0, "Number of tokens must be greater than 0");
-                await tlm.vote(voteFor, myBalance);
+                await tlm.vote(proposalId, voteFor, myBalance);
                 await increaseTime(6 * 60 * 60);
-                await tlm.vote(voteFor, otherBalance, {'from': accounts[1]});
+                await tlm.vote(proposalId, voteFor, otherBalance, {'from': accounts[1]});
                 await increaseTime(6 * 60 * 60);
-                await tlm.vote(voteFor, threeBalance, {'from': accounts[2]});
+                await tlm.vote(proposalId, voteFor, threeBalance, {'from': accounts[2]});
                 await increaseTime(6 * 60 * 60);
-                await tlm.vote(voteFor, fourBalance, {'from': accounts[3]});
+                await tlm.vote(proposalId, voteFor, fourBalance, {'from': accounts[3]});
                 let winners = await tlm.getWinnerIndices(proposalId);
 
                 assert.equal(tokens[winners[0]], testToken2.address, "TestToken Should have won the vote");
@@ -189,6 +191,55 @@ contract('ListingRewardManager', async (accounts) => {
               await lrm.depositRewards(testToken2.address, 1000000);
               let pendingRewards = await lrm.getDepositedRewards(testToken2.address);
               assert.equal(pendingRewards.valueOf(), 1000000, "there are deposited rewards");
+    });
+
+    it("...should be possible to claim all winnings", async () => {
+        const testToken3 = await ERC20Mintable.new()
+        await testToken3.mint(accounts[0], 1000000000000000)
+        await testToken3.approve(lrm.address, 1000000000000000);
+
+        await increaseTime(7 * 24 * 60 * 60);
+
+        let numberOfProposals = await tlm.numberOfProposals();
+        let proposalId = numberOfProposals - 1;
+        let proposal = await tlm.startTokenVotes([
+            '0x0000000000000000000000000000000000000000',
+            '0x1000000000000000000000000000000000000000',
+            '0x2000000000000000000000000000000000000000',
+            '0x3000000000000000000000000000000000000000',
+            '0x4000000000000000000000000000000000000000',
+            testToken3.address], 2, 0, 0);
+
+        numberOfProposals = await tlm.numberOfProposals();
+        proposalId = numberOfProposals - 1;
+        proposal = await tlm.proposal(proposalId);
+        let voteFor = 5;
+
+        let tokens = proposal[6];
+        let votingToken = await ERC20Mintable.at(proposal[7]);
+
+        let myBalance = await votingToken.balanceOf.call(accounts[0]);
+        let otherBalance = await votingToken.balanceOf.call(accounts[1]);
+
+        assert.ok(tokens.length > 0, "Number of tokens must be greater than 0");
+        await tlm.vote(proposalId, voteFor, myBalance);
+        await increaseTime(6 * 60 * 60);
+        await tlm.vote(proposalId, voteFor, otherBalance, {'from': accounts[1]});
+        let winners = await tlm.getWinnerIndices(proposalId);
+
+        assert.equal(tokens[winners[0]], testToken3.address, "TestToken Should have won the vote");
+
+        await increaseTime(7 * 24 * 60 * 60);
+
+        assert.equal(await tlm.isWinner.call(testToken3.address), false, "it is already a winning token")
+        await tlm.endTokenVote(proposalId);
+        assert.equal(await tlm.isWinner.call(testToken3.address), true, "did not get marked as winning token")
+
+        await lrm.depositRewards(testToken3.address, 1000000);
+        let pendingRewards = await lrm.getDepositedRewards(testToken3.address);
+        assert.equal(pendingRewards.valueOf(), 1000000, "there are deposited rewards");
+
+        await lrm.claimAllPendingRewards();
     });
 
 });

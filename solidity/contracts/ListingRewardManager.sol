@@ -1,7 +1,5 @@
 pragma solidity ^0.5.0;
 
-// TODO: write tests
-
 import "./Ownable.sol";
 
 contract TokenListingManager {
@@ -112,11 +110,11 @@ contract ListingRewardManager is Ownable {
     // Have a list of all tokens and whether or not they won (already available from TLMA)
     // When depositingRewards specify which token they are
 
-    function depositRewards(address _tradedToken, uint256 _depositAmount) public {
+    function depositRewards(address _tradedToken, uint128 _depositAmount) public {
       require(isWinner(_tradedToken));
       Token(_tradedToken).transferFrom(msg.sender, address(this), _depositAmount);
 
-      uint256 previousDepositsFor = getDepositedRewardsAt(_tradedToken, block.number);
+      uint128 previousDepositsFor = getDepositedRewardsAt(_tradedToken, block.number);
       require(previousDepositsFor + _depositAmount >= previousDepositsFor);
       updateValueAtNow(depositedRewards[_tradedToken], previousDepositsFor + _depositAmount);
       emit NewRewardsDeposited(_tradedToken, _depositAmount);
@@ -192,7 +190,7 @@ contract ListingRewardManager is Ownable {
         /// @param _block The block number to retrieve the value at
         /// @return The number of tokens being queried
         function getValueAt(Checkpoint[] storage checkpoints, uint _block
-        ) view internal returns (uint) {
+        ) view internal returns (uint128) {
             if (checkpoints.length == 0) return 0;
 
             // Shortcut for the actual value
@@ -218,16 +216,16 @@ contract ListingRewardManager is Ownable {
         ///  `totalSupplyHistory`
         /// @param checkpoints The history of data being updated
         /// @param _value The new number of tokens
-        function updateValueAtNow(Checkpoint[] storage checkpoints, uint _value
+        function updateValueAtNow(Checkpoint[] storage checkpoints, uint128 _value
         ) internal  {
             if ((checkpoints.length == 0)
             || (checkpoints[checkpoints.length -1].fromBlock < block.number)) {
                    Checkpoint storage newCheckPoint = checkpoints[ checkpoints.length++ ];
                    newCheckPoint.fromBlock =  uint128(block.number);
-                   newCheckPoint.value = uint128(_value);
+                   newCheckPoint.value = _value;
                } else {
                    Checkpoint storage oldCheckPoint = checkpoints[checkpoints.length-1];
-                   oldCheckPoint.value = uint128(_value);
+                   oldCheckPoint.value = _value;
                }
         }
 
@@ -261,7 +259,7 @@ contract ListingRewardManager is Ownable {
             /// @param _blockNumber The block number when the balance is queried
             /// @return The balance at `_blockNumber`
             function getDepositedRewardsAt(address _winningToken, uint _blockNumber) public view
-                returns (uint) {
+                returns (uint128) {
 
                 // These next few lines are used when the balance of the token is
                 //  requested before a check point was ever created for this token, it
