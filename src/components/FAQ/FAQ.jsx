@@ -92,12 +92,6 @@ class FAQ extends Component {
             </p>
           </div>
           <div className="faq-container">
-            <h2>When exactly do new EVTs get distributed?</h2>
-            <p className="info-tip">
-            New EVTs are distributed approximately 1-2 hours after the previous voting period ends.
-            </p>
-          </div>
-          <div className="faq-container">
             <h2>If the token we are voting on does not go through, do we get the EVT back?</h2>
             <p className="info-tip">
             No, as the EVT tokens expire every 2 weeks when the voting period ends, the EVT market is cleared 3 hours before voting ends. Once voting ends the EVT tokens expire and new tokens with a new contract address are issued to NEC holders at the ratio of 1:1.

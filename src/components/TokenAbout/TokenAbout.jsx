@@ -120,7 +120,9 @@ class TokenAbout extends Component {
                 <h4>How does a token get in the Pool?</h4>
                 <p>
                   Anyone can propose a token for the Pool, including NEC holders, Token Issuers, and
-                  Ethfinex themselves.
+                  Ethfinex themselves. More information on submitting a token <Link
+                    to="/token-pool"
+                  >here</Link>.
                 </p>
                 <p>
                   Through the Kleros token curated registry ‘badge’ process, the token proposer adds
