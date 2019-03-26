@@ -97,7 +97,7 @@ class TokenListings extends Component {
       daysRemaining,
       hoursRemaining,
       minutesRemaining,
-      secondsRemaining
+      secondsRemaining,
     } = this.state;
     return (
       <div className="listings">
@@ -178,17 +178,15 @@ class TokenListings extends Component {
                 </div>
               }
               {
-                this.props.votes.sort(function(a, b) {
-                    if (a.totalYes - b.totalYes > 0) return -1;
-                  	if (b.totalYes - a.totalYes > 0) return 1;
-
-                    if (a.token.toLowerCase() > b.token.toLowerCase()) return 1;
-                  	if (a.token.toLowerCase() < b.token.toLowerCase()) return -1;
-                  }).map((token, index) => (
+                this.props.votes.sort((a, b) => {
+                  if (a.totalYes - b.totalYes > 0) return -1;
+                  if (b.totalYes - a.totalYes > 0) return 1;
+                  return 1;
+                }).map((token, index) => (
                   <div
-                    key={token.id}
-                    className={`listing-wrapper ${this.state.detailsShown === token.id ? '-active':''}`}
-                    onClick={() => this.toggleDetails(token.id)}
+                    key={token.address}
+                    className={`listing-wrapper ${this.state.detailsShown === token.address ? '-active' : ''}`}
+                    onClick={() => this.toggleDetails(token.address)}
                   >
                     <div className="details-wrapper">
                       <div className="index">{index + 1}</div>
@@ -205,36 +203,44 @@ class TokenListings extends Component {
                           href={token.discussions}
                           className="title"
                         >
-                          {token.shortName}
-                          <span>{token.ticker}</span>
+                          {token.shortName || token.token}
+                          <span>{token.symbol}</span>
                         </div>
 
-                        <div className="results-wrapper">
-                          <div className="yes">
-                            <div className="bar">
-                              <div
-                                className="bar-yes"
-                                style={{ width: `${99 * token.totalYes / token.total}%` }}
-                              />
+                        {
+                          typeof token.totalYes !== 'undefined' &&
+                          <div className="results-wrapper" key={0}>
+                            <div className="yes">
+                              <div className="bar">
+                                <div
+                                  className="bar-yes"
+                                  style={{ width: `${99 * token.totalYes / token.total}%` }}
+                                />
+                              </div>
                             </div>
                           </div>
+                        }
+                      </div>
+                      {
+                        typeof token.totalYes !== 'undefined' &&
+                        <div className="voting-wrapper" key={1}>
+                          <div className="votes-number">{nFormatter(token.totalYes)}</div>
+                          <a className="vote-wrapper" onClick={(e) => {e.stopPropagation(); this.vote(token)}}>VOTE</a>
                         </div>
-                      </div>
-
-                      <div className="voting-wrapper">
-                        <div className="votes-number">{nFormatter(token.totalYes)}</div>
-                        <a className="vote-wrapper" onClick={(e) => {e.stopPropagation(); this.vote(token)}}>VOTE</a>
-                      </div>
+                      }
                     </div>
                     <p className="description">
-                      {token.description}
+                      {token.description || 'No description available'}
                       <br />
-                      <a
-                        href={token.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={e => e.stopPropagation()}
-                      >Visit Website</a>
+                      {
+                        token.website &&
+                        <a
+                          href={token.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={e => e.stopPropagation()}
+                        >Visit Website</a>
+                      }
                     </p>
                   </div>
                 ))
