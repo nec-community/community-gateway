@@ -289,6 +289,10 @@ class TokenAbout extends Component {
                   <li>Day 6 1.167x</li>
                   <li>Day 7 1x</li>
                 </ul>
+                <p>
+                  NOTE: During the first voting round (02.04.19 to 09.04.19) to keep things simple
+                  EVTs will be weighted equally at 2x throughout the period.
+                </p>
 
                 <h4>Can I keep track of which tokens are in the lead?</h4>
                 <p>

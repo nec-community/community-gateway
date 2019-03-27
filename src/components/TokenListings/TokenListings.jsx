@@ -117,7 +117,7 @@ class TokenListings extends Component {
           {
             timeRemaining > 0 &&
             timeRemaining > 7 * 24 * 60 * 60 * 1000 &&
-            <h5>Voting will start when the countdown finishes and last seven days</h5>
+            <h5>Voting will last for 7 days once the countdown finishes</h5>
           }
           {
             timeRemaining > 0 &&
@@ -141,6 +141,11 @@ class TokenListings extends Component {
               <p>
                 Submit your vote using MetaMask, Ledger or Keystore to show support for high-quality
                 projects pushing the boundaries of the blockchain ecosystem.
+              </p>
+              <p>
+                <b>NOTE:</b> To keep things simple during the first voting round (02.04.19 to 09.04.19)
+                EVTs will be weighted equally at 2x throughout the period. In future rounds the value
+                of votes diminishes during the 7 days to incentivise early voting. <Link to="/tokens">Learn more</Link>.
               </p>
               <p>
                 View the results of the <Link to="/previous-token-votes">previous community vote</Link>.
