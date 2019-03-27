@@ -51,7 +51,8 @@ class TokenListings extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.endingTime !== this.props.endingTime ) this.refreshTime();
+    if (prevProps.endingTime !== this.props.endingTime)
+      this.refreshTime();
   }
 
   toggleModal() {
@@ -110,12 +111,12 @@ class TokenListings extends Component {
           }
           {
             timeRemaining > 0 &&
-            timeRemaining < 7 * 24 * 60 * 60 &&
+            timeRemaining < 7 * 24 * 60 * 60 * 1000 &&
             <h5>Voting is live! The top 3 tokens will become tradable on Ethfinex</h5>
           }
           {
             timeRemaining > 0 &&
-            timeRemaining > 7 * 24 * 60 * 60 &&
+            timeRemaining > 7 * 24 * 60 * 60 * 1000 &&
             <h5>Voting will start when the countdown finishes and last seven days</h5>
           }
           {
@@ -230,7 +231,8 @@ class TokenListings extends Component {
                       </div>
                       {
                         typeof token.totalYes !== 'undefined' &&
-                        <div className="voting-wrapper" key={1}>
+                        timeRemaining > 0 &&
+                        <div className="voting-wrapper">
                           <div className="votes-number">{nFormatter(token.totalYes)}</div>
                           <a className="vote-wrapper" onClick={(e) => {e.stopPropagation(); this.vote(token)}}>VOTE</a>
                         </div>

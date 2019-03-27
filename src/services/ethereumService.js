@@ -419,7 +419,6 @@ const getTokenProposalDetails = async () => {
     if (!details) throw new Error('No active token proposal');
     const yesVotes = details._votes.map(x => weiToEth(x));
     const totalVotes = yesVotes.reduce((a, b) => parseInt(a, 10) + parseInt(b, 10), 0);
-    console.log('yellow =>', details)
     const endingTime = new Date((details._startTime * 1000) + (details._duration * 1000));
     return {
       ...details,

@@ -1,5 +1,6 @@
 import config from '../constants/config.json';
 import abis from '../constants/abis.json';
+import tokenData from '../actions/tokenData';
 
 const filter = [
   false, // Do not include tokens which are not on the TCR.
@@ -15,7 +16,7 @@ const filter = [
 const zeroAddress = '0x0000000000000000000000000000000000000000';
 const zeroSubmissionID = '0x0000000000000000000000000000000000000000000000000000000000000000';
 
-const getTokenInfo = async (address) => {
+export const getTokenInfo = async (address) => {
   try {
     const t2crContract = new window._web3.eth.Contract(
       abis.klerosT2CR,
@@ -33,6 +34,7 @@ const getTokenInfo = async (address) => {
       .then(res => res.values.find(ID => ID !== zeroSubmissionID));
 
     const data = await t2crContract.methods.getTokenInfo(submissionID).call();
+    const extraData = tokenData[address.toLowerCase()];
 
     return {
       token: data.name,
@@ -40,6 +42,8 @@ const getTokenInfo = async (address) => {
       symbol: data.ticker,
       address: data.addr,
       logo: `https://ipfs.kleros.io${data.symbolMultihash}`,
+      description: extraData && extraData.description,
+      website: extraData && extraData.website,
     };
   } catch (e) {
     console.error(e);
@@ -47,7 +51,7 @@ const getTokenInfo = async (address) => {
   }
 };
 
-const getApprovedTokens = async () => {
+export const getApprovedTokens = async () => {
   const badgeContract = new window._web3.eth.Contract(
     abis.klerosBadge,
     config.klerosBadge,
@@ -68,7 +72,3 @@ const getApprovedTokens = async () => {
   return Promise.all(addressesWithBadge.map(address => getTokenInfo(address)));
 };
 
-export default {
-  getTokenInfo,
-  getApprovedTokens,
-};
