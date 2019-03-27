@@ -1,4 +1,7 @@
+import proposedTokens from '../../proposed_tokens/index';
+
 export default {
+  ...proposedTokens,
   '0x5Af2Be193a6ABCa9c8817001F45744777Db30756': {
     id: 0,
     token: 'Ethos (ETHOS)',

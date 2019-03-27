@@ -95,9 +95,9 @@ class PreviousTokenListing extends Component {
               {
                 tokens.data.sort((a, b) => (b.totalYes - a.totalYes)).map((token, index) => (
                   <div
-                    key={token.id}
-                    className={`listing-wrapper ${this.state.detailsShown === token.id ? '-active' : ''}`}
-                    onClick={() => this.toggleDetails(token.id)}
+                    key={token.address}
+                    className={`listing-wrapper ${this.state.detailsShown === token.address ? '-active' : ''}`}
+                    onClick={() => this.toggleDetails(token.address)}
                   >
                     <div className="details-wrapper">
                       <div className="index">{index + 1}</div>
@@ -113,7 +113,7 @@ class PreviousTokenListing extends Component {
                           className="title"
                         >
                           {token.shortName}
-                          <span>{token.ticker}</span>
+                          <span>{token.symbol}</span>
                         </div>
                         <div className="results-wrapper">
                           <div className="yes">

@@ -83,7 +83,7 @@ const getSimpleVoteContract = () =>
   new window._web3.eth.Contract(abis.simpleVoteContract, config.simpleVoteContract);
 
 const getAdvancedTokenProposalContract = () =>
-  new window._web3.eth.Contract(abis.tokenListingManagerAdvanced, config.tokenListingManagerAdvanced);
+  new window._web3.eth.Contract(abis.tokenListingManager, config.tokenListingManager);
 
 const getTokenContract = _address =>
   new window._web3.eth.Contract(abis.necTokenContract, _address || config.necTokenContract);
@@ -326,7 +326,9 @@ const voteMission = async (vote, accountType) => {
 
 const voteTokens = async (tokenId, amount, accountType) => {
   const tokenProposalContract = getAdvancedTokenProposalContract();
-  const contractCall = tokenProposalContract.methods.vote(tokenId, ethToWei(amount));
+  let activeProposal = await tokenProposalContract.methods.numberOfProposals().call();
+  activeProposal = parseInt(activeProposal, 10) - 1;
+  const contractCall = tokenProposalContract.methods.vote(activeProposal, tokenId, ethToWei(amount));
   if (accountType === 'ledger') return signAndSendLedger(contractCall);
   if (accountType === 'keystore') return signAndSendKeystore(contractCall);
   const account = await getAccount();
@@ -417,7 +419,7 @@ const getTokenProposalDetails = async () => {
     if (!details) throw new Error('No active token proposal');
     const yesVotes = details._votes.map(x => weiToEth(x));
     const totalVotes = yesVotes.reduce((a, b) => parseInt(a, 10) + parseInt(b, 10), 0);
-    const endingTime = new Date(details._startTime * 1000 + details._duration * 1000);
+    const endingTime = new Date((details._startTime * 1000) + (details._duration * 1000));
     return {
       ...details,
       yesVotes,
@@ -450,8 +452,8 @@ const getVotingTokenBalance = async (_account) => {
   const ownBalance = await votingTokenContract.methods.balanceOf(account).call();
   log(`voting token balance for ${account} = ${ownBalance}`);
 
-  const delegatedBalance = await delegatedTokenBalance(account, _votingToken)
-  log(`delegated voting token balance for ${account} = ${delegatedBalance}`);
+  // const delegatedBalance = await delegatedTokenBalance(account, _votingToken)
+  // log(`delegated voting token balance for ${account} = ${delegatedBalance}`);
 
   let totalBalance = new window._web3.utils.BN(ownBalance);
   totalBalance = totalBalance.add(new window._web3.utils.BN(delegatedBalance));
@@ -461,6 +463,7 @@ const getVotingTokenBalance = async (_account) => {
   return totalBalance.toString();
 };
 
+/*
 const getVotesSpentBalance = async (_account) => {
   const tokenListingManager = getAdvancedTokenProposalContract();
   let activeProposal;
@@ -475,6 +478,7 @@ const getVotesSpentBalance = async (_account) => {
   const account = _account || await getAccount();
   return tokenListingManager.methods.votesSpentThisRound(activeProposal, account).call();
 };
+*/
 
 const getProposals = async () => {
   const proposalContract = getProposalContract();
@@ -651,7 +655,6 @@ export default {
   ethToWei,
   getTokenBalance,
   getVotingTokenBalance,
-  getVotesSpentBalance,
   estimatePayout,
   submitProposal,
   getProposalDetails,

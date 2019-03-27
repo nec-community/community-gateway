@@ -102,17 +102,17 @@ class TokenPool extends Component {
             }
             {
               this.props.pool.map((token, index) => (
-                <div key={token.ticker} className="token-wrapper">
+                <div key={token.address} className="token-wrapper">
                   <div className="details-wrapper">
                     <div className="title">
-                      {token.shortName || token.name}
-                      <div>{token.ticker}</div>
+                      {token.shortName || token.token}
+                      <div>{token.symbol}</div>
                     </div>
 
                     <div className="token-logo-wrapper">
                       <img
                         src={token.logo || `https://ipfs.kleros.io${token.symbolMultihash}`}
-                        alt={token.name}
+                        alt={token.shortName}
                       />
                     </div>
 
