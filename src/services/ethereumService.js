@@ -456,7 +456,7 @@ const getVotingTokenBalance = async (_account) => {
   // log(`delegated voting token balance for ${account} = ${delegatedBalance}`);
 
   let totalBalance = new window._web3.utils.BN(ownBalance);
-  totalBalance = totalBalance.add(new window._web3.utils.BN(delegatedBalance));
+  // totalBalance = totalBalance.add(new window._web3.utils.BN(delegatedBalance));
 
   log(`total voting token balance for ${account} = ${totalBalance}`);
 
