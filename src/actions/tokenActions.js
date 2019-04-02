@@ -34,6 +34,7 @@ export const getTokenVotes = () => async (dispatch) => {
     (await Promise.all(proposalData._tokens.map(getTokenInfo)))
       .map((token, i) => ({
         ...token,
+        id: i,
         totalYes: proposalData.yesVotes[i],
         total: proposalData.totalVotes,
       }))
