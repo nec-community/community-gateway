@@ -53,7 +53,7 @@ class TokenListingVoteModal extends Component {
             <div>
               <p>
                 You can distribute your EVT to multiple tokens.
-                Choose how many EVT you’d like to assing to {token}.
+                Choose how many EVT you’d like to assign to {token}.
               </p>
               <p className="amount-picker">
                 <input
