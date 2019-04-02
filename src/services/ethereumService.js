@@ -452,11 +452,7 @@ const getVotingTokenBalance = async (_account) => {
   const ownBalance = await votingTokenContract.methods.balanceOf(account).call();
   log(`voting token balance for ${account} = ${ownBalance}`);
 
-  // const delegatedBalance = await delegatedTokenBalance(account, _votingToken)
-  // log(`delegated voting token balance for ${account} = ${delegatedBalance}`);
-
-  let totalBalance = new window._web3.utils.BN(ownBalance);
-  // totalBalance = totalBalance.add(new window._web3.utils.BN(delegatedBalance));
+  const totalBalance = new window._web3.utils.BN(ownBalance);
 
   log(`total voting token balance for ${account} = ${totalBalance}`);
 
