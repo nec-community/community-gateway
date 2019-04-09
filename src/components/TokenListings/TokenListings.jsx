@@ -236,10 +236,17 @@ class TokenListings extends Component {
                       </div>
                       {
                         typeof token.totalYes !== 'undefined' &&
-                        timeRemaining > 0 &&
                         <div className="voting-wrapper">
                           <div className="votes-number">{nFormatter(token.totalYes)}</div>
-                          <a className="vote-wrapper" onClick={(e) => {e.stopPropagation(); this.vote(token)}}>VOTE</a>
+                          {
+                            timeRemaining > 0 &&
+                            <a
+                              className="vote-wrapper"
+                              onClick={(e) => { e.stopPropagation(); this.vote(token); }}
+                            >
+                              VOTE
+                            </a>
+                          }
                         </div>
                       }
                     </div>

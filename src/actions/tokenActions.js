@@ -16,7 +16,7 @@ const fetchedTokens = (tokens, endingTime, isActive) => ({
 
 export const getTokenVotes = () => async (dispatch) => {
   const proposalData = await eth.getTokenProposalDetails();
-  if (!proposalData._tokens || proposalData._finalized) {
+  if (!proposalData._tokens) {
     log('No active token proposal');
     const tokens = (await Promise.all(currentLeaderboard.map(getTokenInfo)))
       .map((token) => {
