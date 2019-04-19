@@ -1,0 +1,52 @@
+.header-desc-container {
+  margin: 20px auto 30px;
+  p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.4em;
+  }
+  .right-header {
+    .side-badge {
+      display: block;
+      background-color: #4800FF;
+      padding: 25px;
+      font-size: 20px;
+      width: 280px;
+      text-align: center;
+      position: relative;
+      transition: background-color .2s;
+      &:before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background-color: #9972FF;
+        right: -10px;
+        bottom: -10px;
+        display: block;
+        z-index: -1;
+      }
+      &:hover {
+        background-color: lighten(#4800FF, 2%);
+      }
+    }
+  }
+  @media screen and (min-width: 768px) {
+    .left-header {
+      vertical-align: top;
+      display: inline-block;
+      width: 70%;
+      margin-bottom: 0;
+      p {
+        margin-top: 0;
+      }
+    }
+    .right-header {
+      vertical-align: top;
+      display: inline-block;
+      width: 27%;
+      margin-left: 3%;
+    }
+  }
+}

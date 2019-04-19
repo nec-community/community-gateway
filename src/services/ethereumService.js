@@ -1,7 +1,9 @@
-import ledger from 'ledgerco';
+import TransportU2F from '@ledgerhq/hw-transport-u2f';
+import Eth from '@ledgerhq/hw-app-eth';
 import Tx from 'ethereumjs-tx';
 import Web3 from 'web3';
 import config from '../constants/config.json';
+import abis from '../constants/abis.json';
 import { log, toDecimal } from './utils';
 import grenache from './grenacheService';
 import keystore from './keystoreService';
@@ -18,24 +20,36 @@ let totalTokens;
 let burningEnabled;
 
 const setWeb3toMetamask = () => {
-  window._web3 = new Web3(web3.currentProvider);
+  if (window.ethereum) {
+    return window._web3 = new Web3(ethereum);
+  }
+  else if (window.web3) {
+    return window._web3 = new Web3(web3.currentProvider);
+  }
+  else throw new Error('Web3 provider not found')
 };
 
 const setupWeb3 = () => {
   window._web3 = new Web3(config.providerUrl);
 };
 
-const getAccount = () => (
-  new Promise(async (resolve, reject) => {
-    try {
-      const accounts = await window._web3.eth.getAccounts();
-      if (!accounts.length) throw new Error('No accounts (Possibly locked)');
-      resolve(accounts[0]);
-    } catch (err) {
-      reject(err);
-    }
-  })
-);
+const isMetamaskApproved = async () => {
+  if (!window.ethereum) return true
+  if (!window.ethereum.enable) return true
+  if (!window.ethereum._metamask) return false
+  if (!window.ethereum._metamask.isApproved) return false
+  return window.ethereum._metamask.isApproved()
+}
+
+const metamaskApprove = async () => {
+  if (window.ethereum && window.ethereum.enable) return window.ethereum.enable();
+}
+
+const getAccount = async () => {
+  const accounts = await window._web3.eth.getAccounts();
+  if (!accounts.length) throw new Error('No accounts (Possibly locked)');
+  return accounts[0];
+};
 
 const getBalance = async (_account) => {
   const account = _account || await getAccount();
@@ -63,35 +77,45 @@ const getBlockNumber = () => window._web3.eth.getBlockNumber();
 const getNetwork = () => window._web3.eth.net.getId();
 
 const getProposalContract = () =>
-  new window._web3.eth.Contract(config.proposalContract.abi, config.proposalContract.address);
+  new window._web3.eth.Contract(abis.proposalContract, config.proposalContract);
+
+const getSimpleVoteContract = () =>
+  new window._web3.eth.Contract(abis.simpleVoteContract, config.simpleVoteContract);
 
 const getAdvancedTokenProposalContract = () =>
-  new window._web3.eth.Contract(config.tokenListingManagerAdvanced.abi, config.tokenListingManagerAdvanced.address);
+  new window._web3.eth.Contract(abis.tokenListingManager, config.tokenListingManager);
 
 const getTokenContract = _address =>
-  new window._web3.eth.Contract(config.necTokenContract.abi, _address || config.necTokenContract.address);
+  new window._web3.eth.Contract(abis.necTokenContract, _address || config.necTokenContract);
 
 const getVotingTokenContract = _votingToken =>
-  new window._web3.eth.Contract(config.necTokenContract.abi, _votingToken);
+  new window._web3.eth.Contract(abis.necTokenContract, _votingToken);
 
 const getControllerContract = () =>
-  new window._web3.eth.Contract(config.necTokenControllerContract.abi, config.necTokenControllerContract.address);
+  new window._web3.eth.Contract(abis.necTokenControllerContract, config.necTokenControllerContract);
+
+const getLedgerTransport = async () => {
+  if (!ledgerComm) {
+    ledgerComm = await TransportU2F.create();
+  }
+  return ledgerComm;
+}
 
 const ledgerLogin = async (path) => {
   ledgerPath = path;
-  if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
-  const eth = new ledger.eth(ledgerComm);
-  const account = await eth.getAddress_async(ledgerPath);
+  const _transport = await getLedgerTransport();
+  const eth = new Eth(_transport);
+  const account = await eth.getAddress(ledgerPath);
   return account.address;
 };
 
 const ledgerListAccounts = async (pathPrefix, start, n) => {
-  if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
-  const eth = new ledger.eth(ledgerComm);
+  const _transport = await getLedgerTransport();
+  const eth = new Eth(_transport);
   const accounts = [];
   for (let i = 0; i < n; i++) {
     const path = pathPrefix + '/' + (start + i);
-    const account = await eth.getAddress_async(path);
+    const account = await eth.getAddress(path);
     account.path = path;
     accounts.push(account);
   }
@@ -99,9 +123,9 @@ const ledgerListAccounts = async (pathPrefix, start, n) => {
 };
 
 const signAndSendLedger = async (contractCall, value = 0, gasPrice = config.defaultGasPrice) => {
-  if (!ledgerComm) ledgerComm = await ledger.comm_u2f.create_async(1000000);
-  const eth = new ledger.eth(ledgerComm);
-  const account = await eth.getAddress_async(ledgerPath);
+  const _transport = await getLedgerTransport();
+  const eth = new Eth(_transport);
+  const account = await eth.getAddress(ledgerPath);
   log(`LEDGER account ${account.address}`);
 
   const encodedAbi = contractCall.encodeABI();
@@ -117,20 +141,20 @@ const signAndSendLedger = async (contractCall, value = 0, gasPrice = config.defa
     to: contractCall._parent._address,
     data: encodedAbi,
     value: window._web3.utils.numberToHex(value),
-    chainId: config.network,
-    v: config.network,
   };
 
   const gasLimit = await window._web3.eth.estimateGas(rawTx);
   log(`LEDGER gasLimit ${gasLimit}`);
   rawTx.gasLimit = window._web3.utils.numberToHex(gasLimit);
+  rawTx.chainId = config.network;
+  rawTx.v = config.network;
 
   log('LEDGER rawTx', rawTx);
 
   const tx = new Tx(rawTx);
   log('LEDGER tx', tx);
 
-  const signedTx = await eth.signTransaction_async(ledgerPath, tx.serialize().toString('hex'));
+  const signedTx = await eth.signTransaction(ledgerPath, tx.serialize().toString('hex'));
   log('LEDGER signedTx', signedTx);
 
   const tx2 = new Tx({
@@ -170,13 +194,13 @@ const signAndSendKeystore = async (contractCall, value = 0, gasPrice = config.de
     to: contractCall._parent._address,
     data: encodedAbi,
     value: window._web3.utils.numberToHex(value),
-    chainId: config.network,
-    v: config.network,
   };
 
   const gasLimit = await window._web3.eth.estimateGas(rawTx);
   log(`KEYSTORE gasLimit ${gasLimit}`);
   rawTx.gasLimit = window._web3.utils.numberToHex(gasLimit);
+  rawTx.chainId = config.network;
+  rawTx.v = config.network;
 
   log('KEYSTORE rawTx', rawTx);
 
@@ -289,9 +313,22 @@ const vote = async (id, vote, accountType) => {
   });
 };
 
+const voteMission = async (vote, accountType) => {
+  const simpleVoteContract = getSimpleVoteContract();
+  const contractCall = simpleVoteContract.methods.vote(vote);
+  if (accountType === 'ledger') return signAndSendLedger(contractCall);
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall);
+  const account = await getAccount();
+  return contractCall.send({
+    from: account,
+  });
+};
+
 const voteTokens = async (tokenId, amount, accountType) => {
   const tokenProposalContract = getAdvancedTokenProposalContract();
-  const contractCall = tokenProposalContract.methods.vote(tokenId, ethToWei(amount));
+  let activeProposal = await tokenProposalContract.methods.numberOfProposals().call();
+  activeProposal = parseInt(activeProposal, 10) - 1;
+  const contractCall = tokenProposalContract.methods.vote(activeProposal, tokenId, ethToWei(amount));
   if (accountType === 'ledger') return signAndSendLedger(contractCall);
   if (accountType === 'keystore') return signAndSendKeystore(contractCall);
   const account = await getAccount();
@@ -382,7 +419,7 @@ const getTokenProposalDetails = async () => {
     if (!details) throw new Error('No active token proposal');
     const yesVotes = details._votes.map(x => weiToEth(x));
     const totalVotes = yesVotes.reduce((a, b) => parseInt(a, 10) + parseInt(b, 10), 0);
-    const endingTime = new Date(details._startTime * 1000 + details._duration * 1000);
+    const endingTime = new Date((details._startTime * 1000) + (details._duration * 1000));
     return {
       ...details,
       yesVotes,
@@ -415,17 +452,14 @@ const getVotingTokenBalance = async (_account) => {
   const ownBalance = await votingTokenContract.methods.balanceOf(account).call();
   log(`voting token balance for ${account} = ${ownBalance}`);
 
-  const delegatedBalance = await delegatedTokenBalance(account, _votingToken)
-  log(`delegated voting token balance for ${account} = ${delegatedBalance}`);
-
-  let totalBalance = new window._web3.utils.BN(ownBalance);
-  totalBalance = totalBalance.add(new window._web3.utils.BN(delegatedBalance));
+  const totalBalance = new window._web3.utils.BN(ownBalance);
 
   log(`total voting token balance for ${account} = ${totalBalance}`);
 
   return totalBalance.toString();
 };
 
+/*
 const getVotesSpentBalance = async (_account) => {
   const tokenListingManager = getAdvancedTokenProposalContract();
   let activeProposal;
@@ -440,6 +474,7 @@ const getVotesSpentBalance = async (_account) => {
   const account = _account || await getAccount();
   return tokenListingManager.methods.votesSpentThisRound(activeProposal, account).call();
 };
+*/
 
 const getProposals = async () => {
   const proposalContract = getProposalContract();
@@ -459,7 +494,10 @@ const getNonApprovedProposals = async () => {
   const proposalContract = getProposalContract();
   const proposalIDs = await proposalContract.methods.getNotApprovedProposals().call();
   log('getActiveProposals', proposalIDs);
-  return proposalIDs.map(id => getProposalDetails(id));
+  return proposalIDs
+    .sort((a, b) => parseInt(b) - parseInt(a))
+    .filter(id => !(config.hiddenProposals || []).includes(parseInt(id)))
+    .map(id => getProposalDetails(id));
 };
 
 const getDelegates = async () =>
@@ -603,6 +641,8 @@ const fetchData = async () => {
 export default {
   setWeb3toMetamask,
   setupWeb3,
+  isMetamaskApproved,
+  metamaskApprove,
   getAccount,
   getBalance,
   getNetwork,
@@ -611,7 +651,6 @@ export default {
   ethToWei,
   getTokenBalance,
   getVotingTokenBalance,
-  getVotesSpentBalance,
   estimatePayout,
   submitProposal,
   getProposalDetails,
@@ -619,6 +658,7 @@ export default {
   getActiveProposals,
   getNonApprovedProposals,
   vote,
+  voteMission,
   voteTokens,
   getActiveTokenListingProposal,
   getTokenProposalDetails,

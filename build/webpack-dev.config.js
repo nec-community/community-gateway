@@ -4,15 +4,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
+require('@babel/polyfill');
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './src/index.html',
   filename: 'index.html',
-  inject: 'body'
+  inject: 'body',
 });
 
 module.exports = {
-  entry: './src/index.jsx',
+  entry: ['@babel/polyfill', './src/index.jsx'],
   devtool: 'inline-source-map',
   node: {
     fs: 'empty',
@@ -21,6 +22,8 @@ module.exports = {
   },
   devServer: {
     hot: true,
+    // disableHostCheck: true,
+    // port: 80,
   },
   output: {
     path: path.resolve('dist'),
@@ -74,13 +77,17 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new FaviconsWebpackPlugin(path.resolve('nec.png')),
     new WriteFilePlugin({
-      test: /^images/,
+      test: /^(images|videos)/,
     }),
     new CopyWebpackPlugin([
       {
         from: './src/constants/images/',
         to: 'images/',
-      }
+      },
+      {
+        from: './src/constants/videos/',
+        to: 'videos/',
+      },
     ])
   ]
 };

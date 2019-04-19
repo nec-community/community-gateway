@@ -2,6 +2,8 @@
 @import "../../common/components";
 @import "../../common/variables";
 
+@import "../../common/header-desc-container";
+
 * {
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
@@ -26,19 +28,80 @@ nav {
   position: absolute;
   width: 100%;
   transition: .2s background-color;
-  padding: 15px 30px;
+  padding: 15px 30px 0;
+  font-weight: 300;
+  z-index: 10000;
   @media screen and (min-width: 1080px) {
     display: flex;
     justify-content: space-between;
-    padding: 30px 40px;
+    padding: 30px 40px 0;
   }
   .nav-links {
+    .dropdown-wrapper {
+      display: inline-block;
+      position: relative;
+      padding-right: 10px;
+      > a {
+        color: $color4;
+        position: relative;
+        padding-right: 20px;
+        &:before,
+        &:after {
+          content: '';
+          display: block;
+          position: absolute;
+          //transition: .2s;
+          width: 9px;
+          right: 0;
+          top: 19px;
+          border-bottom: 1px solid $color4;
+          transform: rotate(-45deg);
+        }
+        &:before {
+          margin-right: 6px;
+          transform: rotate(45deg);
+        }
+      }
+      > div {
+        display: none;
+        position: absolute;
+        background-color: $color1;
+        box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, .4);
+        min-width: 100%;
+        width: 170px;
+        text-align: right;
+        right: 0;
+        a {
+          display: block;
+          line-height: 1em;
+        }
+      }
+      &:hover {
+        > div {
+          display: block;
+        }
+        > a {
+          color: white;
+        }
+        > a:after,
+        > a:before {
+          border-color: white;
+        }
+      }
+    }
     @media screen and (max-width: 1079px) {
       display: none;
-      a {
-        display: block;
+      > a,
+      > div {
+        display: block !important;
         text-align: right;
-        padding: 0 16px;
+        padding: 0 16px !important;
+      }
+      .dropdown-wrapper > div {
+        position: relative;
+        display: block;
+        box-shadow: none;
+        padding-right: 12px;
       }
     }
   }
@@ -57,6 +120,9 @@ nav {
     line-height: 48px;
     text-decoration: none;
     cursor: pointer;
+    &:hover {
+      color: white;
+    }
   }
   .menu-opener-wrapper {
     padding: 10px 5px 5px;
@@ -106,10 +172,14 @@ footer {
   display: inline-flex;
   line-height: 48px;
   font-size: 13px;
+  a {
+    padding: 0;
+  }
   img {
     height: 47px;
     width: 47px;
     margin-right: 15px;
+    vertical-align: top;
   }
 }
 
@@ -125,5 +195,5 @@ footer {
 }
 
 a {
-  color: #fff;
+  color: inherit;
 }

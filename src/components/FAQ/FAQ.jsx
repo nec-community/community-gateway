@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 
 import './FAQ.scss';
 
@@ -63,7 +64,7 @@ class FAQ extends Component {
           <div className="faq-container">
             <h2>What is the Ethfinex Voting Token (EVT)?</h2>
             <p className="info-tip">
-            The Ethfinex Voting Token is a bi-monthly distributed token used for the voting of ERC20 tokens to be listed on Ethfinex. You can view the currently ongoing vote <a href="#/listings" target="_blank"> here </a>. These tokens are distributed to Nectar Token (NEC) holders every time a vote starts in a 1:1 ratio, eg. a user holding 5,000 NEC on the date and time that the voting begins, would receive 5,000 EVT.
+            The Ethfinex Voting Token is a bi-monthly distributed token used for the voting of ERC20 tokens to be listed on Ethfinex. You can view the currently ongoing vote <Link to="/token-leaderboard"> here </Link>. These tokens are distributed to Nectar Token (NEC) holders every time a vote starts in a 1:1 ratio, eg. a user holding 5,000 NEC on the date and time that the voting begins, would receive 5,000 EVT.
             </p>
           </div>
           <div className="faq-container">
@@ -88,12 +89,6 @@ class FAQ extends Component {
             <h2>If I withdraw my EVT to an external wallet, will they still expire?</h2>
             <p className="info-tip">
             Tokens withdrawn to external wallets will also expire and balances will disappear at the end of the voting period. This is automatic and will expire across all Wallets. EVT are then reissued based on users updated NEC balances, to be used in the next token listing vote and when the EVT market begins again.
-            </p>
-          </div>
-          <div className="faq-container">
-            <h2>When exactly do new EVTs get distributed?</h2>
-            <p className="info-tip">
-            New EVTs are distributed approximately 1-2 hours after the previous voting period ends.
             </p>
           </div>
           <div className="faq-container">
@@ -165,7 +160,7 @@ class FAQ extends Component {
               The 3 tokens on the list which receive the highest number of votes will
               then be listed at the end of the period. A new period will then begin,
               with redistribution of temporary voting tokens.
-              You can see an example of the voting page <a href="#/listings" target="_blank"> here </a>.
+              You can see an example of the voting page <Link to="/token-leaderboard"> here </Link>.
             </p>
           </div>
           <div className="faq-container">

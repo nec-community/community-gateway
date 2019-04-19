@@ -26,3 +26,5 @@ export const CLOSE_LOGIN = 'close_login';
 
 export const OPEN_HELP = 'open_help';
 export const CLOSE_HELP = 'close_help';
+
+export const FETCHED_POOL_TOKENS = 'fetched_pool_tokens';
