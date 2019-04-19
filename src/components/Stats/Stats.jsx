@@ -62,9 +62,9 @@ class Stats extends Component {
               </div>
             </div>
             <div className="trading-volume">
-              <div>Ethfinex previous 30-day <br />trading volume:</div>
+              <div>Ethfinex average 30-day <br />trading volume:</div>
               <div className="stat-wrapper">
-                <div className="stat">0.55 bil</div>
+                <div className="stat">0.15-0.2 bil</div>
                 <div className="stat-addon">
                   <div>USD</div>
                 </div>
