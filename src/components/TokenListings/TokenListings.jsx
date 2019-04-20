@@ -143,9 +143,8 @@ class TokenListings extends Component {
                 projects pushing the boundaries of the blockchain ecosystem.
               </p>
               <p>
-                <b>NOTE:</b> To keep things simple during the first voting round (02.04.19 to 09.04.19)
-                EVTs will be weighted equally at 2x throughout the period. In future rounds the value
-                of votes diminishes during the 7 days to incentivise early voting. <Link to="/tokens">Learn more</Link>.
+                <b>NOTE:</b> Vote value diminishes during the 7 days to incentivise early voting.
+                Value starts at a 2x multiple of EVT and decreases linearly to 1x.<Link to="/tokens">Learn more</Link>.
               </p>
               <p>
                 View the results of the <Link to="/previous-token-votes">previous community vote</Link>.
