@@ -21,6 +21,9 @@ import AXPR from './axpire.json';
 import WIB from './wibson.json';
 import TOL from './tolar.json';
 import FET from './fetch.json';
+import INK from './ink.json';
+import PMA from './pumapay.json';
+import TRIO from './tripio.json';
 
 export default [
   ABYSS,
@@ -45,7 +48,10 @@ export default [
   AXPR,
   WIB,
   TOL,
-  FET
+  FET,
+  TRIO,
+  INK,
+  PMA
 ].reduce((tmp, token) => {
   tmp[token.address.toLowerCase()] = token;
   return tmp;
