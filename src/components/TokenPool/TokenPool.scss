@@ -46,6 +46,15 @@
           font-size: 12px;
           font-weight: normal;
         }
+        .listed {
+          display: inline-block;
+          margin-left: 4px;
+          margin-bottom: -2px;
+          height: 16px;
+          width: 16px;
+          background-image: url('./check-circle.svg');
+          background-size: cover;
+        }
       }
       .token-logo-wrapper {
         margin: 0 auto;
