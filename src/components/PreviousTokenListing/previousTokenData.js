@@ -2,6 +2,26 @@
 /* eslint-disable comma-dangle */
 
 export default {
+  '26/03 - 09/04': {
+    listedOn: 'Monday 15th April',
+    winThreshold: 3,
+    link: 'https://etherscan.io/token/0x1f491950e0d3cf94c39e6ff02477aa64ec4e22c5?a=0x8714f686102f206a233f415d521194ec80d2a48a',
+    data: [
+      {
+        address: '',
+        id: 0,
+        token: '',
+        description: 'This is some example description text. TODO: Populate previous token voting data.',
+        logo: 'https://test.test/img/t.png',
+        discussions: 'https://t.me/test',
+        website: 'https://test.test/',
+        shortName: 'TEST',
+        ticker: 'TST',
+        totalYes: '0',
+        total: 10,
+      },
+    ],
+  },
   '30/10 - 13/11': {
     listedOn: 'Thursday 30th November',
     winThreshold: 3,
