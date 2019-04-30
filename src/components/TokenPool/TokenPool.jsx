@@ -106,6 +106,7 @@ class TokenPool extends Component {
                   <div className="details-wrapper">
                     <div className="title">
                       {token.shortName || token.token}
+                      {token.listed && <span className="listed" title="Listed" />}
                       <div>{token.symbol}</div>
                     </div>
 

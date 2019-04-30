@@ -1,6 +1,7 @@
 import config from '../constants/config.json';
 import abis from '../constants/abis.json';
 import tokenData from '../actions/tokenData';
+import listedTokens from './listedTokens';
 
 const filter = [
   false, // Do not include tokens which are not on the TCR.
@@ -44,6 +45,7 @@ export const getTokenInfo = async (address) => {
       logo: `https://ipfs.kleros.io${data.symbolMultihash}`,
       description: extraData && extraData.description,
       website: extraData && extraData.website,
+      listed: listedTokens.indexOf(address) !== -1,
     };
   } catch (e) {
     console.error(e);
@@ -66,7 +68,10 @@ export const getApprovedTokens = async () => {
       filter,
       true, // Return oldest first.
     )
-    .call()).values.filter(address => address !== zeroAddress);
+    .call()).values
+    .map(address => address.toLowerCase())
+    .filter(address => address !== zeroAddress);
+    // .filter(address => listedTokens.indexOf(address) === -1);
 
   // With the token IDs, get the information and add it to the object.
   return Promise.all(addressesWithBadge.map(address => getTokenInfo(address)));
