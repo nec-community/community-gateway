@@ -7,11 +7,12 @@ import proposedTokenData from '../../proposed_tokens';
 import { log } from '../services/utils';
 import currentLeaderboard from '../components/TokenListings/currentLeaderboard';
 
-const fetchedTokens = (tokens, endingTime, isActive) => ({
+const fetchedTokens = (tokens, endingTime, isActive, evtAddress) => ({
   type: FETCHED_TOKENS,
   tokens,
   endingTime,
   isActive,
+  evtAddress,
 });
 
 export const getTokenVotes = () => async (dispatch) => {
@@ -27,7 +28,7 @@ export const getTokenVotes = () => async (dispatch) => {
           website: extraData && extraData.website,
         };
       });
-    dispatch(fetchedTokens(tokens, new Date(), false));
+    dispatch(fetchedTokens(tokens, new Date(), false, '0x0'));
     return;
   }
   const tokens =
@@ -39,7 +40,7 @@ export const getTokenVotes = () => async (dispatch) => {
         total: proposalData.totalVotes,
       }))
       .filter(token => token.address !== '0x0000000000000000000000000000000000000000');
-  dispatch(fetchedTokens(tokens, proposalData.endingTime, proposalData._active));
+  dispatch(fetchedTokens(tokens, proposalData.endingTime, proposalData._active, proposalData._votingToken));
 };
 
 export const voteForToken = (id, amount) => async (dispatch, getState) => {
