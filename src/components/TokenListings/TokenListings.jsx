@@ -132,7 +132,7 @@ class TokenListings extends Component {
             <div className="left-header">
               <p>
                 Ethfinex <a
-                href='https://etherscan.io/token/0x1f491950e0d3cf94c39e6ff02477aa64ec4e22c5'
+                href={'https://etherscan.io/token/' + this.props.evtAddress}
                 target='_blank'>Voting Tokens</a> are issued to traders in proportion to their NEC
                 holdings, allowing loyal users more of a say without spending Nectar tokens. To find
                 out more about the voting process and how projects are selected to be voted on, see
@@ -144,7 +144,7 @@ class TokenListings extends Component {
               </p>
               <p>
                 <b>NOTE:</b> Vote value diminishes during the 7 days to incentivise early voting.
-                Value starts at a 2x multiple of EVT and decreases linearly to 1x.<Link to="/tokens">Learn more</Link>.
+                Value starts at a 2x multiple of EVT and decreases linearly to 1x. <Link to="/tokens">Learn more</Link>.
               </p>
               <p>
                 View the results of the <Link to="/previous-token-votes">previous community vote</Link>.
@@ -286,6 +286,7 @@ TokenListings.propTypes = {
   account: PropTypes.string.isRequired,
   getVotingTokenBalance: PropTypes.func.isRequired,
   endingTime: PropTypes.object.isRequired,
+  evtAddress: PropTypes.string.isRequired,
   isProposalActive: PropTypes.bool.isRequired,
 };
 
@@ -293,6 +294,7 @@ const mapStateToProps = state => ({
   votes: state.token.tokens,
   isProposalActive: state.token.isActive,
   endingTime: state.token.endingTime,
+  evtAddress: state.token.evtAddress,
   votingTokenBalance: state.account.votingTokenBalance,
   accountType: state.account.accountType,
   account: state.account.account,

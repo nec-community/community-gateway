@@ -15,6 +15,7 @@ export default (state = INITIAL_STATE, action) => {
         tokens: action.tokens,
         endingTime: action.endingTime,
         isActive: action.isActive,
+        evtAddress: action.evtAddress,
       };
     case FETCHED_POOL_TOKENS:
       return {
