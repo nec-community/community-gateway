@@ -24,6 +24,7 @@ import FET from './fetch.json';
 import INK from './ink.json';
 import PMA from './pumapay.json';
 import TRIO from './tripio.json';
+import SOLVE from './solve.json';
 
 export default [
   ABYSS,
@@ -51,7 +52,8 @@ export default [
   FET,
   TRIO,
   INK,
-  PMA
+  PMA,
+  SOLVE,
 ].reduce((tmp, token) => {
   tmp[token.address.toLowerCase()] = token;
   return tmp;
