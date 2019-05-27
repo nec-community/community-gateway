@@ -56,15 +56,15 @@ class TokenAbout extends Component {
             <h3>Important dates</h3>
             <div className="">
               <span>Next draw. EVT distribution and market open</span>
-              <span>30 April</span>
+              <span>28 May</span>
             </div>
             <div className="">
               <span>Next vote opens</span>
-              <span>7 May</span>
+              <span>4 June</span>
             </div>
             <div className="">
               <span>Winner announced</span>
-              <span>14 May</span>
+              <span>11 June</span>
             </div>
           </div>
         </div>
