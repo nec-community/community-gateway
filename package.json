@@ -10,6 +10,9 @@
     "prod": "webpack --config ./build/webpack-prod.config.js",
     "prod-serve": "webpack-dev-server --https --history-api-fallback --compress --config ./build/webpack-prod.config.js"
   },
+  "engines": {
+    "node": "8.10"
+  },
   "dependencies": {
     "@babel/core": "^7.3.4",
     "@babel/plugin-transform-runtime": "^7.3.4",
