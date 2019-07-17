@@ -28,3 +28,6 @@ export const OPEN_HELP = 'open_help';
 export const CLOSE_HELP = 'close_help';
 
 export const FETCHED_POOL_TOKENS = 'fetched_pool_tokens';
+
+export const FETCH_TRADERS_BY_TOKEN = 'fetch_traders_by_token';
+export const FETCH_TRADERS_BY_DATE = 'fetch_traders_by_date';

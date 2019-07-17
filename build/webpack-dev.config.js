@@ -58,7 +58,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.scss$/,
+        test: /\.(scss|css)$/,
         loader: 'style-loader!css-loader?modules&importLoaders=2&sourceMap&localIdentName=[local]!sass-loader?outputStyle=expanded&sourceMap'
       }
     ]
