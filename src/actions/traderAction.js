@@ -1,14 +1,15 @@
 import { FETCH_TRADERS_BY_TOKEN, FETCH_TRADERS_BY_DATE } from './actionTypes';
 
-const fetchedTraders = (traders, token, dates) => ({
+const fetchedTraders = payload => ({
   type: FETCH_TRADERS_BY_TOKEN,
-  traders,
-  token,
-  dates,
+  traders: payload.ranking,
+  token: payload.token,
+  dates: payload.dates,
 });
 
-const fetchTraderPairsByDate = () => ({
+const fetchTraderPairsByDate = payload => ({
   type: FETCH_TRADERS_BY_DATE,
+  traders: payload,
 });
 
 const formatDate = (date) => {
@@ -43,8 +44,12 @@ export const fetchTradersByDate = date => async (dispatch) => {
   )
     .then(response => response.json())
     .then((response) => {
-      console.log('Date ', response);
-      // dispatch(fetchTraderPairsByDate(response));
+      const array = Object.keys(response.volume).map(address => ({
+        address,
+        value: response.volume[address],
+        totalUsd: response.volume[address].totalUsd,
+      }));
+      dispatch(fetchTraderPairsByDate(array));
     })
     .catch(err => console.log(err));
 };

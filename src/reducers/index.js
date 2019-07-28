@@ -5,7 +5,7 @@ import notification from './notificationReducer';
 import proposal from './proposalReducer';
 import token from './tokenReducer';
 import delegate from './delegateReducer';
-import trader from './traderReducer';
+import traders from './traderReducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -14,5 +14,5 @@ export default combineReducers({
   proposal,
   token,
   delegate,
-  trader,
+  traders,
 });
