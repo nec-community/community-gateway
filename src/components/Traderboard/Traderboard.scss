@@ -41,12 +41,6 @@ input {
   padding: 5px;
 }
 
-// @media(max-width: 710px) {
-//   .card {
-//     font-size: 18px;
-//   }
-// }
-
 .actions_item:not(:last-child) {
   cursor: pointer;
 }
@@ -83,8 +77,4 @@ input {
   font-weight: 300;
   text-transform: uppercase;
   border-bottom: 1px solid hsla(0, 0%, 86.7%, 0.2);
-}
-
-.calendar {
-  background-color: $color1;
 }

@@ -1,4 +1,4 @@
-import { FETCH_TRADERS_BY_TOKEN, FETCH_TRADERS_BY_DATE } from './actionTypes';
+import { FETCH_TRADERS_BY_TOKEN } from './actionTypes';
 
 const fetchedTraders = payload => ({
   type: FETCH_TRADERS_BY_TOKEN,
@@ -6,18 +6,6 @@ const fetchedTraders = payload => ({
   token: payload.token,
   dates: payload.dates,
 });
-
-const fetchTraderPairsByDate = payload => ({
-  type: FETCH_TRADERS_BY_DATE,
-  traders: payload,
-});
-
-const formatDate = (date) => {
-  const year = date.getFullYear().toString();
-  const month = (date.getMonth() + 101).toString().substring(1);
-  const day = (date.getDate() + 100).toString().substring(1);
-  return `${year}/${month}/${day}`;
-};
 
 export const fetchTraders = token => async (dispatch) => {
   await fetch(
@@ -34,9 +22,9 @@ export const fetchTraders = token => async (dispatch) => {
     .catch(err => console.log(err));
 };
 
-export const fetchTradersByDate = date => async (dispatch) => {
+export const fetchTradersByDate = (startDate, endDate, token) => async (dispatch) => {
   await fetch(
-    `https://competition.nectar.community/api/v1/date/${formatDate(date)}`,
+    `https://competition.nectar.community/api/v1/resultsByToken/${token}?startDate=${startDate}&endDate=${endDate}`,
     {
       method: 'get',
       mode: 'cors',
@@ -44,12 +32,7 @@ export const fetchTradersByDate = date => async (dispatch) => {
   )
     .then(response => response.json())
     .then((response) => {
-      const array = Object.keys(response.volume).map(address => ({
-        address,
-        value: response.volume[address],
-        totalUsd: response.volume[address].totalUsd,
-      }));
-      dispatch(fetchTraderPairsByDate(array));
+      dispatch(fetchedTraders(response));
     })
     .catch(err => console.log(err));
 };
