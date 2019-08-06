@@ -22,9 +22,25 @@ export const fetchTraders = token => async (dispatch) => {
     .catch(err => console.log(err));
 };
 
-export const fetchTradersByDate = (startDate, endDate, token) => async (dispatch) => {
+export const fetchTradersByDate = (
+  startDate,
+  endDate,
+  token,
+) => async (dispatch) => {
+  const startDateTimestamp = Date.UTC(
+    startDate.getFullYear(),
+    startDate.getMonth(),
+    startDate.getDate(),
+  );
+
+  const endDateTimestamp = Date.UTC(
+    endDate.getFullYear(),
+    endDate.getMonth(),
+    endDate.getDate(),
+  );
   await fetch(
-    `https://competition.nectar.community/api/v1/resultsByToken/${token}?startDate=${startDate}&endDate=${endDate}`,
+    `https://competition.nectar.community/api/v1/resultsByToken/
+	${token}?startDate=${startDateTimestamp}&endDate=${endDateTimestamp}`,
     {
       method: 'get',
       mode: 'cors',

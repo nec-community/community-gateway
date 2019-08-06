@@ -11,9 +11,13 @@ import './Traderboard.scss';
 class Traderboard extends Component {
   constructor(props) {
     super(props);
+
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
     this.state = {
       token: 'ETH',
-      startDate: new Date(),
+      startDate: oneWeekAgo,
       endDate: new Date(),
     };
     this.handleTokenChange = this.handleTokenChange.bind(this);
@@ -32,14 +36,16 @@ class Traderboard extends Component {
     this.setState({
       startDate: date,
     });
+    const { endDate, token } = this.state;
+    this.props.fetchTradersByDate(date, endDate, token);
   }
 
   setEndDate(date) {
     this.setState({
       endDate: date,
     });
-    const { startDate, endDate, token } = this.state;
-    this.props.fetchTradersByDate(new Date(startDate).getTime(), new Date(endDate).getTime(), token);
+    const { startDate, token } = this.state;
+    this.props.fetchTradersByDate(startDate, date, token);
   }
 
   async handleTokenChange(token) {
