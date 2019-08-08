@@ -1,167 +1,198 @@
-import React from 'react';
-import Calculator from '../Calculator/Calculator';
-import Stats from '../Stats/Stats';
-import Voting from '../Voting/Voting';
+/* eslint-disable */
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+
+import { countWheels } from './scrollHelper';
+
 import './Landing.scss';
 
-export default () => (
-  <div className="landing-wrapper">
-    <section className="hero">
-      <h1>welcome to
-        <b><span>Nectar</span><span>.community</span></b>
-      </h1>
-      <div className="hero-footer">
-        <div>
-          <span className="vertical">scroll down</span>
+const buttons = [
+  { icon: 'fee', desc: 'Fee discounts' },
+  { icon: 'exchanges', desc: 'Exchanges' },
+  { icon: 'listings', desc: 'New listings' },
+  { icon: 'dao', desc: 'DAO governance' },
+  { icon: 'buy', desc: 'Buy & Burn' },
+];
+
+const tabs = {
+  nec: {
+    component: () => <div>nec</div>,
+  },
+  fee: {
+    component: () => <div>fee</div>,
+  },
+  buy: {
+    component: () => <div>buy</div>,
+  },
+  dao: {
+    component: () => <div>dao</div>,
+  },
+  listings: {
+    component: () => <div>listings</div>,
+  },
+  exchanges: {
+    component: () => <div>exchanges</div>,
+  },
+};
+
+class Landing extends Component {
+  state = {
+    activeTab: 'nec',
+    isScrollBlocked: false,
+  };
+
+  componentDidMount() {
+    const { history } = this.props;
+
+    window.addEventListener('wheel', this.slideContent, {
+      passive: false,
+    });
+    this.unlistenHistoryChange = history.listen(this.historyChange);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('wheel', this.slideContent);
+    this.unlistenHistoryChange();
+    clearTimeout(this.blockerTimeout);
+  }
+
+  setActiveTabByScroll = changer => {
+    const { activeTab } = this.state;
+    const tabsArray = Object.keys(tabs);
+    const activeTabIndex = tabsArray.findIndex(tab => tab === activeTab);
+    const nextIndex = activeTabIndex + changer;
+
+    if (nextIndex === -1) {
+      return;
+    }
+
+    if (nextIndex >= tabsArray.length) {
+      return;
+    }
+
+    this.setState({
+      activeTab: tabsArray[nextIndex],
+      isScrollBlocked: true,
+    });
+  };
+
+  slideContent = e => {
+    const { isScrollBlocked } = this.state;
+    const deltaX = e.deltaX;
+    const deltaY = e.deltaY;
+
+    if (!Number.isInteger(deltaY) || !Number.isInteger(deltaX)) {
+      return;
+    } else {
+      e.preventDefault();
+    }
+
+    if (isScrollBlocked) {
+      return;
+    }
+
+    const direction = countWheels(deltaY);
+
+    if (direction === 'top') {
+      this.setActiveTabByScroll(1);
+      this.unblockScroll();
+    }
+
+    if (direction === 'bottom') {
+      this.setActiveTabByScroll(-1);
+      this.unblockScroll();
+    }
+  };
+
+  historyChange = () => {
+    window.removeEventListener('wheel', this.slideContent);
+  };
+
+  unblockScroll = () => {
+    this.blockerTimeout = setTimeout(
+      () =>
+        this.setState({
+          isScrollBlocked: false,
+        }),
+      1000
+    );
+  };
+
+  onCircleButtonClick = e => {
+    let name;
+
+    if (e.target.name) {
+      name = e.target.name;
+    } else if (e.currentTarget.name) {
+      name = e.currentTarget.name;
+    } else {
+      return;
+    }
+
+    this.setState(
+      {
+        activeTab: name,
+        isScrollBlocked: true,
+      },
+      this.unblockScroll
+    );
+  };
+
+  render() {
+    const { activeTab } = this.state;
+
+    const ActiveTabComponent = tabs[activeTab].component;
+    const pageNumber = Object.keys(tabs).length;
+    const currentPage = Object.keys(tabs).findIndex(tab => tab === activeTab);
+
+    return (
+      <div className={`landing__wrapper landing__wrapper--${activeTab}`}>
+        <div className="landing__left-column">
+          {currentPage ? (
+            <div className="left-column__page-number-wrapper">
+              <span className="left-column__current-page">{currentPage}</span>
+              <span className="left-column__page-number">/ {pageNumber - 1}</span>
+            </div>
+          ) : null}
         </div>
-        <div className="text">
-          <h2>
-            The Ethfinex Nectar token (NEC) is used for governance and entitles the holders to
-            claim a share of the fees collected on Ethfinex.
-          </h2>
+        <div className="landing__central-column">
+          <ActiveTabComponent />
         </div>
-        <div />
-      </div>
-    </section>
-
-    <section className="statistics">
-      <div className="container">
-        <Stats />
-      </div>
-    </section>
-
-    <section className="calculator">
-      <div className="container">
-        <Calculator />
-      </div>
-    </section>
-
-    <div className="waves" />
-
-    <section className="voting">
-      <div className="container">
-        <Voting />
-      </div>
-    </section>
-
-    <div className="waves reverse" />
-
-    <section className="learn-more">
-      <div className="container">
-        <div className="learn-more-wrapper">
-          <div className="bg-text learn-more-bg-text">learn more</div>
-
-          <div className="learn-more-content-wrapper">
-            <h1>Learn more</h1>
-
-            <div className="learn-more-content">
-              <h2>nectar.community</h2>
-
-              <div className="content-sections">
-                <p className="content-section">
-                  Ethfinex is the first exchange which will be governed by its community of
-                  users, via the
-                  Nectar liquidity token (NEC). Nectar.community was created to allow NEC token
-                  holders to propose
-                  and vote on the future direction and decisions which Ethfinex takes. Traders
-                  on Ethfinex earn NEC
-                  by adding liquidity, and 50% of the fees generated by trading on Ethfinex are
-                  pledged to token
-                  holders as ETH.
-                </p>
-                <p className="content-section">
-                  These tools are created open-source to help NEC holders interact safely with
-                  the Nectar
-                  smart contracts. Over time these will evolve, and open source contributions of
-                  new features are
-                  welcomed on
-                  <a
-                    href="http://github.com/ethfinex/community-gateway"
-                    target="_blank"
-                    rel="noopener noreferrer"
+        <div className="landing__right-column">
+          <div className="right-column__circle right-column__circle-1">
+            <div className="right-column__circle right-column__circle-2">
+              <div className="right-column__circle right-column__circle-3">
+                {buttons.map(({ icon, desc }) => (
+                  <button
+                    key={icon}
+                    type="button"
+                    name={icon}
+                    className={`right-column__circle-button right-column__circle-button-${icon} ${
+                      icon === activeTab ? `right-column__circle-button-${icon}--active` : ''
+                    }`}
+                    onClick={this.onCircleButtonClick}
                   >
-                    github
-                  </a>
-                  .
-                </p>
+                    <div className="circle-button__icon" />
+                    <span className="circle-button__name">{desc}</span>
+                  </button>
+                ))}
+                <div className="right-column__circle right-column__circle-4">
+                  <button
+                    type="button"
+                    className={`right-column__circle-button right-column__circle-central-button ${
+                      activeTab === 'nec' ? `right-column__circle-central-button--active` : ''
+                    }`}
+                  >
+                    NEC
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-
-          <div className="find-out-more">
-            <div className="desc-text">Find out more about Ethfinex and the Nectar token:</div>
-
-            <div className="links-wrapper">
-
-              <a
-                className="logo-link"
-                href="https://ethfinex.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="link-image ethfinex" />
-                <div className="link-text">ethfinex.com</div>
-              </a>
-
-              <a
-                className="logo-link"
-                href="https://blog.ethfinex.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="sub-text-wrapper">
-                  <div className="link-image blog" />
-                  <div className="sub-text">blog</div>
-                </div>
-                <div className="link-text">blog.ethfinex.com</div>
-              </a>
-
-              <a
-                className="logo-link"
-                href="https://twitter.com/ethfinex"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="link-image twitter" />
-                <div className="link-text">twitter</div>
-              </a>
-
-              <a
-                className="logo-link"
-                href="https://support.ethfinex.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="link-image support" />
-                <div className="link-text">support</div>
-              </a>
-
-              <a
-                className="logo-link"
-                href="https://www.youtube.com/channel/UCpPppKXkbJIfSkPKJ5cC_XQ"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="link-image youtube" />
-                <div className="link-text">youtube</div>
-              </a>
-
-              <a
-                className="logo-link"
-                href="https://github.com/ethfinex"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="link-image github" />
-                <div className="link-text">github</div>
-              </a>
-
-            </div>
-          </div>
         </div>
       </div>
+    );
+  }
+}
 
-      <div className="gradient-section" />
-    </section>
-  </div>
-);
+export default withRouter(Landing);

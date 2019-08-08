@@ -1,0 +1,254 @@
+@import "../../common/text";
+@import "../../common/variables";
+
+.landing-wrapper {
+  background-color: $color1;
+  section {
+    //min-height: 90vh;
+  }
+  .hero {
+    padding: 100px 60px;
+    background: url(/images/landing-bg.png) center/contain no-repeat;
+    max-height: 900px;
+    max-width: 1400px;
+    margin: auto;
+    @media screen and (max-width: 1366px) {
+      background-size: cover;
+    }
+    @media screen and (max-height: 900px) {
+      min-height: 90vh;
+    }
+    @media screen and (max-height: 767px) {
+      padding: 100px 30px;
+    }
+    h1 {
+      font-size: 70px;
+      font-weight: normal;
+      margin: 130px 0;
+      @media screen and (max-width: 1399px) {
+        font-size: 56px;
+      }
+      @media screen and (max-width: 767px) {
+        font-size: 24px;
+      }
+      @media screen and (max-height: 900px) {
+        margin: 100px 0;
+      }
+      @media screen and (max-width: 767px) {
+        margin: 30px 0;
+      }
+      b {
+        display: block;
+        font-size: 112px;
+        @media screen and (max-width: 1399px) {
+          font-size: 90px;
+          line-height: 90px;
+        }
+        @media screen and (max-width: 767px) {
+          font-size: 40px;
+          line-height: 40px;
+        }
+        span {
+          display: inline-block;
+        }
+      }
+    }
+    .hero-footer {
+      display: flex;
+      @media screen and (max-width: 1400px) {
+        .text {
+          min-width: 500px;
+        }
+      }
+      @media screen and (max-width: 1000px) {
+        flex-direction: column-reverse;
+        .vertical {
+          margin: 50px 0 0 14px;
+        }
+        .text {
+          min-width: auto;
+        }
+      }
+      div {
+        flex: 1 1 100%;
+        max-width: 500px;
+      }
+      h2 {
+        line-height: 29px;
+        font-size: 18px;
+        margin: 0;
+        font-weight: normal;
+        @media screen and (max-width: 767px) {
+          line-height: 19px;
+          font-size: 12px;
+        }
+      }
+    }
+    .vertical {
+      display: inline-block;
+      transform: rotate(90deg);
+      transform-origin: left top 0;
+      font-size: 12px;
+      font-weight: 300;
+      //margin-top: 10px;
+      margin-left: 20px;
+      @media screen and (max-width: 767px) {
+        margin-top: 20vh !important;
+      }
+    }
+  }
+  .statistics {
+    background: linear-gradient(117.02deg, #041824 9.23%, #07090D 91.6%);
+    padding: 100px 0;
+    position: relative;
+  }
+  .voting {
+    background-color: $color2;
+    padding: 100px 0;
+  }
+  .learn-more {
+    padding: 50px 0 0 0;
+    overflow-x: hidden;
+
+    .gradient-section {
+      height: 180px;
+      width: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.39) 67.4%);
+    }
+
+    .learn-more-wrapper {
+      position: relative;
+
+      .learn-more-bg-text {
+        top: 200px;
+        right: -30px;
+        white-space: nowrap;
+      }
+
+      .learn-more-content-wrapper {
+        position: relative;
+        z-index: 2;
+
+        h1 {
+          font-size: 48px;
+          margin: 0;
+        }
+
+        .learn-more-content {
+          max-width: 800px;
+          margin: 30px auto 0;
+
+          h2 {
+            font-size: 32px;
+            font-weight: normal;
+            margin: 0 0 20px 0;
+          }
+
+          .content-sections {
+            line-height: 19px;
+            font-size: 12px;
+            @media screen and (min-width: 768px) {
+              line-height: 23px;
+              font-size: 14px;
+              display: flex;
+              justify-content: space-between;
+            }
+
+            .content-section {
+              @media screen and (min-width: 768px) {
+                max-width: 360px;
+                padding: 10px;
+              }
+
+              a {
+                margin-left: 5px;
+              }
+            }
+          }
+        }
+      }
+
+      .find-out-more {
+        margin-top: 50px;
+
+        .desc-text {
+          line-height: 25px;
+          font-weight: bold;
+          font-size: 13px;
+          @media screen and (min-width: 768px) {
+            margin-left: 280px;
+            max-width: 190px;
+          }
+        }
+
+        .links-wrapper {
+          display: flex;
+          opacity: 0.3;
+          @media screen and (max-width: 767px) {
+            flex-wrap: wrap;
+          }
+
+          .logo-link {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: 0.2s ease-in;
+            text-decoration: none !important;
+            flex: 1 1 150px;
+
+            &:hover {
+              cursor: pointer;
+              opacity: 0.7;
+            }
+
+            .sub-text-wrapper {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+
+              .sub-text {
+                margin-top: -18px;
+                position: relative;
+                bottom: 10px;
+              }
+
+              .link-image {
+                position: relative;
+                bottom: 10px;
+              }
+            }
+
+            .link-image {
+              width: 74px;
+              height: 84px;
+              background-size: 100%;
+              background-repeat: no-repeat;
+              background-position: center;
+
+              &.ethfinex, &.blog {
+                background-image: url('./images/ethfinex.png');
+              }
+              &.twitter {
+                background-image: url('./images/twitter.png');
+                background-size: 90%;
+              }
+              &.support {
+                background-image: url('./images/support.png');
+                background-size: 60%;
+              }
+              &.youtube {
+                background-image: url('./images/youtube.png');
+                background-size: 80%;
+              }
+              &.github {
+                background-image: url('./images/github.png');
+                background-size: 70%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

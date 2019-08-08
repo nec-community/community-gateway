@@ -41,12 +41,14 @@ class App extends Component {
           </div>
         </div>
         <nav className={`${this.state.open ? 'open' : ''}`}>
-          <div className="logo-wrapper">
-            <a target="_blank" href="https://www.ethfinex.com" rel="noopener noreferrer">
-              <img src="/images/logo.svg" alt="" />
-            </a>
-            <span>Nectar.community</span>
-          </div>
+          <a
+            target="_blank"
+            href="https://www.ethfinex.com"
+            rel="noopener noreferrer"
+            className="logo"
+          >
+            <img src="/images/logo.svg" alt="" />
+          </a>
 
           <div className="menu-opener-wrapper">
             <a onClick={() => this.setState({ open: !this.state.open })}>|||</a>
@@ -56,21 +58,37 @@ class App extends Component {
             <div className="dropdown-wrapper">
               <a>Token Listings</a>
               <div>
-                <Link onClick={() => this.setState({open: false})} to="/tokens">About</Link>
-                <Link onClick={() => this.setState({open: false})} to="/token-leaderboard">Leaderboard</Link>
-                <Link onClick={() => this.setState({open: false})} to="/token-pool">The Pool</Link>
+                <Link onClick={() => this.setState({ open: false })} to="/tokens">
+                  About
+                </Link>
+                <Link onClick={() => this.setState({ open: false })} to="/token-leaderboard">
+                  Leaderboard
+                </Link>
+                <Link onClick={() => this.setState({ open: false })} to="/token-pool">
+                  The Pool
+                </Link>
               </div>
             </div>
             <div className="dropdown-wrapper">
               <a>Proposals</a>
               <div>
-                <Link onClick={() => this.setState({open: false})} to="/delegate-votes">Delegate Votes</Link>
-                <Link onClick={() => this.setState({open: false})} to="/proposals">All Proposals</Link>
-                <Link onClick={() => this.setState({open: false})} to="/pending">Pending Proposals</Link>
-                <Link onClick={() => this.setState({open: false})} to="/submit">Submit a Proposal</Link>
+                <Link onClick={() => this.setState({ open: false })} to="/delegate-votes">
+                  Delegate Votes
+                </Link>
+                <Link onClick={() => this.setState({ open: false })} to="/proposals">
+                  All Proposals
+                </Link>
+                <Link onClick={() => this.setState({ open: false })} to="/pending">
+                  Pending Proposals
+                </Link>
+                <Link onClick={() => this.setState({ open: false })} to="/submit">
+                  Submit a Proposal
+                </Link>
               </div>
             </div>
-            <Link onClick={() => this.setState({open: false})} to="/faq">FAQ</Link>
+            <Link onClick={() => this.setState({ open: false })} to="/faq">
+              FAQ
+            </Link>
           </div>
         </nav>
 
@@ -78,17 +96,15 @@ class App extends Component {
 
         <Login />
 
-        <footer>
+        {/* <footer>
           <div className="container">
             <div className="logo-wrapper">
               <img src="/images/logo.svg" alt="" />
               <span>Nectar.community</span>
             </div>
-            <p className="copyright">
-              Copyright Ethfinex Inc
-            </p>
+            <p className="copyright">Copyright Ethfinex Inc</p>
           </div>
-        </footer>
+        </footer> */}
       </div>
     );
   }
@@ -115,7 +131,10 @@ const mapStateToProps = state => ({
   isAdmin: state.account.isAdmin,
 });
 
-export default connect(mapStateToProps, {
-  loginMetamask,
-  fetchEthfinexData,
-})(withRouter(App));
+export default connect(
+  mapStateToProps,
+  {
+    loginMetamask,
+    fetchEthfinexData,
+  }
+)(withRouter(App));
