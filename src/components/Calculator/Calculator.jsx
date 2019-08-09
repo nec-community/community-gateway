@@ -31,23 +31,19 @@ class Calculator extends Component {
             className={`${this.state.shown === 'trading' ? 'active' : ''}`}
             onClick={() => this.switch('trading')}
           >
-            Trading Reward <br />Calculator
+            Trading Reward <br />
+            Calculator
           </a>
           <a
             className={`${this.state.shown === 'tokens' ? 'active' : ''}`}
             onClick={() => this.switch('tokens')}
           >
-            Redeem Value <br />Calculator
+            Redeem Value <br />
+            Calculator
           </a>
         </div>
-        {
-          this.state.shown === 'tokens' &&
-          <Tokens />
-        }
-        {
-          this.state.shown === 'trading' &&
-          <TradingReward />
-        }
+        {this.state.shown === 'tokens' && <Tokens />}
+        {this.state.shown === 'trading' && <TradingReward />}
       </div>
     );
   }

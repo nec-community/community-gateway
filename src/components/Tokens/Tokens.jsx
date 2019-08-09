@@ -41,8 +41,7 @@ class Tokens extends Component {
       <div className="tokens-wrapper">
         <div className="top-text">
           <h2>Redeem your tokens</h2>
-          {
-            this.props.account &&
+          {this.props.account && (
             <div className="account-balance">
               <div className="row-1">
                 <span className="number">{this.props.tokenBalance}</span>
@@ -50,13 +49,13 @@ class Tokens extends Component {
               </div>
               <div className="row-2">Account balance</div>
             </div>
-          }
+          )}
         </div>
 
         <p>
-          Every 30-days trading fees on Ethfinex are pledged to NEC holders.
-          Calculate the current value which your tokens entitle you to, or redeem your rewards
-          from the smart contract now.
+          Every 30-days trading fees on Ethfinex are pledged to NEC holders. Calculate the current
+          value which your tokens entitle you to, or redeem your rewards from the smart contract
+          now.
         </p>
 
         <div className="redeem-wrapper">
@@ -67,9 +66,9 @@ class Tokens extends Component {
                 style={{
                   width: `${
                     this.state.input.length > 5
-                      ? (this.state.input.toString().length * 14) + 30
-                      : (this.state.input.toString().length * 24) + 30
-                    }px`,
+                      ? this.state.input.toString().length * 14 + 30
+                      : this.state.input.toString().length * 24 + 30
+                  }px`,
                 }}
                 className={`${this.state.input.length > 5 ? 'smaller' : ''}`}
                 id="input"
@@ -87,27 +86,23 @@ class Tokens extends Component {
             </span>
             <p>Your reward</p>
           </div>
-          {
-            this.props.burningEnabled &&
+          {this.props.burningEnabled && (
             <button
               className={`step ${this.state.input ? '' : 'hidden'}`}
-              onClick={this.props.accountType
-                ? () => this.props.burnNec(eth.ethToWei(this.state.input))
-                : () => this.props.openLogin()
+              onClick={
+                this.props.accountType
+                  ? () => this.props.burnNec(eth.ethToWei(this.state.input))
+                  : () => this.props.openLogin()
               }
             >
               {this.props.accountType ? 'Redeem' : 'Connect your Wallet'}
             </button>
-          }
-          {
-            !this.props.burningEnabled &&
-            <button
-              className={`step ${this.state.input ? '' : 'hidden'}`}
-              disabled
-            >
+          )}
+          {!this.props.burningEnabled && (
+            <button className={`step ${this.state.input ? '' : 'hidden'}`} disabled>
               Burning NEC currently disabled
             </button>
-          }
+          )}
         </div>
       </div>
     );
@@ -131,8 +126,11 @@ const mapStateToProps = state => ({
   account: state.account.account,
 });
 
-export default connect(mapStateToProps, {
-  getTokenBalance,
-  burnNec,
-  openLogin,
-})(Tokens);
+export default connect(
+  mapStateToProps,
+  {
+    getTokenBalance,
+    burnNec,
+    openLogin,
+  }
+)(Tokens);

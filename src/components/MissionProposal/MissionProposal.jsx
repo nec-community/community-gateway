@@ -9,9 +9,12 @@ import ProposalCountdown from '../ProposalCountdown/ProposalCountdown';
 import './MissionProposal.scss';
 
 class MissionProposal extends Component {
-
   async componentWillMount() {
-    const { match: { params: { proposalId } } } = this.props;
+    const {
+      match: {
+        params: { proposalId },
+      },
+    } = this.props;
   }
 
   render() {
@@ -21,22 +24,22 @@ class MissionProposal extends Component {
           <div className="proposal-wrapper">
             <p className="title">Choose The Ethfinex Mission Statement</p>
             <div className="proposal-inner-wrapper">
-              <ProposalCountdown endTime={Date.parse('2019-02-15') + (7 * 24 * 60 * 60 * 1000)} />
+              <ProposalCountdown endTime={Date.parse('2019-02-15') + 7 * 24 * 60 * 60 * 1000} />
               <div className="details-wrapper">
                 <p className="started">Started: Friday February 15th</p>
                 <p className="submitter">Submitted by: Official Ethfinex Team</p>
                 <p className="description">
-                To truly embody our vision as a decentralised entity with distributed governance,
-                we believe the Ethfinex Mission Statement should be chosen by those who have
-                a stake in its future - you.
+                  To truly embody our vision as a decentralised entity with distributed governance,
+                  we believe the Ethfinex Mission Statement should be chosen by those who have a
+                  stake in its future - you.
                 </p>
                 <p className="description-followup">
-                Please vote for the option you think best reflects the Ethfinex spirit and journey.
-                This statement will unite us with a shared set of values as we grow,
-                and give us a yardstick to ensure each action we take brings us closer to our mission.
+                  Please vote for the option you think best reflects the Ethfinex spirit and
+                  journey. This statement will unite us with a shared set of values as we grow, and
+                  give us a yardstick to ensure each action we take brings us closer to our mission.
                 </p>
                 <p className="description-followup">
-                If you need help with your decision, you can head to our&nbsp;
+                  If you need help with your decision, you can head to our&nbsp;
                   <a
                     href="https://blog.ethfinex.com/your-mission-is-our-mission/"
                     title="Find out more about Ethfinex mission statement and voting"
@@ -45,15 +48,22 @@ class MissionProposal extends Component {
                   >
                     blog post
                   </a>
-                &nbsp;which explains how we got to these two options.
+                  &nbsp;which explains how we got to these two options.
                 </p>
                 <p className="description-followup">
-                Choose your Mission Statement from the following:
+                  Choose your Mission Statement from the following:
                 </p>
                 <p className="option">
                   <ol className="align">
-                    <li type="A"> &nbsp;Empowering you to lead the financial &nbsp;&nbsp;evolution.</li>
-                    <li type="A"> &nbsp;We're here to accelerate the future of finance, &nbsp;&nbsp;putting you in control.</li>
+                    <li type="A">
+                      {' '}
+                      &nbsp;Empowering you to lead the financial &nbsp;&nbsp;evolution.
+                    </li>
+                    <li type="A">
+                      {' '}
+                      &nbsp;We're here to accelerate the future of finance, &nbsp;&nbsp;putting you
+                      in control.
+                    </li>
                   </ol>
                 </p>
 
@@ -89,26 +99,25 @@ class MissionProposal extends Component {
 
                 {
                   <p className="vote-wrapper error">
-                    Option A was chosen!<br/>
+                    Option A was chosen!
+                    <br />
                     "Empowering you to lead the financial evolution."
                   </p>
                 }
 
-                {
-                  true &&
+                {true && (
                   <div className="help">
                     <h3>How do I vote?</h3>
                     <p>
-                      You can vote by selecting either statement A or B above.
-                      In order to participate you must have an Ethereum wallet (either Metamask,
-                      Keystore, or Ledger). In order to keep the vote fair and maximise
-                      the voice of those who have been part of Ethfinex&apos;s journey,
-                      only votes cast by addresses who have held Nectar tokens over the
-                      last year or have interacted with the Ethfinex Trustless smart contracts
-                      will be counted.
+                      You can vote by selecting either statement A or B above. In order to
+                      participate you must have an Ethereum wallet (either Metamask, Keystore, or
+                      Ledger). In order to keep the vote fair and maximise the voice of those who
+                      have been part of Ethfinex&apos;s journey, only votes cast by addresses who
+                      have held Nectar tokens over the last year or have interacted with the
+                      Ethfinex Trustless smart contracts will be counted.
                     </p>
                   </div>
-                }
+                )}
               </div>
             </div>
           </div>
@@ -124,12 +133,14 @@ const mapStateToProps = state => ({
 
 MissionProposal.propTypes = {
   match: PropTypes.shape({
-    params: PropTypes.shape({
-    }).isRequired,
+    params: PropTypes.shape({}).isRequired,
   }).isRequired,
   voteForMission: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, {
-  voteForMission,
-})(MissionProposal);
+export default connect(
+  mapStateToProps,
+  {
+    voteForMission,
+  }
+)(MissionProposal);

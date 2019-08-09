@@ -55,11 +55,9 @@ class Submit extends Component {
         </div>
         <div className="form-wrapper">
           <div className="form-container">
-
-            {
-              this.props.tokenBalance === '0' &&
+            {this.props.tokenBalance === '0' && (
               <p className="error">NEC balance required on your account to submit a proposal</p>
-            }
+            )}
 
             <input
               name="title"
@@ -115,10 +113,7 @@ class Submit extends Component {
               <button onClick={this.submitProposal} disabled={this.props.tokenBalance === '0'}>
                 Submit proposal
               </button>
-              {
-                this.state.submitError &&
-                <p className="error">{this.state.submitError}</p>
-              }
+              {this.state.submitError && <p className="error">{this.state.submitError}</p>}
             </div>
           </div>
         </div>
@@ -136,6 +131,9 @@ Submit.propTypes = {
   tokenBalance: PropTypes.string.isRequired,
 };
 
-export default connect(mapStateToProps, {
-  submitProposal,
-})(Submit);
+export default connect(
+  mapStateToProps,
+  {
+    submitProposal,
+  }
+)(Submit);

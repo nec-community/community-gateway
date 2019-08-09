@@ -1,0 +1,9 @@
+.exchanges__links-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+
+  & > *:not(:last-child) {
+    margin-right: 45px;
+  }
+}

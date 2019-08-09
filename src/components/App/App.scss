@@ -28,14 +28,19 @@ nav {
   position: absolute;
   width: 100%;
   transition: 0.2s background-color;
-  padding: 15px 30px 0;
+  padding: 15px 20px 0;
   font-weight: 300;
   z-index: 10000;
+
   @media screen and (min-width: 1080px) {
     display: flex;
     justify-content: space-between;
+  }
+
+  @media (min-width: 1360px) {
     padding: 30px 40px 0;
   }
+
   .nav-links {
     .dropdown-wrapper {
       display: inline-block;

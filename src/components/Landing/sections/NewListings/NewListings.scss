@@ -1,0 +1,21 @@
+.new-listings__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 232px;
+  height: 50px;
+  margin-top: 77px;
+
+  mix-blend-mode: normal;
+  background-color: rgba(#757891, 0.5);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: rgba(#757891, 0.8);
+  }
+}

@@ -63,16 +63,9 @@ class Voting extends Component {
             </div>
           </div>
           <div className="content">
-            {
-              this.state.shown === 'current' &&
-              <Current />
-            }
-            {
-              this.state.shown === 'past' &&
-              <Past />
-            }
-            {
-              this.state.shown === 'submit' &&
+            {this.state.shown === 'current' && <Current />}
+            {this.state.shown === 'past' && <Past />}
+            {this.state.shown === 'submit' && (
               <div className="submit-wrapper">
                 <p>
                   Every individual who holds NEC is able to contribute their ideas for Ethfinex to
@@ -82,7 +75,7 @@ class Voting extends Component {
                 </p>
                 <Link to="/submit">Go to submit page</Link>
               </div>
-            }
+            )}
           </div>
         </div>
       </div>

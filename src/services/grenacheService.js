@@ -2,7 +2,7 @@ import config from '../constants/config.json';
 
 const serviceUrl = config.backendUrl;
 
-const get = async (hash) => {
+const get = async hash => {
   const res = await fetch(`${serviceUrl}/get`, {
     method: 'post',
     headers: {

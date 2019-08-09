@@ -13,22 +13,23 @@ class Past extends Component {
   render() {
     return (
       <div className="past-proposals">
-        {
-          this.props.proposals.filter(p => !p._active).map(proposal => (
+        {this.props.proposals
+          .filter(p => !p._active)
+          .map(proposal => (
             <div key={proposal._token} className="proposal-wrapper">
               <p className="started">{proposal.startTime.toLocaleString()}</p>
               <p className="title">
-                <Link className="vote-wrapper" to={`/proposal/${proposal.id}`}>{proposal.title}</Link>
+                <Link className="vote-wrapper" to={`/proposal/${proposal.id}`}>
+                  {proposal.title}
+                </Link>
               </p>
               <p className="description">{proposal.description}</p>
-              <Link className="vote-wrapper" to={`/proposal/${proposal.id}`}>Details</Link>
+              <Link className="vote-wrapper" to={`/proposal/${proposal.id}`}>
+                Details
+              </Link>
             </div>
-          ))
-        }
-        {
-          this.props.proposals.filter(p => !p._active).length === 0 &&
-          <p>No past proposals</p>
-        }
+          ))}
+        {this.props.proposals.filter(p => !p._active).length === 0 && <p>No past proposals</p>}
       </div>
     );
   }
@@ -43,6 +44,9 @@ const mapStateToProps = state => ({
   proposals: state.proposal.proposals,
 });
 
-export default connect(mapStateToProps, {
-  getProposals,
-})(Past);
+export default connect(
+  mapStateToProps,
+  {
+    getProposals,
+  }
+)(Past);

@@ -43,23 +43,26 @@ class TradingReward extends Component {
           <div className="line-indent" />
           <p>
             You can earn new NEC tokens in proportion to your maker volume (matched limit orders).
-            Tokens become harder to earn each month. Estimate how many you would earn
-            based on your trading volume.
+            Tokens become harder to earn each month. Estimate how many you would earn based on your
+            trading volume.
           </p>
         </div>
         <h3>
           <label htmlFor="input">
             If your maker trading
-            <div className="right-align">volume is: $
+            <div className="right-align">
+              volume is: $
               <input
-                style={{ width: `${(this.state.input.toString().length * 19) + 30}px` }}
+                style={{ width: `${this.state.input.toString().length * 19 + 30}px` }}
                 id="input"
                 type="number"
                 value={this.state.input}
                 onChange={this.calculate}
                 min="0"
               />
-              you earn<br /><b>{this.state.calculated}</b> tokens
+              you earn
+              <br />
+              <b>{this.state.calculated}</b> tokens
             </div>
           </label>
         </h3>

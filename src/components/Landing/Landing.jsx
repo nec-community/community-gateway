@@ -1,41 +1,55 @@
-/* eslint-disable */
+/* eslint-disable react/sort-comp */
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { countWheels } from './scrollHelper';
 
+import CircleButton from './CircleButton';
+import { Nec, FeeDiscounts, BuyAndBurn, DaoGovernance, NewListings, Exchanges } from './sections';
+
 import './Landing.scss';
 
 const buttons = [
   { icon: 'fee', desc: 'Fee discounts' },
-  { icon: 'exchanges', desc: 'Exchanges' },
-  { icon: 'listings', desc: 'New listings' },
-  { icon: 'dao', desc: 'DAO governance' },
   { icon: 'buy', desc: 'Buy & Burn' },
+  { icon: 'dao', desc: `DAO governance` },
+  { icon: 'listings', desc: 'New listings' },
+  { icon: 'exchanges', desc: 'Exchanges' },
 ];
 
 const tabs = {
   nec: {
-    component: () => <div>nec</div>,
+    component: Nec,
   },
   fee: {
-    component: () => <div>fee</div>,
+    component: FeeDiscounts,
   },
   buy: {
-    component: () => <div>buy</div>,
+    component: BuyAndBurn,
   },
   dao: {
-    component: () => <div>dao</div>,
+    component: DaoGovernance,
   },
   listings: {
-    component: () => <div>listings</div>,
+    component: NewListings,
   },
   exchanges: {
-    component: () => <div>exchanges</div>,
+    component: Exchanges,
   },
 };
 
+const tabsNames = [
+  'Welcome',
+  'Fee discounts',
+  'Buy & Burn',
+  'DAO governance',
+  'New listings',
+  'Exchanges',
+];
+
 class Landing extends Component {
+  static propTypes = {};
+
   state = {
     activeTab: 'nec',
     isScrollBlocked: false,
@@ -70,10 +84,13 @@ class Landing extends Component {
       return;
     }
 
-    this.setState({
-      activeTab: tabsArray[nextIndex],
-      isScrollBlocked: true,
-    });
+    this.setState(
+      {
+        activeTab: tabsArray[nextIndex],
+        isScrollBlocked: true,
+      },
+      this.unblockScroll
+    );
   };
 
   slideContent = e => {
@@ -83,9 +100,9 @@ class Landing extends Component {
 
     if (!Number.isInteger(deltaY) || !Number.isInteger(deltaX)) {
       return;
-    } else {
-      e.preventDefault();
     }
+
+    e.preventDefault();
 
     if (isScrollBlocked) {
       return;
@@ -95,12 +112,10 @@ class Landing extends Component {
 
     if (direction === 'top') {
       this.setActiveTabByScroll(1);
-      this.unblockScroll();
     }
 
     if (direction === 'bottom') {
       this.setActiveTabByScroll(-1);
-      this.unblockScroll();
     }
   };
 
@@ -156,32 +171,57 @@ class Landing extends Component {
           ) : null}
         </div>
         <div className="landing__central-column">
+          <div className="landing__central-column-borders">
+            {currentPage > 0 ? (
+              <div className="central-column-borders__wrapper">
+                <img
+                  className="central-column-borders__badge central-column-borders__badge--invert"
+                  src="/images/landingIcons/badge.svg"
+                  alt=""
+                />
+                <span className="central-column-borders__text">
+                  {`${currentPage - 1} / ${pageNumber - 1} - ${tabsNames[currentPage - 1]}`}
+                </span>
+              </div>
+            ) : null}
+          </div>
           <ActiveTabComponent />
+          <div className="landing__central-column-borders landing__central-column-borders--bottom">
+            {currentPage < tabsNames.length - 1 ? (
+              <div className="central-column-borders__wrapper">
+                <img
+                  className="central-column-borders__badge"
+                  src="/images/landingIcons/badge.svg"
+                  alt=""
+                />
+                <span className="central-column-borders__text">
+                  {`${currentPage + 1} / ${pageNumber - 1} - ${tabsNames[currentPage + 1]}`}
+                </span>
+              </div>
+            ) : null}
+          </div>
         </div>
         <div className="landing__right-column">
           <div className="right-column__circle right-column__circle-1">
             <div className="right-column__circle right-column__circle-2">
               <div className="right-column__circle right-column__circle-3">
                 {buttons.map(({ icon, desc }) => (
-                  <button
+                  <CircleButton
                     key={icon}
-                    type="button"
-                    name={icon}
-                    className={`right-column__circle-button right-column__circle-button-${icon} ${
-                      icon === activeTab ? `right-column__circle-button-${icon}--active` : ''
-                    }`}
-                    onClick={this.onCircleButtonClick}
-                  >
-                    <div className="circle-button__icon" />
-                    <span className="circle-button__name">{desc}</span>
-                  </button>
+                    icon={icon}
+                    activeTab={activeTab}
+                    desc={desc}
+                    onCircleButtonClick={this.onCircleButtonClick}
+                  />
                 ))}
                 <div className="right-column__circle right-column__circle-4">
                   <button
                     type="button"
+                    name="nec"
                     className={`right-column__circle-button right-column__circle-central-button ${
                       activeTab === 'nec' ? `right-column__circle-central-button--active` : ''
                     }`}
+                    onClick={this.onCircleButtonClick}
                   >
                     NEC
                   </button>

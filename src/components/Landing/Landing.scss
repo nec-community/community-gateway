@@ -7,65 +7,41 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  overflow: hidden;
 
   &--nec {
-    background-image: url('./images/nec-bg.png');
+    background-image: url('/images/landingBackgrounds/nec-bg.png');
   }
 
   &--fee {
-    background-image: url('./images/fee-bg.png');
+    background-image: url('/images/landingBackgrounds/fee-bg.png');
   }
 
   &--exchanges {
-    background-image: url('./images/exchanges-bg.png');
+    background-image: url('/images/landingBackgrounds/exchanges-bg.png');
   }
 
   &--listings {
-    background-image: url('./images/fee-bg.png');
+    background-image: url('/images/landingBackgrounds/fee-bg.png');
   }
 
   &--dao {
-    background-image: url('./images/dao-bg.png');
+    background-image: url('/images/landingBackgrounds/dao-bg.png');
   }
 
   &--buy {
-    background-image: url('./images/buy-bg.png');
+    background-image: url('/images/landingBackgrounds/buy-bg.png');
+  }
+
+  @media (max-width: 1280px) {
+    grid-template-columns: 88px 45% 1fr;
   }
 }
 
 .landing__left-column {
-  position: relative;
   display: flex;
   align-items: flex-end;
-  padding: 0 0 33px 42px;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    display: block;
-    width: 1px;
-    height: 30%;
-    background-color: #ffffff;
-    mix-blend-mode: normal;
-    opacity: 0.2;
-    z-index: 5;
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: block;
-    width: 1px;
-    height: 30%;
-    background-color: #ffffff;
-    mix-blend-mode: normal;
-    opacity: 0.2;
-    z-index: 5;
-  }
+  padding: 0 0 30px 42px;
 }
 
 .left-column__page-number-wrapper {
@@ -89,18 +65,74 @@
   opacity: 0.5;
 }
 
+.landing__central-column {
+  padding: 0;
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+}
+
+.landing__central-column-borders {
+  display: flex;
+  align-items: flex-start;
+  padding: 35px 0 35px 46px;
+  border-left: 1px solid rgba(#ffffff, 0.2);
+  mix-blend-mode: normal;
+
+  &--bottom {
+    align-items: flex-end;
+  }
+}
+
+.central-column-borders__wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.central-column-borders__badge {
+  margin-right: 14px;
+
+  &--invert {
+    transform: rotate(180deg);
+  }
+}
+
+.central-column-borders__text {
+  font-size: 16px;
+  line-height: 20px;
+  mix-blend-mode: normal;
+  opacity: 0.5;
+}
+
+.landing__section {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  padding: 40px 0;
+}
+
+.landing__section-content {
+  max-width: 525px;
+  margin: 0;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 30px;
+  mix-blend-mode: normal;
+  opacity: 0.5;
+}
+
 .landing__right-column {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   padding: 113px 76px 113px 20px;
-}
 
-.landing__central-column {
-  padding: 113px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  @media (max-height: 1024px) {
+    padding: 70px 76px 70px 20px;
+  }
+
+  @media (max-height: 900px) {
+    padding: 70px 56px 30px 20px;
+  }
 }
 
 .right-column__circle {
@@ -112,165 +144,59 @@
     height: 790px;
     padding: 83px;
     border: 1px solid rgba(#ffffff, 0.05);
+
+    @media (max-height: 1024px) {
+      width: 711px;
+      height: 711px;
+    }
+
+    @media (max-height: 900px) {
+      width: 632px;
+      height: 632px;
+      padding: 73px;
+    }
+
+    @media (max-height: 800px), (max-width: 1280px) {
+      width: 537px;
+      height: 537px;
+      padding: 73px;
+    }
   }
 
   &-2 {
-    width: 624px;
-    height: 624px;
+    width: 100%;
+    height: 100%;
     padding: 83px;
     border: 1px solid rgba(#ffffff, 0.1);
+
+    @media (max-height: 900px) {
+      padding: 73px;
+    }
   }
 
   &-3 {
     position: relative;
-    width: 458px;
-    height: 458px;
+    width: 100%;
+    height: 100%;
     padding: 95px;
     border: 1px solid rgba(#ffffff, 0.15);
+
+    @media (max-height: 900px) {
+      padding: 83px;
+    }
   }
 
   &-4 {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 268px;
-    height: 268px;
-    padding: 74px;
+    width: 100%;
+    height: 100%;
     border: 1px solid rgba(#ffffff, 0.1);
-  }
-}
 
-.right-column__circle-button {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  appearance: none;
-
-  border: none;
-  background-color: transparent;
-  color: #ffffff;
-  cursor: pointer;
-
-  &:hover .circle-button__icon {
-    background-color: #6326ff;
-  }
-
-  &-fee {
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -42px);
-
-    & .circle-button__icon {
-      background-image: url(./icons/fee.png);
-      background-position: 6px 8px;
+    @media (max-height: 800px), (max-width: 1280px) {
+      border: none;
     }
-
-    &--active .circle-button__name {
-      font-size: 24px;
-    }
-
-    &--active .circle-button__icon {
-      width: 120px;
-      height: 120px;
-      background-image: url(./icons/fee-active.png);
-      background-position: 2px 4px;
-      background-color: #6326ff;
-    }
-  }
-
-  &-exchanges {
-    top: 133px;
-    left: 0;
-    transform: translateX(-50%);
-
-    & .circle-button__icon {
-      background-image: url(./icons/exchanges.png);
-      background-position: 4px 7px;
-    }
-
-    &--active .circle-button__name {
-      font-size: 24px;
-    }
-
-    &--active .circle-button__icon {
-      width: 120px;
-      height: 120px;
-      background-image: url(./icons/exchanges-active.png);
-      background-position: 5px 8px;
-      background-color: #6326ff;
-    }
-  }
-
-  &-listings {
-    top: 364px;
-    left: 43px;
-
-    & .circle-button__icon {
-      background-image: url(./icons/listings.png);
-      background-position: 3px 5px;
-    }
-
-    &--active .circle-button__name {
-      font-size: 24px;
-    }
-
-    &--active .circle-button__icon {
-      width: 120px;
-      height: 120px;
-      background-image: url(./icons/listings-active.png);
-      background-position: 0 0;
-      background-color: #6326ff;
-    }
-  }
-
-  &-dao {
-    top: 364px;
-    right: 43px;
-
-    & .circle-button__icon {
-      background-image: url(./icons/dao.png);
-      background-position: 7px 7px;
-    }
-
-    &--active .circle-button__name {
-      font-size: 24px;
-    }
-
-    &--active .circle-button__icon {
-      width: 120px;
-      height: 120px;
-      background-image: url(./icons/dao-active.png);
-      background-position: 0 0;
-      background-color: #6326ff;
-    }
-  }
-
-  &-buy {
-    top: 133px;
-    right: 0;
-    transform: translateX(50%);
-
-    & .circle-button__icon {
-      background-image: url(./icons/buy.png);
-      background-position: 10px 5px;
-    }
-
-    &--active .circle-button__name {
-      font-size: 24px;
-    }
-
-    &--active .circle-button__icon {
-      width: 120px;
-      height: 120px;
-      background-image: url(./icons/buy-active.png);
-      background-position: 6px 2px;
-      background-color: #6326ff;
-    }
-  }
-
-  &-nec {
-    position: static;
   }
 }
 
@@ -283,25 +209,34 @@
   transition: all 0.3s;
 
   &:hover,
+  &:focus,
   &--active {
     background-color: #6326ff;
     font-size: 30px;
   }
+
+  @media (max-height: 1024px) {
+    width: 100px;
+    height: 100px;
+    font-size: 18px;
+
+    &:hover,
+    &:focus,
+    &--active {
+      font-size: 24px;
+    }
+  }
 }
 
-.circle-button__icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  height: 100px;
-  margin-bottom: 16px;
-  border-radius: 50%;
-  background-color: #2b1284;
-  background-repeat: no-repeat;
-  transition: all 0.3s;
-}
-
-.circle-button__name {
-  text-transform: capitalize;
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }

@@ -1,9 +1,5 @@
-import {
-  addHexPrefix,
-  ecsign,
-  hashPersonalMessage,
-  toBuffer,
-} from 'ethereumjs-util';
+/* eslint-disable no-param-reassign */
+import { addHexPrefix, ecsign, hashPersonalMessage, toBuffer } from 'ethereumjs-util';
 import { fromEtherWallet } from 'ethereumjs-wallet/thirdparty';
 import { createDecipheriv, createHash } from 'crypto-browserify';
 import { fromEthSale, fromPrivateKey, fromV3 } from 'ethereumjs-wallet';
@@ -55,7 +51,7 @@ function determineKeystoreType(file) {
   throw new Error('Invalid keystore');
 }
 
-const isKeystorePassRequired = (file) => {
+const isKeystorePassRequired = file => {
   const keystoreType = determineKeystoreType(file);
   return (
     keystoreType === KeystoreTypes.presale ||
@@ -126,11 +122,9 @@ function decryptPrivKey(encprivkey, password) {
 const EncryptedPrivateKeyWallet = (encryptedPrivateKey, password) =>
   signWrapper(fromPrivateKey(decryptPrivKey(encryptedPrivateKey, password)));
 
-const PresaleWallet = (keystore, password) =>
-  signWrapper(fromEthSale(keystore, password));
+const PresaleWallet = (keystore, password) => signWrapper(fromEthSale(keystore, password));
 
-const MewV1Wallet = (keystore, password) =>
-  signWrapper(fromEtherWallet(keystore, password));
+const MewV1Wallet = (keystore, password) => signWrapper(fromEtherWallet(keystore, password));
 
 const PrivKeyWallet = privkey => signWrapper(fromPrivateKey(privkey));
 

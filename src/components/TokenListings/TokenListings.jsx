@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Help from '../../components/Help/Help';
-import TokenListingVoteModal from '../TokenListingVoteModal/TokenListingVoteModal'
+import TokenListingVoteModal from '../TokenListingVoteModal/TokenListingVoteModal';
 import { getTokenVotes, voteForToken } from '../../actions/tokenActions';
 import { getVotingTokenBalance } from '../../actions/accountActions';
 import './TokenListings.scss';
 import { scrollToSection } from '../../services/scrollAnimation';
 
-function nFormatter (num) {
+function nFormatter(num) {
   if (num >= 1000000) {
     return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'mil ';
   }
@@ -22,7 +22,7 @@ function nFormatter (num) {
   return num;
 }
 
-const padToTwo = num => (num > 9) ? num : `0${num}`;
+const padToTwo = num => (num > 9 ? num : `0${num}`);
 
 class TokenListings extends Component {
   constructor() {
@@ -46,13 +46,11 @@ class TokenListings extends Component {
     this.props.getTokenVotes();
     this.refreshTime();
     setInterval(this.refreshTime, 1000);
-    if (document.location.hash)
-      scrollToSection(document.location.hash);
+    if (document.location.hash) scrollToSection(document.location.hash);
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.endingTime !== this.props.endingTime)
-      this.refreshTime();
+    if (prevProps.endingTime !== this.props.endingTime) this.refreshTime();
   }
 
   toggleModal() {
@@ -67,7 +65,7 @@ class TokenListings extends Component {
   }
 
   refreshTime() {
-    const timeRemaining = this.props.endingTime - (new Date());
+    const timeRemaining = this.props.endingTime - new Date();
     const daysRemaining = Math.floor(timeRemaining / (24 * 60 * 60 * 1000));
     const hoursRemaining = Math.floor((timeRemaining % (24 * 60 * 60 * 1000)) / 60 / 60 / 1000);
     const minutesRemaining = Math.floor((timeRemaining % (60 * 60 * 1000)) / 60 / 1000);
@@ -105,38 +103,31 @@ class TokenListings extends Component {
         <Help />
         <div className="container">
           <h1>Leaderboard</h1>
-          {
-            timeRemaining < 0 &&
-            <h5>Voting for this round has now completed</h5>
-          }
-          {
-            timeRemaining > 0 &&
-            timeRemaining < 7 * 24 * 60 * 60 * 1000 &&
+          {timeRemaining < 0 && <h5>Voting for this round has now completed</h5>}
+          {timeRemaining > 0 && timeRemaining < 7 * 24 * 60 * 60 * 1000 && (
             <h5>Voting is live! The top 3 tokens will become tradable on Ethfinex</h5>
-          }
-          {
-            timeRemaining > 0 &&
-            timeRemaining > 7 * 24 * 60 * 60 * 1000 &&
+          )}
+          {timeRemaining > 0 && timeRemaining > 7 * 24 * 60 * 60 * 1000 && (
             <h5>Voting will last for 7 days once the countdown finishes</h5>
-          }
-          {
-            timeRemaining > 0 &&
+          )}
+          {timeRemaining > 0 && (
             <div className="countdown">
-              <span data-tooltip="Days">{ padToTwo(daysRemaining % 7) }</span>:
-              <span data-tooltip="Hours">{ padToTwo(hoursRemaining) }</span>:
-              <span data-tooltip="Mins">{ padToTwo(minutesRemaining) }</span>:
-              <span data-tooltip="Secs">{ padToTwo(secondsRemaining) }</span>
+              <span data-tooltip="Days">{padToTwo(daysRemaining % 7)}</span>:
+              <span data-tooltip="Hours">{padToTwo(hoursRemaining)}</span>:
+              <span data-tooltip="Mins">{padToTwo(minutesRemaining)}</span>:
+              <span data-tooltip="Secs">{padToTwo(secondsRemaining)}</span>
             </div>
-          }
+          )}
           <div className="header-desc-container">
             <div className="left-header">
               <p>
-                Ethfinex <a
-                href={'https://etherscan.io/token/' + this.props.evtAddress}
-                target='_blank'>Voting Tokens</a> are issued to traders in proportion to their NEC
-                holdings, allowing loyal users more of a say without spending Nectar tokens. To find
-                out more about the voting process and how projects are selected to be voted on, see
-                the <Link to="/faq">FAQ</Link>
+                Ethfinex{' '}
+                <a href={'https://etherscan.io/token/' + this.props.evtAddress} target="_blank">
+                  Voting Tokens
+                </a>{' '}
+                are issued to traders in proportion to their NEC holdings, allowing loyal users more
+                of a say without spending Nectar tokens. To find out more about the voting process
+                and how projects are selected to be voted on, see the <Link to="/faq">FAQ</Link>
               </p>
               <p>
                 Submit your vote using MetaMask, Ledger or Keystore to show support for high-quality
@@ -144,60 +135,78 @@ class TokenListings extends Component {
               </p>
               <p>
                 <b>NOTE:</b> Vote value diminishes during the 7 days to incentivise early voting.
-                Value starts at a 2x multiple of EVT and decreases linearly to 1x. <Link to="/tokens">Learn more</Link>.
+                Value starts at a 2x multiple of EVT and decreases linearly to 1x.{' '}
+                <Link to="/tokens">Learn more</Link>.
               </p>
               <p>
-                View the results of the <Link to="/previous-token-votes">previous community vote</Link>.
+                View the results of the{' '}
+                <Link to="/previous-token-votes">previous community vote</Link>.
               </p>
             </div>
             <div className="right-header">
-              {this.props.account &&
-              <div className="side-badge">
-                <div className="row-1">
-                  {((this.props.votingTokenBalance) > 0.1) &&
-                  <span> You currently have {nFormatter(this.props.votingTokenBalance)} voting tokens!</span>
-                  }
-                  {(this.props.votingTokenBalance <= 0.1) &&
-                  <span> You do not have any voting tokens.<br /><br />
-                        Visit <a href="https://www.ethfinex.com" target="_blank">Ethfinex</a> to buy some.
-                  </span>
-                  }
+              {this.props.account && (
+                <div className="side-badge">
+                  <div className="row-1">
+                    {this.props.votingTokenBalance > 0.1 && (
+                      <span>
+                        {' '}
+                        You currently have {nFormatter(this.props.votingTokenBalance)} voting
+                        tokens!
+                      </span>
+                    )}
+                    {this.props.votingTokenBalance <= 0.1 && (
+                      <span>
+                        {' '}
+                        You do not have any voting tokens.
+                        <br />
+                        <br />
+                        Visit{' '}
+                        <a href="https://www.ethfinex.com" target="_blank">
+                          Ethfinex
+                        </a>{' '}
+                        to buy some.
+                      </span>
+                    )}
+                  </div>
+                  {this.props.votingTokenBalance > 0.1 && (
+                    <span>
+                      <br />
+                      <div className="row-2">Vote for the token you wish to support below!</div>
+                    </span>
+                  )}
                 </div>
-                {(this.props.votingTokenBalance > 0.1) &&
-                <span>
-                  <br />
-                  <div className="row-2">Vote for the token you wish to support below!</div>
-                </span>
-                }
-              </div>
-              }
-              {!this.props.account &&
-              <div className="side-badge">
-                <div className="row-1">Connect a wallet to view your voting token balance.</div>
-              </div>
-              }
+              )}
+              {!this.props.account && (
+                <div className="side-badge">
+                  <div className="row-1">Connect a wallet to view your voting token balance.</div>
+                </div>
+              )}
             </div>
           </div>
         </div>
         <div>
           <div className="active-section">
-
             <div className="container">
-              {
-                !this.props.isProposalActive &&
+              {!this.props.isProposalActive && (
                 <div className="no-active-vote">
-                  <h5>Voting is currently not active. You can view the results of <Link to='/previous-token-votes'>previous votes</Link>. </h5>
+                  <h5>
+                    Voting is currently not active. You can view the results of{' '}
+                    <Link to="/previous-token-votes">previous votes</Link>.{' '}
+                  </h5>
                 </div>
-              }
-              {
-                this.props.votes.sort((a, b) => {
+              )}
+              {this.props.votes
+                .sort((a, b) => {
                   if (a.totalYes - b.totalYes > 0) return -1;
                   if (b.totalYes - a.totalYes > 0) return 1;
                   return 1;
-                }).map((token, index) => (
+                })
+                .map((token, index) => (
                   <div
                     key={token.address}
-                    className={`listing-wrapper ${this.state.detailsShown === token.address ? '-active' : ''}`}
+                    className={`listing-wrapper ${
+                      this.state.detailsShown === token.address ? '-active' : ''
+                    }`}
                     onClick={() => this.toggleDetails(token.address)}
                   >
                     <div className="details-wrapper">
@@ -210,68 +219,63 @@ class TokenListings extends Component {
                       </div>
 
                       <div className="title-result-wrapper">
-                        <div
-                          target="_blank"
-                          href={token.discussions}
-                          className="title"
-                        >
+                        <div target="_blank" href={token.discussions} className="title">
                           {token.shortName || token.token}
                           <span>{token.symbol}</span>
                         </div>
 
-                        {
-                          typeof token.totalYes !== 'undefined' &&
+                        {typeof token.totalYes !== 'undefined' && (
                           <div className="results-wrapper" key={0}>
                             <div className="yes">
                               <div className="bar">
                                 <div
                                   className="bar-yes"
-                                  style={{ width: `${99 * token.totalYes / token.total}%` }}
+                                  style={{ width: `${(99 * token.totalYes) / token.total}%` }}
                                 />
                               </div>
                             </div>
                           </div>
-                        }
+                        )}
                       </div>
-                      {
-                        typeof token.totalYes !== 'undefined' &&
+                      {typeof token.totalYes !== 'undefined' && (
                         <div className="voting-wrapper">
                           <div className="votes-number">{nFormatter(token.totalYes)}</div>
-                          {
-                            timeRemaining > 0 &&
+                          {timeRemaining > 0 && (
                             <a
                               className="vote-wrapper"
-                              onClick={(e) => { e.stopPropagation(); this.vote(token); }}
+                              onClick={e => {
+                                e.stopPropagation();
+                                this.vote(token);
+                              }}
                             >
                               VOTE
                             </a>
-                          }
+                          )}
                         </div>
-                      }
+                      )}
                     </div>
                     <p className="description">
                       {token.description || 'No description available'}
                       <br />
-                      {
-                        token.website &&
+                      {token.website && (
                         <a
                           href={token.website}
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={e => e.stopPropagation()}
-                        >Visit Website</a>
-                      }
+                        >
+                          Visit Website
+                        </a>
+                      )}
                     </p>
                   </div>
-                ))
-              }
+                ))}
             </div>
           </div>
         </div>
-        {
-          this.state.showModal &&
+        {this.state.showModal && (
           <TokenListingVoteModal closeModal={this.toggleModal} tokenData={this.state.tokenData} />
-        }
+        )}
       </div>
     );
   }
@@ -300,8 +304,11 @@ const mapStateToProps = state => ({
   account: state.account.account,
 });
 
-export default connect(mapStateToProps, {
-  getVotingTokenBalance,
-  getTokenVotes,
-  voteForToken,
-})(TokenListings);
+export default connect(
+  mapStateToProps,
+  {
+    getVotingTokenBalance,
+    getTokenVotes,
+    voteForToken,
+  }
+)(TokenListings);

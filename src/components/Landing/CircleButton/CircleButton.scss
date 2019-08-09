@@ -1,0 +1,227 @@
+.right-column__circle-button {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+  padding: 0;
+
+  appearance: none;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  color: #ffffff;
+  cursor: pointer;
+
+  &:hover .circle-button__icon,
+  &:focus .circle-button__icon {
+    background-color: #6326ff;
+  }
+
+  &-fee {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -42px);
+
+    & .circle-button__icon {
+      background-image: url('/images/landingIcons/fee.png');
+      background-position: 6px 8px;
+    }
+
+    &--active .circle-button__name {
+      font-size: 20px;
+    }
+
+    &--active .circle-button__icon {
+      background-image: url('/images/landingIcons/fee-active.png');
+      background-color: #6326ff;
+    }
+
+    @media (max-height: 1024px) {
+      &--active .circle-button__name {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-height: 900px) {
+      transform: translate(-50%, -125px);
+    }
+
+    @media (max-height: 800px), (max-width: 1280px) {
+      transform: translate(-50%, -160px);
+    }
+  }
+
+  &-exchanges {
+    top: 133px;
+    left: 0;
+    transform: translateX(-50%);
+
+    & .circle-button__icon {
+      background-image: url('/images/landingIcons/exchanges.png');
+      background-position: 4px 7px;
+    }
+
+    &--active .circle-button__name {
+      font-size: 20px;
+    }
+
+    &--active .circle-button__icon {
+      background-image: url('/images/landingIcons/exchanges-active.png');
+      background-color: #6326ff;
+    }
+
+    @media (max-height: 1024px) {
+      top: 105px;
+
+      &--active .circle-button__name {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-height: 900px) {
+      top: 85px;
+      transform: translateX(-100%);
+    }
+
+    @media (max-height: 800px), (max-width: 1280px) {
+      top: 25px;
+      transform: translateX(-125%);
+    }
+  }
+
+  &-listings {
+    top: 364px;
+    left: 18px;
+
+    & .circle-button__icon {
+      background-image: url('/images/landingIcons/listings.png');
+      background-position: 3px 5px;
+    }
+
+    &--active .circle-button__name {
+      font-size: 20px;
+    }
+
+    &--active .circle-button__icon {
+      background-image: url('/images/landingIcons/listings-active.png');
+      background-color: #6326ff;
+    }
+
+    @media (max-height: 1024px) {
+      top: 310px;
+
+      &--active .circle-button__name {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-height: 900px) {
+      top: 330px;
+      left: -15px;
+    }
+
+    @media (max-height: 800px), (max-width: 1280px) {
+      top: 270px;
+      left: -75px;
+    }
+  }
+
+  &-dao {
+    top: 364px;
+    right: 18px;
+
+    & .circle-button__icon {
+      background-image: url('/images/landingIcons/dao.png');
+      background-position: 7px 7px;
+    }
+
+    &--active .circle-button__name {
+      font-size: 20px;
+    }
+
+    &--active .circle-button__icon {
+      background-image: url('/images/landingIcons/dao-active.png');
+      background-color: #6326ff;
+    }
+
+    @media (max-height: 1024px) {
+      top: 310px;
+
+      &--active .circle-button__name {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-height: 900px) {
+      top: 330px;
+      right: -15px;
+    }
+
+    @media (max-height: 800px), (max-width: 1280px) {
+      top: 270px;
+      right: -75px;
+    }
+  }
+
+  &-buy {
+    top: 133px;
+    right: 0;
+    transform: translateX(50%);
+
+    & .circle-button__icon {
+      background-image: url('/images/landingIcons/buy.png');
+      background-position: 10px 5px;
+    }
+
+    &--active .circle-button__name {
+      font-size: 20px;
+    }
+
+    &--active .circle-button__icon {
+      background-image: url('/images/landingIcons/buy-active.png');
+      background-color: #6326ff;
+    }
+
+    @media (max-height: 1024px) {
+      top: 105px;
+
+      &--active .circle-button__name {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-height: 900px) {
+      top: 85px;
+      transform: translateX(100%);
+    }
+
+    @media (max-height: 800px), (max-width: 1280px) {
+      top: 25px;
+      transform: translateX(125%);
+    }
+  }
+
+  &-nec {
+    position: static;
+  }
+}
+
+.circle-button__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background-color: #2b1284;
+  background-repeat: no-repeat;
+  transition: all 0.3s;
+}
+
+.circle-button__name {
+  text-transform: capitalize;
+  max-width: 150px;
+  font-size: 14px;
+}
