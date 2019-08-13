@@ -8,8 +8,10 @@ const fetchedTraders = payload => ({
 });
 
 export const fetchTraders = token => async (dispatch) => {
+  const endpoint = 'https://competition.nectar.community/api/v1/';
+  const api = token === 'ALL' ? 'results/' : 'resultsByToken/';
   await fetch(
-    `https://competition.nectar.community/api/v1/resultsByToken/${token}`,
+    `${endpoint}${api}${token === 'ALL' ? '' : token}`,
     {
       method: 'get',
       mode: 'cors',
@@ -38,9 +40,10 @@ export const fetchTradersByDate = (
     endDate.getMonth(),
     endDate.getDate(),
   );
+  const endpoint = 'https://competition.nectar.community/api/v1/';
+  const api = token === 'ALL' ? 'results/' : 'resultsByToken/';
   await fetch(
-    `https://competition.nectar.community/api/v1/resultsByToken/
-	${token}?startDate=${startDateTimestamp}&endDate=${endDateTimestamp}`,
+    `${endpoint}${api}${token === 'ALL' ? '' : token}?startDate=${startDateTimestamp}&endDate=${endDateTimestamp}`,
     {
       method: 'get',
       mode: 'cors',
