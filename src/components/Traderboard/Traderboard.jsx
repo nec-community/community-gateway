@@ -5,7 +5,10 @@ import { Table, Column, AutoSizer } from 'react-virtualized';
 import 'react-datepicker/dist/react-datepicker.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchTraders, fetchTradersByDate } from '../../actions/traderAction';
+import {
+  fetchTraders,
+  fetchTradersByDate,
+} from '../../actions/traderAction';
 import './Traderboard.scss';
 
 class Traderboard extends Component {
@@ -28,8 +31,8 @@ class Traderboard extends Component {
   }
 
   componentDidMount() {
-    const { token } = this.state;
-    this.props.fetchTraders(token);
+    const { token, startDate, endDate } = this.state;
+    this.props.fetchTradersByDate(startDate, endDate, token);
   }
 
   setStartDate(date) {
@@ -48,10 +51,12 @@ class Traderboard extends Component {
     this.props.fetchTradersByDate(startDate, date, token);
   }
 
-  async handleTokenChange(token) {
-    await this.props.fetchTraders(token);
+  async handleTokenChange(e) {
+    const { startDate, endDate } = this.state;
+    const value = e.target.value;
+    await this.props.fetchTradersByDate(startDate, endDate, value);
     this.setState({
-      token,
+      token: value,
     });
   }
 
@@ -74,34 +79,27 @@ class Traderboard extends Component {
           <div>
             <h1>Trader Board Listings</h1>
             <div className="actions">
-              <div
-                className={token === 'ETH' ? 'selected' : null}
-                onClick={() => this.handleTokenChange('ETH')}
-              >
-                <span className="actions_item__query">ETH</span>
-              </div>
-              <div
-                className={token === 'DAI' ? 'selected' : null}
-                onClick={() => this.handleTokenChange('DAI')}
-              >
-                <span className="actions_item__query">DAI</span>
-              </div>
-              <div
-                className={token === 'USD' ? 'selected' : null}
-                onClick={() => this.handleTokenChange('USD')}
-              >
-                <span className="actions_item__query">USD</span>
+              <div className="select">
+                <select name="" id="" onChange={this.handleTokenChange}>
+                  <option value="ALL">ALL TOKENS</option>
+                  <option value="ETH" selected="selected">ETH</option>
+                  <option value="DAI">DAI</option>
+                  <option value="USD">USD</option>
+                </select>
               </div>
               <div className="actions_item_date">
+                From:
                 <DatePicker
+                  dateFormat="dd/MM/yyyy"
                   selected={startDate}
                   selectsStart
                   startDate={startDate}
                   endDate={endDate}
                   onChange={this.setStartDate}
                 />
-
+                To:
                 <DatePicker
+                  dateFormat="dd/MM/yyyy"
                   selected={endDate}
                   selectsEnd
                   startDate={startDate}
@@ -112,36 +110,22 @@ class Traderboard extends Component {
               </div>
             </div>
           </div>
-          <AutoSizer>
-            {({ width }) => (
-              <Table
-                width={width}
-                height={300}
-                headerHeight={30}
-                rowCount={traders.length}
-                rowGetter={traderRowGetter}
-                noRowsRenderer={this._noRowsRenderer}
-                rowHeight={30}
-                headerClassName="table_header"
-              >
-                <Column
-                  width={600}
-                  label="Wallet Address"
-                  dataKey="address"
-                />
-                <Column
-                  width={200}
-                  label="Amount"
-                  dataKey="amount"
-                  cellRenderer={({ cellData }) =>
-                      `${Number(cellData)
-                        .toFixed(4)
-                        .replace(/\d(?=(\d{3})+\.)/g, '$&,')} ${token}`
-                    }
-                />
-              </Table>
-              )}
-          </AutoSizer>
+          <table>
+            <th>WALLET ADDRESS</th>
+            <th>AMOUNT</th>
+            {
+              traders.map(trader => (
+                <tr>
+                  <td>{trader.address}</td>
+                  <td>
+                    {`${Number(trader.amount)
+                      .toFixed(4)
+                      .replace(/\d(?=(\d{3})+\.)/g, '$&,')} ${token === 'ALL' ? 'USD' : token}`}
+                  </td>
+                </tr>
+              ))
+            }
+          </table>
         </div>
       </div>
     );

@@ -3,7 +3,44 @@
 .traderboard {
   margin: auto;
   padding: 100px 0 10px 0;
-  min-height: calc(100vh - 177px);
+
+  .container {
+    height: 100%;
+  }
+
+  .react-datepicker-wrapper {
+    max-width: 100px;
+    margin-left: 10px;
+    input {
+      text-align: center;
+    }
+  }
+
+  .select {
+    position: relative;
+
+    select {
+      background: transparent;
+      border: 1px solid #fff;
+      -webkit-appearance: none;
+      border-radius: 0;
+      color: #fff;
+      padding: 8px 10px;
+      min-width: 120px;
+    }
+
+    &::after {
+      display: block;
+      content: " ";
+      background-image: url("./arrow.svg");
+      background-size: 16px 8px;
+      height: 8px;
+      width: 16px;
+      position: absolute;
+      right: 10px;
+      top: 13px;
+    }
+  }
 }
 
 .search {
@@ -56,6 +93,27 @@ input {
   justify-content: center;
   font-size: 1em;
   color: #bdbdbd;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  th {
+    font-size: 12px;
+    font-weight: 300;
+    text-align: left;
+    padding-bottom: 15px;
+  }
+
+  tr {
+    font-size: 13px;
+    height: 33px;
+    font-weight: 300;
+    text-transform: uppercase;
+    td {
+      border-bottom: 1px solid hsla(0, 0%, 86.7%, 0.2);
+    }
+  }
 }
 
 .ReactVirtualized__Table__headerRow {
