@@ -58,6 +58,7 @@ class App extends Component {
               <div>
                 <Link onClick={() => this.setState({open: false})} to="/tokens">About</Link>
                 <Link onClick={() => this.setState({open: false})} to="/token-leaderboard">Leaderboard</Link>
+                <Link onClick={() => this.setState({open: false})} to="/traderboard">Traderboard</Link>
                 <Link onClick={() => this.setState({open: false})} to="/token-pool">The Pool</Link>
               </div>
             </div>
