@@ -77,14 +77,30 @@ class Traderboard extends Component {
       <div className="traderboard">
         <div className="container">
           <div>
-            <h1>Trader Board Listings</h1>
+            <h1>Traderboard - live rankings of every trader on <a href="https://deversifi.com" target="_blank">DeversiFi</a></h1>
             <div className="actions">
               <div className="select">
                 <select name="" id="" onChange={this.handleTokenChange}>
                   <option value="ALL">ALL TOKENS</option>
                   <option value="ETH" selected="selected">ETH</option>
                   <option value="DAI">DAI</option>
-                  <option value="USD">USD</option>
+                  <option value="SCR">XD</option>
+                  <option value="USD">USDt</option>
+                  <option value="MKR">MKR</option>
+                  <option value="WBT">wBTC</option>
+                  <option value="OMG">OMG</option>
+                  <option value="ZRX">ZRX</option>
+                  <option value="EDO">EDO</option>
+                  <option value="BAT">BAT</option>
+                  <option value="SAN">SAN</option>
+                  <option value="SNT">SNT</option>
+                  <option value="ENJ">ENJ</option>
+                  <option value="FUN">FUN</option>
+                  <option value="TKN">TKN</option>
+                  <option value="REP">REP</option>
+                  <option value="TSD">TUSD</option>
+                  <option value="UDC">USDC</option>
+                  <option value="SPK">SPANK</option>
                 </select>
               </div>
               <div className="actions_item_date">
@@ -112,7 +128,7 @@ class Traderboard extends Component {
           </div>
           <table>
             <th>WALLET ADDRESS</th>
-            <th>AMOUNT</th>
+            <th>TRADING VOLUME</th>
             {
               traders.map(trader => (
                 <tr>

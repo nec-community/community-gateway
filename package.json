@@ -10,9 +10,6 @@
     "prod": "webpack --config ./build/webpack-prod.config.js",
     "prod-serve": "webpack-dev-server --https --history-api-fallback --compress --config ./build/webpack-prod.config.js"
   },
-  "engines": {
-    "node": "8.10"
-  },
   "dependencies": {
     "@babel/core": "^7.3.4",
     "@babel/plugin-transform-runtime": "^7.3.4",
@@ -58,7 +55,6 @@
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.6",
-    "sqlite3": "^3.1.13",
     "style-loader": "^0.20.1",
     "web3": "1.0.0-beta.31",
     "webpack": "^3.10.0",

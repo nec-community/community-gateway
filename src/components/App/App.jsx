@@ -53,12 +53,12 @@ class App extends Component {
           </div>
           <div className="nav-links">
             <Link to="/">Home</Link>
+            <Link to="/traderboard">Traderboard</Link>
             <div className="dropdown-wrapper">
               <a>Token Listings</a>
               <div>
                 <Link onClick={() => this.setState({open: false})} to="/tokens">About</Link>
                 <Link onClick={() => this.setState({open: false})} to="/token-leaderboard">Leaderboard</Link>
-                <Link onClick={() => this.setState({open: false})} to="/traderboard">Traderboard</Link>
                 <Link onClick={() => this.setState({open: false})} to="/token-pool">The Pool</Link>
               </div>
             </div>
