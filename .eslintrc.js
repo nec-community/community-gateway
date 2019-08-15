@@ -7,7 +7,7 @@ module.exports = {
     browser: true,
   },
   rules: {
-    'prettier/prettier': ['error'],
+    'prettier/prettier': ['warn'],
     'max-len': [2, 120, 2, { ignoreComments: true }],
     'class-methods-use-this': 0,
     'jsx-a11y/href-no-hash': 'off',

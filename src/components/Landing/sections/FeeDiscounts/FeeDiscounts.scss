@@ -1,0 +1,138 @@
+.fee-discounts__content {
+  padding-bottom: 60px;
+}
+
+.fee-discounts__calculator-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 35px 20px;
+  margin-bottom: 27px;
+  mix-blend-mode: normal;
+  border: 1px solid rgba(#ffffff, 0.2);
+  box-sizing: border-box;
+}
+
+.fee-discounts__calculator {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.fee-discounts__input {
+  width: 200px;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  border: none;
+  border-bottom: 1px solid #4d5475;
+  color: #ffffff;
+  background-color: transparent;
+  transition: 0.2s;
+}
+
+.fee-discounts__input:focus {
+  outline: none;
+  border-bottom: 1px solid #ffffff;
+  transition: 0.2s;
+}
+
+.fee-discounts__label,
+.fee-discounts__receive-label-bottom {
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+
+.fee-discounts__receive-label-bottom {
+  margin: unset;
+}
+
+.fee-discounts__input-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.fee-discounts__input-nec {
+  position: relative;
+}
+
+.fee-discounts__input-nec.right input {
+  padding-right: 66px;
+  text-align: start;
+}
+
+.fee-discounts__input-nec:after {
+  position: absolute;
+  top: 0;
+  content: 'NEC';
+  font-size: 26px;
+}
+
+.fee-discounts__input-nec.right:after {
+  right: 5px;
+}
+
+.fee-discounts__input-percent {
+  position: relative;
+}
+
+.fee-discounts__input-percent.right input {
+  padding-right: 65px;
+  text-align: start;
+}
+
+.fee-discounts__input-percent:after {
+  position: absolute;
+  top: 0;
+  content: 'USD';
+  font-size: 26px;
+  font-weight: 500;
+}
+
+.fee-discounts__input-percent.right:after {
+  right: 5px;
+}
+
+.fee-discounts__arrows {
+  align-self: flex-end;
+  margin: 0 35px 6px;
+}
+
+.trading {
+  margin-top: 8px !important;
+}
+
+.fee-discounts__link {
+  text-decoration: none;
+}
+
+.fee-discounts__link:hover {
+  text-shadow: #dce2ff;
+}
+
+.fee-discounts__receive-usd {
+  width: 200px;
+  height: 35px;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  border: none;
+  border-bottom: 1px solid #4d5475;
+  color: #ffffff;
+  background: transparent;
+  transition: all 0.2s;
+}
+
+.fee-discount__receive-text {
+  padding: 0;
+  width: 128px;
+  margin: 0;
+  overflow: hidden;
+}
+
+.fee-discount__section-margin {
+  margin-bottom: 30px !important;
+}
