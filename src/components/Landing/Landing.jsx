@@ -48,12 +48,13 @@ const tabsNames = [
 ];
 
 class Landing extends Component {
-  static propTypes = {};
-
   state = {
     activeTab: 'nec',
     isScrollBlocked: false,
+    tradingVolume: 0,
   };
+
+  controller = new AbortController();
 
   componentDidMount() {
     const { history } = this.props;
@@ -62,12 +63,30 @@ class Landing extends Component {
       passive: false,
     });
     this.unlistenHistoryChange = history.listen(this.historyChange);
+
+    fetch(
+      'https://cors-anywhere.herokuapp.com/https://efx-trustless-data.herokuapp.com/api/v1/last24HoursVolume',
+      {
+        method: 'GET',
+        mode: 'cors',
+        signal: this.controller.signal,
+      }
+    )
+      .then(res => res.json())
+      .then(data => {
+        if (!isNaN(data?.TotalUSDValue))
+          this.setState({
+            tradingVolume: data?.TotalUSDValue,
+          });
+      })
+      .catch(e => console.log('Error ', e));
   }
 
   componentWillUnmount() {
     window.removeEventListener('wheel', this.slideContent);
     this.unlistenHistoryChange();
     clearTimeout(this.blockerTimeout);
+    this.controller.abort();
   }
 
   setActiveTabByScroll = changer => {
@@ -154,7 +173,7 @@ class Landing extends Component {
   };
 
   render() {
-    const { activeTab } = this.state;
+    const { activeTab, tradingVolume } = this.state;
 
     const ActiveTabComponent = tabs[activeTab].component;
     const pageNumber = Object.keys(tabs).length;
@@ -185,7 +204,7 @@ class Landing extends Component {
               </div>
             ) : null}
           </div>
-          <ActiveTabComponent />
+          <ActiveTabComponent tradingVolume={activeTab === 'buy' ? tradingVolume : null} />
           <div className="landing__central-column-borders landing__central-column-borders--bottom">
             {currentPage < tabsNames.length - 1 ? (
               <div className="central-column-borders__wrapper">
