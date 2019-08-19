@@ -33,6 +33,9 @@ class App extends Component {
   }
 
   render() {
+    const { location } = this.props;
+    const isLanding = location.pathname === '/';
+
     return (
       <div>
         <div className={`notification-wrapper ${this.props.showNotif ? 'active' : ''}`}>
@@ -96,15 +99,17 @@ class App extends Component {
 
         <Login />
 
-        {/* <footer>
-          <div className="container">
-            <div className="logo-wrapper">
-              <img src="/images/logo.svg" alt="" />
-              <span>Nectar.community</span>
+        {isLanding ? null : (
+          <footer>
+            <div className="container">
+              <div className="logo-wrapper">
+                <img src="/images/logo.svg" alt="" />
+                <span>Nectar.community</span>
+              </div>
+              <p className="copyright">Copyright Ethfinex Inc</p>
             </div>
-            <p className="copyright">Copyright Ethfinex Inc</p>
-          </div>
-        </footer> */}
+          </footer>
+        )}
       </div>
     );
   }

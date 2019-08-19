@@ -1,5 +1,9 @@
 .fee-discounts__content {
   padding-bottom: 60px;
+
+  @media (max-height: 950px) {
+    padding-bottom: 30px;
+  }
 }
 
 .fee-discounts__calculator-content {
@@ -105,10 +109,6 @@
   margin-top: 8px !important;
 }
 
-.fee-discounts__link {
-  text-decoration: none;
-}
-
 .fee-discounts__link:hover {
   text-shadow: #dce2ff;
 }
@@ -135,4 +135,8 @@
 
 .fee-discount__section-margin {
   margin-bottom: 30px !important;
+
+  @media (max-height: 850px) {
+    margin-bottom: 20px !important;
+  }
 }

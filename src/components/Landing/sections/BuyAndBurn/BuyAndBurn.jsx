@@ -51,7 +51,7 @@ function BuyAndBurn({ tradingVolume }) {
       </p>
       <br />
       <br />
-      <a href="#" className="fee-discounts__link">
+      <a href="#" className="landing__link">
         Find out more
       </a>
     </section>

@@ -20,21 +20,27 @@ const buttons = [
 const tabs = {
   nec: {
     component: Nec,
+    background: '/images/landingBackgrounds/nec-bg.png',
   },
   fee: {
     component: FeeDiscounts,
+    background: '/images/landingBackgrounds/fee-bg.png',
   },
   buy: {
     component: BuyAndBurn,
+    background: '/images/landingBackgrounds/buy-bg.png',
   },
   dao: {
     component: DaoGovernance,
+    background: '/images/landingBackgrounds/dao-bg.png',
   },
   listings: {
     component: NewListings,
+    background: '/images/landingBackgrounds/fee-bg.png',
   },
   exchanges: {
     component: Exchanges,
+    background: '/images/landingBackgrounds/exchanges-bg.png',
   },
 };
 
@@ -175,12 +181,31 @@ class Landing extends Component {
   render() {
     const { activeTab, tradingVolume } = this.state;
 
+    const tabsArray = Object.keys(tabs);
     const ActiveTabComponent = tabs[activeTab].component;
-    const pageNumber = Object.keys(tabs).length;
-    const currentPage = Object.keys(tabs).findIndex(tab => tab === activeTab);
+    const pageNumber = tabsArray.length;
+    const currentPage = tabsArray.findIndex(tab => tab === activeTab);
 
     return (
-      <div className={`landing__wrapper landing__wrapper--${activeTab}`}>
+      <div className="landing__wrapper">
+        <div className="landing__background">
+          {tabsArray.map(tab => (
+            <picture key={tab}>
+              <source
+                srcSet={`/images/landingBackgrounds/${
+                  tab === 'listings' ? 'fee' : tab
+                }-bg@2x.png 2x`}
+              />
+              <img
+                src={`/images/landingBackgrounds/${tab === 'listings' ? 'fee' : tab}-bg.png`}
+                alt=""
+                className={`landing__background-image ${
+                  tab === activeTab ? 'landing__background-image--active' : ''
+                }`}
+              />
+            </picture>
+          ))}
+        </div>
         <div className="landing__left-column">
           {currentPage ? (
             <div className="left-column__page-number-wrapper">

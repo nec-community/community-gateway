@@ -18,7 +18,7 @@ export default function DaoGovernance() {
         future decisions and any new utilities proposed for Nectar must be decided and added by its
         DAO.
       </p>
-      <Link to="#" className="dao-governance__link">
+      <Link to="/" className="landing__link dao-governance__link">
         Find out more
       </Link>
       <p className="dao-governance__label">Coming soon</p>

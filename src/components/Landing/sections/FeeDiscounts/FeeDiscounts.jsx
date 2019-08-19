@@ -46,11 +46,11 @@ export default class FeeDiscounts extends Component {
         <p className="landing__section-content fee-discounts__content">
           Ethfinex Trustless is the most liquid and advanced decentralized exchange.
           <br />
-          <br />
+          <br className="landing__linebreak" />
           The value of Nectar will now be tied to the success of its decentralized exchange
           products, of which Ethfinex Trustless is the first and largest.
           <br />
-          <br />
+          <br className="landing__linebreak" />
           As a consequence holding Nectar will entitle traders to fee discounts based
         </p>
         <div className="fee-discounts__calculator-content">
@@ -86,7 +86,12 @@ export default class FeeDiscounts extends Component {
               <p className="fee-discounts__receive-label-bottom">30-day Trading volume</p>
             </div>
           </div>
-          <a href="/" className="fee-discounts__link">
+          <a
+            href="https://app.deversifi.com"
+            rel="noopener noreferrer"
+            target="_blank"
+            className="landing__link"
+          >
             View fee calculation table
           </a>
         </div>
@@ -94,7 +99,12 @@ export default class FeeDiscounts extends Component {
         <p className="landing__section-content fee-discount__section-margin">
           Start trading on Ethfinex Trustless
         </p>
-        <a href="/" className="new-listings__link trading">
+        <a
+          href="https://app.deversifi.com"
+          rel="noopener noreferrer"
+          target="_blank"
+          className="new-listings__link trading"
+        >
           Start Trading
         </a>
       </section>

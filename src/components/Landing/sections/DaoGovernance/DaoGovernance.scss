@@ -1,12 +1,3 @@
-.dao-governance__link {
-  margin: 20px 0 40px;
-
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 22px;
-}
-
 .dao-governance__label {
   display: flex;
   justify-content: center;
@@ -22,4 +13,8 @@
   line-height: 16px;
 
   letter-spacing: 0.3px;
+}
+
+.dao-governance__link {
+  margin: 20px 0 40px;
 }
