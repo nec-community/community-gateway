@@ -13,7 +13,7 @@ export default function Exchanges() {
           <span className="visually-hidden">Bitfinex</span>
         </a>
         <a href="https://www.ethfinex.com/" target="_blank" rel="noopener noreferrer">
-          <img src="/images/landingIcons/ethfinex.svg" alt="" />
+          <img src="/images/landingIcons/DeversiFi.png" alt="" height="50" />
           <span className="visually-hidden">Ethfinex</span>
         </a>
       </div>

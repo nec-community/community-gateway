@@ -20,7 +20,22 @@ export default function CircleButton(props) {
       }`}
       onClick={onCircleButtonClick}
     >
-      <div className="circle-button__icon" />
+      <div className="circle-button__icon">
+        <img
+          src={`/images/landingIcons/${icon}${icon === activeTab ? '-active' : ''}.svg`}
+          alt=""
+          className={`circle-button__icon-image ${
+            icon === activeTab ? 'circle-button__icon-image--active' : ''
+          }`}
+        />
+        <img
+          src={`/images/landingIcons/${icon}-active.svg`}
+          alt=""
+          className={`circle-button__active-icon-image ${
+            icon === activeTab ? 'circle-button__active-icon-image--active' : ''
+          }`}
+        />
+      </div>
       <span className="circle-button__name">{desc}</span>
     </button>
   );

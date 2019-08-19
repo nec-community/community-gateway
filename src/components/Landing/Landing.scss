@@ -31,8 +31,8 @@
   max-height: 100%;
   visibility: hidden;
   opacity: 0;
-  transition: opacity 0.5s;
   object-fit: cover;
+  transition: all 0.5s;
 
   &--active {
     visibility: visible;

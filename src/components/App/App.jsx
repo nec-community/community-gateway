@@ -50,7 +50,7 @@ class App extends Component {
             rel="noopener noreferrer"
             className="logo"
           >
-            <img src="/images/logo.svg" alt="" />
+            <img src="/images/new-logo-wh.svg" alt="" height="40" />
           </a>
 
           <div className="menu-opener-wrapper">
