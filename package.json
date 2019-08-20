@@ -11,7 +11,7 @@
     "prod-serve": "webpack-dev-server --https --history-api-fallback --compress --config ./build/webpack-prod.config.js"
   },
   "engines": {
-    "node": "^8.x"
+    "node": "8.x"
   },
   "dependencies": {
     "@babel/core": "^7.3.4",
