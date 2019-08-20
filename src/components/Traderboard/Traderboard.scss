@@ -1,0 +1,138 @@
+@import "../../common/variables";
+
+.traderboard {
+  margin: auto;
+  padding: 100px 0 10px 0;
+
+  .container {
+    height: 100%;
+  }
+
+  .react-datepicker-wrapper {
+    max-width: 100px;
+    margin-left: 10px;
+    input {
+      text-align: center;
+    }
+  }
+
+  .select {
+    position: relative;
+
+    select {
+      background: transparent;
+      border: 1px solid #fff;
+      -webkit-appearance: none;
+      border-radius: 0;
+      color: #fff;
+      padding: 8px 10px;
+      min-width: 120px;
+    }
+
+    &::after {
+      display: block;
+      content: " ";
+      background-image: url("./arrow.svg");
+      background-size: 16px 8px;
+      height: 8px;
+      width: 16px;
+      position: absolute;
+      right: 10px;
+      top: 13px;
+    }
+  }
+}
+
+.search {
+  display: flex;
+  justify-content: space-between;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.selected {
+  font-weight: 600;
+}
+
+.react-datepicker-popper {
+  display: flex;
+  align-items: center;
+  z-index: 99;
+}
+
+input {
+  width: 100%;
+  background-color: transparent;
+  border: 0;
+  border-bottom: 1px solid white;
+  color: white;
+  font-size: 16px;
+  font-weight: 300;
+  outline: none;
+  padding: 5px;
+}
+
+.actions_item:not(:last-child) {
+  cursor: pointer;
+}
+
+.noRows {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  color: #bdbdbd;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  th {
+    font-size: 12px;
+    font-weight: 300;
+    text-align: left;
+    padding-bottom: 15px;
+  }
+
+  tr {
+    font-size: 13px;
+    height: 33px;
+    font-weight: 300;
+    text-transform: uppercase;
+    td {
+      border-bottom: 1px solid hsla(0, 0%, 86.7%, 0.2);
+    }
+  }
+}
+
+.ReactVirtualized__Table__headerRow {
+  display: flex;
+  justify-content: space-between;
+
+  .ReactVirtualized__Table__headerColumn {
+    font-size: 12px;
+    font-weight: 300;
+  }
+}
+
+.ReactVirtualized__Table__row {
+  font-size: 13px;
+  padding: 16px 0;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 300;
+  text-transform: uppercase;
+  border-bottom: 1px solid hsla(0, 0%, 86.7%, 0.2);
+}

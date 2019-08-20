@@ -58,6 +58,7 @@ class App extends Component {
           </div>
           <div className="nav-links">
             <Link to="/">Home</Link>
+            <Link to="/traderboard">Traderboard</Link>
             <div className="dropdown-wrapper">
               <a>Token Listings</a>
               <div>

@@ -25,6 +25,7 @@
 
     &--active .circle-button__name {
       font-size: 20px;
+      max-width: 150px;
     }
 
     &--active .circle-button__icon {
@@ -54,6 +55,7 @@
 
     &--active .circle-button__name {
       font-size: 20px;
+      max-width: 150px;
     }
 
     &--active .circle-button__icon {
@@ -86,6 +88,7 @@
 
     &--active .circle-button__name {
       font-size: 20px;
+      max-width: 150px;
     }
 
     &--active .circle-button__icon {
@@ -118,6 +121,7 @@
 
     &--active .circle-button__name {
       font-size: 20px;
+      max-width: 150px;
     }
 
     &--active .circle-button__icon {
@@ -151,6 +155,7 @@
 
     &--active .circle-button__name {
       font-size: 20px;
+      max-width: 150px;
     }
 
     &--active .circle-button__icon {
@@ -180,6 +185,13 @@
   &-nec {
     position: static;
   }
+}
+
+.circle-button__name {
+  text-transform: capitalize;
+  max-width: 110px;
+  font-size: 14px;
+  transition: all 0.5s;
 }
 
 .circle-button__icon {
@@ -230,10 +242,4 @@
     opacity: 1;
     visibility: visible;
   }
-}
-
-.circle-button__name {
-  text-transform: capitalize;
-  max-width: 150px;
-  font-size: 14px;
 }

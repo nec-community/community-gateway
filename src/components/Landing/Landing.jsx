@@ -20,27 +20,21 @@ const buttons = [
 const tabs = {
   nec: {
     component: Nec,
-    background: '/images/landingBackgrounds/nec-bg.png',
   },
   fee: {
     component: FeeDiscounts,
-    background: '/images/landingBackgrounds/fee-bg.png',
   },
   buy: {
     component: BuyAndBurn,
-    background: '/images/landingBackgrounds/buy-bg.png',
   },
   dao: {
     component: DaoGovernance,
-    background: '/images/landingBackgrounds/dao-bg.png',
   },
   listings: {
     component: NewListings,
-    background: '/images/landingBackgrounds/fee-bg.png',
   },
   exchanges: {
     component: Exchanges,
-    background: '/images/landingBackgrounds/exchanges-bg.png',
   },
 };
 
@@ -70,14 +64,11 @@ class Landing extends Component {
     });
     this.unlistenHistoryChange = history.listen(this.historyChange);
 
-    fetch(
-      'https://cors-anywhere.herokuapp.com/https://efx-trustless-data.herokuapp.com/api/v1/last24HoursVolume',
-      {
-        method: 'GET',
-        mode: 'cors',
-        signal: this.controller.signal,
-      }
-    )
+    fetch('https://efx-trustless-data.herokuapp.com/api/v1/last24HoursVolume', {
+      method: 'GET',
+      mode: 'cors',
+      signal: this.controller.signal,
+    })
       .then(res => res.json())
       .then(data => {
         if (!isNaN(data?.TotalUSDValue))

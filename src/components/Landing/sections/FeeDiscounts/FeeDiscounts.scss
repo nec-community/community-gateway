@@ -68,14 +68,14 @@
   text-align: start;
 }
 
-.fee-discounts__input-nec:after {
+.fee-discounts__input-nec::after {
   position: absolute;
   top: 0;
   content: 'NEC';
   font-size: 26px;
 }
 
-.fee-discounts__input-nec.right:after {
+.fee-discounts__input-nec.right::after {
   right: 5px;
 }
 
@@ -88,7 +88,7 @@
   text-align: start;
 }
 
-.fee-discounts__input-percent:after {
+.fee-discounts__input-percent::after {
   position: absolute;
   top: 0;
   content: 'USD';
@@ -96,7 +96,7 @@
   font-weight: 500;
 }
 
-.fee-discounts__input-percent.right:after {
+.fee-discounts__input-percent.right::after {
   right: 5px;
 }
 
