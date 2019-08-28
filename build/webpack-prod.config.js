@@ -42,7 +42,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.scss$/,
+        test: /\.(scss|css)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: ['css-loader?modules&importLoaders=2&localIdentName=[local]&sourceMap&minimize=true', 'sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true']
