@@ -1,0 +1,153 @@
+.fee-discounts__content {
+  padding-bottom: 60px;
+
+  @media (max-height: 950px) {
+    padding-bottom: 30px;
+  }
+}
+
+.fee-discounts__calculator-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 35px 20px;
+  margin-bottom: 27px;
+  mix-blend-mode: normal;
+  border: 1px solid rgba(#ffffff, 0.2);
+  box-sizing: border-box;
+}
+
+.fee-discounts__calculator {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.fee-discounts__input {
+  width: 230px;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  border: none;
+  border-bottom: 1px solid #4d5475;
+  color: #ffffff;
+  background-color: transparent;
+  transition: 0.2s;
+}
+
+.fee-discounts__input:focus {
+  outline: none;
+  border-bottom: 1px solid #ffffff;
+  transition: 0.2s;
+}
+
+.fee-discounts__label,
+.fee-discounts__receive-label-bottom {
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+
+.fee-discounts__receive-label-bottom {
+  margin: unset;
+}
+
+.fee-discounts__input-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  min-height: 100%;
+  max-height: 100%;
+}
+
+.fee-discounts__input-nec {
+  position: relative;
+
+  &.right {
+    padding-bottom: 16px;
+  }
+}
+
+.fee-discounts__input-nec.right input {
+  padding-right: 66px;
+  text-align: start;
+}
+
+.fee-discounts__input-nec::after {
+  position: absolute;
+  top: 50%;
+  content: 'NEC';
+  font-size: 26px;
+  transform: translateY(calc(-50% - 8px));
+}
+
+.fee-discounts__input-nec.right::after {
+  right: 5px;
+}
+
+.fee-discounts__input-percent {
+  position: relative;
+}
+
+.fee-discounts__input-percent.right input {
+  padding-right: 65px;
+  text-align: start;
+}
+
+.fee-discounts__input-percent::after {
+  position: absolute;
+  top: 50%;
+  content: 'USD';
+  font-size: 26px;
+  font-weight: 500;
+  transform: translate(5px, -50%);
+}
+
+.fee-discounts__input-percent.right::after {
+  right: 5px;
+}
+
+.fee-discounts__arrows {
+  align-self: flex-end;
+  margin: 0 35px 6px;
+}
+
+.trading {
+  margin-top: 8px !important;
+}
+
+.fee-discounts__link:hover {
+  text-shadow: #dce2ff;
+}
+
+.fee-discounts__receive-usd {
+  width: 200px;
+  padding: 5px 65px 5px 0;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  border: none;
+  border-bottom: 1px solid #4d5475;
+  color: #ffffff;
+  background: transparent;
+  transition: all 0.2s;
+}
+
+.fee-discount__receive-text {
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.fee-discount__section-margin {
+  margin-bottom: 30px !important;
+
+  @media (max-height: 850px) {
+    margin-bottom: 20px !important;
+  }
+}

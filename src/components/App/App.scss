@@ -1,12 +1,12 @@
-@import "../../common/text";
-@import "../../common/components";
-@import "../../common/variables";
+@import '../../common/text';
+@import '../../common/components';
+@import '../../common/variables';
 
-@import "../../common/header-desc-container";
+@import '../../common/header-desc-container';
 
 * {
   box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 html {
@@ -27,22 +27,28 @@ body {
 nav {
   position: absolute;
   width: 100%;
-  transition: .2s background-color;
-  padding: 15px 30px 0;
+  transition: 0.2s background-color;
+  padding: 15px 20px 0;
   font-weight: 300;
   z-index: 10000;
+
   @media screen and (min-width: 1080px) {
     display: flex;
     justify-content: space-between;
+  }
+
+  @media (min-width: 1360px) {
     padding: 30px 40px 0;
   }
+
   .nav-links {
     .dropdown-wrapper {
       display: inline-block;
       position: relative;
       padding-right: 10px;
       > a {
-        color: $color4;
+        // color: $color4;
+        color: #fff;
         position: relative;
         padding-right: 20px;
         &:before,
@@ -54,7 +60,8 @@ nav {
           width: 9px;
           right: 0;
           top: 19px;
-          border-bottom: 1px solid $color4;
+          // border-bottom: 1px solid $color4;
+          border-bottom: 1px solid #fff;
           transform: rotate(-45deg);
         }
         &:before {
@@ -66,7 +73,7 @@ nav {
         display: none;
         position: absolute;
         background-color: $color1;
-        box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, .4);
+        box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.4);
         min-width: 100%;
         width: 170px;
         text-align: right;
@@ -108,7 +115,7 @@ nav {
   @media screen and (max-width: 1079px) {
     &.open {
       background-color: $color1;
-      box-shadow: 0 0 5px 5px rgba($color2, .7);
+      box-shadow: 0 0 5px 5px rgba($color2, 0.7);
       .nav-links {
         display: block !important;
       }
@@ -116,12 +123,15 @@ nav {
   }
   a {
     padding: 10px;
-    color: $color4;
+    // color: $color4;
+    color: #fff;
     line-height: 48px;
     text-decoration: none;
     cursor: pointer;
+    transition: opacity 0.3s;
+
     &:hover {
-      color: white;
+      opacity: 0.8;
     }
   }
   .menu-opener-wrapper {
@@ -181,6 +191,10 @@ footer {
     margin-right: 15px;
     vertical-align: top;
   }
+}
+
+.logo {
+  padding: 0;
 }
 
 .bg-text {

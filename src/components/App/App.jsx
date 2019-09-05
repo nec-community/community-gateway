@@ -32,7 +32,14 @@ class App extends Component {
     }
   }
 
+  clickLinkHandler = () => {
+    this.setState({ open: false });
+  };
+
   render() {
+    const { location } = this.props;
+    const isLanding = location.pathname === '/';
+
     return (
       <div>
         <div className={`notification-wrapper ${this.props.showNotif ? 'active' : ''}`}>
@@ -41,55 +48,78 @@ class App extends Component {
           </div>
         </div>
         <nav className={`${this.state.open ? 'open' : ''}`}>
-          <div className="logo-wrapper">
-            <a target="_blank" href="https://www.ethfinex.com" rel="noopener noreferrer">
-              <img src="/images/logo.svg" alt="" />
-            </a>
-            <span>Nectar.community</span>
-          </div>
+          <a
+            target="_blank"
+            href="https://www.ethfinex.com"
+            rel="noopener noreferrer"
+            className="logo"
+          >
+            <img src="/images/new-logo-wh.svg" alt="" height="40" />
+          </a>
 
           <div className="menu-opener-wrapper">
             <a onClick={() => this.setState({ open: !this.state.open })}>|||</a>
           </div>
           <div className="nav-links">
-            <Link to="/">Home</Link>
-            <Link to="/traderboard">Traderboard</Link>
+            <Link to="/" onClick={this.clickLinkHandler}>
+              Home
+            </Link>
+            <Link to="/traderboard" onClick={this.clickLinkHandler}>
+              Traderboard
+            </Link>
             <div className="dropdown-wrapper">
               <a>Token Listings</a>
               <div>
-                <Link onClick={() => this.setState({open: false})} to="/tokens">About</Link>
-                <Link onClick={() => this.setState({open: false})} to="/token-leaderboard">Leaderboard</Link>
-                <Link onClick={() => this.setState({open: false})} to="/token-pool">The Pool</Link>
+                <Link onClick={this.clickLinkHandler} to="/tokens">
+                  About
+                </Link>
+                <Link onClick={this.clickLinkHandler} to="/token-leaderboard">
+                  Leaderboard
+                </Link>
+                <Link onClick={this.clickLinkHandler} to="/token-pool">
+                  The Pool
+                </Link>
               </div>
             </div>
             <div className="dropdown-wrapper">
               <a>Proposals</a>
               <div>
-                <Link onClick={() => this.setState({open: false})} to="/delegate-votes">Delegate Votes</Link>
-                <Link onClick={() => this.setState({open: false})} to="/proposals">All Proposals</Link>
-                <Link onClick={() => this.setState({open: false})} to="/pending">Pending Proposals</Link>
-                <Link onClick={() => this.setState({open: false})} to="/submit">Submit a Proposal</Link>
+                <Link onClick={this.clickLinkHandler} to="/delegate-votes">
+                  Delegate Votes
+                </Link>
+                <Link onClick={this.clickLinkHandler} to="/proposals">
+                  All Proposals
+                </Link>
+                <Link onClick={this.clickLinkHandler} to="/pending">
+                  Pending Proposals
+                </Link>
+                <Link onClick={this.clickLinkHandler} to="/submit">
+                  Submit a Proposal
+                </Link>
               </div>
             </div>
-            <Link onClick={() => this.setState({open: false})} to="/faq">FAQ</Link>
+            <Link onClick={this.clickLinkHandler} to="/faq">
+              FAQ
+            </Link>
           </div>
         </nav>
 
         <Routes />
 
-        <Login />
-
-        <footer>
-          <div className="container">
-            <div className="logo-wrapper">
-              <img src="/images/logo.svg" alt="" />
-              <span>Nectar.community</span>
-            </div>
-            <p className="copyright">
-              Copyright Ethfinex Inc
-            </p>
-          </div>
-        </footer>
+        {isLanding ? null : (
+          <>
+            <Login />
+            <footer>
+              <div className="container">
+                <div className="logo-wrapper">
+                  <img src="/images/logo.svg" alt="" />
+                  <span>Nectar.community</span>
+                </div>
+                <p className="copyright">Copyright Ethfinex Inc</p>
+              </div>
+            </footer>
+          </>
+        )}
       </div>
     );
   }
@@ -116,7 +146,10 @@ const mapStateToProps = state => ({
   isAdmin: state.account.isAdmin,
 });
 
-export default connect(mapStateToProps, {
-  loginMetamask,
-  fetchEthfinexData,
-})(withRouter(App));
+export default connect(
+  mapStateToProps,
+  {
+    loginMetamask,
+    fetchEthfinexData,
+  }
+)(withRouter(App));

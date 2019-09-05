@@ -2,6 +2,7 @@ node_modules/
 .idea/
 package-lock.json
 yarn.lock
+yarn-error.log
 src/constants/config.json
 server/config.js
 server/*.db

@@ -1,15 +1,14 @@
 module.exports = {
-  extends: 'eslint-config-airbnb',
-  plugins: [
-    'react', 'import'
-  ],
-  parser: "babel-eslint",
+  extends: ['eslint-config-airbnb', 'prettier'],
+  plugins: ['react', 'import', 'prettier'],
+  parser: 'babel-eslint',
   env: {
-    "es6": true,
-    "browser": true
+    es6: true,
+    browser: true,
   },
   rules: {
-    'max-len': [2, 120, 2, {ignoreComments: true}],
+    'prettier/prettier': ['warn'],
+    'max-len': [2, 120, 2, { ignoreComments: true }],
     'class-methods-use-this': 0,
     'jsx-a11y/href-no-hash': 'off',
     'react/jsx-tag-spacing': 1,
@@ -36,12 +35,20 @@ module.exports = {
     'no-plusplus': 0,
     'no-unused-vars': 1,
     'react/no-unused-prop-types': 1,
+    'react/prop-types': ['warn', { ignore: ['className', 'children', 'history'] }],
   },
   globals: {
     web3: true,
     window: true,
     document: true,
     fetch: true,
-    localStorage: true
+    localStorage: true,
+  },
+  parserOptions: {
+    ecmaVersion: 10,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
 };

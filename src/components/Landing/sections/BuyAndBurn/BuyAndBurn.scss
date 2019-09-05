@@ -1,0 +1,64 @@
+.buy-and-burn__bold-text {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 22px;
+  color: #ffffff;
+}
+
+.buy-and-burn__progress-bar-content {
+  padding: 30px 0 65px;
+}
+
+.buy-and-burn__progress-bar-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 517px;
+  margin-bottom: 7px;
+}
+
+.buy-and-burn__title {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #ffffff;
+}
+
+.buy-and-burn__progress-bar-title-up {
+  display: flex;
+  flex-direction: column;
+
+  &--right {
+    align-items: flex-end;
+  }
+}
+
+.buy-and-burn__amount-right,
+.buy-and-burn__amount-left {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  color: #ffffff;
+}
+
+.buy-and-burn__progress-bar {
+  position: relative;
+  width: 520px;
+  height: 20px;
+  background-color: #2f3864;
+}
+
+.buy-and-burn__current-progress {
+  position: absolute;
+  background-color: #ffffff;
+  height: 20px;
+  width: 0%;
+}
+
+.buy-and-burn__section-margin {
+  margin-bottom: 30px !important;
+}
+
+.buy-and-burn__content {
+  line-height: 20px !important;
+}
