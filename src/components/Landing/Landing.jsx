@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { countWheels } from './scrollHelper';
 
 import CircleButton from './CircleButton';
-import { Nec, FeeDiscounts, BuyAndBurn, DaoGovernance, NewListings, Exchanges } from './sections';
+import { Nec, FeeDiscounts, BuyAndBurn, DaoGovernance, NewListings, Ecosystem } from './sections';
 
 import './Landing.scss';
 
@@ -14,7 +14,7 @@ const buttons = [
   { icon: 'buy', desc: 'Buy & Burn' },
   { icon: 'dao', desc: `DAO governance` },
   { icon: 'listings', desc: 'New listings' },
-  { icon: 'exchanges', desc: 'Exchanges' },
+  { icon: 'exchanges', desc: 'Ecosystem' },
 ];
 
 const tabs = {
@@ -34,7 +34,7 @@ const tabs = {
     component: NewListings,
   },
   exchanges: {
-    component: Exchanges,
+    component: Ecosystem,
   },
 };
 
@@ -44,7 +44,7 @@ const tabsNames = [
   'Buy & Burn',
   'DAO governance',
   'New listings',
-  'Exchanges',
+  'Ecosystem',
 ];
 
 class Landing extends Component {
@@ -64,7 +64,7 @@ class Landing extends Component {
     });
     this.unlistenHistoryChange = history.listen(this.historyChange);
 
-    fetch('https://efx-trustless-data.herokuapp.com/api/v1/last24HoursVolume', {
+    fetch('https://api.deversifi.com/api/v1/last24HoursVolume', {
       method: 'GET',
       mode: 'cors',
       signal: this.controller.signal,

@@ -50,7 +50,7 @@ class App extends Component {
         <nav className={`${this.state.open ? 'open' : ''}`}>
           <a
             target="_blank"
-            href="https://www.ethfinex.com"
+            href="https://www.deversifi.com"
             rel="noopener noreferrer"
             className="logo"
           >
@@ -115,7 +115,7 @@ class App extends Component {
                   <img src="/images/logo.svg" alt="" />
                   <span>Nectar.community</span>
                 </div>
-                <p className="copyright">Copyright Ethfinex Inc</p>
+                <p className="copyright">Copyright DeversiFi</p>
               </div>
             </footer>
           </>
