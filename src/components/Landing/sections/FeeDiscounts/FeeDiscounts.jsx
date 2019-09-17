@@ -73,14 +73,12 @@ export default class FeeDiscounts extends Component {
     return (
       <section className="landing__section">
         <p className="landing__section-content fee-discounts__content">
-          Ethfinex Trustless is the most liquid and advanced decentralized exchange.
+          Holders of Nectar enjoy benefits across the DeFi ecosystem, starting with DeversiFi, the most comprehensive decentralised trading experience. 
           <br />
           <br className="landing__linebreak" />
-          The value of Nectar will now be tied to the success of its decentralized exchange
-          products, of which Ethfinex Trustless is the first and largest.
+          Nectar entitles its holders to fee discounts based on a linear schedule. Traders are entitled to a 20% fee discount on trading volume proportional to their NEC holdings. Specifically, every 1NEC gives a trader a 20% fee discount on 100USD of 30-day trading volume (e.g. 1000NEC yields a 20% discount on 100,000USD of 30-day trading volume). So, a trader could receive up to a $0.04 discount every 30 days for every single NEC they hold.
           <br />
           <br className="landing__linebreak" />
-          As a consequence holding Nectar will entitle traders to fee discounts based
         </p>
         <div className="fee-discounts__calculator-content">
           <div className="fee-discounts__calculator">
@@ -124,9 +122,11 @@ export default class FeeDiscounts extends Component {
             View fee calculation table
           </a>
         </div>
-        <br />
+       
         <p className="landing__section-content fee-discount__section-margin">
-          Start trading on Ethfinex Trustless
+          The fee discount is applied on a rolling basis based on the user’s reference amount of NEC (the average balance in the user’s address over the past 30 days). 
+         <br />
+          Fee discounts are also available for users placing larger orders and reaching higher 30-day trading volume thresholds. Each of these three discounts are applied successively in order to simplify the calculation of the current fee rate.
         </p>
         <a
           href="https://app.deversifi.com"
