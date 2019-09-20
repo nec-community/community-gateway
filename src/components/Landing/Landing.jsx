@@ -185,14 +185,14 @@ class Landing extends Component {
               <source
                 srcSet={`/images/landingBackgrounds/${
                   tab === 'listings' ? 'fee' : tab
-                }-bg@2x.png 2x`}
+                  }-bg@2x.png 2x`}
               />
               <img
                 src={`/images/landingBackgrounds/${tab === 'listings' ? 'fee' : tab}-bg.png`}
                 alt=""
                 className={`landing__background-image ${
                   tab === activeTab ? 'landing__background-image--active' : ''
-                }`}
+                  }`}
               />
             </picture>
           ))}
@@ -247,7 +247,7 @@ class Landing extends Component {
                     name="nec"
                     className={`right-column__circle-button right-column__circle-central-button ${
                       activeTab === 'nec' ? `right-column__circle-central-button--active` : ''
-                    }`}
+                      }`}
                     onClick={this.onCircleButtonClick}
                   >
                     NEC

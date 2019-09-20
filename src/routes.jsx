@@ -12,6 +12,7 @@ import DelegateVotes from './components/DelegateVotes/DelegateVotes';
 import TokenPool from './components/TokenPool/TokenPool';
 import TokenAbout from './components/TokenAbout/TokenAbout';
 import Traderboard from './components/Traderboard/Traderboard';
+import WhitePaper from './components/WhitePaper/WhitePaper';
 
 const Routes = () => (
   <Switch>
@@ -29,6 +30,7 @@ const Routes = () => (
     <Route exact path="/token-leaderboard" component={TokenListings} />
 
     <Route exact path="/faq" component={FAQ} />
+    <Route exact path="/whitepaper" component={WhitePaper} />
 
     <Route exact path="/traderboard" component={Traderboard} />
   </Switch>
