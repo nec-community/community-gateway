@@ -67,6 +67,9 @@ class App extends Component {
             <Link to="/traderboard" onClick={this.clickLinkHandler}>
               Traderboard
             </Link>
+            <Link to="/whitepaper">
+              Whitepaper
+            </Link>
             <div className="dropdown-wrapper">
               <a>Token Listings</a>
               <div>
@@ -112,7 +115,7 @@ class App extends Component {
             <footer>
               <div className="container">
                 <div className="logo-wrapper">
-                  <img src="/images/logo.svg" alt="" />
+                  <img src="/images/new-logo-wh.svg" alt="" />
                   <span>Nectar.community</span>
                 </div>
                 <p className="copyright">Copyright DeversiFi</p>

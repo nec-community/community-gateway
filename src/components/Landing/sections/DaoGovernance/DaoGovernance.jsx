@@ -14,7 +14,7 @@ export default function DaoGovernance() {
       <br/>
       DeversiFi is committed to providing specified fee discounts to Nectar token holders and to buying and burning tokens as specified above. DeversiFi will continue to build, develop and improve the DeversiFi portal, including introducing new features. However, all future decisions and new utilities proposed for Nectar must be decided and implemented by its DAO.
       </p>
-      <Link to="/" className="landing__link dao-governance__link">
+      <Link to="/whitepaper#page=19" className="landing__link dao-governance__link">
         Find out more
       </Link>
       <p className="dao-governance__label">Coming soon</p>

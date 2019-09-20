@@ -6,7 +6,7 @@
 }
 
 .buy-and-burn__progress-bar-content {
-  padding: 30px 0 65px;
+  padding: 0 0 30px;
 }
 
 .buy-and-burn__progress-bar-title {
@@ -46,6 +46,39 @@
   width: 520px;
   height: 20px;
   background-color: #2f3864;
+}
+
+.buy-and-burn__labels {
+  display: flex;
+  width: 520px;
+  height: 20px;
+  margin: 10px 0;
+  div {
+    flex: 1;
+    position: relative;
+
+    span {
+      position: absolute;
+      text-align: center;
+      width: 53px;
+      right: -26px;
+    }
+  }
+}
+
+.buy-and-burn__progress-sections {
+  position: absolute;
+  width: 520px;
+  z-index: 2;
+  display: flex;
+  justify-content: space-evenly;
+
+  .buy-and-burn__progress-section-bar {
+    width: 2px;
+    background-color: #222a43;
+    height: 20px;
+
+  }
 }
 
 .buy-and-burn__current-progress {

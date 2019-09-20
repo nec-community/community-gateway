@@ -25,7 +25,7 @@ module.exports = {
     loaders: [
       { test: /\.(js|jsx)$/, loaders: ['babel-loader'], exclude: /node_modules/ },
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
+        test: /\.(jpe?g|png|gif|svg|pdf)$/i,
         loaders: [
           'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
           {
