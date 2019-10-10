@@ -35,20 +35,20 @@ class Traderboard extends Component {
     this.props.fetchTradersByDate(startDate, endDate, token);
   }
 
-  setStartDate(date) {
+  setStartDate(startDate) {
     this.setState({
-      startDate: date,
+      startDate,
     });
     const { endDate, token } = this.state;
-    this.props.fetchTradersByDate(date, endDate, token);
+    this.props.fetchTradersByDate(startDate, endDate, token);
   }
 
-  setEndDate(date) {
+  setEndDate(endDate) {
     this.setState({
-      endDate: date,
+      endDate,
     });
     const { startDate, token } = this.state;
-    this.props.fetchTradersByDate(startDate, date, token);
+    this.props.fetchTradersByDate(startDate, endDate, token);
   }
 
   async handleTokenChange(e) {
@@ -134,7 +134,7 @@ class Traderboard extends Component {
                 <tr>
                   <td>{trader.address}</td>
                   <td>
-                    {`${Number(trader.amount)
+                    {`${Number(trader.amount || trader.USDValue)
                       .toFixed(4)
                       .replace(/\d(?=(\d{3})+\.)/g, '$&,')} ${token === 'ALL' ? 'USD' : token}`}
                   </td>
