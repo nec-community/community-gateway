@@ -126,7 +126,7 @@ export default class FeeDiscounts extends Component {
         <p className="landing__section-content fee-discount__section-margin">
           The fee discount is applied on a rolling basis based on the user’s reference amount of NEC (the average balance in the user’s address over the past 30 days). 
          <br />
-          Fee discounts are also available for users placing larger orders and reaching higher 30-day trading volume thresholds. Each of these three discounts are applied successively in order to simplify the calculation of the current fee rate.
+          Fee discounts are also available for users placing larger orders and reaching higher 30-day trading volume thresholds.
         </p>
         <a
           href="https://app.deversifi.com"
