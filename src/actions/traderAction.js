@@ -8,18 +8,23 @@ const fetchedTraders = payload => ({
 });
 
 export const fetchTraders = token => async (dispatch) => {
-  const endpoint = 'https://competition.nectar.community/api/v1/';
-  const api = token === 'ALL' ? 'results/' : 'resultsByToken/';
-  await fetch(
-    `${endpoint}${api}${token === 'ALL' ? '' : token}`,
+  const endpoint = 'https://api.deversifi.com/api/v1/';
+  const api = token === 'ALL' ? 'USDRanking' : 'tokenRanking/';
+  await fetch(`${endpoint}${api}${token === 'ALL' ? '' : token}`,
     {
       method: 'get',
       mode: 'cors',
     },
   )
     .then(response => response.json())
-    .then((response) => {
-      dispatch(fetchedTraders(response));
+    .then(response => {
+      dispatch(
+        fetchedTraders({
+          ranking: response,
+          token,
+          dates: [],
+        }),
+      );
     })
     .catch(err => console.log(err));
 };
@@ -40,8 +45,8 @@ export const fetchTradersByDate = (
     endDate.getMonth(),
     endDate.getDate(),
   );
-  const endpoint = 'https://competition.nectar.community/api/v1/';
-  const api = token === 'ALL' ? 'results/' : 'resultsByToken/';
+  const endpoint = 'https://api.deversifi.com/api/v1/';
+  const api = token === 'ALL' ? 'USDRanking' : 'tokenRanking/';
   await fetch(
     `${endpoint}${api}${token === 'ALL' ? '' : token}?startDate=${startDateTimestamp}&endDate=${endDateTimestamp}`,
     {
@@ -50,8 +55,14 @@ export const fetchTradersByDate = (
     },
   )
     .then(response => response.json())
-    .then((response) => {
-      dispatch(fetchedTraders(response));
+    .then(response => {
+      dispatch(
+        fetchedTraders({
+          ranking: response,
+          token,
+          dates: [startDate, endDate],
+        }),
+      );
     })
     .catch(err => console.log(err));
 };
