@@ -36,33 +36,35 @@ module.exports = {
                 optimizationLevel: 7,
                 interlaced: false,
               },
-            }
+            },
           },
-
-        ]
+        ],
       },
       {
         test: /\.(scss|css)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader?modules&importLoaders=2&localIdentName=[local]&sourceMap&minimize=true', 'sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true']
-        })
-      }
-    ]
+          use: [
+            'css-loader?modules&importLoaders=2&localIdentName=[local]&sourceMap&minimize=true',
+            'sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true',
+          ],
+        }),
+      },
+    ],
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
   plugins: [
     new CleanPlugin([path.resolve('dist')], { root: path.resolve(__dirname, '../') }),
-    new ExtractTextPlugin('[name].css', {allChunks: true}),
+    new ExtractTextPlugin('[name].css', { allChunks: true }),
     HtmlWebpackPluginConfig,
     // optimizations
     new OptimizeCssAssetsPlugin({
       assetNameRegExp: /\.optimize\.css$/g,
       cssProcessor: require('cssnano'),
-      cssProcessorOptions: { discardComments: {removeAll: true } },
-      canPrint: true
+      cssProcessorOptions: { discardComments: { removeAll: true } },
+      canPrint: true,
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
@@ -75,7 +77,7 @@ module.exports = {
       'process.env': {
         env: '"production"',
         NODE_ENV: '"production"',
-      }
+      },
     }),
     new CopyWebpackPlugin([
       {
@@ -86,6 +88,6 @@ module.exports = {
         from: './src/constants/videos/',
         to: 'videos/',
       },
-    ])
-  ]
+    ]),
+  ],
 };

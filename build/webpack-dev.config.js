@@ -27,19 +27,20 @@ module.exports = {
   },
   output: {
     path: path.resolve('dist'),
-    filename: 'index_bundle.js'
+    filename: 'index_bundle.js',
   },
   module: {
     loaders: [
       {
-        test: /\.(js|jsx)$/, loaders:[
+        test: /\.(js|jsx)$/,
+        loaders: [
           'babel-loader',
           {
             loader: 'eslint-loader',
-            options: { emitWarning: true, emitError: false }
-          }
+            options: { emitWarning: true, emitError: false },
+          },
         ],
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.(jpe?g|png|gif|svg|pdf)$/i,
@@ -53,25 +54,26 @@ module.exports = {
                 optimizationLevel: 7,
                 interlaced: false,
               },
-            }
+            },
           },
-        ]
+        ],
       },
       {
         test: /\.(scss|css)$/,
-        loader: 'style-loader!css-loader?modules&importLoaders=2&sourceMap&localIdentName=[local]!sass-loader?outputStyle=expanded&sourceMap'
-      }
-    ]
+        loader:
+          'style-loader!css-loader?modules&importLoaders=2&sourceMap&localIdentName=[local]!sass-loader?outputStyle=expanded&sourceMap',
+      },
+    ],
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
   plugins: [
     HtmlWebpackPluginConfig,
     new webpack.DefinePlugin({
       'process.env': {
-        env: '"development"'
-      }
+        env: '"development"',
+      },
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
@@ -88,6 +90,6 @@ module.exports = {
         from: './src/constants/videos/',
         to: 'videos/',
       },
-    ])
-  ]
+    ]),
+  ],
 };
