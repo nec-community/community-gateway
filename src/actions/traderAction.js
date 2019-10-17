@@ -68,24 +68,20 @@ export const fetchTradersByDate = (startDate, endDate, token) => async dispatch 
     //   })
     // );
 
-    // const start = new Date('2019/01/01');
-    // const end = new Date();
-    // end.setDate(end.getDate() - 7);
-    //
-    // const formattedStart = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate());
-    // const formattedEnd = Date.UTC(end.getFullYear(), end.getMonth(), end.getDate());
-    //
-    // const respAllTraders = await fetch(
-    //   `${endpoint}${api}?startDate=${formattedStart}&endDate=${formattedEnd}`
-    // );
-    // const allTraders = await respAllTraders.json();
-    // const formattedAllTraders = allTraders.map(el => el.address);
-    //
-    // response.forEach(el => (el.isNewTrader = !formattedAllTraders.includes(el.address)));
-    //
-    // console.log(response);
+    const start = new Date('2019/01/01');
+    const end = new Date();
+    end.setDate(end.getDate() - 7);
 
-    console.log(response);
+    const formattedStart = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate());
+    const formattedEnd = Date.UTC(end.getFullYear(), end.getMonth(), end.getDate());
+
+    const respAllTraders = await fetch(
+      `${endpoint}${api}?startDate=${formattedStart}&endDate=${formattedEnd}`
+    );
+    const allTraders = await respAllTraders.json();
+    const formattedAllTraders = allTraders.map(el => el.address);
+
+    response.forEach(el => (el.isNewTrader = !formattedAllTraders.includes(el.address)));
 
     dispatch(
       fetchedTraders({
