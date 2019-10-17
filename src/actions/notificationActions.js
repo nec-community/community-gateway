@@ -1,7 +1,4 @@
-import {
-  SHOW_NOTIF,
-  HIDE_NOTIF,
-} from './actionTypes';
+import { SHOW_NOTIF, HIDE_NOTIF } from './actionTypes';
 
 let timeout;
 
@@ -15,13 +12,13 @@ export const hideNotification = () => ({
   type: HIDE_NOTIF,
 });
 
-export const notify = (message, type = 'success', length = 5000) => (dispatch) => {
+export const notify = (message, type = 'success', length = 5000) => dispatch => {
   dispatch(showNotification(message, type));
   clearTimeout(timeout);
   timeout = setTimeout(() => dispatch(hideNotification()), length);
 };
 
-export const notifyError = err => (dispatch) => {
+export const notifyError = err => dispatch => {
   let message = err.message ? err.message : err;
   if (message.indexOf('MetaMask') !== -1 && message.indexOf('\n') > -1) {
     message = message.substr(message.indexOf('MetaMask'));

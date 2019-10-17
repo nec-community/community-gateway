@@ -15,37 +15,36 @@ const fetchedTokens = (tokens, endingTime, isActive, evtAddress) => ({
   evtAddress,
 });
 
-export const getTokenVotes = () => async (dispatch) => {
+export const getTokenVotes = () => async dispatch => {
   const proposalData = await eth.getTokenProposalDetails();
   if (!proposalData._tokens) {
     log('No active token proposal');
-    const tokens = (await Promise.all(currentLeaderboard.map(getTokenInfo)))
-      .map((token) => {
-        const extraData = proposedTokenData[token.address.toLowerCase()];
-        return {
-          ...token,
-          description: extraData && extraData.description,
-          website: extraData && extraData.website,
-        };
-      });
+    const tokens = (await Promise.all(currentLeaderboard.map(getTokenInfo))).map(token => {
+      const extraData = proposedTokenData[token.address.toLowerCase()];
+      return {
+        ...token,
+        description: extraData && extraData.description,
+        website: extraData && extraData.website,
+      };
+    });
     dispatch(fetchedTokens(tokens, new Date(), false, '0x0'));
     return;
   }
-  const tokens =
-    (await Promise.all(proposalData._tokens.map(getTokenInfo)))
-      .map((token, i) => ({
-        ...token,
-        id: i,
-        totalYes: proposalData.yesVotes[i],
-        total: proposalData.totalVotes,
-      }))
-      .filter(token => token.address !== '0x0000000000000000000000000000000000000000');
-  dispatch(fetchedTokens(tokens, proposalData.endingTime, proposalData._active, proposalData._votingToken));
+  const tokens = (await Promise.all(proposalData._tokens.map(getTokenInfo)))
+    .map((token, i) => ({
+      ...token,
+      id: i,
+      totalYes: proposalData.yesVotes[i],
+      total: proposalData.totalVotes,
+    }))
+    .filter(token => token.address !== '0x0000000000000000000000000000000000000000');
+  dispatch(
+    fetchedTokens(tokens, proposalData.endingTime, proposalData._active, proposalData._votingToken)
+  );
 };
 
 export const voteForToken = (id, amount) => async (dispatch, getState) => {
-  if (!getState().account.votingTokenBalance ||
-    getState().account.votingTokenBalance < 0.1) {
+  if (!getState().account.votingTokenBalance || getState().account.votingTokenBalance < 0.1) {
     return notifyError('You first need voting tokens!')(dispatch);
   }
 
@@ -64,7 +63,7 @@ const fetchedPoolTokens = poolTokens => ({
   poolTokens,
 });
 
-export const getPoolTokens = () => async (dispatch) => {
-  const tokens = (await getApprovedTokens());
+export const getPoolTokens = () => async dispatch => {
+  const tokens = await getApprovedTokens();
   dispatch(fetchedPoolTokens(tokens));
 };

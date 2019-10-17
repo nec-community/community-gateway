@@ -14,7 +14,7 @@ const fetchedProposals = proposals => ({
   proposals,
 });
 
-export const getProposals = () => async (dispatch) => {
+export const getProposals = () => async dispatch => {
   const proposals = await Promise.all(await eth.getProposals());
   log(proposals);
   dispatch(fetchedProposals(proposals));
@@ -25,7 +25,7 @@ const fetchedActiveProposals = proposals => ({
   proposals,
 });
 
-export const getActiveProposals = () => async (dispatch) => {
+export const getActiveProposals = () => async dispatch => {
   const proposals = await Promise.all(await eth.getActiveProposals());
   log(proposals);
   dispatch(fetchedActiveProposals(proposals));
@@ -36,7 +36,7 @@ const fetchedNonApprovedProposals = proposals => ({
   proposals,
 });
 
-export const getNonApprovedProposals = () => async (dispatch) => {
+export const getNonApprovedProposals = () => async dispatch => {
   const proposals = await Promise.all(await eth.getNonApprovedProposals());
   log(proposals);
   dispatch(fetchedNonApprovedProposals(proposals));
@@ -47,8 +47,11 @@ export const submitProposal = (duration, description, email) => async (dispatch,
   try {
     const descriptionHash = await grenache.put(description, email);
     await eth.submitProposal(duration, descriptionHash, getState().account.accountType);
-    notify(`Your proposal has been submitted and will need to be approved
-    by the Ethfinex moderation team before a vote can begin`, 'success')(dispatch);
+    notify(
+      `Your proposal has been submitted and will need to be approved
+    by the Ethfinex moderation team before a vote can begin`,
+      'success'
+    )(dispatch);
     // go to home
   } catch (err) {
     notifyError(err)(dispatch);

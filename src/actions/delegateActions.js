@@ -10,17 +10,20 @@ const fetchedDelegates = delegates => ({
   delegates,
 });
 
-export const getDelegates = () => async (dispatch) => {
+export const getDelegates = () => async dispatch => {
   const delegates = await eth.getDelegates();
   const promises = delegates.map(delegate => grenache.get(delegate.storageHash.substr(2, 40)));
 
   Promise.all(promises)
-    .then((descriptions) => {
-      const parsedDelegates = delegates.map((delegate, i) => ({ ...delegate, description: descriptions[i] }));
+    .then(descriptions => {
+      const parsedDelegates = delegates.map((delegate, i) => ({
+        ...delegate,
+        description: descriptions[i],
+      }));
       log(delegates);
       dispatch(fetchedDelegates(parsedDelegates));
     })
-    .catch((error) => {
+    .catch(error => {
       log(error);
     });
 };
@@ -29,7 +32,7 @@ export const becomeDelegate = description => async (dispatch, getState) => {
   if (!getState().account.accountType) return dispatch(openLogin());
   try {
     if (await eth.hasVotedOnTokenListing(getState().account.account)) {
-      throw new Error('You\'ve already voted and can not become a delegate in this round. ');
+      throw new Error("You've already voted and can not become a delegate in this round. ");
     }
     const descriptionHash = await grenache.put(description);
     await eth.becomeDelegate(descriptionHash, getState().account.accountType);
@@ -42,10 +45,12 @@ export const becomeDelegate = description => async (dispatch, getState) => {
 export const delegateVote = to => async (dispatch, getState) => {
   if (!getState().account.accountType) return dispatch(openLogin());
   if (await eth.hasVotedOnTokenListing(getState().account.account)) {
-    throw new Error('You\'ve already voted and can not delegate your vote in this round.');
+    throw new Error("You've already voted and can not delegate your vote in this round.");
   }
   if (await eth.hasVotedOnTokenListing(to)) {
-    throw new Error('The chosen address has already voted in this round and currently can not be a delegate.');
+    throw new Error(
+      'The chosen address has already voted in this round and currently can not be a delegate.'
+    );
   }
   try {
     await eth.delegateVote(to, getState().account.accountType);

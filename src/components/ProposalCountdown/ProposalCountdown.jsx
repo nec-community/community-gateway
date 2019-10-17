@@ -17,7 +17,7 @@ class ProposalCountdown extends Component {
     this.parseETA();
     setInterval(() => this.parseETA(), 1000);
   }
-  parseETA () {
+  parseETA() {
     this.setState({
       ...timeUntilDate(this.props.endTime),
     });

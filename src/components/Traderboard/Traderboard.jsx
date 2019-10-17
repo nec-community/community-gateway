@@ -16,28 +16,55 @@ const fishes = [
   { name: 'whale', amount: '$5m' },
 ];
 
+const tokens = [
+  'ALL',
+  'ETH',
+  'NEC',
+  'DAI',
+  'SCR',
+  'USD',
+  'MKR',
+  'WBT',
+  'OMG',
+  'ZRX',
+  'EDO',
+  'BAT',
+  'SAN',
+  'SNT',
+  'ENJ',
+  'FUN',
+  'TKN',
+  'REP',
+  'TSD',
+  'UDC',
+  'SPK',
+];
+
 class Traderboard extends Component {
   constructor(props) {
     super(props);
 
-    const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
 
     this.state = {
-      token: 'ETH',
-      startDate: oneWeekAgo,
+      token: 'ALL',
+      startDate: oneMonthAgo,
       endDate: new Date(),
     };
+
     this.handleTokenChange = this.handleTokenChange.bind(this);
+    this.handleIntervalChange = this.handleIntervalChange.bind(this);
     this.setStartDate = this.setStartDate.bind(this);
     this.setEndDate = this.setEndDate.bind(this);
-
     this._noRowsRenderer = this._noRowsRenderer.bind(this);
+    this.renderBadges = this.renderBadges.bind(this);
   }
 
   componentDidMount() {
     const { token, startDate, endDate } = this.state;
-    this.props.fetchTradersByDate(startDate, endDate, token);
+    const { fetchTradersByDate } = this.props;
+    fetchTradersByDate(startDate, endDate, token);
   }
 
   setStartDate(startDate) {
@@ -45,7 +72,8 @@ class Traderboard extends Component {
       startDate,
     });
     const { endDate, token } = this.state;
-    this.props.fetchTradersByDate(startDate, endDate, token);
+    const { fetchTradersByDate } = this.props;
+    fetchTradersByDate(startDate, endDate, token);
   }
 
   setEndDate(endDate) {
@@ -53,7 +81,8 @@ class Traderboard extends Component {
       endDate,
     });
     const { startDate, token } = this.state;
-    this.props.fetchTradersByDate(startDate, endDate, token);
+    const { fetchTradersByDate } = this.props;
+    fetchTradersByDate(startDate, endDate, token);
   }
 
   async handleTokenChange(e) {
@@ -65,8 +94,54 @@ class Traderboard extends Component {
     });
   }
 
+  async handleIntervalChange(e) {
+    const { value } = e.target;
+    const { token } = this.state;
+    const { fetchTradersByDate } = this.props;
+
+    const end = new Date();
+    const start = new Date();
+
+    switch (value) {
+      case '24h':
+        start.setDate(start.getDate() - 1);
+        await fetchTradersByDate(start, end, token);
+        break;
+      case '7d':
+        start.setDate(start.getDate() - 7);
+        await fetchTradersByDate(start, end, token);
+        break;
+      default:
+        start.setDate(start.getDate() - 30);
+        await fetchTradersByDate(start, end, token);
+        break;
+    }
+  }
+
   _noRowsRenderer() {
     return <div className="noRows">No records</div>;
+  }
+
+  renderBadges(trader) {
+    const count = trader.USDValue || 0;
+    let imgSrc = '';
+
+    if (count >= 10 ** 5 && count < 10 ** 6) {
+      imgSrc = 'minnow';
+    } else if (count >= 10 ** 6 && count < 2 * 10 ** 6) {
+      imgSrc = 'dolphin';
+    } else if (count >= 2 * 10 ** 6 && count < 5 * 10 ** 6) {
+      imgSrc = 'shark';
+    } else if (count >= 5 * 10 ** 6) {
+      imgSrc = 'whale';
+    }
+
+    return (
+      <div className="fish__badges">
+        {trader.isNECHolder ? <img src="/images/nectar.svg" alt="" /> : null}
+        {count >= 10 ** 5 ? <img src={`/images/${imgSrc}.svg`} alt="" /> : null}
+      </div>
+    );
   }
 
   render() {
@@ -102,38 +177,21 @@ class Traderboard extends Component {
                 </div>
                 <div className="actions">
                   <div className="select">
-                    <select name="" id="" onChange={this.handleTokenChange}>
-                      <option value="ALL">ALL TOKENS</option>
-                      <option value="ETH" selected>
-                        ETH
-                      </option>
-                      <option value="DAI">DAI</option>
-                      <option value="SCR">XD</option>
-                      <option value="USD">USDt</option>
-                      <option value="MKR">MKR</option>
-                      <option value="WBT">wBTC</option>
-                      <option value="OMG">OMG</option>
-                      <option value="ZRX">ZRX</option>
-                      <option value="EDO">EDO</option>
-                      <option value="BAT">BAT</option>
-                      <option value="SAN">SAN</option>
-                      <option value="SNT">SNT</option>
-                      <option value="ENJ">ENJ</option>
-                      <option value="FUN">FUN</option>
-                      <option value="TKN">TKN</option>
-                      <option value="REP">REP</option>
-                      <option value="TSD">TUSD</option>
-                      <option value="UDC">USDC</option>
-                      <option value="SPK">SPANK</option>
+                    <select name="token" onChange={this.handleTokenChange}>
+                      {tokens.map(el => (
+                        <option key={el} value={el} selected={el === 'ALL'}>
+                          {el === 'ALL' ? 'ALL TOKENS' : el}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div className="select">
-                    <select name="" id="" onChange={this.handleIntervalChange}>
-                      <option value="" selected>
+                    <select name="interval" onChange={this.handleIntervalChange}>
+                      <option value="30d" selected>
                         Latest 30 days
                       </option>
-                      <option value="">Latest 7 days</option>
-                      <option value="">Latest 24 hours</option>
+                      <option value="7d">Latest 7 days</option>
+                      <option value="24h">Latest 24 hours</option>
                     </select>
                   </div>
                   <div className="actions_item_date">
@@ -193,10 +251,17 @@ class Traderboard extends Component {
             </thead>
             <tbody>
               {traders.map((trader, index) => (
-                <tr>
+                <tr key={trader.address}>
                   <td>{index + 1}</td>
-                  <td>{trader.address}</td>
-                  <td>{Math.round(Number(trader.amount || trader.USDValue))}</td>
+                  <td>
+                    <div>
+                      <p>{trader.address}</p>
+                      {trader.isNewTrader ? <span className="new__trader">new trader!</span> : null}
+                    </div>
+                  </td>
+                  <td>{Math.floor(Number(trader.amount || trader.USDValue))}</td>
+                  <td>{}</td>
+                  <td>{this.renderBadges(trader)}</td>
                 </tr>
               ))}
             </tbody>
