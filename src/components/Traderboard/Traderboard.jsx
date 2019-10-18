@@ -59,6 +59,7 @@ class Traderboard extends Component {
     this.setEndDate = this.setEndDate.bind(this);
     this._noRowsRenderer = this._noRowsRenderer.bind(this);
     this.renderBadges = this.renderBadges.bind(this);
+    this.renderPositionChanging = this.renderPositionChanging.bind(this);
   }
 
   componentDidMount() {
@@ -144,6 +145,27 @@ class Traderboard extends Component {
     );
   }
 
+  renderPositionChanging(trader, index) {
+    const digit = trader.previousPosition - index;
+
+    if (trader.previousPosition === -1 || digit === 0) {
+      return null;
+    }
+
+    const direction = digit > 0 ? 'up' : 'down';
+
+    return (
+      <div className="position__change">
+        <img
+          className={digit > 0 ? 'triangle__increase' : 'triangle__decrease'}
+          src={`/images/${direction}.svg`}
+          alt=""
+        />
+        <span>{Math.abs(digit)}</span>
+      </div>
+    );
+  }
+
   render() {
     const { startDate, endDate, token } = this.state;
     const { traders } = this.props;
@@ -194,18 +216,21 @@ class Traderboard extends Component {
                       <option value="24h">Latest 24 hours</option>
                     </select>
                   </div>
-                  <div className="actions_item_date">
-                    From:
+                  <div className="date__picker">
                     <DatePicker
+                      disabled
                       dateFormat="dd/MM/yyyy"
                       selected={startDate}
                       selectsStart
                       startDate={startDate}
                       endDate={endDate}
                       onChange={this.setStartDate}
+                      placeholderText="FROM"
                     />
-                    To:
+                  </div>
+                  <div className="date__picker">
                     <DatePicker
+                      disabled
                       dateFormat="dd/MM/yyyy"
                       selected={endDate}
                       selectsEnd
@@ -213,6 +238,7 @@ class Traderboard extends Component {
                       endDate={endDate}
                       onChange={this.setEndDate}
                       minDate={startDate}
+                      placeholderText="TO"
                     />
                   </div>
                 </div>
@@ -260,7 +286,7 @@ class Traderboard extends Component {
                     </div>
                   </td>
                   <td>{Math.floor(Number(trader.amount || trader.USDValue))}</td>
-                  <td>{}</td>
+                  <td>{this.renderPositionChanging(trader, index)}</td>
                   <td>{this.renderBadges(trader)}</td>
                 </tr>
               ))}

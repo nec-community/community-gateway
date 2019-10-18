@@ -16,10 +16,9 @@
   }
 
   .react-datepicker-wrapper {
-    max-width: 100px;
-    margin-left: 10px;
+    max-width: 96px;
     input {
-      text-align: center;
+      text-align: left;
     }
   }
 
@@ -43,9 +42,15 @@
 
       .fish__icon {
         display: flex;
-        height: 30px;
+        width: 40px;
+        height: 40px;
         align-items: flex-end;
         margin-bottom: 10px;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
       }
 
       .fish__text {
@@ -124,7 +129,7 @@
       -webkit-appearance: none;
       color: #ffffff;
       padding: 5px 0;
-      min-width: 96px;
+      width: 96px;
       border: none;
       outline: none;
       border-bottom: 1px solid #ffffff;
@@ -157,8 +162,11 @@
 
 .actions {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+
+  & > div:not(:last-child) {
+    margin-right: 24px;
+  }
 }
 
 .selected {
@@ -177,14 +185,15 @@ input {
   border: 0;
   border-bottom: 1px solid white;
   color: white;
-  font-size: 16px;
+  font-size: 10px;
   font-weight: 300;
   outline: none;
-  padding: 5px;
-}
+  padding: 5px 0;
 
-.actions_item:not(:last-child) {
-  cursor: pointer;
+  &:disabled {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.2);
+  }
 }
 
 .noRows {
@@ -248,6 +257,23 @@ table {
         font-size: 10px;
         font-weight: 600;
       }
+
+      .position__change {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: fit-content;
+
+        img {
+          width: 7px;
+          height: 4px;
+          margin-right: 5px;
+        }
+
+        .triangle__decrease {
+          transform: rotate(180deg);
+        }
+      }
     }
   }
 
@@ -255,9 +281,16 @@ table {
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 40px;
+    height: 40px;
 
     & > *:first-child {
       margin-right: 10px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
     }
   }
 }

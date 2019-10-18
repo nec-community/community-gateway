@@ -7,15 +7,13 @@ const fetchedTraders = payload => ({
   dates: payload.dates,
 });
 
+const endpoint = 'https://api.deversifi.com/api/v1/';
+
 export const fetchTraders = token => async dispatch => {
-  const endpoint = 'https://api.deversifi.com/api/v1/';
   const api = token === 'ALL' ? 'USDRanking' : 'tokenRanking/';
 
   try {
-    const promiseResponse = await fetch(`${endpoint}${api}${token === 'ALL' ? '' : token}`, {
-      method: 'get',
-      mode: 'cors',
-    });
+    const promiseResponse = await fetch(`${endpoint}${api}${token === 'ALL' ? '' : token}`);
     const response = await promiseResponse.json();
     dispatch(
       fetchedTraders({
@@ -29,6 +27,46 @@ export const fetchTraders = token => async dispatch => {
   }
 };
 
+async function getNECHolders(traders) {
+  return fetch(`${endpoint}tokenRanking/NEC`)
+    .then(resp => resp.json())
+    .then(resp => {
+      const NECHoldersAddresses = resp.filter(el => el.amount >= 1000).map(el => el.address);
+      return traders.forEach(el => (el.isNECHolder = NECHoldersAddresses.includes(el.address)));
+    });
+}
+
+async function getNewTraders(traders) {
+  const start = new Date('2019/01/01');
+  const end = new Date();
+  end.setDate(end.getDate() - 7);
+
+  const formattedStart = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate());
+  const formattedEnd = Date.UTC(end.getFullYear(), end.getMonth(), end.getDate());
+
+  return fetch(`${endpoint}USDRanking?startDate=${formattedStart}&endDate=${formattedEnd}`)
+    .then(resp => resp.json())
+    .then(resp => {
+      const allTradersAddresses = resp.map(el => el.address);
+      return traders.forEach(el => (el.isNewTrader = !allTradersAddresses.includes(el.address)));
+    });
+}
+
+async function getPositionChange(traders, token, endDate) {
+  const api = token === 'ALL' ? 'USDRanking' : 'tokenRanking/';
+  const start = new Date('2019/01/01');
+  const startDate = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate());
+
+  return fetch(
+    `${endpoint}${api}${token === 'ALL' ? '' : token}?startDate=${startDate}&endDate=${endDate}`
+  )
+    .then(resp => resp.json())
+    .then(resp => {
+      const tradersAddresses = resp.map(el => el.address);
+      return traders.forEach(el => (el.previousPosition = tradersAddresses.indexOf(el.address)));
+    });
+}
+
 export const fetchTradersByDate = (startDate, endDate, token) => async dispatch => {
   const startDateTimestamp = Date.UTC(
     startDate.getFullYear(),
@@ -37,7 +75,6 @@ export const fetchTradersByDate = (startDate, endDate, token) => async dispatch 
   );
 
   const endDateTimestamp = Date.UTC(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
-  const endpoint = 'https://api.deversifi.com/api/v1/';
   const api = token === 'ALL' ? 'USDRanking' : 'tokenRanking/';
 
   try {
@@ -52,36 +89,11 @@ export const fetchTradersByDate = (startDate, endDate, token) => async dispatch 
     );
     const response = await promiseResponse.json();
 
-    const promiseNECTokens = await fetch('https://api.deversifi.com/api/v1/tokenRanking/NEC');
-    const NECHolders = await promiseNECTokens.json();
-    const NECHoldersAddresses = NECHolders.filter(el => el.amount >= 1000).map(el => el.address);
-
-    response.forEach(el => (el.isNECHolder = NECHoldersAddresses.includes(el.address)));
-
-    // const addresses = response.map(el => el.address);
-    //
-    // Promise.all(
-    //   addresses.map(async address => {
-    //     const promiseResp = await fetch(`https://api.deversifi.com/api/v1/30DaysVolume/${address}`);
-    //     const pastVolume = promiseResp.json();
-    //     console.log(pastVolume);
-    //   })
-    // );
-
-    const start = new Date('2019/01/01');
-    const end = new Date();
-    end.setDate(end.getDate() - 7);
-
-    const formattedStart = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate());
-    const formattedEnd = Date.UTC(end.getFullYear(), end.getMonth(), end.getDate());
-
-    const respAllTraders = await fetch(
-      `${endpoint}${api}?startDate=${formattedStart}&endDate=${formattedEnd}`
-    );
-    const allTraders = await respAllTraders.json();
-    const formattedAllTraders = allTraders.map(el => el.address);
-
-    response.forEach(el => (el.isNewTrader = !formattedAllTraders.includes(el.address)));
+    await Promise.all([
+      getNECHolders(response),
+      getNewTraders(response),
+      getPositionChange(response, token, startDateTimestamp),
+    ]);
 
     dispatch(
       fetchedTraders({
