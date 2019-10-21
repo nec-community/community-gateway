@@ -21,7 +21,7 @@ function BuyAndBurn({ tradingVolume }) {
         .toString()
         .replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
     },
-    [tradingVolume],
+    [tradingVolume]
   );
   const { volumePercentage, volumeDiscount } = calculateVolumeDiscount(tradingVolume);
 
@@ -33,11 +33,9 @@ function BuyAndBurn({ tradingVolume }) {
         an open and transparent auction mechanism. The purchased NEC tokens will then be burnt.
       </p>
 
-
       <p className="landing__section-content buy-and-burn__content buy-and-burn__section-margin">
         The precise revenue percentage used for this purchase will be dependent on the daily trading
         volume (see below).
-
       </p>
       <br />
       <div className="buy-and-burn__progress-bar-content">
@@ -46,14 +44,17 @@ function BuyAndBurn({ tradingVolume }) {
             <span className="buy-and-burn__title">Current 24h trading volume</span>
             <span className="buy-and-burn__amount-left">{formatNumber(tradingVolume)} USD</span>
           </div>
-          <div
-            className="buy-and-burn__progress-bar-title-up buy-and-burn__progress-bar-title-up--right">
+          <div className="buy-and-burn__progress-bar-title-up buy-and-burn__progress-bar-title-up--right">
             <span className="buy-and-burn__title">Revenues to Buy and Burn</span>
             <span className="buy-and-burn__amount-right">{volumeDiscount}%</span>
           </div>
         </div>
         <div className="buy-and-burn__labels">
-          {volumeLabels.map(item => <div><span>{item.value}</span></div>)}
+          {volumeLabels.map(item => (
+            <div>
+              <span>{item.value}</span>
+            </div>
+          ))}
         </div>
         <div className="buy-and-burn__progress-bar">
           <div
@@ -68,7 +69,11 @@ function BuyAndBurn({ tradingVolume }) {
           </div>
         </div>
         <div className="buy-and-burn__labels">
-          {volumeLabels.map(item => <div><span>{item.percentage}</span></div>)}
+          {volumeLabels.map(item => (
+            <div>
+              <span>{item.percentage}</span>
+            </div>
+          ))}
         </div>
       </div>
       <p className="landing__section-content buy-and-burn__content buy-and-burn__section-margin">

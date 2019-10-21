@@ -10,7 +10,6 @@ class TokenListingVoteModal extends Component {
     super(props);
     this.state = {
       amount: this.props.votingTokenBalance,
-
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.vote = this.vote.bind(this);
@@ -31,29 +30,22 @@ class TokenListingVoteModal extends Component {
 
   render() {
     const { token } = this.props.tokenData;
-    const timeRemaining = this.props.endingTime - (new Date());
-    const votingStarts = new Date(this.props.endingTime - (7 * 24 * 60 * 60 * 1000)).toDateString();
+    const timeRemaining = this.props.endingTime - new Date();
+    const votingStarts = new Date(this.props.endingTime - 7 * 24 * 60 * 60 * 1000).toDateString();
     return (
       <div className="modal-wrapper">
         <div className="modal-inner-wrapper">
           <h2>Vote for {token}</h2>
           <button className="close-button" onClick={this.props.closeModal} />
-          {
-            timeRemaining < 0 &&
-            <p>Voting for this round has now completed.</p>
-          }
-          {
-            timeRemaining > 0 &&
-            timeRemaining > 7 * 24 * 60 * 60 * 1000 &&
+          {timeRemaining < 0 && <p>Voting for this round has now completed.</p>}
+          {timeRemaining > 0 && timeRemaining > 7 * 24 * 60 * 60 * 1000 && (
             <p>Voting starts on {votingStarts}</p>
-          }
-          {
-            timeRemaining > 0 &&
-            timeRemaining < 7 * 24 * 60 * 60 * 1000 &&
+          )}
+          {timeRemaining > 0 && timeRemaining < 7 * 24 * 60 * 60 * 1000 && (
             <div>
               <p>
-                You can distribute your EVT to multiple tokens.
-                Choose how many EVT you’d like to assign to {token}.
+                You can distribute your EVT to multiple tokens. Choose how many EVT you’d like to
+                assign to {token}.
               </p>
               <p className="amount-picker">
                 <input
@@ -68,15 +60,16 @@ class TokenListingVoteModal extends Component {
                   value={this.state.amount}
                   onChange={this.handleInputChange}
                   style={{
-                    width: `${(this.state.amount.toString().length * 13) + 10}px`,
+                    width: `${this.state.amount.toString().length * 13 + 10}px`,
                   }}
-                /><label>EVT</label>
+                />
+                <label>EVT</label>
               </p>
               <div>
                 <button onClick={this.vote}>Vote</button>
               </div>
             </div>
-          }
+          )}
         </div>
       </div>
     );
@@ -96,6 +89,9 @@ const mapStateToProps = state => ({
   endingTime: state.token.endingTime,
 });
 
-export default connect(mapStateToProps, {
-  voteForToken,
-})(TokenListingVoteModal);
+export default connect(
+  mapStateToProps,
+  {
+    voteForToken,
+  }
+)(TokenListingVoteModal);

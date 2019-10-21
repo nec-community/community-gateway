@@ -5,164 +5,189 @@ export default {
   '26/03 - 09/04': {
     listedOn: 'Monday 15th April',
     winThreshold: 3,
-    link: 'https://etherscan.io/token/0x1f491950e0d3cf94c39e6ff02477aa64ec4e22c5?a=0x8714f686102f206a233f415d521194ec80d2a48a',
+    link:
+      'https://etherscan.io/token/0x1f491950e0d3cf94c39e6ff02477aa64ec4e22c5?a=0x8714f686102f206a233f415d521194ec80d2a48a',
     data: [
       {
         token: 'Gnosis',
         shortName: 'Gnosis',
         symbol: 'GNO',
         address: '0x6810e776880C02933D47DB1b9fc05908e5386b96',
-        logo: 'https://ipfs.kleros.io/ipfs/QmNSRucuqo6TMaK3SZkG3Em8vhegFDTtQ2kgHAAn52kx93/Bccx2X1heBgvcicSY6nc7dgyJDqMUP1pG6DnP2NaSXc1f1nDuPBLD68qZti4kGcPaQs7oF3DJMBEj6rDJo6nsyALpj',
-        description: 'Gnosis, a dapp on Ethereum, sets out to build a fully fledged ecosystem, comprising a multi-sig wallet, Dutch Exchange as well as providing the infrastructure to create your very own prediction markets.',
+        logo:
+          'https://ipfs.kleros.io/ipfs/QmNSRucuqo6TMaK3SZkG3Em8vhegFDTtQ2kgHAAn52kx93/Bccx2X1heBgvcicSY6nc7dgyJDqMUP1pG6DnP2NaSXc1f1nDuPBLD68qZti4kGcPaQs7oF3DJMBEj6rDJo6nsyALpj',
+        description:
+          'Gnosis, a dapp on Ethereum, sets out to build a fully fledged ecosystem, comprising a multi-sig wallet, Dutch Exchange as well as providing the infrastructure to create your very own prediction markets.',
         website: 'https://gnosis.pm/',
         listed: false,
         id: 0,
         totalYes: '63465471.88',
-        total: 284171854
+        total: 284171854,
       },
       {
         token: 'Scroll',
         shortName: 'Scroll',
         symbol: 'SCRL',
         address: '0x24DCc881E7Dd730546834452F21872D5cb4b5293',
-        logo: 'https://ipfs.kleros.io/ipfs/QmUhdTFyZPjZRvx75HMMUtA2jvfTFXqLrJWELBL6XeWNqY/Bcd4obbYT6ziTLrjtAzjHnHVGQBoYsQgxQW2qH7XXjrHQdh3xXpPfZKxSPuMLxdx5quHUMLGoMc2dJjL1rLSmSU9dK',
-        description: 'Scroll is a decentralised network built atop the Ethereum blockchain that uses peer to peer technology to enhance data security and privacy control.',
+        logo:
+          'https://ipfs.kleros.io/ipfs/QmUhdTFyZPjZRvx75HMMUtA2jvfTFXqLrJWELBL6XeWNqY/Bcd4obbYT6ziTLrjtAzjHnHVGQBoYsQgxQW2qH7XXjrHQdh3xXpPfZKxSPuMLxdx5quHUMLGoMc2dJjL1rLSmSU9dK',
+        description:
+          'Scroll is a decentralised network built atop the Ethereum blockchain that uses peer to peer technology to enhance data security and privacy control.',
         website: 'https://scroll.network/',
         listed: false,
         id: 1,
         totalYes: '62996604.16',
-        total: 284171854
+        total: 284171854,
       },
       {
         token: 'Loom Network',
         shortName: 'Loom Network',
         symbol: 'LOOM',
         address: '0xA4e8C3Ec456107eA67d3075bF9e3DF3A75823DB0',
-        logo: 'https://ipfs.kleros.io/ipfs/QmYTRvkK6vYziwpkxk1Qhw1SipQPa9Rmcn7adXfpVorXZs/BcdvrNjx9PqRqExyApshYkoYYkadG7S8wyYt5w1ePxk8coKbMezhJV6mibhmPMJqnhT8iWG671RvYdUXJcej3mjtoH',
-        description: 'Loom is a Layer Two solution using DPoS side-chains allowing for highly scalable blockchain games and DApps, with the security of the Ethereum network.  ',
+        logo:
+          'https://ipfs.kleros.io/ipfs/QmYTRvkK6vYziwpkxk1Qhw1SipQPa9Rmcn7adXfpVorXZs/BcdvrNjx9PqRqExyApshYkoYYkadG7S8wyYt5w1ePxk8coKbMezhJV6mibhmPMJqnhT8iWG671RvYdUXJcej3mjtoH',
+        description:
+          'Loom is a Layer Two solution using DPoS side-chains allowing for highly scalable blockchain games and DApps, with the security of the Ethereum network.  ',
         website: 'https://loomx.io/',
         listed: false,
         id: 2,
         totalYes: '0',
-        total: 284171854
+        total: 284171854,
       },
       {
         token: 'FOAM',
         shortName: 'FOAM',
         symbol: 'FOAM',
         address: '0x4946Fcea7C692606e8908002e55A582af44AC121',
-        logo: 'https://ipfs.kleros.io/ipfs/QmR3FN81q5Yo7YTYuJ8gXKcmJZ1uMo7oF7vzBn16AqPGcH/Bce2SK4D94boQziUzoMGVfrpXFR9GVcYJEdywgYR7SoNcRDJ5PUX9hLvnQqk6BpGDjBkZvd8RMzSwGJeL8NU63oC1i',
-        description: 'The FOAM \'Proof of Location\' protocol for geospatial data markets allows users to build a consensus driven, trusted map of the world by securing physical space on the blockchain. ',
+        logo:
+          'https://ipfs.kleros.io/ipfs/QmR3FN81q5Yo7YTYuJ8gXKcmJZ1uMo7oF7vzBn16AqPGcH/Bce2SK4D94boQziUzoMGVfrpXFR9GVcYJEdywgYR7SoNcRDJ5PUX9hLvnQqk6BpGDjBkZvd8RMzSwGJeL8NU63oC1i',
+        description:
+          "The FOAM 'Proof of Location' protocol for geospatial data markets allows users to build a consensus driven, trusted map of the world by securing physical space on the blockchain. ",
         website: 'https://www.foam.space/',
         listed: false,
         id: 3,
         totalYes: '319.72',
-        total: 284171854
+        total: 284171854,
       },
       {
         token: 'DAOstack',
         shortName: 'DAOstack',
         symbol: 'GEN',
         address: '0x543Ff227F64Aa17eA132Bf9886cAb5DB55DCAddf',
-        logo: 'https://ipfs.kleros.io/ipfs/QmZHkbqTNyNFR6f298WwvcrXGoFdw5rfichnAvxPzjJ5TG/BcdyBTnMQB6pM4ZXzUaAFd4rDLYgQU5KQxgDQTb5UUqqNr5kYyQVMmGmxvjn511YbeHb8a3zAEzrsmjz1zosUsXtzZ',
-        description: 'Allows for the creation of distributed, self-governing organisations whilst facilitating their growth in the Ethereum ecosystem. ',
+        logo:
+          'https://ipfs.kleros.io/ipfs/QmZHkbqTNyNFR6f298WwvcrXGoFdw5rfichnAvxPzjJ5TG/BcdyBTnMQB6pM4ZXzUaAFd4rDLYgQU5KQxgDQTb5UUqqNr5kYyQVMmGmxvjn511YbeHb8a3zAEzrsmjz1zosUsXtzZ',
+        description:
+          'Allows for the creation of distributed, self-governing organisations whilst facilitating their growth in the Ethereum ecosystem. ',
         website: 'https://daostack.io/',
         listed: false,
         id: 4,
         totalYes: '78522485.20929234000000004',
-        total: 284171854
+        total: 284171854,
       },
       {
         token: 'AirSwap',
         shortName: 'AirSwap',
         symbol: 'AST',
         address: '0x27054b13b1B798B345b591a4d22e6562d47eA75a',
-        logo: 'https://ipfs.kleros.io/ipfs/QmNj3S84rPNjVWr8T2funqVVxLetVcUu15GmrJtGuStkoQ/Bcd3cBhHeNv8QbC4459uhoq1Fwm4sHr1qfhYcMTUh6sU5EYgbThcKe3NRTG7C2ewNxpzpPPt36Hhh35x47u7cyvWUD',
-        description: 'Is a decentralised market-place allowing traders to connect and interact, wallet to wallet, conveniently and efficiently from their mobile or browser.',
+        logo:
+          'https://ipfs.kleros.io/ipfs/QmNj3S84rPNjVWr8T2funqVVxLetVcUu15GmrJtGuStkoQ/Bcd3cBhHeNv8QbC4459uhoq1Fwm4sHr1qfhYcMTUh6sU5EYgbThcKe3NRTG7C2ewNxpzpPPt36Hhh35x47u7cyvWUD',
+        description:
+          'Is a decentralised market-place allowing traders to connect and interact, wallet to wallet, conveniently and efficiently from their mobile or browser.',
         website: 'https://www.airswap.io/',
         listed: false,
         id: 5,
         totalYes: '40',
-        total: 284171854
+        total: 284171854,
       },
       {
         token: 'Hydro',
         shortName: 'Hydro',
         symbol: 'HYDRO',
         address: '0xEBBdf302c940c6bfd49C6b165f457fdb324649bc',
-        logo: 'https://ipfs.kleros.io/ipfs/QmfAyDMahgne3ZiBYvHiC36jEtLqQvTdSS3zUgV3TfG7Z3/Bccwr4ERZnmoGTpWd6uar8sUcTEKTEpuuqjgEBza8Wuc1xbyAUzV6buqGnzryPNAFeLnSB28z4RtchqtANekM3q2pB',
-        description: 'Managed and maintained by a decentralised community, Hydro comprises a DApp store and multiple smart-contracts allowing existing private systems to leverage the benefits of public blockchains.',
+        logo:
+          'https://ipfs.kleros.io/ipfs/QmfAyDMahgne3ZiBYvHiC36jEtLqQvTdSS3zUgV3TfG7Z3/Bccwr4ERZnmoGTpWd6uar8sUcTEKTEpuuqjgEBza8Wuc1xbyAUzV6buqGnzryPNAFeLnSB28z4RtchqtANekM3q2pB',
+        description:
+          'Managed and maintained by a decentralised community, Hydro comprises a DApp store and multiple smart-contracts allowing existing private systems to leverage the benefits of public blockchains.',
         website: 'https://projecthydro.org/',
         listed: false,
         id: 6,
         totalYes: '19400000',
-        total: 284171854
+        total: 284171854,
       },
       {
         token: 'aXpire',
         shortName: 'aXpire',
         symbol: 'AXPR',
         address: '0xC39E626A04C5971D770e319760D7926502975e47',
-        logo: 'https://ipfs.kleros.io/ipfs/QmVrTpjAh3fq5axTRduF48EZ8QdxVpef7hApZ8nyevYTUW/BccxywvSr1aT3JSc2o39iUDUXYqU8m2K7Hsz5ft5DtAvGpLTfhFz89xeXJWoW1GBf3GcZzrdvuEtqKUobefbAu4SHv',
-        description: 'aXpire is a multi-purpose ERP SaaS platform catering to Funds, Businesses, Entrepreneurs and Consumers with a range of purpose built blockchain solutions.',
+        logo:
+          'https://ipfs.kleros.io/ipfs/QmVrTpjAh3fq5axTRduF48EZ8QdxVpef7hApZ8nyevYTUW/BccxywvSr1aT3JSc2o39iUDUXYqU8m2K7Hsz5ft5DtAvGpLTfhFz89xeXJWoW1GBf3GcZzrdvuEtqKUobefbAu4SHv',
+        description:
+          'aXpire is a multi-purpose ERP SaaS platform catering to Funds, Businesses, Entrepreneurs and Consumers with a range of purpose built blockchain solutions.',
         website: 'https://axpr.io/',
         listed: false,
         id: 7,
         totalYes: '52740939.86268494',
-        total: 284171854
+        total: 284171854,
       },
       {
         token: 'Wibson',
         shortName: 'Wibson',
         symbol: 'WIB',
         address: '0x3F17Dd476faF0a4855572F0B6ed5115D9bBA22AD',
-        logo: 'https://ipfs.kleros.io/ipfs/QmPHfNAkuSCLWN5vVjdF6jPCyd5y2DRhQNK2Q9k83smGrs/Bcd5wkt2KyESFj85c7cjpfT5eVDKtgoPXi6eqjbMLLvKELhGAk8FXny2zsmfWDG6xvDxfswRF9txUhopGDeUemwHG4',
-        description: 'Wibson is a decentralised data market-place empowering users with the tools and trust needed to securely sell their private data.',
+        logo:
+          'https://ipfs.kleros.io/ipfs/QmPHfNAkuSCLWN5vVjdF6jPCyd5y2DRhQNK2Q9k83smGrs/Bcd5wkt2KyESFj85c7cjpfT5eVDKtgoPXi6eqjbMLLvKELhGAk8FXny2zsmfWDG6xvDxfswRF9txUhopGDeUemwHG4',
+        description:
+          'Wibson is a decentralised data market-place empowering users with the tools and trust needed to securely sell their private data.',
         website: 'https://wibson.org/',
         listed: false,
         id: 8,
         totalYes: '0',
-        total: 284171854
+        total: 284171854,
       },
       {
         token: 'Tolar',
         shortName: 'Tolar',
         symbol: 'TOL',
         address: '0xd07D9Fe2d2cc067015E2b4917D24933804f42cFA',
-        logo: 'https://ipfs.kleros.io/ipfs/QmQLHNufnwzc88yg9jeLNBJ3CfdcM4tsMaphN8ax4GUcEu/Bcd2V2gjVCzmgBpHB1ZHbETZEhGwnauEaKaD5jSQVPrTR3NP3gutNdcCdwP4e2UxJvQd5UTUpkD87rRXgZpSAT8srj',
-        description: 'Tolar is a high through-put, community-governed, cryptocurrency allowing for fast, secure and publicallyverifiable transactions.',
+        logo:
+          'https://ipfs.kleros.io/ipfs/QmQLHNufnwzc88yg9jeLNBJ3CfdcM4tsMaphN8ax4GUcEu/Bcd2V2gjVCzmgBpHB1ZHbETZEhGwnauEaKaD5jSQVPrTR3NP3gutNdcCdwP4e2UxJvQd5UTUpkD87rRXgZpSAT8srj',
+        description:
+          'Tolar is a high through-put, community-governed, cryptocurrency allowing for fast, secure and publicallyverifiable transactions.',
         website: 'https://www.tolar.io/',
         listed: false,
         id: 9,
         totalYes: '6999920',
-        total: 284171854
+        total: 284171854,
       },
       {
         token: 'Upfiring',
         shortName: 'Upfiring',
         symbol: 'UFR',
         address: '0xEA097A2b1dB00627B2Fa17460Ad260c016016977',
-        logo: 'https://ipfs.kleros.io/ipfs/QmNdhU7wthuJKuLKAtAWHrU9YjJ5oC6RXz6FjMnYPzHZ2q/BccxyRPyMQ1XsQfys2K2M7VkoMNdxWzw5k9dA5UbBXothqvkr7adDdd9vLXcc6EjA9xfyjwr1DPXJ6f7s6nheWudxY',
-        description: 'Upfiring is a decentralised exchange for file-sharing that uses P2P and blockchain technology to incentivise seeders and downloaders with UFR tokens.',
+        logo:
+          'https://ipfs.kleros.io/ipfs/QmNdhU7wthuJKuLKAtAWHrU9YjJ5oC6RXz6FjMnYPzHZ2q/BccxyRPyMQ1XsQfys2K2M7VkoMNdxWzw5k9dA5UbBXothqvkr7adDdd9vLXcc6EjA9xfyjwr1DPXJ6f7s6nheWudxY',
+        description:
+          'Upfiring is a decentralised exchange for file-sharing that uses P2P and blockchain technology to incentivise seeders and downloaders with UFR tokens.',
         website: 'https://www.upfiring.com/',
         listed: false,
         id: 10,
         totalYes: '0',
-        total: 284171854
+        total: 284171854,
       },
       {
         token: 'Fetch',
         shortName: 'Fetch',
         symbol: 'FET',
         address: '0x1D287CC25dAD7cCaF76a26bc660c5F7C8E2a05BD',
-        logo: 'https://ipfs.kleros.io/ipfs/QmZy7VeUSk55TF659w5aWnyaKa65mVFNKeCfANyG4UPW2d/Bcd77YGe6GLnnMW9HmTvtrc2ppKj8kbp5LPcdjREhNBBR7CNbVAf7vPPvzCCNbyzH9kKRJpnrVEFnayHgumKcRXJ6U',
-        description: 'Fetch is a decentralised, Ai-enabled ecosystem comprising Autonomous Agents, an Open Economic Framework  and Smart Ledger to conducting sophisticated economic activities.',
+        logo:
+          'https://ipfs.kleros.io/ipfs/QmZy7VeUSk55TF659w5aWnyaKa65mVFNKeCfANyG4UPW2d/Bcd77YGe6GLnnMW9HmTvtrc2ppKj8kbp5LPcdjREhNBBR7CNbVAf7vPPvzCCNbyzH9kKRJpnrVEFnayHgumKcRXJ6U',
+        description:
+          'Fetch is a decentralised, Ai-enabled ecosystem comprising Autonomous Agents, an Open Economic Framework  and Smart Ledger to conducting sophisticated economic activities.',
         website: 'https://fetch.ai',
         listed: false,
         id: 11,
         totalYes: '46076.26',
-        total: 284171854
-      }
+        total: 284171854,
+      },
     ],
   },
   '30/10 - 13/11': {
@@ -174,7 +199,8 @@ export default {
         address: '0x922aC473A3cC241fD3a0049Ed14536452D58D73c',
         id: 38,
         token: 'VETRI (VLD)',
-        description: 'Earn extra income and rewards by joining the data economy. VETRI consists of a data wallet and marketplace, fueled by the VLD token. VETRI ensures trust in the marketplace and guarantees smooth transactions between data owners and data buyers.',
+        description:
+          'Earn extra income and rewards by joining the data economy. VETRI consists of a data wallet and marketplace, fueled by the VLD token. VETRI ensures trust in the marketplace and guarantees smooth transactions between data owners and data buyers.',
         logo: 'https://valid.global/img/v.png',
         discussions: 'https://t.me/vetri_global',
         website: 'https://vetri.global/',
@@ -187,7 +213,8 @@ export default {
         address: '0xF629cBd94d3791C9250152BD8dfBDF380E2a3B9c',
         id: 27,
         token: 'Enjin (ENJ)',
-        description: 'Customizable cryptocurrency and virtual goods platform for gaming. Enjin Coin serves as a reserve currency and certificate of authenticity for game items minted on the platform.',
+        description:
+          'Customizable cryptocurrency and virtual goods platform for gaming. Enjin Coin serves as a reserve currency and certificate of authenticity for game items minted on the platform.',
         logo: 'https://enjincoin.io/images/enjin-coin-logo.png',
         discussions: 'https://www.reddit.com/r/EnjinCoin/',
         website: 'https://enjincoin.io/',
@@ -200,7 +227,8 @@ export default {
         address: '0x6863bE0e7CF7ce860A574760e9020D519a8bDC47',
         id: 28,
         token: 'On.Live (ONL)',
-        description: 'The OnLive Platform revolutionises both the video broadcast and remote consultations markets. It offers unlimited scalability and availability utilising Blockchain Technology and a completely decentralised Peer-to-Peer network. Anyone can contribute to the system if they have the processing power and bandwidth. Smart incentivisation of these contributions guarantees decentralisation and creates a new economy driven by ONL tokens.',
+        description:
+          'The OnLive Platform revolutionises both the video broadcast and remote consultations markets. It offers unlimited scalability and availability utilising Blockchain Technology and a completely decentralised Peer-to-Peer network. Anyone can contribute to the system if they have the processing power and bandwidth. Smart incentivisation of these contributions guarantees decentralisation and creates a new economy driven by ONL tokens.',
         logo: 'https://www.trackico.io/media/onlive_icon.png',
         discussions: 'https://t.me/OnLive',
         website: 'https://on.live/',
@@ -213,8 +241,10 @@ export default {
         address: '0xfec0cF7fE078a500abf15F1284958F22049c2C7e',
         id: 43,
         token: 'Maecenas (ART)',
-        description: 'Maecenas creates a marketplace for tokenised works of art, allowing art lovers to own parts of famous paintings.',
-        logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxAwJ_6ovr_FUYQzAAA7XMis1kRPSsIH6i4NWZGAGSn2KO_pD7uA',
+        description:
+          'Maecenas creates a marketplace for tokenised works of art, allowing art lovers to own parts of famous paintings.',
+        logo:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxAwJ_6ovr_FUYQzAAA7XMis1kRPSsIH6i4NWZGAGSn2KO_pD7uA',
         discussions: 'https://t.me/maecenasart',
         website: 'https://www.maecenas.co/',
         shortName: 'Maecenas',
@@ -226,7 +256,8 @@ export default {
         address: '0x9a794Dc1939F1d78fa48613b89B8f9d0A20dA00E',
         id: 34,
         token: 'Arbidex (ABX)',
-        description: 'Arbidex – the uberisation of the cryptocurrency trading. The blockchain-powered platform provides cryptocurrency traders with a much-needed solution, by enabling them to trade via a single platform interface on different exchanges, whilst also offering an automatic trading algorithms.',
+        description:
+          'Arbidex – the uberisation of the cryptocurrency trading. The blockchain-powered platform provides cryptocurrency traders with a much-needed solution, by enabling them to trade via a single platform interface on different exchanges, whilst also offering an automatic trading algorithms.',
         logo: 'https://kb.arbidex.uk.com/wp-content/uploads/2018/09/logpng-300x300.png',
         discussions: 'https://t.me/arbidexchat',
         website: 'https://arbidex.uk.com/',
@@ -239,7 +270,8 @@ export default {
         address: '0x5CA9a71B1d01849C0a95490Cc00559717fCF0D1d',
         id: 25,
         token: 'Aeternity (AE)',
-        description: 'æternity aims to be a scalable blockchain platform that particularly focuses on enabling high bandwidth transacting, purely-functional smart contracts, and decentralized oracles.',
+        description:
+          'æternity aims to be a scalable blockchain platform that particularly focuses on enabling high bandwidth transacting, purely-functional smart contracts, and decentralized oracles.',
         logo: 'https://logos-download.com/wp-content/uploads/2018/05/Aeternity_logo_coin.png',
         discussions: 'https://www.ethfinex.com/token_listings/49/social_category/292/AE',
         website: 'https://aeternity.com/',
@@ -252,8 +284,10 @@ export default {
         address: '0xb5A5F22694352C15B00323844aD545ABb2B11028',
         id: 18,
         token: 'Icon (ICX)',
-        description: 'Icon (ICX) is the token of a public blockchain connecting a network of private permissioned blockchains, thereby making them interoperable. Each private chain runs an Icon node and can take part in governance of the network.',
-        logo: 'http://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/256/ICON-ICX-icon.png',
+        description:
+          'Icon (ICX) is the token of a public blockchain connecting a network of private permissioned blockchains, thereby making them interoperable. Each private chain runs an Icon node and can take part in governance of the network.',
+        logo:
+          'http://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/256/ICON-ICX-icon.png',
         discussions: 'https://icon.foundation/',
         website: 'https://icon.foundation/',
         shortName: 'Icon',
@@ -265,7 +299,8 @@ export default {
         address: '0x983F6d60db79ea8cA4eB9968C6aFf8cfA04B3c63',
         id: 24,
         token: 'Sonm (SNM)',
-        description: 'Decentralized worldwide fog supercomputer for any general purpose computing from CGI rendering to scientific computations, with global scalability and existing applications including infrastructure for blockchain applications, machine learning, video rendering, site hosting, scientific research, and mining.',
+        description:
+          'Decentralized worldwide fog supercomputer for any general purpose computing from CGI rendering to scientific computations, with global scalability and existing applications including infrastructure for blockchain applications, machine learning, video rendering, site hosting, scientific research, and mining.',
         logo: 'https://image.ibb.co/j4cEyz/SONM.jpg',
         discussion: 'https://t.me/sonm_eng',
         website: 'https://sonm.com/',
@@ -278,7 +313,8 @@ export default {
         address: '0x0AbdAce70D3790235af448C88547603b945604ea',
         id: 17,
         token: 'District0x (DNT)',
-        description: 'District0x is creating a network of marketplaces and communities (“districts”) that exist and interact with each other within the district0x digital environment. Using the DNT token, all ‘citizens’ will be able to post listings, offer skills and create marketplaces for their products and services as fully decentralised autonomous organisations (DAOs).',
+        description:
+          'District0x is creating a network of marketplaces and communities (“districts”) that exist and interact with each other within the district0x digital environment. Using the DNT token, all ‘citizens’ will be able to post listings, offer skills and create marketplaces for their products and services as fully decentralised autonomous organisations (DAOs).',
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/1856.png',
         discussions: 'https://t.me/district0x',
         website: 'https://district0x.io/',
@@ -291,7 +327,8 @@ export default {
         address: '0xf0Ee6b27b759C9893Ce4f094b49ad28fd15A23e4',
         id: 33,
         token: 'Enigma (ENG)',
-        description: 'Enigma uses privacy technologies to build the first platform for scalable, end-to-end decentralized applications. With Enigma, "smart contracts" become "secret contracts", where input data is kept hidden from nodes in the Enigma network that execute code.',
+        description:
+          'Enigma uses privacy technologies to build the first platform for scalable, end-to-end decentralized applications. With Enigma, "smart contracts" become "secret contracts", where input data is kept hidden from nodes in the Enigma network that execute code.',
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2044.png',
         discussions: 'https://www.reddit.com/r/EnigmaProject/',
         website: 'https://enigma.co/',
@@ -304,7 +341,8 @@ export default {
         address: '0x45245bc59219eeaAF6cD3f382e078A461FF9De7B',
         id: 6,
         token: 'BankEx (BKX)',
-        description: 'BANKEX is developing a solution to transform any asset class into a digital token, providing it with flexiblity, liquidity, and auditability.',
+        description:
+          'BANKEX is developing a solution to transform any asset class into a digital token, providing it with flexiblity, liquidity, and auditability.',
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2390.png',
         discussions: 'https://bankex.com/',
         website: 'https://bankex.com/',
@@ -317,7 +355,8 @@ export default {
         address: '0x61725f3db4004AFE014745B21DAb1E1677CC328b',
         id: 7,
         token: 'BlockEx (DAXT)',
-        description: 'The Digital Asset Exchange Token (symbol: DAXT) is BlockEx’s token. It is a utility token allowing holders access to ICOs on a pre-sale basis before the public at large.',
+        description:
+          'The Digital Asset Exchange Token (symbol: DAXT) is BlockEx’s token. It is a utility token allowing holders access to ICOs on a pre-sale basis before the public at large.',
         logo: 'https://image.ibb.co/dGCsSd/logo_png_rj.png',
         discussions: 'https://daxt.io/',
         website: 'https://daxt.io/',
@@ -330,7 +369,8 @@ export default {
         address: '0xd2d6158683aeE4Cc838067727209a0aAF4359de3',
         id: 35,
         token: 'Bounty0x (BNTY)',
-        description: 'Bounty0x is a decentralized bounty hunting platform, enabling users to manage bounty programs and bounty hunters to receive payment for completing bounty tasks.',
+        description:
+          'Bounty0x is a decentralized bounty hunting platform, enabling users to manage bounty programs and bounty hunters to receive payment for completing bounty tasks.',
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2310.png',
         discussions: 'https://t.me/bounty0x',
         website: 'https://bounty0x.io/',
@@ -343,7 +383,8 @@ export default {
         address: '0x1122B6a0E00DCe0563082b6e2953f3A943855c1F',
         id: 15,
         token: 'Centrality (CENNZ)',
-        description: 'Centrality is a venture studio that partners with leading innovators in key industries to create a marketplace of applications. These applications allow consumers to manage everyday tasks and experiences using peer-to-peer transactions - all via one login and using blockchain-enabled infrastructure.',
+        description:
+          'Centrality is a venture studio that partners with leading innovators in key industries to create a marketplace of applications. These applications allow consumers to manage everyday tasks and experiences using peer-to-peer transactions - all via one login and using blockchain-enabled infrastructure.',
         logo: 'https://image.ibb.co/nqYU4T/CENNZ_blue.png',
         discussions: 'https://t.me/centralityofficialtelegram',
         website: 'https://www.centrality.ai',
@@ -356,7 +397,8 @@ export default {
         address: '0x514910771AF9Ca656af840dff83E8264EcF986CA',
         id: 23,
         token: 'Chainlink (LINK)',
-        description: 'ChainLink is blockchain middleware that allows smart contracts to access key off-chain resources like data feeds, various web APIs, and traditional bank account payments.',
+        description:
+          'ChainLink is blockchain middleware that allows smart contracts to access key off-chain resources like data feeds, various web APIs, and traditional bank account payments.',
         logo: 'https://cdn.worldvectorlogo.com/logos/chainlink-1.svg',
         discussions: 'https://telegram.me/chainlink',
         website: 'https://www.smartcontract.com/link#chainlink',
@@ -369,7 +411,8 @@ export default {
         address: '0x41e5560054824eA6B0732E656E3Ad64E20e94E45',
         id: 42,
         token: 'Civic (CVC)',
-        description: 'Civic makes it easy to control and protect your identity with blockchain-powered decentralized authentication solutions, reusable identity elements & KYC tools.',
+        description:
+          'Civic makes it easy to control and protect your identity with blockchain-powered decentralized authentication solutions, reusable identity elements & KYC tools.',
         logo: 'https://cdn-images-1.medium.com/max/397/1*PnSOAdezv4moUQ2kCuJxCA.png',
         discussions: 'https://t.me/civicplatform',
         website: 'https://www.civic.com/',
@@ -382,8 +425,10 @@ export default {
         address: '0x05860d453C7974CbF46508c06CBA14e211c629Ce',
         id: 40,
         token: 'Eden (EDN)',
-        description: 'Offering an enterprise blockchain infrastructure powered seamlessly by three distinctive layers, the distributed ledger; providing a decentralised database function, the validation layer; executing and verifying transactions and the bridge layer; connecting external data sources.',
-        logo: 'https://www.cryptoknightsinc.com/wp-content/uploads/2018/05/edenchain-logo-200x200.png',
+        description:
+          'Offering an enterprise blockchain infrastructure powered seamlessly by three distinctive layers, the distributed ledger; providing a decentralised database function, the validation layer; executing and verifying transactions and the bridge layer; connecting external data sources.',
+        logo:
+          'https://www.cryptoknightsinc.com/wp-content/uploads/2018/05/edenchain-logo-200x200.png',
         discussions: 'https://edenchain.io/',
         website: 'https://edenchain.io/',
         shortName: 'Eden',
@@ -395,7 +440,8 @@ export default {
         address: '0x5Af2Be193a6ABCa9c8817001F45744777Db30756',
         id: 0,
         token: 'Ethos (ETHOS)',
-        description: 'Harnessing the power of design, technology and social intelligence, Ethos proposes a universal wallet & fiat gateway designed to make buying, trading, and managing your crypto assets consumer-friendly.',
+        description:
+          'Harnessing the power of design, technology and social intelligence, Ethos proposes a universal wallet & fiat gateway designed to make buying, trading, and managing your crypto assets consumer-friendly.',
         logo: 'https://image.ibb.co/j2fCC8/Ethos_Logo_white_knockout.png',
         discussions: 'https://www.ethos.io/',
         website: 'https://www.ethos.io/',
@@ -408,7 +454,8 @@ export default {
         address: '0xc324a2f6b05880503444451B8b27e6f9e63287Cb',
         id: 21,
         token: 'Exchange Union (XUC)',
-        description: 'Exchange Union (XU) will create a \'meta-exchange\' which will form a decentralised network of digital asset exchanges, enabling instantaneous, trustless trades between various platforms whilst providing opportunities for new trading pairs, and aim to achieve best execution for customers.',
+        description:
+          "Exchange Union (XU) will create a 'meta-exchange' which will form a decentralised network of digital asset exchanges, enabling instantaneous, trustless trades between various platforms whilst providing opportunities for new trading pairs, and aim to achieve best execution for customers.",
         logo: 'https://seeklogo.com/images/E/exchange-union-xuc-logo-D69254C1A4-seeklogo.com.png',
         discussions: 'https://www.exchangeunion.com/',
         website: 'https://www.exchangeunion.com/',
@@ -421,7 +468,8 @@ export default {
         address: '0xDd6C68bb32462e01705011a4e2Ad1a60740f217F',
         id: 3,
         token: 'Hubii (HBT)',
-        description: 'Hubii Network is a blockchain-based decentralised content marketplace that facilitates transactions between creators, distributors and consumers by leveraging the power of smart contracts.',
+        description:
+          'Hubii Network is a blockchain-based decentralised content marketplace that facilitates transactions between creators, distributors and consumers by leveraging the power of smart contracts.',
         logo: 'https://cdn-images-1.medium.com/max/1600/0*NVI3KkOEvbz0_Ff0.',
         discussions: 'https://www.ethfinex.com/token_listings/36/social_category/212/HBT',
         website: 'https://www.hubii.com/',
@@ -434,7 +482,8 @@ export default {
         address: '0x5B2e4a700dfBc560061e957edec8F6EeEb74a320',
         id: 39,
         token: 'INS (INS)',
-        description: 'Managing relationships at growing scales, INS is powering innovative, transparent and frictionless enterprise interaction. Our simple, decentralised solutions allow businesses to transact seamlessly, swiftly and securely, while optimizing costs and unleashing revenue sources.',
+        description:
+          'Managing relationships at growing scales, INS is powering innovative, transparent and frictionless enterprise interaction. Our simple, decentralised solutions allow businesses to transact seamlessly, swiftly and securely, while optimizing costs and unleashing revenue sources.',
         logo: 'https://cdn.freebiesupply.com/logos/large/2x/ins-ecosystem-logo-png-transparent.png',
         discussions: 'https://t.me/ins_ecosystem',
         website: 'https://www.ins.world',
@@ -447,7 +496,8 @@ export default {
         address: '0x818Fc6C2Ec5986bc6E2CBf00939d90556aB12ce5',
         id: 8,
         token: 'Kin (KIN)',
-        description: 'A decentralized ecosystem of digital services for daily life, Kin is designed specifically to bring people together in a new shared economy and will serve as the foundation for a decentralized ecosystem of digital services.',
+        description:
+          'A decentralized ecosystem of digital services for daily life, Kin is designed specifically to bring people together in a new shared economy and will serve as the foundation for a decentralized ecosystem of digital services.',
         logo: 'https://www.kik.com/images/kin/kin-logo-onblue.svg',
         discussions: 'https://www.ethfinex.com/token_listings/25/social_category/146/KIN',
         website: 'https://www.kik.com/kin/',
@@ -460,8 +510,10 @@ export default {
         address: '0xfD107B473AB90e8Fbd89872144a3DC92C40Fa8C9',
         id: 37,
         token: 'Lala World (LALA)',
-        description: 'LALA World is an ecosystem for migrants and their unbanked families. LaLa is a new age, one-stop wallet allowing investors to capitalise on the rise of blockchain, as well as the entry of underbanked into the financial ecosystem.',
-        logo: 'https://en.bitcoinwiki.org/upload/en/images/thumb/9/98/LaLa_World_Logo.png/300px-LaLa_World_Logo.png',
+        description:
+          'LALA World is an ecosystem for migrants and their unbanked families. LaLa is a new age, one-stop wallet allowing investors to capitalise on the rise of blockchain, as well as the entry of underbanked into the financial ecosystem.',
+        logo:
+          'https://en.bitcoinwiki.org/upload/en/images/thumb/9/98/LaLa_World_Logo.png/300px-LaLa_World_Logo.png',
         discussions: 'https://www.ethfinex.com/token_listings/34/social_category/200/LALA',
         website: 'https://lalaworld.io/',
         shortName: 'Lala World',
@@ -473,7 +525,8 @@ export default {
         address: '0xfe5F141Bf94fE84bC28deD0AB966c16B17490657',
         id: 22,
         token: 'Libra Credit (LBA)',
-        description: 'LibraCredit is a decentralized lending platform that enables open access to credit without location restrictions. With crypto to crypto and crypto to fiat lending goals, the Libra Credit ecosystem is comprised of a proprietary AI-based Credit Model, along with customer acquisition, exchange, lending and identity verification partnerships.',
+        description:
+          'LibraCredit is a decentralized lending platform that enables open access to credit without location restrictions. With crypto to crypto and crypto to fiat lending goals, the Libra Credit ecosystem is comprised of a proprietary AI-based Credit Model, along with customer acquisition, exchange, lending and identity verification partnerships.',
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2760.png',
         discussions: 'https://t.me/oneledger',
         website: 'https://www.libracredit.io/',
@@ -486,7 +539,8 @@ export default {
         address: '0xA4e8C3Ec456107eA67d3075bF9e3DF3A75823DB0',
         id: 9,
         token: 'Loom (LOOM)',
-        description: 'Loom Network is the next-generation blockchain platform for highly scalable games and social apps. The Loom SDK now makes it possible for developers to easily create their own high throughput sidechains or choose to run their DApps on shared chains (such as ZombieChain), all of which are backed by the trust and security of Ethereum.',
+        description:
+          'Loom Network is the next-generation blockchain platform for highly scalable games and social apps. The Loom SDK now makes it possible for developers to easily create their own high throughput sidechains or choose to run their DApps on shared chains (such as ZombieChain), all of which are backed by the trust and security of Ethereum.',
         logo: 'https://cdn-images-1.medium.com/max/1200/1*K76UVoLq-FOL7l-_Fag-Qw@2x.png',
         discussions: 'https://loomx.io/',
         website: 'https://loomx.io/',
@@ -499,7 +553,8 @@ export default {
         address: '0x000000000000000000000000000000000000000A',
         id: 41,
         token: 'Musereum (ETM)',
-        description: 'Musereum is creating a platform for music tokenization, copyright sharing and automated licensing. Using an ICO model, they are aiming to build an ecosystem that gives artists new ways to capitalise on their talents whilst preserving their creative license and freedom of expression.',
+        description:
+          'Musereum is creating a platform for music tokenization, copyright sharing and automated licensing. Using an ICO model, they are aiming to build an ecosystem that gives artists new ways to capitalise on their talents whilst preserving their creative license and freedom of expression.',
         logo: 'https://image.ibb.co/b4sX68/Musereum.png',
         discussions: 'https://t.me/joinchat/AxlyZhDrU1JxQeE27eiTVQ',
         website: 'https://musereum.org/',
@@ -512,7 +567,8 @@ export default {
         address: '0x72dD4b6bd852A3AA172Be4d6C5a6dbEc588cf131',
         id: 16,
         token: 'Naga (NGC)',
-        description: 'The Naga Coin is the fuel that makes the trading of cryptocurrencies, virtual products and stocks accessible to everyone on the NAGA platform. It will serve as a decentralised unit of account for all parts of the NAGA ecosystem such as a virtual goods marketplace  and an academy for becoming a trading expert. ',
+        description:
+          'The Naga Coin is the fuel that makes the trading of cryptocurrencies, virtual products and stocks accessible to everyone on the NAGA platform. It will serve as a decentralised unit of account for all parts of the NAGA ecosystem such as a virtual goods marketplace  and an academy for becoming a trading expert. ',
         logo: 'https://i.vimeocdn.com/portrait/21759767_300x300',
         discussions: 'https://t.me/official_nagacoin',
         website: 'https://naga.com/coin/',
@@ -525,7 +581,8 @@ export default {
         address: '0x64A60493D888728Cf42616e034a0dfEAe38EFCF0',
         id: 30,
         token: 'OneLedger (OLT)',
-        description: 'OneLedger aims to simplify businesses\' adoption of blockchain, by bridging the gap between traditional business practises and these emerging technologies. The OLT utility token can be used in the system for paying fees, staking in order to validate consensus, and revenue generation for developers.',
+        description:
+          "OneLedger aims to simplify businesses' adoption of blockchain, by bridging the gap between traditional business practises and these emerging technologies. The OLT utility token can be used in the system for paying fees, staking in order to validate consensus, and revenue generation for developers.",
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2921.png',
         discussions: 'https://t.me/oneledger',
         website: 'https://oneledger.io/',
@@ -538,7 +595,8 @@ export default {
         address: '0xd4fa1460F537bb9085d22C7bcCB5DD450Ef28e3a',
         id: 31,
         token: 'Populous (PPT)',
-        description: 'Populous World is creating a platform that allows business to trade invoices on the blockchain. The Populous Platform Tokens serve as a profit sharing mechanism and creates a trading environment for investors and invoice sellers alike.',
+        description:
+          'Populous World is creating a platform that allows business to trade invoices on the blockchain. The Populous Platform Tokens serve as a profit sharing mechanism and creates a trading environment for investors and invoice sellers alike.',
         logo: 'https://image.ibb.co/gXaVto/Populous.png',
         discussions: 'https://t.me/populous',
         website: 'https://populous.world/',
@@ -551,7 +609,8 @@ export default {
         address: '0x55648De19836338549130B1af587F16beA46F66B',
         id: 19,
         token: 'Publica (PBL)',
-        description: 'Publica is a platform aiming to revolutionise the publishing industry by offering authors the ability to crowdfunding their works through the blockchain. Utilising smart contracts, Publica’s ecosystem will back the automated performance of agreements like derivative rights for movies, games, and sequels. Readers are able to then fund development of not yet realised works.',
+        description:
+          'Publica is a platform aiming to revolutionise the publishing industry by offering authors the ability to crowdfunding their works through the blockchain. Utilising smart contracts, Publica’s ecosystem will back the automated performance of agreements like derivative rights for movies, games, and sequels. Readers are able to then fund development of not yet realised works.',
         logo: 'https://cryptoindex.co/coinlogo/publica.png',
         discussions: 'https://t.me/publicaofficial',
         website: 'https://www.exchangeunion.com/',
@@ -564,7 +623,8 @@ export default {
         address: '0x408e41876cCCDC0F92210600ef50372656052a38',
         id: 5,
         token: 'Republic Protocol (REN)',
-        description: 'A protocol for decentralised dark pool exchange - designed to faciliate large volumes of cryptocurrency trading with minimal impact on the market.',
+        description:
+          'A protocol for decentralised dark pool exchange - designed to faciliate large volumes of cryptocurrency trading with minimal impact on the market.',
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2539.png',
         discussions: 'https://republicprotocol.com/',
         website: 'https://republicprotocol.com/',
@@ -577,7 +637,8 @@ export default {
         address: '0x006BeA43Baa3f7A6f765F14f10A1a1b08334EF45',
         id: 4,
         token: 'Stox (STX)',
-        description: 'Predicting the outcome of events, from Sports and Politics to Finance & World Cup. Stox targets mainstream audiences via an Ethereum based prediction market platform.',
+        description:
+          'Predicting the outcome of events, from Sports and Politics to Finance & World Cup. Stox targets mainstream audiences via an Ethereum based prediction market platform.',
         logo: 'https://coinnext.net/wp-content/uploads/2017/12/stox.png',
         discussions: 'https://www.stox.com/',
         website: 'https://www.stox.com/',
@@ -590,7 +651,8 @@ export default {
         address: '0x9CDa8A60dd5AfA156c95Bd974428d91a0812e054',
         id: 29,
         token: 'TaTaTu (TTU)',
-        description: 'TaTaTu is the first Social Media Platform that rewards users and content providers in a fair and transparent way for their activity.',
+        description:
+          'TaTaTu is the first Social Media Platform that rewards users and content providers in a fair and transparent way for their activity.',
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2886.png',
         discussions: 'https://t.me/joinchat/GgHdfUhVY-w9zlfwD-jf1Q',
         website: 'https://www.tatatu.com',
@@ -603,7 +665,8 @@ export default {
         address: '0x667088b212ce3d06a1b553a7221E1fD19000d9aF',
         id: 10,
         token: 'Wings (WINGS)',
-        description: 'Wings DAO is building a platform for better crowdsourced price discovery and ICO forecasting. They want to combine the wisdom of the crowd with AI and reward forecasters for their analysis of ICOs.',
+        description:
+          'Wings DAO is building a platform for better crowdsourced price discovery and ICO forecasting. They want to combine the wisdom of the crowd with AI and reward forecasters for their analysis of ICOs.',
         logo: 'https://www.cryptocompare.com/media/1382758/1wings.png',
         discussions: 'https://www.ethfinex.com/token_listings/10/social_category/59/WINGS',
         website: 'https://www.wings.ai/',
@@ -616,7 +679,8 @@ export default {
         address: '0x2008e3057BD734e10AD13c9EAe45Ff132aBc1722',
         id: 32,
         token: 'Zebi (ZCO)',
-        description: 'Zebi is a enterprise grade company that specializes in providing Blockchain based offerings to governments and companies, enabling that to leverage and protect their high value and sensitive data. Zebi’s has created a solution to make high value and sensitive data readily available for legitimate use.',
+        description:
+          'Zebi is a enterprise grade company that specializes in providing Blockchain based offerings to governments and companies, enabling that to leverage and protect their high value and sensitive data. Zebi’s has created a solution to make high value and sensitive data readily available for legitimate use.',
         logo: 'https://cryptoindex.co/coinlogo/zebi.png',
         discussions: 'https://t.me/ZebiData',
         website: 'https://www.zebi.io',
@@ -640,7 +704,8 @@ export default {
         logo: 'https://image.ibb.co/j2fCC8/Ethos_Logo_white_knockout.png',
         discussions: 'https://www.ethos.io/',
         website: 'https://www.ethos.io/',
-      }, {
+      },
+      {
         id: 2,
         totalYes: 9100000,
         total: 50000000,
@@ -648,7 +713,8 @@ export default {
         logo: 'https://dragonchain.com/assets/images/dragon.png',
         discussions: 'https://dragonchain.com/',
         website: 'https://dragonchain.com/',
-      }, {
+      },
+      {
         id: 3,
         token: 'Hubii (HBT)',
         totalYes: 0,
@@ -656,7 +722,8 @@ export default {
         logo: 'https://cdn-images-1.medium.com/max/1600/0*NVI3KkOEvbz0_Ff0.',
         discussions: 'https://www.ethfinex.com/token_listings/36/social_category/212/HBT',
         website: 'https://www.hubii.com/',
-      }, {
+      },
+      {
         id: 4,
         token: 'Stox (STX)',
         totalYes: 0,
@@ -664,7 +731,8 @@ export default {
         logo: 'https://coinnext.net/wp-content/uploads/2017/12/stox.png',
         discussions: 'https://www.stox.com/',
         website: 'https://www.stox.com/',
-      }, {
+      },
+      {
         id: 5,
         token: 'Republic Protocol (REN)',
         totalYes: 0,
@@ -672,7 +740,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2539.png',
         discussions: 'https://republicprotocol.com/',
         website: 'https://republicprotocol.com/',
-      }, {
+      },
+      {
         id: 6,
         token: 'BankEx (BKX)',
         totalYes: 45.3,
@@ -680,7 +749,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2390.png',
         discussions: 'https://bankex.com/',
         website: 'https://bankex.com/',
-      }, {
+      },
+      {
         id: 7,
         token: 'BlockEx (DAXT)',
         totalYes: 0,
@@ -688,7 +758,8 @@ export default {
         logo: 'https://image.ibb.co/dGCsSd/logo_png_rj.png',
         discussions: 'https://daxt.io/',
         website: 'https://daxt.io/',
-      }, {
+      },
+      {
         id: 8,
         token: 'Kin (KIN)',
         totalYes: 0,
@@ -696,7 +767,8 @@ export default {
         logo: 'https://www.kik.com/images/kin/kin-logo-onblue.svg',
         discussions: 'https://www.ethfinex.com/token_listings/25/social_category/146/KIN',
         website: 'https://www.kik.com/kin/',
-      }, {
+      },
+      {
         id: 9,
         token: 'Loom (LOOM)',
         totalYes: 0,
@@ -704,7 +776,8 @@ export default {
         logo: 'https://cdn-images-1.medium.com/max/1200/1*K76UVoLq-FOL7l-_Fag-Qw@2x.png',
         discussions: 'https://loomx.io/',
         website: 'https://loomx.io/',
-      }, {
+      },
+      {
         id: 10,
         token: 'Wings (WINGS)',
         totalYes: 0,
@@ -712,7 +785,8 @@ export default {
         logo: 'https://www.cryptocompare.com/media/1382758/1wings.png',
         discussions: 'https://www.ethfinex.com/token_listings/10/social_category/59/WINGS',
         website: 'https://www.wings.ai/',
-      }, {
+      },
+      {
         id: 12,
         token: 'Internet Node Token (INT)',
         totalYes: 25400000,
@@ -720,7 +794,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2399.png',
         discussions: 'https://www.ethfinex.com/token_listings/30/social_category/179/INT',
         website: 'https://intchain.io/',
-      }, {
+      },
+      {
         id: 15,
         token: 'Centrality (CENNZ)',
         totalYes: 0,
@@ -728,7 +803,8 @@ export default {
         logo: 'https://image.ibb.co/nqYU4T/CENNZ_blue.png',
         discussions: 'https://t.me/centralityofficialtelegram',
         website: 'https://www.centrality.ai',
-      }, {
+      },
+      {
         id: 16,
         token: 'Naga (NGC)',
         totalYes: 0,
@@ -736,7 +812,8 @@ export default {
         logo: 'https://i.vimeocdn.com/portrait/21759767_300x300',
         discussions: 'https://t.me/official_nagacoin',
         website: 'https://naga.com/coin/',
-      }, {
+      },
+      {
         id: 17,
         token: 'District0x (DNT)',
         totalYes: 399,
@@ -744,15 +821,18 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/1856.png',
         discussions: 'https://t.me/district0x',
         website: 'https://district0x.io/',
-      }, {
+      },
+      {
         id: 18,
         token: 'Icon (ICX)',
         totalYes: 0,
         total: 50000000,
-        logo: 'http://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/256/ICON-ICX-icon.png',
+        logo:
+          'http://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/256/ICON-ICX-icon.png',
         discussions: 'https://icon.foundation/',
         website: 'https://icon.foundation/',
-      }, {
+      },
+      {
         id: 19,
         token: 'Publica (PBL)',
         totalYes: 0,
@@ -760,7 +840,8 @@ export default {
         logo: 'https://cryptoindex.co/coinlogo/publica.png',
         discussions: 'https://t.me/publicaofficial',
         website: 'https://www.exchangeunion.com/',
-      }, {
+      },
+      {
         id: 21,
         token: 'Exchange Union (XUC)',
         totalYes: 0,
@@ -768,7 +849,8 @@ export default {
         logo: 'https://seeklogo.com/images/E/exchange-union-xuc-logo-D69254C1A4-seeklogo.com.png',
         discussions: 'https://www.exchangeunion.com/',
         website: 'https://www.exchangeunion.com/',
-      }, {
+      },
+      {
         id: 22,
         token: 'Libra Credit (LBA)',
         totalYes: 0,
@@ -776,7 +858,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2760.png',
         discussions: 'https://t.me/oneledger',
         website: 'https://www.libracredit.io/',
-      }, {
+      },
+      {
         id: 23,
         token: 'Chainlink (LINK)',
         totalYes: 0,
@@ -784,7 +867,8 @@ export default {
         logo: 'https://cdn.worldvectorlogo.com/logos/chainlink-1.svg',
         discussions: 'https://telegram.me/chainlink',
         website: 'https://www.smartcontract.com/link#chainlink',
-      }, {
+      },
+      {
         id: 24,
         token: 'Sonm (SNM)',
         totalYes: 1100,
@@ -792,7 +876,8 @@ export default {
         logo: 'https://image.ibb.co/j4cEyz/SONM.jpg',
         discussion: 'https://t.me/sonm_eng',
         website: 'https://sonm.com/',
-      }, {
+      },
+      {
         id: 25,
         token: 'Aeternity (AE)',
         totalYes: 229400,
@@ -800,7 +885,8 @@ export default {
         logo: 'https://logos-download.com/wp-content/uploads/2018/05/Aeternity_logo_coin.png',
         discussions: 'https://www.ethfinex.com/token_listings/49/social_category/292/AE',
         website: 'https://aeternity.com/',
-      }, {
+      },
+      {
         id: 27,
         token: 'Enjin (ENJ)',
         totalYes: 5000000,
@@ -808,7 +894,8 @@ export default {
         logo: 'https://enjincoin.io/images/enjin-coin-logo.png',
         discussions: 'https://www.reddit.com/r/EnjinCoin/',
         website: 'https://enjincoin.io/',
-      }, {
+      },
+      {
         id: 28,
         token: 'On.Live (ONL)',
         totalYes: 2300000,
@@ -816,7 +903,8 @@ export default {
         logo: 'https://www.trackico.io/media/onlive_icon.png',
         discussions: 'https://t.me/OnLive',
         website: 'https://on.live/',
-      }, {
+      },
+      {
         id: 29,
         token: 'TaTaTu (TTU)',
         totalYes: 0,
@@ -824,7 +912,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2886.png',
         discussions: 'https://t.me/joinchat/GgHdfUhVY-w9zlfwD-jf1Q',
         website: 'https://www.tatatu.com',
-      }, {
+      },
+      {
         id: 30,
         token: 'OneLedger (OLT)',
         totalYes: 0,
@@ -832,7 +921,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2921.png',
         discussions: 'https://t.me/oneledger',
         website: 'https://oneledger.io/',
-      }, {
+      },
+      {
         id: 31,
         token: 'Populous (PPT)',
         totalYes: 0,
@@ -840,7 +930,8 @@ export default {
         logo: 'https://image.ibb.co/gXaVto/Populous.png',
         discussions: 'https://t.me/populous',
         website: 'https://populous.world/',
-      }, {
+      },
+      {
         id: 32,
         token: 'Zebi (ZCO)',
         totalYes: 0,
@@ -848,7 +939,8 @@ export default {
         logo: 'https://cryptoindex.co/coinlogo/zebi.png',
         discussions: 'https://t.me/ZebiData',
         website: 'https://www.zebi.io',
-      }, {
+      },
+      {
         id: 33,
         token: 'Enigma (ENG)',
         totalYes: 98,
@@ -856,7 +948,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2044.png',
         discussions: 'https://www.reddit.com/r/EnigmaProject/',
         website: 'https://enigma.co/',
-      }, {
+      },
+      {
         id: 34,
         token: 'Arbidex (ABX)',
         totalYes: 1000000,
@@ -864,7 +957,8 @@ export default {
         logo: 'https://kb.arbidex.uk.com/wp-content/uploads/2018/09/logpng-300x300.png',
         discussions: 'https://t.me/arbidexchat',
         website: 'https://arbidex.uk.com/',
-      }, {
+      },
+      {
         id: 35,
         token: 'Bounty0x (BNTY)',
         totalYes: 0,
@@ -872,7 +966,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2310.png',
         discussions: 'https://t.me/bounty0x',
         website: 'https://bounty0x.io/',
-      }, {
+      },
+      {
         id: 36,
         token: 'Kleros (PNK)',
         totalYes: 7500000,
@@ -880,15 +975,18 @@ export default {
         logo: 'https://slack.kleros.io/images/pinakion.png',
         discussion: 'https://t.me/kleros',
         website: 'https://kleros.io/#',
-      }, {
+      },
+      {
         id: 37,
         token: 'Lala World (LALA)',
         totalYes: 0,
         total: 50000000,
-        logo: 'https://en.bitcoinwiki.org/upload/en/images/thumb/9/98/LaLa_World_Logo.png/300px-LaLa_World_Logo.png',
+        logo:
+          'https://en.bitcoinwiki.org/upload/en/images/thumb/9/98/LaLa_World_Logo.png/300px-LaLa_World_Logo.png',
         discussions: 'https://www.ethfinex.com/token_listings/34/social_category/200/LALA',
         website: 'https://lalaworld.io/',
-      }, {
+      },
+      {
         id: 38,
         token: 'VETRI (VLD)',
         totalYes: 0,
@@ -896,7 +994,8 @@ export default {
         logo: 'https://valid.global/img/v.png',
         discussions: 'https://t.me/vetri_global',
         website: 'https://vetri.global/',
-      }, {
+      },
+      {
         id: 39,
         token: 'INS (INS)',
         totalYes: 0,
@@ -920,15 +1019,18 @@ export default {
         logo: 'https://image.ibb.co/j2fCC8/Ethos_Logo_white_knockout.png',
         discussions: 'https://www.ethos.io/',
         website: 'https://www.ethos.io/',
-      }, {
+      },
+      {
         id: 1,
         token: 'Melon (MLN)',
         totalYes: 23300000,
         total: 89000000,
-        logo: 'https://d33wubrfki0l68.cloudfront.net/a925598e7831981f53d573bb90b63ca172a90726/98ed3/assets/images/loading-logo.png',
+        logo:
+          'https://d33wubrfki0l68.cloudfront.net/a925598e7831981f53d573bb90b63ca172a90726/98ed3/assets/images/loading-logo.png',
         discussions: 'https://t.me/melonport',
         website: 'https://melonport.com/',
-      }, {
+      },
+      {
         id: 2,
         totalYes: 7000000,
         total: 89000000,
@@ -936,7 +1038,8 @@ export default {
         logo: 'https://dragonchain.com/assets/images/dragon.png',
         discussions: 'https://dragonchain.com/',
         website: 'https://dragonchain.com/',
-      }, {
+      },
+      {
         id: 3,
         token: 'Hubii (HBT)',
         totalYes: 0,
@@ -944,7 +1047,8 @@ export default {
         logo: 'https://cdn-images-1.medium.com/max/1600/0*NVI3KkOEvbz0_Ff0.',
         discussions: 'https://www.ethfinex.com/token_listings/36/social_category/212/HBT',
         website: 'https://www.hubii.com/',
-      }, {
+      },
+      {
         id: 4,
         token: 'Stox (STX)',
         totalYes: 0,
@@ -952,7 +1056,8 @@ export default {
         logo: 'https://coinnext.net/wp-content/uploads/2017/12/stox.png',
         discussions: 'https://www.stox.com/',
         website: 'https://www.stox.com/',
-      }, {
+      },
+      {
         id: 5,
         token: 'Republic Protocol (REN)',
         totalYes: 0,
@@ -960,7 +1065,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2539.png',
         discussions: 'https://republicprotocol.com/',
         website: 'https://republicprotocol.com/',
-      }, {
+      },
+      {
         id: 6,
         token: 'BankEx (BKX)',
         totalYes: 90.5,
@@ -968,7 +1074,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2390.png',
         discussions: 'https://bankex.com/',
         website: 'https://bankex.com/',
-      }, {
+      },
+      {
         id: 7,
         token: 'BlockEx (DAXT)',
         totalYes: 0,
@@ -976,7 +1083,8 @@ export default {
         logo: 'https://image.ibb.co/dGCsSd/logo_png_rj.png',
         discussions: 'https://daxt.io/',
         website: 'https://daxt.io/',
-      }, {
+      },
+      {
         id: 8,
         token: 'Kin (KIN)',
         totalYes: 0,
@@ -984,7 +1092,8 @@ export default {
         logo: 'https://www.kik.com/images/kin/kin-logo-onblue.svg',
         discussions: 'https://www.ethfinex.com/token_listings/25/social_category/146/KIN',
         website: 'https://www.kik.com/kin/',
-      }, {
+      },
+      {
         id: 9,
         token: 'Loom (LOOM)',
         totalYes: 0,
@@ -992,7 +1101,8 @@ export default {
         logo: 'https://cdn-images-1.medium.com/max/1200/1*K76UVoLq-FOL7l-_Fag-Qw@2x.png',
         discussions: 'https://loomx.io/',
         website: 'https://loomx.io/',
-      }, {
+      },
+      {
         id: 10,
         token: 'Wings (WINGS)',
         totalYes: 0,
@@ -1000,7 +1110,8 @@ export default {
         logo: 'https://www.cryptocompare.com/media/1382758/1wings.png',
         discussions: 'https://www.ethfinex.com/token_listings/10/social_category/59/WINGS',
         website: 'https://www.wings.ai/',
-      }, {
+      },
+      {
         id: 11,
         token: 'Walton (WTC)',
         totalYes: 29000000,
@@ -1008,7 +1119,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/1925.png',
         discussions: 'https://www.reddit.com/r/waltonchain/',
         website: 'https://www.waltonchain.org/',
-      }, {
+      },
+      {
         id: 12,
         token: 'Internet Node Token (INT)',
         totalYes: 0,
@@ -1016,7 +1128,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2399.png',
         discussions: 'https://www.ethfinex.com/token_listings/30/social_category/179/INT',
         website: 'https://intchain.io/',
-      }, {
+      },
+      {
         id: 13,
         token: 'Credits (CS)',
         totalYes: 23000000,
@@ -1024,7 +1137,8 @@ export default {
         logo: 'https://i.imgur.com/whRRJIb.png',
         discussions: 'https://t.me/creditscom',
         website: 'https://credits.com',
-      }, {
+      },
+      {
         id: 15,
         token: 'Centrality (CENNZ)',
         totalYes: 0,
@@ -1032,7 +1146,8 @@ export default {
         logo: 'https://image.ibb.co/nqYU4T/CENNZ_blue.png',
         discussions: 'https://t.me/centralityofficialtelegram',
         website: 'https://www.centrality.ai',
-      }, {
+      },
+      {
         id: 16,
         token: 'Naga (NGC)',
         totalYes: 0,
@@ -1040,7 +1155,8 @@ export default {
         logo: 'https://i.vimeocdn.com/portrait/21759767_300x300',
         discussions: 'https://t.me/official_nagacoin',
         website: 'https://naga.com/coin/',
-      }, {
+      },
+      {
         id: 17,
         token: 'District0x (DNT)',
         totalYes: 0,
@@ -1048,15 +1164,18 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/1856.png',
         discussions: 'https://t.me/district0x',
         website: 'https://district0x.io/',
-      }, {
+      },
+      {
         id: 18,
         token: 'Icon (ICX)',
         totalYes: 0,
         total: 89000000,
-        logo: 'http://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/256/ICON-ICX-icon.png',
+        logo:
+          'http://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/256/ICON-ICX-icon.png',
         discussions: 'https://icon.foundation/',
         website: 'https://icon.foundation/',
-      }, {
+      },
+      {
         id: 19,
         token: 'Publica (PBL)',
         totalYes: 0,
@@ -1064,7 +1183,8 @@ export default {
         logo: 'https://cryptoindex.co/coinlogo/publica.png',
         discussions: 'https://t.me/publicaofficial',
         website: 'https://www.exchangeunion.com/',
-      }, {
+      },
+      {
         id: 21,
         token: 'Exchange Union (XUC)',
         totalYes: 0,
@@ -1072,7 +1192,8 @@ export default {
         logo: 'https://seeklogo.com/images/E/exchange-union-xuc-logo-D69254C1A4-seeklogo.com.png',
         discussions: 'https://www.exchangeunion.com/',
         website: 'https://www.exchangeunion.com/',
-      }, {
+      },
+      {
         id: 22,
         token: 'Libra Credit (LBA)',
         totalYes: 0,
@@ -1080,7 +1201,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2760.png',
         discussions: 'https://t.me/oneledger',
         website: 'https://www.libracredit.io/',
-      }, {
+      },
+      {
         id: 23,
         token: 'Chainlink (LINK)',
         totalYes: 0,
@@ -1088,7 +1210,8 @@ export default {
         logo: 'https://cdn.worldvectorlogo.com/logos/chainlink-1.svg',
         discussions: 'https://telegram.me/chainlink',
         website: 'https://www.smartcontract.com/link#chainlink',
-      }, {
+      },
+      {
         id: 24,
         token: 'Sonm (SNM)',
         totalYes: 2200,
@@ -1096,7 +1219,8 @@ export default {
         logo: 'https://image.ibb.co/j4cEyz/SONM.jpg',
         discussion: 'https://t.me/sonm_eng',
         website: 'https://sonm.com/',
-      }, {
+      },
+      {
         id: 25,
         token: 'Aeternity (AE)',
         totalYes: 5,
@@ -1104,7 +1228,8 @@ export default {
         logo: 'https://logos-download.com/wp-content/uploads/2018/05/Aeternity_logo_coin.png',
         discussions: 'https://www.ethfinex.com/token_listings/49/social_category/292/AE',
         website: 'https://aeternity.com/',
-      }, {
+      },
+      {
         id: 27,
         token: 'Enjin (ENJ)',
         totalYes: 0,
@@ -1112,7 +1237,8 @@ export default {
         logo: 'https://enjincoin.io/images/enjin-coin-logo.png',
         discussions: 'https://www.reddit.com/r/EnjinCoin/',
         website: 'https://enjincoin.io/',
-      }, {
+      },
+      {
         id: 28,
         token: 'On.Live (ONL)',
         totalYes: 4600000,
@@ -1120,7 +1246,8 @@ export default {
         logo: 'https://www.trackico.io/media/onlive_icon.png',
         discussions: 'https://t.me/OnLive',
         website: 'https://on.live/',
-      }, {
+      },
+      {
         id: 29,
         token: 'TaTaTu (TTU)',
         totalYes: 0,
@@ -1128,7 +1255,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2886.png',
         discussions: 'https://t.me/joinchat/GgHdfUhVY-w9zlfwD-jf1Q',
         website: 'https://www.tatatu.com',
-      }, {
+      },
+      {
         id: 30,
         token: 'OneLedger (OLT)',
         totalYes: 0,
@@ -1136,7 +1264,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2921.png',
         discussions: 'https://t.me/oneledger',
         website: 'https://oneledger.io/',
-      }, {
+      },
+      {
         id: 31,
         token: 'Populous (PPT)',
         totalYes: 0,
@@ -1144,7 +1273,8 @@ export default {
         logo: 'https://image.ibb.co/gXaVto/Populous.png',
         discussions: 'https://t.me/populous',
         website: 'https://populous.world/',
-      }, {
+      },
+      {
         id: 32,
         token: 'Zebi (ZCO)',
         totalYes: 0,
@@ -1152,7 +1282,8 @@ export default {
         logo: 'https://cryptoindex.co/coinlogo/zebi.png',
         discussions: 'https://t.me/ZebiData',
         website: 'https://www.zebi.io',
-      }, {
+      },
+      {
         id: 33,
         token: 'Enigma (ENG)',
         totalYes: 6,
@@ -1160,7 +1291,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2044.png',
         discussions: 'https://www.reddit.com/r/EnigmaProject/',
         website: 'https://enigma.co/',
-      }, {
+      },
+      {
         id: 34,
         token: 'Arbidex (ABX)',
         totalYes: 2100000,
@@ -1184,15 +1316,18 @@ export default {
         logo: 'https://image.ibb.co/j2fCC8/Ethos_Logo_white_knockout.png',
         discussions: 'https://www.ethos.io/',
         website: 'https://www.ethos.io/',
-      }, {
+      },
+      {
         id: 1,
         token: 'Melon (MLN)',
         totalYes: 155000,
         total: 99297791,
-        logo: 'https://d33wubrfki0l68.cloudfront.net/a925598e7831981f53d573bb90b63ca172a90726/98ed3/assets/images/loading-logo.png',
+        logo:
+          'https://d33wubrfki0l68.cloudfront.net/a925598e7831981f53d573bb90b63ca172a90726/98ed3/assets/images/loading-logo.png',
         discussions: 'https://t.me/melonport',
         website: 'https://melonport.com/',
-      }, {
+      },
+      {
         id: 2,
         totalYes: 10100,
         total: 99297791,
@@ -1200,7 +1335,8 @@ export default {
         logo: 'https://dragonchain.com/assets/images/dragon.png',
         discussions: 'https://dragonchain.com/',
         website: 'https://dragonchain.com/',
-      }, {
+      },
+      {
         id: 3,
         token: 'Hubii (HBT)',
         totalYes: 0,
@@ -1208,7 +1344,8 @@ export default {
         logo: 'https://cdn-images-1.medium.com/max/1600/0*NVI3KkOEvbz0_Ff0.',
         discussions: 'https://www.ethfinex.com/token_listings/36/social_category/212/HBT',
         website: 'https://www.hubii.com/',
-      }, {
+      },
+      {
         id: 4,
         token: 'Stox (STX)',
         totalYes: 0,
@@ -1216,7 +1353,8 @@ export default {
         logo: 'https://coinnext.net/wp-content/uploads/2017/12/stox.png',
         discussions: 'https://www.stox.com/',
         website: 'https://www.stox.com/',
-      }, {
+      },
+      {
         id: 5,
         token: 'Republic Protocol (REN)',
         totalYes: 0,
@@ -1224,7 +1362,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2539.png',
         discussions: 'https://republicprotocol.com/',
         website: 'https://republicprotocol.com/',
-      }, {
+      },
+      {
         id: 6,
         token: 'BankEx (BKX)',
         totalYes: 181,
@@ -1232,7 +1371,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2390.png',
         discussions: 'https://bankex.com/',
         website: 'https://bankex.com/',
-      }, {
+      },
+      {
         id: 7,
         token: 'BlockEx (DAXT)',
         totalYes: 0,
@@ -1240,7 +1380,8 @@ export default {
         logo: 'https://image.ibb.co/dGCsSd/logo_png_rj.png',
         discussions: 'https://daxt.io/',
         website: 'https://daxt.io/',
-      }, {
+      },
+      {
         id: 8,
         token: 'Kin (KIN)',
         totalYes: 0,
@@ -1248,7 +1389,8 @@ export default {
         logo: 'https://www.kik.com/images/kin/kin-logo-onblue.svg',
         discussions: 'https://www.ethfinex.com/token_listings/25/social_category/146/KIN',
         website: 'https://www.kik.com/kin/',
-      }, {
+      },
+      {
         id: 9,
         token: 'Loom (LOOM)',
         totalYes: 0,
@@ -1256,7 +1398,8 @@ export default {
         logo: 'https://cdn-images-1.medium.com/max/1200/1*K76UVoLq-FOL7l-_Fag-Qw@2x.png',
         discussions: 'https://loomx.io/',
         website: 'https://loomx.io/',
-      }, {
+      },
+      {
         id: 10,
         token: 'Wings (WINGS)',
         totalYes: 0,
@@ -1264,7 +1407,8 @@ export default {
         logo: 'https://www.cryptocompare.com/media/1382758/1wings.png',
         discussions: 'https://www.ethfinex.com/token_listings/10/social_category/59/WINGS',
         website: 'https://www.wings.ai/',
-      }, {
+      },
+      {
         id: 11,
         token: 'Walton (WTC)',
         totalYes: 0,
@@ -1272,7 +1416,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/1925.png',
         discussions: 'https://www.reddit.com/r/waltonchain/',
         website: 'https://www.waltonchain.org/',
-      }, {
+      },
+      {
         id: 12,
         token: 'Internet Node Token (INT)',
         totalYes: 0,
@@ -1280,7 +1425,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2399.png',
         discussions: 'https://www.ethfinex.com/token_listings/30/social_category/179/INT',
         website: 'https://intchain.io/',
-      }, {
+      },
+      {
         id: 13,
         token: 'Credits (CS)',
         totalYes: 5100000,
@@ -1288,7 +1434,8 @@ export default {
         logo: 'https://i.imgur.com/whRRJIb.png',
         discussions: 'https://t.me/creditscom',
         website: 'https://credits.com',
-      }, {
+      },
+      {
         id: 14,
         token: 'Yggdrash (YEED)',
         totalYes: 33800000,
@@ -1296,7 +1443,8 @@ export default {
         logo: 'https://investment-prod.s3.amazonaws.com/email/ygg/YGG.png',
         discussions: 'https://t.me/joinchat/GjaZ6VEGciYxMNa3pD32hg',
         website: 'https://yggdrash.io/',
-      }, {
+      },
+      {
         id: 15,
         token: 'Centrality (CENNZ)',
         totalYes: 0,
@@ -1304,7 +1452,8 @@ export default {
         logo: 'https://image.ibb.co/nqYU4T/CENNZ_blue.png',
         discussions: 'https://t.me/centralityofficialtelegram',
         website: 'https://www.centrality.ai',
-      }, {
+      },
+      {
         id: 16,
         token: 'Naga (NGC)',
         totalYes: 0,
@@ -1312,7 +1461,8 @@ export default {
         logo: 'https://i.vimeocdn.com/portrait/21759767_300x300',
         discussions: 'https://t.me/official_nagacoin',
         website: 'https://naga.com/coin/',
-      }, {
+      },
+      {
         id: 17,
         token: 'District0x (DNT)',
         totalYes: 0,
@@ -1320,7 +1470,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/1856.png',
         discussions: 'https://t.me/district0x',
         website: 'https://district0x.io/',
-      }, {
+      },
+      {
         id: 18,
         token: 'Icon (ICX)',
         totalYes: 0,
@@ -1328,7 +1479,8 @@ export default {
         logo: 'https://coinmarketdaddy.com/upload/coin/11523185991.png',
         discussions: 'https://icon.foundation/',
         website: 'https://icon.foundation/',
-      }, {
+      },
+      {
         id: 19,
         token: 'Publica (PBL)',
         totalYes: 0,
@@ -1336,7 +1488,8 @@ export default {
         logo: 'https://cryptoindex.co/coinlogo/publica.png',
         discussions: 'https://t.me/publicaofficial',
         website: 'https://www.exchangeunion.com/',
-      }, {
+      },
+      {
         id: 20,
         token: 'Rate3 (RTE)',
         totalYes: 30600000,
@@ -1344,7 +1497,8 @@ export default {
         logo: 'https://i.imgur.com/ycazGCt.png',
         discussions: 'https://t.me/OfficialRate3',
         website: 'https://www.rate3.network/',
-      }, {
+      },
+      {
         id: 21,
         token: 'Exchange Union (XUC)',
         totalYes: 0,
@@ -1352,7 +1506,8 @@ export default {
         logo: 'https://seeklogo.com/images/E/exchange-union-xuc-logo-D69254C1A4-seeklogo.com.png',
         discussions: 'https://www.exchangeunion.com/',
         website: 'https://www.exchangeunion.com/',
-      }, {
+      },
+      {
         id: 22,
         token: 'Libra Credit (LBA)',
         totalYes: 0,
@@ -1360,7 +1515,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2760.png',
         discussions: 'https://t.me/oneledger',
         website: 'https://www.libracredit.io/',
-      }, {
+      },
+      {
         id: 23,
         token: 'Chainlink (LINK)',
         totalYes: 0,
@@ -1368,7 +1524,8 @@ export default {
         logo: 'https://cdn.worldvectorlogo.com/logos/chainlink-1.svg',
         discussions: 'https://telegram.me/chainlink',
         website: 'https://www.smartcontract.com/link#chainlink',
-      }, {
+      },
+      {
         id: 24,
         token: 'Sonm (SNM)',
         totalYes: 0,
@@ -1376,7 +1533,8 @@ export default {
         logo: 'https://image.ibb.co/j4cEyz/SONM.jpg',
         discussion: 'https://t.me/sonm_eng',
         website: 'https://sonm.com/',
-      }, {
+      },
+      {
         id: 25,
         token: 'Aeternity (AE)',
         totalYes: 10,
@@ -1384,7 +1542,8 @@ export default {
         logo: 'https://logos-download.com/wp-content/uploads/2018/05/Aeternity_logo_coin.png',
         discussions: 'https://www.ethfinex.com/token_listings/49/social_category/292/AE',
         website: 'https://aeternity.com/',
-      }, {
+      },
+      {
         id: 26,
         token: 'MobileGo (MGO)',
         totalYes: 29500000,
@@ -1392,7 +1551,8 @@ export default {
         logo: 'https://cdn.freebiesupply.com/logos/large/2x/mobilego-logo-png-transparent.png',
         discussions: 'https://www.reddit.com/r/MobileGo/',
         website: 'https://gamecredits.com/mobilego/',
-      }, {
+      },
+      {
         id: 27,
         token: 'Enjin (ENJ)',
         totalYes: 0,
@@ -1400,7 +1560,8 @@ export default {
         logo: 'https://enjincoin.io/images/enjin-coin-logo.png',
         discussions: 'https://www.reddit.com/r/EnjinCoin/',
         website: 'https://enjincoin.io/',
-      }, {
+      },
+      {
         id: 28,
         token: 'On.Live (ONL)',
         totalYes: 132500,
@@ -1414,7 +1575,8 @@ export default {
   '04/09 - 18/09': {
     listedOn: 'Thursday 20th September',
     winThreshold: 3,
-    link: 'https://etherscan.io/token/0xe2d06285211fc0f9cc9d3e62435e474377754478?a=0x2b2d7d874bbfb73f85b2f8a9ee0d9f3e93722622',
+    link:
+      'https://etherscan.io/token/0xe2d06285211fc0f9cc9d3e62435e474377754478?a=0x2b2d7d874bbfb73f85b2f8a9ee0d9f3e93722622',
     data: [
       {
         id: 0,
@@ -1424,7 +1586,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2886.png',
         discussions: 'https://t.me/joinchat/GgHdfUhVY-w9zlfwD-jf1Q',
         website: 'https://www.tatatu.com',
-      }, {
+      },
+      {
         id: 1,
         token: 'Content Neutrality Network (CNN)',
         totalYes: 13800000,
@@ -1432,7 +1595,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2735.png',
         discussions: 'https://t.me/cnn_blockchain_official',
         website: 'https://cnntoken.io',
-      }, {
+      },
+      {
         id: 3,
         token: 'VideoCoin (VID)',
         totalYes: 8200000,
@@ -1440,7 +1604,8 @@ export default {
         logo: 'https://i.imgur.com/Wf5GvPd.png',
         discussions: 'https://t.me/videocoin',
         website: 'https://www.videocoin.io',
-      }, {
+      },
+      {
         id: 4,
         token: 'Credits (CS)',
         totalYes: 505100,
@@ -1448,7 +1613,8 @@ export default {
         logo: 'https://i.imgur.com/whRRJIb.png',
         discussions: 'https://t.me/creditscom',
         website: 'https://credits.com',
-      }, {
+      },
+      {
         id: 5,
         token: 'Contentbox (BOX)',
         totalYes: 26400000,
@@ -1456,7 +1622,8 @@ export default {
         logo: 'https://i.imgur.com/2nbWY1t.png',
         discussions: 'https://t.me/BoxCommunity',
         website: 'https://contentbox.one/',
-      }, {
+      },
+      {
         id: 6,
         token: 'OneLedger (OLT)',
         totalYes: 0,
@@ -1464,7 +1631,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2921.png',
         discussions: 'https://t.me/oneledger',
         website: 'https://oneledger.io/',
-      }, {
+      },
+      {
         id: 7,
         token: 'Libra Credit (LBA)',
         totalYes: 0,
@@ -1472,7 +1640,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2760.png',
         discussions: 'https://t.me/oneledger',
         website: 'https://www.libracredit.io/',
-      }, {
+      },
+      {
         id: 8,
         token: 'Yggdrash (YEED)',
         totalYes: 8100000,
@@ -1480,7 +1649,8 @@ export default {
         logo: 'https://investment-prod.s3.amazonaws.com/email/ygg/YGG.png',
         discussions: 'https://t.me/joinchat/GjaZ6VEGciYxMNa3pD32hg',
         website: 'https://yggdrash.io/',
-      }, {
+      },
+      {
         id: 9,
         token: 'KIN (KIN)',
         totalYes: 0,
@@ -1488,7 +1658,8 @@ export default {
         logo: 'https://www.kik.com/images/kin/kin-logo-onblue.svg',
         discussion: 'https://t.me/kinfoundation',
         website: 'https://www.kik.com/kin/',
-      }, {
+      },
+      {
         id: 10,
         token: 'Bounty0x (BNTY)',
         totalYes: 0,
@@ -1496,7 +1667,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2310.png',
         discussions: 'https://t.me/bounty0x',
         website: 'https://bounty0x.io/',
-      }, {
+      },
+      {
         id: 11,
         token: 'Centrality (CENNZ)',
         totalYes: 0,
@@ -1504,7 +1676,8 @@ export default {
         logo: 'https://image.ibb.co/nqYU4T/CENNZ_blue.png',
         discussions: 'https://t.me/centralityofficialtelegram',
         website: 'https://www.centrality.ai',
-      }, {
+      },
+      {
         id: 12,
         token: 'BankEx (BKX)',
         totalYes: 232700,
@@ -1512,7 +1685,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2390.png',
         discussions: 'https://bankex.com/',
         website: 'https://bankex.com/',
-      }, {
+      },
+      {
         id: 13,
         token: 'DragonChain (DRGN)',
         totalYes: 0,
@@ -1521,12 +1695,13 @@ export default {
         discussions: 'https://dragonchain.com/',
         website: 'https://dragonchain.com/',
       },
-    ]
+    ],
   },
   '21/08 - 04/09': {
     listedOn: 'Thursday 6th September',
     winThreshold: 3,
-    link: 'https://etherscan.io/token/0x2a509918f8ab6017f8f52d78f8a15e4b29687ad7?a=0x2b2d7d874bbfb73f85b2f8a9ee0d9f3e93722622',
+    link:
+      'https://etherscan.io/token/0x2a509918f8ab6017f8f52d78f8a15e4b29687ad7?a=0x2b2d7d874bbfb73f85b2f8a9ee0d9f3e93722622',
     data: [
       {
         id: 0,
@@ -1536,7 +1711,8 @@ export default {
         logo: 'https://i.imgur.com/NhTTBKB.png',
         discussions: 'https://t.me/ultra_io',
         website: 'https://ultra.io/',
-      }, {
+      },
+      {
         id: 1,
         token: 'Contentbox (BOX)',
         totalYes: 27600000,
@@ -1544,7 +1720,8 @@ export default {
         logo: 'https://i.imgur.com/2nbWY1t.png',
         discussions: 'https://t.me/BoxCommunity',
         website: 'https://contentbox.one/',
-      }, {
+      },
+      {
         id: 2,
         token: 'Rate3 (RTE)',
         totalYes: 4900,
@@ -1552,7 +1729,8 @@ export default {
         logo: 'https://i.imgur.com/ycazGCt.png',
         discussions: 'https://t.me/OfficialRate3',
         website: 'https://www.rate3.network/',
-      }, {
+      },
+      {
         id: 3,
         token: 'TokenCard (TKN)',
         totalYes: 29000000,
@@ -1560,7 +1738,8 @@ export default {
         logo: 'https://i.imgur.com/NfVxEeZ.png',
         discussions: 'https://t.me/TokenCard',
         website: 'https://tokencard.io/',
-      }, {
+      },
+      {
         id: 4,
         token: 'Credits (CS)',
         totalYes: 161300,
@@ -1568,7 +1747,8 @@ export default {
         logo: 'https://i.imgur.com/whRRJIb.png',
         discussions: 'https://t.me/creditscom',
         website: 'https://credits.com',
-      }, {
+      },
+      {
         id: 5,
         token: 'Universa (UTNP)',
         totalYes: 31200000,
@@ -1576,7 +1756,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2524.png',
         discussions: 'https://t.me/Uplatform',
         website: 'https://www.universa.io',
-      }, {
+      },
+      {
         id: 6,
         token: 'OneLedger (OLT)',
         totalYes: 0,
@@ -1584,7 +1765,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2921.png',
         discussions: 'https://t.me/oneledger',
         website: 'https://oneledger.io/',
-      }, {
+      },
+      {
         id: 7,
         token: 'Libra Credit (LBA)',
         totalYes: 2900,
@@ -1592,7 +1774,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2760.png',
         discussions: 'https://t.me/oneledger',
         website: 'https://www.libracredit.io/',
-      }, {
+      },
+      {
         id: 8,
         token: 'Yggdrash (YEED)',
         totalYes: 147000,
@@ -1600,7 +1783,8 @@ export default {
         logo: 'https://investment-prod.s3.amazonaws.com/email/ygg/YGG.png',
         discussions: 'https://t.me/joinchat/GjaZ6VEGciYxMNa3pD32hg',
         website: 'https://yggdrash.io/',
-      }, {
+      },
+      {
         id: 9,
         token: 'Sonm (SNM)',
         totalYes: 0,
@@ -1608,7 +1792,8 @@ export default {
         logo: 'https://image.ibb.co/j4cEyz/SONM.jpg',
         discussion: 'https://t.me/sonm_eng',
         website: 'https://sonm.com/',
-      }, {
+      },
+      {
         id: 10,
         token: 'Bounty0x (BNTY)',
         totalYes: 0,
@@ -1616,7 +1801,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2310.png',
         discussions: 'https://t.me/bounty0x',
         website: 'https://bounty0x.io/',
-      }, {
+      },
+      {
         id: 11,
         token: 'Centrality (CENNZ)',
         totalYes: 0,
@@ -1624,7 +1810,8 @@ export default {
         logo: 'https://image.ibb.co/nqYU4T/CENNZ_blue.png',
         discussions: 'https://t.me/centralityofficialtelegram',
         website: 'https://www.centrality.ai',
-      }, {
+      },
+      {
         id: 12,
         token: 'BankEx (BKX)',
         totalYes: 8000000,
@@ -1632,7 +1819,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2390.png',
         discussions: 'https://bankex.com/',
         website: 'https://bankex.com/',
-      }, {
+      },
+      {
         id: 13,
         token: 'Civic (CVC)',
         totalYes: 0,
@@ -1641,12 +1829,13 @@ export default {
         discussions: 'https://t.me/civicplatform',
         website: 'https://www.civic.com/',
       },
-    ]
+    ],
   },
   '07/08 - 21/08': {
     listedOn: 'Thursday 23rd August',
     winThreshold: 3,
-    link: 'https://etherscan.io/token/0xf5490dd02ef9a20682fa7cd12fd2be428b5a2431?a=0x2b2d7d874bbfb73f85b2f8a9ee0d9f3e93722622',
+    link:
+      'https://etherscan.io/token/0xf5490dd02ef9a20682fa7cd12fd2be428b5a2431?a=0x2b2d7d874bbfb73f85b2f8a9ee0d9f3e93722622',
     data: [
       {
         id: 0,
@@ -1656,7 +1845,8 @@ export default {
         logo: 'https://image.ibb.co/gXaVto/Populous.png',
         discussions: 'https://t.me/populous',
         website: 'https://populous.world/',
-      }, {
+      },
+      {
         id: 1,
         token: 'District0x (DNT)',
         totalYes: 0,
@@ -1664,15 +1854,18 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/1856.png',
         discussions: 'https://t.me/district0x',
         website: 'https://district0x.io/',
-      }, {
+      },
+      {
         id: 2,
         token: 'Melon (MLN)',
         totalYes: 15400000,
         total: 91194189,
-        logo: 'https://d33wubrfki0l68.cloudfront.net/a925598e7831981f53d573bb90b63ca172a90726/98ed3/assets/images/loading-logo.png',
+        logo:
+          'https://d33wubrfki0l68.cloudfront.net/a925598e7831981f53d573bb90b63ca172a90726/98ed3/assets/images/loading-logo.png',
         discussions: 'https://t.me/melonport',
         website: 'https://melonport.com/',
-      }, {
+      },
+      {
         id: 3,
         token: 'Loom (LOOM)',
         totalYes: 0,
@@ -1680,7 +1873,8 @@ export default {
         logo: 'https://cdn-images-1.medium.com/max/1200/1*K76UVoLq-FOL7l-_Fag-Qw@2x.png',
         discussions: 'https://loomx.io/',
         website: 'https://loomx.io/',
-      }, {
+      },
+      {
         id: 4,
         token: 'Autonio (NIO)',
         totalYes: 26000000,
@@ -1688,7 +1882,8 @@ export default {
         logo: 'https://image.ibb.co/huexke/autonio_logo_white.png',
         discussions: 'https://t.me/Autonio',
         website: 'https://auton.io/',
-      }, {
+      },
+      {
         id: 5,
         token: 'Sonm (SNM)',
         totalYes: 475.7,
@@ -1696,7 +1891,8 @@ export default {
         logo: 'https://image.ibb.co/j4cEyz/SONM.jpg',
         discussion: 'https://t.me/sonm_eng',
         website: 'https://sonm.com/',
-      }, {
+      },
+      {
         id: 6,
         token: 'Musereum (ETM)',
         totalYes: 0,
@@ -1704,7 +1900,8 @@ export default {
         logo: 'https://image.ibb.co/b4sX68/Musereum.png',
         discussions: 'https://t.me/joinchat/AxlyZhDrU1JxQeE27eiTVQ',
         website: 'https://musereum.org/',
-      }, {
+      },
+      {
         id: 7,
         token: 'Digix Gold (DGX)',
         totalYes: 20300000,
@@ -1712,7 +1909,8 @@ export default {
         logo: 'https://assets.coingecko.com/coins/images/4171/large/DGX_Token.png?1530715109',
         discussions: 'https://twitter.com/@DigixGlobal',
         website: 'https://digix.global/',
-      }, {
+      },
+      {
         id: 8,
         token: 'Kleros (PNK)',
         totalYes: 0,
@@ -1720,7 +1918,8 @@ export default {
         logo: 'https://slack.kleros.io/images/pinakion.png',
         discussion: 'https://t.me/kleros',
         website: 'https://kleros.io/#',
-      }, {
+      },
+      {
         id: 9,
         token: 'Centrality (CENNZ)',
         totalYes: 63500,
@@ -1728,7 +1927,8 @@ export default {
         logo: 'https://image.ibb.co/nqYU4T/CENNZ_blue.png',
         discussions: 'https://t.me/centralityofficialtelegram',
         website: 'https://www.centrality.ai',
-      }, {
+      },
+      {
         id: 10,
         token: 'Banyan Network (BBN)',
         totalYes: 26200000,
@@ -1736,7 +1936,8 @@ export default {
         logo: 'https://image.ibb.co/eLJBzT/Banyan.png',
         discussions: 'https://t.me/BBNGlobalFans',
         website: 'https://www.banyanbbt.org/',
-      }, {
+      },
+      {
         id: 11,
         token: 'Publica (PBL)',
         totalYes: 0,
@@ -1744,7 +1945,8 @@ export default {
         logo: 'https://cryptoindex.co/coinlogo/publica.png',
         discussions: 'https://t.me/publicaofficial',
         website: 'https://www.exchangeunion.com/',
-      }, {
+      },
+      {
         id: 12,
         token: 'BankEx (BKX)',
         totalYes: 2700000,
@@ -1752,7 +1954,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2390.png',
         discussions: 'https://bankex.com/',
         website: 'https://bankex.com/',
-      }, {
+      },
+      {
         id: 13,
         token: 'Civic (CVC)',
         totalYes: 0,
@@ -1761,12 +1964,13 @@ export default {
         discussions: 'https://t.me/civicplatform',
         website: 'https://www.civic.com/',
       },
-    ]
+    ],
   },
   '24/07 - 07/08': {
     listedOn: 'Thursday 9th August',
     winThreshold: 3,
-    link: 'https://etherscan.io/token/0x448e0fed8d5b6494d75412a1a263ae3bbfbb505f?a=0x2b2d7d874bbfb73f85b2f8a9ee0d9f3e93722622',
+    link:
+      'https://etherscan.io/token/0x448e0fed8d5b6494d75412a1a263ae3bbfbb505f?a=0x2b2d7d874bbfb73f85b2f8a9ee0d9f3e93722622',
     data: [
       {
         id: 0,
@@ -1776,7 +1980,8 @@ export default {
         logo: 'https://image.ibb.co/gXaVto/Populous.png',
         discussions: 'https://t.me/populous',
         website: 'https://populous.world/',
-      }, {
+      },
+      {
         id: 1,
         token: 'District0x (DNT)',
         totalYes: 9800,
@@ -1784,15 +1989,18 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/1856.png',
         discussions: 'https://t.me/district0x',
         website: 'https://district0x.io/',
-      }, {
+      },
+      {
         id: 2,
         token: 'Melon (MLN)',
         totalYes: 8500,
         total: 113223942,
-        logo: 'https://d33wubrfki0l68.cloudfront.net/a925598e7831981f53d573bb90b63ca172a90726/98ed3/assets/images/loading-logo.png',
+        logo:
+          'https://d33wubrfki0l68.cloudfront.net/a925598e7831981f53d573bb90b63ca172a90726/98ed3/assets/images/loading-logo.png',
         discussions: 'https://t.me/melonport',
         website: 'https://melonport.com/',
-      }, {
+      },
+      {
         id: 3,
         token: 'Fantom (FTM)',
         totalYes: 0,
@@ -1800,7 +2008,8 @@ export default {
         logo: 'https://i.imgur.com/W5Rv0SY.png',
         discussions: 'https://t.me/Fantom_English',
         website: 'https://www.fantom.foundation',
-      }, {
+      },
+      {
         id: 4,
         token: 'BlockPass (PASS)',
         totalYes: 29900000,
@@ -1808,7 +2017,8 @@ export default {
         logo: 'https://miro.medium.com/fit/c/240/240/1*JrzELkcCFLgUzMhp5TD1dg.png',
         discussions: 'https://t.me/blockpass',
         website: 'https://blockpass.org/',
-      }, {
+      },
+      {
         id: 5,
         token: 'Walton (WTC)',
         totalYes: 0,
@@ -1816,7 +2026,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/1925.png',
         discussions: 'https://www.reddit.com/r/waltonchain/',
         website: 'https://www.waltonchain.org/',
-      }, {
+      },
+      {
         id: 6,
         token: 'Musereum (ETM)',
         totalYes: 0,
@@ -1824,7 +2035,8 @@ export default {
         logo: 'https://image.ibb.co/b4sX68/Musereum.png',
         discussions: 'https://t.me/joinchat/AxlyZhDrU1JxQeE27eiTVQ',
         website: 'https://musereum.org/',
-      }, {
+      },
+      {
         id: 7,
         token: 'Digix Gold (DGX)',
         totalYes: 5500000,
@@ -1832,7 +2044,8 @@ export default {
         logo: 'https://assets.coingecko.com/coins/images/4171/large/DGX_Token.png?1530715109',
         discussions: 'https://twitter.com/@DigixGlobal',
         website: 'https://digix.global/',
-      }, {
+      },
+      {
         id: 8,
         token: 'MATRIX (MAN)',
         totalYes: 30000000,
@@ -1840,7 +2053,8 @@ export default {
         logo: 'https://cryptoindex.co/coinlogo/matrix-ai-network.png',
         discussions: 'https://t.me/matrixainetwork',
         website: 'https://www.matrix.io/',
-      }, {
+      },
+      {
         id: 9,
         token: 'Zebi (ZCO)',
         totalYes: 0,
@@ -1848,7 +2062,8 @@ export default {
         logo: 'https://cryptoindex.co/coinlogo/zebi.png',
         discussions: 'https://t.me/ZebiData',
         website: 'https://www.zebi.io',
-      }, {
+      },
+      {
         id: 10,
         token: 'Banyan Network (BBN)',
         totalYes: 38000,
@@ -1856,7 +2071,8 @@ export default {
         logo: 'https://image.ibb.co/eLJBzT/Banyan.png',
         discussions: 'https://t.me/BBNGlobalFans',
         website: 'https://www.banyanbbt.org/',
-      }, {
+      },
+      {
         id: 11,
         token: 'Publica (PBL)',
         totalYes: 5200,
@@ -1864,7 +2080,8 @@ export default {
         logo: 'https://cryptoindex.co/coinlogo/publica.png',
         discussions: 'https://t.me/publicaofficial',
         website: 'https://www.exchangeunion.com/',
-      }, {
+      },
+      {
         id: 12,
         token: 'The Abyss (ABYSS)',
         totalYes: 30100000,
@@ -1872,7 +2089,8 @@ export default {
         logo: 'https://image.ibb.co/kHWSR8/256_R.png',
         discussions: 'https://t.me/theabyss',
         website: 'https://www.theabyss.com/',
-      }, {
+      },
+      {
         id: 13,
         token: 'Ethos (ETHOS)',
         totalYes: 17600000,
@@ -1881,12 +2099,13 @@ export default {
         discussions: 'https://www.ethos.io/',
         website: 'https://www.ethos.io/',
       },
-    ]
+    ],
   },
   '10/07 - 24/07': {
     listedOn: 'Thursday 26th July',
     winThreshold: 3,
-    link: 'https://etherscan.io/token/0x4237e70f7ebb2ca125a85f97288cc6ad0c2c40b6?a=0x2b2d7d874bbfb73f85b2f8a9ee0d9f3e93722622',
+    link:
+      'https://etherscan.io/token/0x4237e70f7ebb2ca125a85f97288cc6ad0c2c40b6?a=0x2b2d7d874bbfb73f85b2f8a9ee0d9f3e93722622',
     data: [
       {
         id: 0,
@@ -1896,7 +2115,8 @@ export default {
         logo: 'https://logos-download.com/wp-content/uploads/2018/05/Aeternity_logo_coin.png',
         discussions: 'https://www.ethfinex.com/token_listings/49/social_category/292/AE',
         website: 'https://aeternity.com/',
-      }, {
+      },
+      {
         id: 1,
         token: 'Republic Protocol (REN)',
         totalYes: 0,
@@ -1904,7 +2124,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2539.png',
         discussions: 'https://republicprotocol.com/',
         website: 'https://republicprotocol.com/',
-      }, {
+      },
+      {
         id: 2,
         token: 'Bancor (BNT)',
         totalYes: 13700000,
@@ -1912,7 +2133,8 @@ export default {
         logo: 'https://cdn.freebiesupply.com/logos/large/2x/bancor-2-logo-png-transparent.png',
         discussions: 'https://www.reddit.com/r/Bancor/',
         website: 'https://bancor.network/',
-      }, {
+      },
+      {
         id: 3,
         token: 'Fantom (FTM)',
         totalYes: 0,
@@ -1920,7 +2142,8 @@ export default {
         logo: 'https://i.imgur.com/W5Rv0SY.png',
         discussions: 'https://t.me/Fantom_English',
         website: 'https://www.fantom.foundation',
-      }, {
+      },
+      {
         id: 4,
         token: 'Zilliqa (ZIL)',
         totalYes: 17900000,
@@ -1928,7 +2151,8 @@ export default {
         logo: 'https://seeklogo.com/images/Z/zilliqa-logo-3AF6BFB223-seeklogo.com.png',
         discussions: 'https://twitter.com/zilliqa',
         website: 'https://zilliqa.com/',
-      }, {
+      },
+      {
         id: 5,
         token: 'Walton (WTC)',
         totalYes: 1000000,
@@ -1936,7 +2160,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/1925.png',
         discussions: 'https://www.reddit.com/r/waltonchain/',
         website: 'https://www.waltonchain.org/',
-      }, {
+      },
+      {
         id: 6,
         token: 'Stox (STX)',
         totalYes: 11900000,
@@ -1944,7 +2169,8 @@ export default {
         logo: 'https://coinnext.net/wp-content/uploads/2017/12/stox.png',
         discussions: 'https://www.stox.com/',
         website: 'https://www.stox.com/',
-      }, {
+      },
+      {
         id: 7,
         token: 'Enigma (ENG)',
         totalYes: 0,
@@ -1952,7 +2178,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2044.png',
         discussions: 'https://www.reddit.com/r/EnigmaProject/',
         website: 'https://enigma.co/',
-      }, {
+      },
+      {
         id: 8,
         token: 'Ethos (ETHOS)',
         totalYes: 7700000,
@@ -1960,7 +2187,8 @@ export default {
         logo: 'https://image.ibb.co/j2fCC8/Ethos_Logo_white_knockout.png',
         discussions: 'https://www.ethos.io/',
         website: 'https://www.ethos.io/',
-      }, {
+      },
+      {
         id: 9,
         token: 'WePower (WPR)',
         totalYes: 35000000,
@@ -1968,7 +2196,8 @@ export default {
         logo: 'https://image.ibb.co/dzfCXJ/Wepower_logo_256x256.png',
         discussions: 'https://t.me/WePowerNetwork',
         website: 'https://wepower.network/',
-      }, {
+      },
+      {
         id: 10,
         token: 'Naga (NGC)',
         totalYes: 10100,
@@ -1976,7 +2205,8 @@ export default {
         logo: 'https://i.vimeocdn.com/portrait/21759767_300x300',
         discussions: 'https://t.me/official_nagacoin',
         website: 'https://naga.com/coin/',
-      }, {
+      },
+      {
         id: 11,
         token: 'Exchange Union (XUC)',
         totalYes: 3300,
@@ -1984,7 +2214,8 @@ export default {
         logo: 'https://seeklogo.com/images/E/exchange-union-xuc-logo-D69254C1A4-seeklogo.com.png',
         discussions: 'https://www.exchangeunion.com/',
         website: 'https://www.exchangeunion.com/',
-      }, {
+      },
+      {
         id: 12,
         token: 'Chainlink (LINK)',
         totalYes: 519,
@@ -1992,12 +2223,14 @@ export default {
         logo: 'https://cdn.worldvectorlogo.com/logos/chainlink-1.svg',
         discussions: 'https://telegram.me/chainlink',
         website: 'https://www.smartcontract.com/link#chainlink',
-      }, {
+      },
+      {
         id: 13,
         token: 'Nebulas (NAS)',
         totalYes: 0,
         total: 87270648,
-        logo: 'http://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/1024/Nebulas-NAS-icon.png',
+        logo:
+          'http://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/1024/Nebulas-NAS-icon.png',
         discussions: 'https://t.me/nebulasio',
         website: 'https://nebulas.io/',
       },
@@ -2006,7 +2239,8 @@ export default {
   '26/06 - 10/07': {
     listedOn: 'Thursday 13th July',
     winThreshold: 3,
-    link: 'https://etherscan.io/token/0x1da899dfba6cca073a5283f1855453ebfd13ecfb?a=0x2b2d7d874bbfb73f85b2f8a9ee0d9f3e93722622',
+    link:
+      'https://etherscan.io/token/0x1da899dfba6cca073a5283f1855453ebfd13ecfb?a=0x2b2d7d874bbfb73f85b2f8a9ee0d9f3e93722622',
     data: [
       {
         id: 0,
@@ -2016,7 +2250,8 @@ export default {
         logo: 'https://cdn-images-1.medium.com/max/1200/1*K76UVoLq-FOL7l-_Fag-Qw@2x.png',
         discussions: 'https://loomx.io/',
         website: 'https://loomx.io/',
-      }, {
+      },
+      {
         id: 1,
         token: 'Data (DTA)',
         totalYes: 21100000,
@@ -2024,7 +2259,8 @@ export default {
         logo: 'https://data.eco/images/logo.DATA.svg',
         discussions: 'https://data.eco/',
         website: 'https://data.eco/',
-      }, {
+      },
+      {
         id: 2,
         token: 'Republic Protocol',
         totalYes: 10300000,
@@ -2032,7 +2268,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2539.png',
         discussions: 'https://republicprotocol.com/',
         website: 'https://republicprotocol.com/',
-      }, {
+      },
+      {
         id: 3,
         token: 'Kin',
         totalYes: 528,
@@ -2040,7 +2277,8 @@ export default {
         logo: 'https://www.kik.com/images/kin/kin-logo-onblue.svg',
         discussions: 'https://www.ethfinex.com/token_listings/25/social_category/146/KIN',
         website: 'https://www.kik.com/kin/',
-      }, {
+      },
+      {
         id: 4,
         token: 'DragonChain',
         totalYes: 13800000,
@@ -2048,7 +2286,8 @@ export default {
         logo: 'https://dragonchain.com/assets/images/dragon.png',
         discussions: 'https://www.ethfinex.com/token_listings/13/social_category/76/DRGN',
         website: 'https://dragonchain.com/',
-      }, {
+      },
+      {
         id: 5,
         token: 'Hydro Protocol',
         totalYes: 24300000,
@@ -2056,7 +2295,8 @@ export default {
         logo: 'https://www.currencycalculate.com/res/img/cryptocurrencies/hydro-protocol.png',
         discussions: 'https://thehydrofoundation.com/',
         website: 'https://thehydrofoundation.com/',
-      }, {
+      },
+      {
         id: 6,
         token: 'Hubii',
         totalYes: 12300,
@@ -2064,7 +2304,8 @@ export default {
         logo: 'https://cdn-images-1.medium.com/max/1600/0*NVI3KkOEvbz0_Ff0.',
         discussions: 'https://www.ethfinex.com/token_listings/36/social_category/212/HBT',
         website: 'https://www.hubii.com/',
-      }, {
+      },
+      {
         id: 7,
         token: 'Stox',
         totalYes: 672,
@@ -2072,15 +2313,18 @@ export default {
         logo: 'https://coinnext.net/wp-content/uploads/2017/12/stox.png',
         discussions: 'https://www.stox.com/',
         website: 'https://www.stox.com/',
-      }, {
+      },
+      {
         id: 8,
         token: 'Lala World',
         totalYes: 0,
         total: 88883844,
-        logo: 'https://en.bitcoinwiki.org/upload/en/images/thumb/9/98/LaLa_World_Logo.png/300px-LaLa_World_Logo.png',
+        logo:
+          'https://en.bitcoinwiki.org/upload/en/images/thumb/9/98/LaLa_World_Logo.png/300px-LaLa_World_Logo.png',
         discussions: 'https://www.ethfinex.com/token_listings/34/social_category/200/LALA',
         website: 'https://lalaworld.io/',
-      }, {
+      },
+      {
         id: 9,
         token: 'Ethos',
         totalYes: 0,
@@ -2088,7 +2332,8 @@ export default {
         logo: 'https://image.ibb.co/j2fCC8/Ethos_Logo_white_knockout.png',
         discussions: 'https://www.ethos.io/',
         website: 'https://www.ethos.io/',
-      }, {
+      },
+      {
         id: 10,
         token: 'IPSX',
         totalYes: 0,
@@ -2096,7 +2341,8 @@ export default {
         logo: 'https://cryptoindex.co/coinlogo/ip-exchange.png',
         discussions: 'https://www.ipsx.com/',
         website: 'https://www.ipsx.com/',
-      }, {
+      },
+      {
         id: 11,
         token: 'Human Protocol',
         totalYes: 18500000,
@@ -2104,7 +2350,8 @@ export default {
         logo: 'https://hcaptcha.com/static/img/site/human-token.png',
         discussions: 'https://hcaptcha.com/',
         website: 'https://hcaptcha.com/',
-      }, {
+      },
+      {
         id: 12,
         token: 'Naga',
         totalYes: 0,
@@ -2112,7 +2359,8 @@ export default {
         logo: 'https://i.vimeocdn.com/portrait/21759767_300x300',
         discussions: 'https://naga.com/coin/',
         website: 'https://naga.com/coin/',
-      }, {
+      },
+      {
         id: 13,
         token: 'Exchange Union',
         totalYes: 0,
@@ -2121,12 +2369,13 @@ export default {
         discussions: 'https://www.exchangeunion.com/',
         website: 'https://www.exchangeunion.com/',
       },
-    ]
+    ],
   },
   '12/06 - 26/06': {
     listedOn: 'Thursday 28th June',
     winThreshold: 4,
-    link: 'https://etherscan.io/token/0x99ee6275a7ec7165c63fb7cfeb8b8e1a73722733?a=0x2b2d7d874bbfb73f85b2f8a9ee0d9f3e93722622',
+    link:
+      'https://etherscan.io/token/0x99ee6275a7ec7165c63fb7cfeb8b8e1a73722733?a=0x2b2d7d874bbfb73f85b2f8a9ee0d9f3e93722622',
     data: [
       {
         id: 0,
@@ -2136,7 +2385,8 @@ export default {
         logo: 'https://cdn-images-1.medium.com/max/1200/1*K76UVoLq-FOL7l-_Fag-Qw@2x.png',
         discussions: 'https://loomx.io/',
         website: 'https://loomx.io/',
-      }, {
+      },
+      {
         id: 1,
         token: 'Cortex',
         totalYes: 12400000,
@@ -2144,7 +2394,8 @@ export default {
         logo: 'http://www.cortexlabs.ai/cortexImg/logo.png',
         discussions: 'http://www.cortexlabs.ai/',
         website: 'http://www.cortexlabs.ai/',
-      }, {
+      },
+      {
         id: 2,
         token: 'Republic Protocol',
         totalYes: 19900,
@@ -2152,7 +2403,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2539.png',
         discussions: 'https://republicprotocol.com/',
         website: 'https://republicprotocol.com/',
-      }, {
+      },
+      {
         id: 3,
         token: 'Edenchain',
         totalYes: 0,
@@ -2160,7 +2412,8 @@ export default {
         logo: 'https://edenchain.io/wp-content/uploads/2018/06/edenmain.png',
         discussions: 'https://edenchain.io/',
         website: 'https://edenchain.io/',
-      }, {
+      },
+      {
         id: 4,
         token: 'Icon',
         totalYes: 8500,
@@ -2168,7 +2421,8 @@ export default {
         logo: 'https://coinmarketdaddy.com/upload/coin/11523185991.png',
         discussions: 'https://icon.foundation/',
         website: 'https://icon.foundation/',
-      }, {
+      },
+      {
         id: 5,
         token: 'BlockEx',
         totalYes: 8000000,
@@ -2176,7 +2430,8 @@ export default {
         logo: 'https://image.ibb.co/dGCsSd/logo_png_rj.png',
         discussions: 'https://daxt.io/',
         website: 'https://daxt.io/',
-      }, {
+      },
+      {
         id: 6,
         token: 'Hydro Protocol',
         totalYes: 0,
@@ -2184,7 +2439,8 @@ export default {
         logo: 'https://www.currencycalculate.com/res/img/cryptocurrencies/hydro-protocol.png',
         discussions: 'https://thehydrofoundation.com/',
         website: 'https://thehydrofoundation.com/',
-      }, {
+      },
+      {
         id: 7,
         token: 'Cindicator',
         totalYes: 10800000,
@@ -2192,7 +2448,8 @@ export default {
         logo: 'https://coinlookup.co/wp-content/uploads/2018/03/cindicator.png',
         discussions: 'https://cindicator.com/',
         website: 'https://cindicator.com/',
-      }, {
+      },
+      {
         id: 8,
         token: 'Nucleus Vision',
         totalYes: 12600000,
@@ -2200,7 +2457,8 @@ export default {
         logo: 'https://www.bitprime.co.nz/wp-content/uploads/2018/03/NCASH.png',
         discussions: 'https://nucleus.vision/',
         website: 'https://nucleus.vision/',
-      }, {
+      },
+      {
         id: 9,
         token: 'Stox',
         totalYes: 7100000,
@@ -2208,15 +2466,18 @@ export default {
         logo: 'https://coinnext.net/wp-content/uploads/2017/12/stox.png',
         discussions: 'https://www.stox.com/',
         website: 'https://www.stox.com/',
-      }, {
+      },
+      {
         id: 10,
         token: 'Lala World',
         totalYes: 0,
         total: 66187336,
-        logo: 'https://en.bitcoinwiki.org/upload/en/images/thumb/9/98/LaLa_World_Logo.png/300px-LaLa_World_Logo.png',
+        logo:
+          'https://en.bitcoinwiki.org/upload/en/images/thumb/9/98/LaLa_World_Logo.png/300px-LaLa_World_Logo.png',
         discussions: 'https://www.ethfinex.com/token_listings/34/social_category/200/LALA',
         website: 'https://lalaworld.io/',
-      }, {
+      },
+      {
         id: 11,
         token: 'Consensus AI',
         totalYes: 12700000,
@@ -2225,12 +2486,13 @@ export default {
         discussions: 'https://www.ethfinex.com/token_listings/47/social_category/281/SEN',
         website: 'https://consensus.ai/',
       },
-    ]
+    ],
   },
   '29/05 - 12/06': {
     listedOn: 'Thursday 14th June',
     winThreshold: 4,
-    link: 'https://etherscan.io/token/0xd7e7a876058d8e67efb26ad7b10a4007d90396bc?a=0x2b2d7d874bbfb73f85b2f8a9ee0d9f3e93722622',
+    link:
+      'https://etherscan.io/token/0xd7e7a876058d8e67efb26ad7b10a4007d90396bc?a=0x2b2d7d874bbfb73f85b2f8a9ee0d9f3e93722622',
     data: [
       {
         id: 0,
@@ -2240,7 +2502,8 @@ export default {
         logo: 'https://www.cryptocompare.com/media/1382758/1wings.png',
         discussions: 'https://www.ethfinex.com/token_listings/10/social_category/59/WINGS',
         website: 'https://www.wings.ai/',
-      }, {
+      },
+      {
         id: 1,
         token: 'Auctus',
         totalYes: 15500000,
@@ -2248,7 +2511,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2653.png',
         discussions: 'https://www.ethfinex.com/token_listings/45/social_category/269/AUC',
         website: 'https://auctus.org/',
-      }, {
+      },
+      {
         id: 2,
         token: 'Cindicator',
         totalYes: 146500,
@@ -2256,7 +2520,8 @@ export default {
         logo: 'https://coinlookup.co/wp-content/uploads/2018/03/cindicator.png',
         discussions: 'https://cindicator.com/',
         website: 'https://cindicator.com/',
-      }, {
+      },
+      {
         id: 3,
         token: 'Internet Node Token',
         totalYes: 0,
@@ -2264,7 +2529,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2399.png',
         discussions: 'https://www.ethfinex.com/token_listings/30/social_category/179/INT',
         website: 'https://intchain.io/',
-      }, {
+      },
+      {
         id: 4,
         token: 'Icon',
         totalYes: 1000,
@@ -2272,7 +2538,8 @@ export default {
         logo: 'https://coinmarketdaddy.com/upload/coin/11523185991.png',
         discussions: 'https://icon.foundation/',
         website: 'https://icon.foundation/',
-      }, {
+      },
+      {
         id: 5,
         token: 'BlockEx',
         totalYes: 436500,
@@ -2280,15 +2547,18 @@ export default {
         logo: 'https://image.ibb.co/dGCsSd/logo_png_rj.png',
         discussions: 'https://daxt.io/',
         website: 'https://daxt.io/',
-      }, {
+      },
+      {
         id: 6,
         token: 'Polymath',
         totalYes: 13800000,
         total: 59384496,
-        logo: 'https://global-uploads.webflow.com/5a46fad33472ef00014b540a/5a46fad33472ef00014b5453_Polymath-Logos_Color_r5.svg',
+        logo:
+          'https://global-uploads.webflow.com/5a46fad33472ef00014b540a/5a46fad33472ef00014b5453_Polymath-Logos_Color_r5.svg',
         discussions: 'https://www.polymath.network/',
         website: 'https://www.polymath.network/',
-      }, {
+      },
+      {
         id: 7,
         token: 'Fusion',
         totalYes: 10800000,
@@ -2296,7 +2566,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2530.png',
         discussions: 'https://www.fusion.org/',
         website: 'https://www.fusion.org/',
-      }, {
+      },
+      {
         id: 8,
         token: 'DragonChain',
         totalYes: 4500000,
@@ -2304,15 +2575,18 @@ export default {
         logo: 'https://dragonchain.com/assets/images/dragon.png',
         discussions: 'https://www.ethfinex.com/token_listings/13/social_category/76/DRGN',
         website: 'https://dragonchain.com/',
-      }, {
+      },
+      {
         id: 9,
         token: 'CommerceBlock',
         totalYes: 7800000,
         total: 59384496,
-        logo: 'https://www.commerceblock.com/wp-content/themes/commerceblock/public/img/int/logo-small.png',
+        logo:
+          'https://www.commerceblock.com/wp-content/themes/commerceblock/public/img/int/logo-small.png',
         discussions: 'https://www.commerceblock.com/',
         website: 'https://www.commerceblock.com/',
-      }, {
+      },
+      {
         id: 10,
         token: 'Hubii',
         totalYes: 6400000,
@@ -2320,7 +2594,8 @@ export default {
         logo: 'https://cdn-images-1.medium.com/max/1600/0*NVI3KkOEvbz0_Ff0.',
         discussions: 'https://www.ethfinex.com/token_listings/36/social_category/212/HBT',
         website: 'https://www.hubii.com/',
-      }, {
+      },
+      {
         id: 11,
         token: 'Aeternity',
         totalYes: 100,
@@ -2329,7 +2604,7 @@ export default {
         discussions: 'https://www.ethfinex.com/token_listings/49/social_category/292/AE',
         website: 'https://aeternity.com/',
       },
-    ]
+    ],
   },
   '15/05 - 29/05': {
     listedOn: 'Thursday 31st May',
@@ -2344,7 +2619,8 @@ export default {
         logo: 'https://www.cryptocompare.com/media/1382758/1wings.png',
         discussions: 'https://www.ethfinex.com/token_listings/10/social_category/59/WINGS',
         website: 'https://www.wings.ai/',
-      }, {
+      },
+      {
         id: 1,
         token: 'Auctus',
         totalYes: 1100000,
@@ -2352,15 +2628,18 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2653.png',
         discussions: 'https://www.ethfinex.com/token_listings/45/social_category/269/AUC',
         website: 'https://auctus.org/',
-      }, {
+      },
+      {
         id: 2,
         token: 'Polymath',
         totalYes: 5100000,
         total: 45471000,
-        logo: 'https://global-uploads.webflow.com/5a46fad33472ef00014b540a/5a46fad33472ef00014b5453_Polymath-Logos_Color_r5.svg',
+        logo:
+          'https://global-uploads.webflow.com/5a46fad33472ef00014b540a/5a46fad33472ef00014b5453_Polymath-Logos_Color_r5.svg',
         discussions: 'https://www.polymath.network/',
         website: 'https://www.polymath.network/',
-      }, {
+      },
+      {
         id: 3,
         token: 'BlockV',
         totalYes: 6300000,
@@ -2368,7 +2647,8 @@ export default {
         logo: 'https://getcrypto.info/blockv/images/logo.png',
         discussions: 'https://www.ethfinex.com/token_listings/33/social_category/197/VEE',
         website: 'https://blockv.io/',
-      }, {
+      },
+      {
         id: 4,
         token: 'DragonChain',
         totalYes: 5500000,
@@ -2376,7 +2656,8 @@ export default {
         logo: 'https://dragonchain.com/assets/images/dragon.png',
         discussions: 'https://www.ethfinex.com/token_listings/13/social_category/76/DRGN',
         website: 'https://dragonchain.com/',
-      }, {
+      },
+      {
         id: 5,
         token: 'Kin',
         totalYes: 5000000,
@@ -2384,7 +2665,8 @@ export default {
         logo: 'https://www.kik.com/images/kin/kin-logo-onblue.svg',
         discussions: 'https://www.ethfinex.com/token_listings/25/social_category/146/KIN',
         website: 'https://www.kik.com/kin/',
-      }, {
+      },
+      {
         id: 6,
         token: 'Internet Node Token',
         totalYes: 535000,
@@ -2392,7 +2674,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2399.png',
         discussions: 'https://www.ethfinex.com/token_listings/30/social_category/179/INT',
         website: 'https://intchain.io/',
-      }, {
+      },
+      {
         id: 7,
         token: 'Dadi',
         totalYes: 5800000,
@@ -2400,7 +2683,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2535.png',
         discussions: 'https://dadi.cloud/',
         website: 'https://dadi.cloud/',
-      }, {
+      },
+      {
         id: 8,
         token: 'Utrust',
         totalYes: 6500000,
@@ -2408,7 +2692,8 @@ export default {
         logo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/2320.png',
         discussions: 'https://www.ethfinex.com/token_listings/35/social_category/209/UTRUST',
         website: 'https://utrust.io/',
-      }, {
+      },
+      {
         id: 9,
         token: 'Lympo',
         totalYes: 7400000,
@@ -2417,6 +2702,6 @@ export default {
         discussions: 'https://lympo.io/',
         website: 'https://lympo.io/',
       },
-    ]
-  }
+    ],
+  },
 };

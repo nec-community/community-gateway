@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-virtualized/styles.css';
-import { Table, Column, AutoSizer } from 'react-virtualized';
+// import { Table, Column, AutoSizer } from 'react-virtualized';
 import 'react-datepicker/dist/react-datepicker.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -44,17 +44,19 @@ class Traderboard extends Component {
   constructor(props) {
     super(props);
 
-    const oneMonthAgo = new Date();
-    oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
+    // const oneMonthAgo = new Date();
+    // oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
 
     this.state = {
       token: 'ALL',
-      startDate: oneMonthAgo,
-      endDate: new Date(),
+      dropdownDateValue: '30d',
+      startDate: '',
+      endDate: '',
     };
 
     this.handleTokenChange = this.handleTokenChange.bind(this);
-    this.handleIntervalChange = this.handleIntervalChange.bind(this);
+    // this.handleIntervalChange = this.handleIntervalChange.bind(this);
+    this.handleDropdownChange = this.handleDropdownChange.bind(this);
     this.setStartDate = this.setStartDate.bind(this);
     this.setEndDate = this.setEndDate.bind(this);
     this._noRowsRenderer = this._noRowsRenderer.bind(this);
@@ -63,9 +65,13 @@ class Traderboard extends Component {
   }
 
   componentDidMount() {
-    const { token, startDate, endDate } = this.state;
-    const { fetchTradersByDate } = this.props;
-    fetchTradersByDate(startDate, endDate, token);
+    const { token } = this.state;
+    const { fetchTraders } = this.props;
+
+    const date = new Date();
+    date.setDate(date.getDate() - 30);
+
+    fetchTraders(date, token);
   }
 
   setStartDate(startDate) {
@@ -95,26 +101,25 @@ class Traderboard extends Component {
     });
   }
 
-  async handleIntervalChange(e) {
-    const { value } = e.target;
+  async handleDropdownChange(e) {
     const { token } = this.state;
-    const { fetchTradersByDate } = this.props;
+    const { fetchTraders } = this.props;
+    const { value } = e.target;
 
     const end = new Date();
-    const start = new Date();
 
     switch (value) {
       case '24h':
-        start.setDate(start.getDate() - 1);
-        await fetchTradersByDate(start, end, token);
+        end.setDate(end.getDate() - 1);
+        await fetchTraders(end, token);
         break;
       case '7d':
-        start.setDate(start.getDate() - 7);
-        await fetchTradersByDate(start, end, token);
+        end.setDate(end.getDate() - 7);
+        await fetchTraders(end, token);
         break;
       default:
-        start.setDate(start.getDate() - 30);
-        await fetchTradersByDate(start, end, token);
+        end.setDate(end.getDate() - 30);
+        await fetchTraders(end, token);
         break;
     }
   }
@@ -146,10 +151,17 @@ class Traderboard extends Component {
   }
 
   renderPositionChanging(trader, index) {
-    const digit = trader.previousPosition - index;
+    const {
+      traders: { length },
+    } = this.props;
+    let digit = trader.previousPosition - index;
 
-    if (trader.previousPosition === -1 || digit === 0) {
+    if (digit === 0) {
       return null;
+    }
+
+    if (trader.previousPosition === -1) {
+      digit = length - index;
     }
 
     const direction = digit > 0 ? 'up' : 'down';
@@ -167,10 +179,10 @@ class Traderboard extends Component {
   }
 
   render() {
-    const { startDate, endDate, token } = this.state;
+    const { startDate, endDate } = this.state;
     const { traders } = this.props;
 
-    const traderRowGetter = ({ index }) => traders[index];
+    // const traderRowGetter = ({ index }) => traders[index];
     return (
       <div className="traderboard">
         <div className="container">
@@ -208,7 +220,7 @@ class Traderboard extends Component {
                     </select>
                   </div>
                   <div className="select">
-                    <select name="interval" onChange={this.handleIntervalChange}>
+                    <select name="interval" onChange={this.handleDropdownChange}>
                       <option value="30d" selected>
                         Latest 30 days
                       </option>
@@ -265,33 +277,39 @@ class Traderboard extends Component {
               </div>
             </div>
           </div>
-          <table>
-            <thead>
-              <tr>
-                <th>{}</th>
-                <th>WALLET ADDRESS</th>
-                <th>VOLUME</th>
-                <th>POSITION</th>
-                <th>TROPHIES</th>
-              </tr>
-            </thead>
-            <tbody>
-              {traders.map((trader, index) => (
-                <tr key={trader.address}>
-                  <td>{index + 1}</td>
-                  <td>
-                    <div>
-                      <p>{trader.address}</p>
-                      {trader.isNewTrader ? <span className="new__trader">new trader!</span> : null}
-                    </div>
-                  </td>
-                  <td>{Math.floor(Number(trader.amount || trader.USDValue))}</td>
-                  <td>{this.renderPositionChanging(trader, index)}</td>
-                  <td>{this.renderBadges(trader)}</td>
+          {traders.length ? (
+            <table>
+              <thead>
+                <tr>
+                  <th>{}</th>
+                  <th>WALLET ADDRESS</th>
+                  <th>VOLUME</th>
+                  <th>POSITION</th>
+                  <th>TROPHIES</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {traders.map((trader, index) => (
+                  <tr key={trader.address}>
+                    <td>{index + 1}</td>
+                    <td>
+                      <div>
+                        <p>{trader.address}</p>
+                        {trader.isNewTrader ? (
+                          <span className="new__trader">new trader!</span>
+                        ) : null}
+                      </div>
+                    </td>
+                    <td>{Math.floor(Number(trader.amount || trader.USDValue))}</td>
+                    <td>{this.renderPositionChanging(trader, index)}</td>
+                    <td>{this.renderBadges(trader)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            this._noRowsRenderer()
+          )}
         </div>
       </div>
     );

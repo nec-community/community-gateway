@@ -21,25 +21,24 @@ class AllProposals extends Component {
             These proposals are advisory in nature and the outcomes are not considered binding
           </p>
         </div>
-        {
-          this.props.proposals.filter(p => p._active).length !== 0 &&
+        {this.props.proposals.filter(p => p._active).length !== 0 && (
           <div>
             <div className="active-section">
               <div className="container">
-                {
-                  this.props.proposals.filter(p => p._active).map(proposal => (
+                {this.props.proposals
+                  .filter(p => p._active)
+                  .map(proposal => (
                     <div key={proposal._token} className="proposal-wrapper">
                       <ProposalCountdown endTime={proposal.endTime} />
 
                       <div className="details-wrapper">
-                        <Link
-                          className="title"
-                          to={`/proposal/${proposal.id}`}
-                        >
+                        <Link className="title" to={`/proposal/${proposal.id}`}>
                           {proposal.title}
                         </Link>
                         <p className="description">{proposal.description}</p>
-                        <Link className="vote-wrapper" to={`/proposal/${proposal.id}`}>VOTE</Link>
+                        <Link className="vote-wrapper" to={`/proposal/${proposal.id}`}>
+                          VOTE
+                        </Link>
                       </div>
 
                       <div className="results-wrapper">
@@ -61,39 +60,35 @@ class AllProposals extends Component {
                         </div>
                       </div>
                     </div>
-                  ))
-                }
+                  ))}
               </div>
             </div>
             <div className="waves reverse" />
           </div>
-        }
+        )}
 
-        {
-          !this.props.proposals.filter(p => p._active).length &&
+        {!this.props.proposals.filter(p => p._active).length && (
           <div className="container">
-            <div className="no-proposals">
-              No proposals are currently active.
-            </div>
+            <div className="no-proposals">No proposals are currently active.</div>
           </div>
-        }
+        )}
 
         <div className="past-section">
           <div className="container">
-            {
-              this.props.proposals.filter(p => p.finalized).map(proposal => (
+            {this.props.proposals
+              .filter(p => p.finalized)
+              .map(proposal => (
                 <div key={proposal._token} className="proposal-wrapper">
                   <div className="remaining" />
 
                   <div className="details-wrapper">
-                    <Link
-                      className="title"
-                      to={`/proposal/${proposal.id}`}
-                    >
+                    <Link className="title" to={`/proposal/${proposal.id}`}>
                       {proposal.title}
                     </Link>
                     <p className="description">{proposal.description}</p>
-                    <Link className="vote-wrapper" to={`/proposal/${proposal.id}`}>Read more</Link>
+                    <Link className="vote-wrapper" to={`/proposal/${proposal.id}`}>
+                      Read more
+                    </Link>
                   </div>
 
                   <div className="results-wrapper">
@@ -112,8 +107,7 @@ class AllProposals extends Component {
                     </div>
                   </div>
                 </div>
-              ))
-            }
+              ))}
           </div>
         </div>
       </div>
@@ -130,6 +124,9 @@ const mapStateToProps = state => ({
   proposals: state.proposal.proposals,
 });
 
-export default connect(mapStateToProps, {
-  getProposals,
-})(AllProposals);
+export default connect(
+  mapStateToProps,
+  {
+    getProposals,
+  }
+)(AllProposals);
