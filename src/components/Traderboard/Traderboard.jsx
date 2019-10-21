@@ -44,18 +44,18 @@ class Traderboard extends Component {
   constructor(props) {
     super(props);
 
-    // const oneMonthAgo = new Date();
-    // oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
 
     this.state = {
       token: 'ALL',
-      dropdownDateValue: '30d',
+      dropdownDate: oneMonthAgo,
       startDate: '',
       endDate: '',
+      dateIntervalMode: false,
     };
 
     this.handleTokenChange = this.handleTokenChange.bind(this);
-    // this.handleIntervalChange = this.handleIntervalChange.bind(this);
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
     this.setStartDate = this.setStartDate.bind(this);
     this.setEndDate = this.setEndDate.bind(this);
@@ -80,7 +80,15 @@ class Traderboard extends Component {
     });
     const { endDate, token } = this.state;
     const { fetchTradersByDate } = this.props;
-    fetchTradersByDate(startDate, endDate, token);
+
+    if (endDate !== '') {
+      this.setState({
+        dateIntervalMode: true,
+      });
+      fetchTradersByDate(startDate, endDate, token);
+    } else {
+      return null;
+    }
   }
 
   setEndDate(endDate) {
@@ -89,16 +97,31 @@ class Traderboard extends Component {
     });
     const { startDate, token } = this.state;
     const { fetchTradersByDate } = this.props;
-    fetchTradersByDate(startDate, endDate, token);
+
+    if (startDate !== '') {
+      this.setState({
+        dateIntervalMode: true,
+      });
+      fetchTradersByDate(startDate, endDate, token);
+    } else {
+      return null;
+    }
   }
 
   async handleTokenChange(e) {
-    const { startDate, endDate } = this.state;
-    const value = e.target.value;
-    await this.props.fetchTradersByDate(startDate, endDate, value);
+    const { startDate, endDate, dropdownDate, dateIntervalMode } = this.state;
+    const { fetchTraders, fetchTradersByDate } = this.props;
+    const { value } = e.target;
+
     this.setState({
       token: value,
     });
+
+    if (dateIntervalMode) {
+      await fetchTradersByDate(startDate, endDate, value);
+    } else {
+      await fetchTraders(dropdownDate, value);
+    }
   }
 
   async handleDropdownChange(e) {
@@ -106,22 +129,21 @@ class Traderboard extends Component {
     const { fetchTraders } = this.props;
     const { value } = e.target;
 
-    const end = new Date();
+    const date = new Date();
 
-    switch (value) {
-      case '24h':
-        end.setDate(end.getDate() - 1);
-        await fetchTraders(end, token);
-        break;
-      case '7d':
-        end.setDate(end.getDate() - 7);
-        await fetchTraders(end, token);
-        break;
-      default:
-        end.setDate(end.getDate() - 30);
-        await fetchTraders(end, token);
-        break;
+    if (value === '24h') {
+      date.setDate(date.getDate() - 1);
+    } else if (value === '7d') {
+      date.setDate(date.getDate() - 7);
+    } else {
+      date.setDate(date.getDate() - 30);
     }
+
+    this.setState({
+      dropdownDate: date,
+      dateIntervalMode: false,
+    });
+    await fetchTraders(date, token);
   }
 
   _noRowsRenderer() {
@@ -129,28 +151,33 @@ class Traderboard extends Component {
   }
 
   renderBadges(trader) {
-    const count = trader.USDValue || 0;
+    const amount = trader.lastMonthAmount;
     let imgSrc = '';
 
-    if (count >= 10 ** 5 && count < 10 ** 6) {
+    if (amount >= 10 ** 5 && amount < 10 ** 6) {
       imgSrc = 'minnow';
-    } else if (count >= 10 ** 6 && count < 2 * 10 ** 6) {
+    } else if (amount >= 10 ** 6 && amount < 2 * 10 ** 6) {
       imgSrc = 'dolphin';
-    } else if (count >= 2 * 10 ** 6 && count < 5 * 10 ** 6) {
+    } else if (amount >= 2 * 10 ** 6 && amount < 5 * 10 ** 6) {
       imgSrc = 'shark';
-    } else if (count >= 5 * 10 ** 6) {
+    } else if (amount >= 5 * 10 ** 6) {
       imgSrc = 'whale';
     }
 
     return (
       <div className="fish__badges">
-        {trader.isNECHolder ? <img src="/images/nectar.svg" alt="" /> : null}
-        {count >= 10 ** 5 ? <img src={`/images/${imgSrc}.svg`} alt="" /> : null}
+        {trader.tokens?.NEC?.tokenAmount > 1000 ? <img src="/images/nectar.svg" alt="" /> : null}
+        {amount >= 10 ** 5 ? <img src={`/images/${imgSrc}.svg`} alt="" /> : null}
       </div>
     );
   }
 
   renderPositionChanging(trader, index) {
+    const { startDate, endDate } = this.state;
+    if (startDate && endDate) {
+      return null;
+    }
+
     const {
       traders: { length },
     } = this.props;
@@ -179,10 +206,12 @@ class Traderboard extends Component {
   }
 
   render() {
-    const { startDate, endDate } = this.state;
+    const { startDate, endDate, token } = this.state;
     const { traders } = this.props;
 
     // const traderRowGetter = ({ index }) => traders[index];
+
+    console.log('11111', traders);
     return (
       <div className="traderboard">
         <div className="container">
@@ -230,7 +259,6 @@ class Traderboard extends Component {
                   </div>
                   <div className="date__picker">
                     <DatePicker
-                      disabled
                       dateFormat="dd/MM/yyyy"
                       selected={startDate}
                       selectsStart
@@ -242,7 +270,6 @@ class Traderboard extends Component {
                   </div>
                   <div className="date__picker">
                     <DatePicker
-                      disabled
                       dateFormat="dd/MM/yyyy"
                       selected={endDate}
                       selectsEnd
