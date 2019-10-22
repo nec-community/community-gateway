@@ -75,15 +75,19 @@ class Traderboard extends Component {
   }
 
   setStartDate(startDate) {
-    this.setState({
-      startDate,
-    });
+    this.setState(
+      {
+        startDate,
+      },
+      () => console.log('1', this.state.startDate)
+    );
     const { endDate, token } = this.state;
     const { fetchTradersByDate } = this.props;
 
     if (endDate !== '') {
       this.setState({
         dateIntervalMode: true,
+        dropdownDate: '',
       });
       fetchTradersByDate(startDate, endDate, token);
     } else {
@@ -102,6 +106,7 @@ class Traderboard extends Component {
       this.setState({
         dateIntervalMode: true,
       });
+      document.getElementById('interval').selectedIndex = -1;
       fetchTradersByDate(startDate, endDate, token);
     } else {
       return null;
@@ -142,7 +147,10 @@ class Traderboard extends Component {
     this.setState({
       dropdownDate: date,
       dateIntervalMode: false,
+      startDate: '',
+      endDate: '',
     });
+
     await fetchTraders(date, token);
   }
 
@@ -206,12 +214,11 @@ class Traderboard extends Component {
   }
 
   render() {
-    const { startDate, endDate, token } = this.state;
+    const { startDate, endDate } = this.state;
     const { traders } = this.props;
 
     // const traderRowGetter = ({ index }) => traders[index];
 
-    console.log('11111', traders);
     return (
       <div className="traderboard">
         <div className="container">
@@ -249,7 +256,7 @@ class Traderboard extends Component {
                     </select>
                   </div>
                   <div className="select">
-                    <select name="interval" onChange={this.handleDropdownChange}>
+                    <select name="interval" id="interval" onChange={this.handleDropdownChange}>
                       <option value="30d" selected>
                         Latest 30 days
                       </option>
@@ -259,22 +266,25 @@ class Traderboard extends Component {
                   </div>
                   <div className="date__picker">
                     <DatePicker
-                      dateFormat="dd/MM/yyyy"
+                      dateFormat="dd/MM/yyyy hh:mm aa"
                       selected={startDate}
-                      selectsStart
                       startDate={startDate}
                       endDate={endDate}
-                      onChange={this.setStartDate}
+                      showTimeSelect
+                      timeFormat="HH:mm"
+                      timeIntervals={15}
+                      onChange={date => this.setStartDate(date)}
                       placeholderText="FROM"
                     />
                   </div>
                   <div className="date__picker">
                     <DatePicker
-                      dateFormat="dd/MM/yyyy"
                       selected={endDate}
-                      selectsEnd
                       startDate={startDate}
                       endDate={endDate}
+                      showTimeSelect
+                      timeFormat="p"
+                      dateFormat="Pp"
                       onChange={this.setEndDate}
                       minDate={startDate}
                       placeholderText="TO"
@@ -327,7 +337,7 @@ class Traderboard extends Component {
                         ) : null}
                       </div>
                     </td>
-                    <td>{Math.floor(Number(trader.amount || trader.USDValue))}</td>
+                    <td>{Math.floor(Number(trader.amount?.toFixed(4) || trader.USDValue))}</td>
                     <td>{this.renderPositionChanging(trader, index)}</td>
                     <td>{this.renderBadges(trader)}</td>
                   </tr>
