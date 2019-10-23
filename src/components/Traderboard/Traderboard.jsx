@@ -144,14 +144,14 @@ class Traderboard extends Component {
       date.setDate(date.getDate() - 30);
     }
 
+    await fetchTraders(date, token);
+
     this.setState({
       dropdownDate: date,
       dateIntervalMode: false,
       startDate: '',
       endDate: '',
     });
-
-    await fetchTraders(date, token);
   }
 
   _noRowsRenderer() {
@@ -246,49 +246,53 @@ class Traderboard extends Component {
                   ))}
                 </div>
                 <div className="actions">
-                  <div className="select">
-                    <select name="token" onChange={this.handleTokenChange}>
-                      {tokens.map(el => (
-                        <option key={el} value={el} selected={el === 'ALL'}>
-                          {el === 'ALL' ? 'ALL TOKENS' : el}
+                  <div className="selects">
+                    <div className="select">
+                      <select name="token" onChange={this.handleTokenChange}>
+                        {tokens.map(el => (
+                          <option key={el} value={el} selected={el === 'ALL'}>
+                            {el === 'ALL' ? 'ALL TOKENS' : el}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="select">
+                      <select name="interval" id="interval" onChange={this.handleDropdownChange}>
+                        <option value="30d" selected>
+                          Latest 30 days
                         </option>
-                      ))}
-                    </select>
+                        <option value="7d">Latest 7 days</option>
+                        <option value="24h">Latest 24 hours</option>
+                      </select>
+                    </div>
                   </div>
-                  <div className="select">
-                    <select name="interval" id="interval" onChange={this.handleDropdownChange}>
-                      <option value="30d" selected>
-                        Latest 30 days
-                      </option>
-                      <option value="7d">Latest 7 days</option>
-                      <option value="24h">Latest 24 hours</option>
-                    </select>
-                  </div>
-                  <div className="date__picker">
-                    <DatePicker
-                      dateFormat="dd/MM/yyyy hh:mm aa"
-                      selected={startDate}
-                      startDate={startDate}
-                      endDate={endDate}
-                      showTimeSelect
-                      timeFormat="HH:mm"
-                      timeIntervals={15}
-                      onChange={date => this.setStartDate(date)}
-                      placeholderText="FROM"
-                    />
-                  </div>
-                  <div className="date__picker">
-                    <DatePicker
-                      selected={endDate}
-                      startDate={startDate}
-                      endDate={endDate}
-                      showTimeSelect
-                      timeFormat="p"
-                      dateFormat="Pp"
-                      onChange={this.setEndDate}
-                      minDate={startDate}
-                      placeholderText="TO"
-                    />
+                  <div className="pickers">
+                    <div className="date__picker">
+                      <DatePicker
+                        dateFormat="dd/MM/yyyy hh:mm aa"
+                        selected={startDate}
+                        startDate={startDate}
+                        endDate={endDate}
+                        showTimeSelect
+                        timeFormat="HH:mm"
+                        timeIntervals={15}
+                        onChange={date => this.setStartDate(date)}
+                        placeholderText="FROM"
+                      />
+                    </div>
+                    <div className="date__picker">
+                      <DatePicker
+                        selected={endDate}
+                        startDate={startDate}
+                        endDate={endDate}
+                        showTimeSelect
+                        timeFormat="p"
+                        dateFormat="Pp"
+                        onChange={this.setEndDate}
+                        minDate={startDate}
+                        placeholderText="TO"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -315,35 +319,37 @@ class Traderboard extends Component {
             </div>
           </div>
           {traders.length ? (
-            <table>
-              <thead>
-                <tr>
-                  <th>{}</th>
-                  <th>WALLET ADDRESS</th>
-                  <th>VOLUME</th>
-                  <th>POSITION</th>
-                  <th>TROPHIES</th>
-                </tr>
-              </thead>
-              <tbody>
-                {traders.map((trader, index) => (
-                  <tr key={trader.address}>
-                    <td>{index + 1}</td>
-                    <td>
-                      <div>
-                        <p>{trader.address}</p>
-                        {trader.isNewTrader ? (
-                          <span className="new__trader">new trader!</span>
-                        ) : null}
-                      </div>
-                    </td>
-                    <td>{Math.floor(Number(trader.amount?.toFixed(4) || trader.USDValue))}</td>
-                    <td>{this.renderPositionChanging(trader, index)}</td>
-                    <td>{this.renderBadges(trader)}</td>
+            <div className="table__container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>{}</th>
+                    <th>WALLET ADDRESS</th>
+                    <th>VOLUME</th>
+                    <th>POSITION</th>
+                    <th>TROPHIES</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {traders.map((trader, index) => (
+                    <tr key={trader.address}>
+                      <td>{index + 1}</td>
+                      <td>
+                        <div>
+                          <p>{trader.address}</p>
+                          {trader.isNewTrader ? (
+                            <span className="new__trader">new trader!</span>
+                          ) : null}
+                        </div>
+                      </td>
+                      <td>{trader.amount?.toFixed(4) || Math.floor(trader.USDValue)}</td>
+                      <td>{this.renderPositionChanging(trader, index)}</td>
+                      <td>{this.renderBadges(trader)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           ) : (
             this._noRowsRenderer()
           )}
