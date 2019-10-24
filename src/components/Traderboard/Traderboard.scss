@@ -25,7 +25,7 @@
       height: fit-content;
       margin-top: 35px;
 
-      @media (max-width: 1079px) {
+      @media (max-width: 1000px) {
         flex-direction: column-reverse;
         align-items: flex-start;
       }
@@ -39,7 +39,7 @@
       .fishes {
         display: flex;
         align-items: center;
-        margin-bottom: 32px;
+        margin-bottom: 50px;
 
         & > *:not(:last-child) {
           margin-right: 40px;
@@ -78,11 +78,11 @@
         display: flex;
         flex-direction: column;
         width: 100%;
-        max-width: 320px;
+        max-width: 400px;
         padding: 20px 30px 30px 25px;
         background-color: #2d3551;
 
-        @media (max-width: 1079px) {
+        @media (max-width: 1000px) {
           margin-bottom: 30px;
         }
 
@@ -156,7 +156,6 @@
         }
 
         @media (max-width: 500px) {
-          justify-content: space-around;
           flex-grow: 1;
           width: 100%;
           margin-right: 0;
@@ -174,7 +173,6 @@
 
         @media (max-width: 500px) {
           display: flex;
-          justify-content: space-around;
           width: 100%;
         }
       }
@@ -188,7 +186,7 @@
           -webkit-appearance: none;
           color: #ffffff;
           padding: 5px 0;
-          min-width: 96px;
+          min-width: 105px;
           border: none;
           outline: none;
           border-bottom: 1px solid #ffffff;
@@ -215,6 +213,7 @@
 
       input {
         width: 100%;
+        max-width: 105px;
         background-color: transparent;
         border: 0;
         border-bottom: 1px solid white;
@@ -231,10 +230,15 @@
       }
     }
 
-    .table__container {
+    .table__container,
+    .table__container__blur {
       display: flex;
-      margin-top: 60px;
+      margin-top: 40px;
       overflow: auto;
+    }
+
+    .table__container__blur {
+      opacity: 0.2;
     }
 
     table {
@@ -320,7 +324,7 @@
   }
 
   .react-datepicker-wrapper {
-    min-width: 96px;
+    min-width: 105px;
     input {
       text-align: left;
     }
@@ -341,26 +345,5 @@
     font-size: 16px;
     font-weight: 600;
     color: #bdbdbd;
-  }
-
-  .ReactVirtualized__Table__headerRow {
-    display: flex;
-    justify-content: space-between;
-
-    .ReactVirtualized__Table__headerColumn {
-      font-size: 12px;
-      font-weight: 300;
-    }
-  }
-
-  .ReactVirtualized__Table__row {
-    font-size: 13px;
-    padding: 16px 0;
-    height: 50px;
-    display: flex;
-    justify-content: space-between;
-    font-weight: 300;
-    text-transform: uppercase;
-    border-bottom: 1px solid hsla(0, 0%, 86.7%, 0.2);
   }
 }

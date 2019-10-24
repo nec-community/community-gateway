@@ -6,6 +6,7 @@ import proposal from './proposalReducer';
 import token from './tokenReducer';
 import delegate from './delegateReducer';
 import traders from './traderReducer';
+import competitions from './competitionReducer';
 
 export default combineReducers({
   routing: routerReducer,
@@ -15,4 +16,5 @@ export default combineReducers({
   token,
   delegate,
   traders,
+  competitions,
 });

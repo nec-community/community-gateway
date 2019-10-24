@@ -1,4 +1,12 @@
-import { FETCH_TRADERS_BY_TOKEN } from './actionTypes';
+import { FETCH_TRADERS_BY_TOKEN, FETCH_TRADERS_START, FETCH_TRADERS_ERROR } from './actionTypes';
+
+const startFetching = () => ({
+  type: FETCH_TRADERS_START,
+});
+
+const fetchingError = () => ({
+  type: FETCH_TRADERS_ERROR,
+});
 
 const fetchedTraders = payload => ({
   type: FETCH_TRADERS_BY_TOKEN,
@@ -65,6 +73,7 @@ async function get30DaysVolume(traders) {
 }
 
 export const fetchTraders = (endDate, token) => async dispatch => {
+  dispatch(startFetching());
   const endDateTimestamp = formatDate(endDate);
   const api = token === 'ALL' ? 'USDRanking' : 'tokenRanking/';
   const tokenAPI = token === 'ALL' ? '' : token;
@@ -87,11 +96,13 @@ export const fetchTraders = (endDate, token) => async dispatch => {
       })
     );
   } catch (err) {
+    dispatch(fetchingError({ err }));
     console.log(err);
   }
 };
 
 export const fetchTradersByDate = (startDate, endDate, token) => async dispatch => {
+  dispatch(startFetching());
   const start = formatDate(startDate);
   const end = formatDate(endDate);
   const api = token === 'ALL' ? 'USDRanking' : 'tokenRanking/';
@@ -113,6 +124,7 @@ export const fetchTradersByDate = (startDate, endDate, token) => async dispatch 
       })
     );
   } catch (err) {
+    dispatch(fetchingError({ err }));
     console.log(err);
   }
 };

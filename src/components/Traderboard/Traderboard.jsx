@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-virtualized/styles.css';
-// import { Table, Column, AutoSizer } from 'react-virtualized';
 import 'react-datepicker/dist/react-datepicker.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchTraders, fetchTradersByDate } from '../../actions/traderAction';
+import { fetchPostsByTag } from '../../actions/competitionActions';
 import './Traderboard.scss';
 
 const fishes = [
-  { name: 'nectar', amount: '$1000' },
-  { name: 'minnow', amount: '$100k' },
-  { name: 'dolphin', amount: '$1m' },
-  { name: 'shark', amount: '$2m' },
-  { name: 'whale', amount: '$5m' },
+  { id: 0, name: 'nectar', amount: '$1000' },
+  { id: 1, name: 'minnow', amount: '$100k' },
+  { id: 2, name: 'dolphin', amount: '$1m' },
+  { id: 3, name: 'shark', amount: '$2m' },
+  { id: 4, name: 'whale', amount: '$5m' },
 ];
 
 const tokens = [
@@ -62,47 +62,37 @@ class Traderboard extends Component {
     this._noRowsRenderer = this._noRowsRenderer.bind(this);
     this.renderBadges = this.renderBadges.bind(this);
     this.renderPositionChanging = this.renderPositionChanging.bind(this);
+    this.onBlurSendRequest = this.onBlurSendRequest.bind(this);
   }
 
   componentDidMount() {
     const { token } = this.state;
-    const { fetchTraders } = this.props;
+    const { fetchTraders, fetchPostsByTag } = this.props;
 
     const date = new Date();
     date.setDate(date.getDate() - 30);
 
     fetchTraders(date, token);
+    fetchPostsByTag();
   }
 
   setStartDate(startDate) {
-    this.setState(
-      {
-        startDate,
-      },
-      () => console.log('1', this.state.startDate)
-    );
-    const { endDate, token } = this.state;
-    const { fetchTradersByDate } = this.props;
-
-    if (endDate !== '') {
-      this.setState({
-        dateIntervalMode: true,
-        dropdownDate: '',
-      });
-      fetchTradersByDate(startDate, endDate, token);
-    } else {
-      return null;
-    }
+    this.setState({
+      startDate,
+    });
   }
 
   setEndDate(endDate) {
     this.setState({
       endDate,
     });
-    const { startDate, token } = this.state;
+  }
+
+  onBlurSendRequest() {
+    const { startDate, endDate, token } = this.state;
     const { fetchTradersByDate } = this.props;
 
-    if (startDate !== '') {
+    if (startDate && endDate) {
       this.setState({
         dateIntervalMode: true,
       });
@@ -144,18 +134,18 @@ class Traderboard extends Component {
       date.setDate(date.getDate() - 30);
     }
 
-    await fetchTraders(date, token);
-
     this.setState({
       dropdownDate: date,
       dateIntervalMode: false,
       startDate: '',
       endDate: '',
     });
+
+    await fetchTraders(date, token);
   }
 
-  _noRowsRenderer() {
-    return <div className="noRows">No records</div>;
+  _noRowsRenderer(text) {
+    return <div className="noRows">{text}</div>;
   }
 
   renderBadges(trader) {
@@ -181,8 +171,10 @@ class Traderboard extends Component {
   }
 
   renderPositionChanging(trader, index) {
-    const { startDate, endDate } = this.state;
-    if (startDate && endDate) {
+    const { startDate, endDate, dateIntervalMode } = this.state;
+    const { isFetching } = this.props;
+
+    if ((startDate && endDate) || (isFetching && !dateIntervalMode)) {
       return null;
     }
 
@@ -215,9 +207,7 @@ class Traderboard extends Component {
 
   render() {
     const { startDate, endDate } = this.state;
-    const { traders } = this.props;
-
-    // const traderRowGetter = ({ index }) => traders[index];
+    const { traders, isFetching, posts } = this.props;
 
     return (
       <div className="traderboard">
@@ -233,8 +223,8 @@ class Traderboard extends Component {
             <div className="info__block">
               <div className="left__part">
                 <div className="fishes">
-                  {fishes.map(({ name, amount }) => (
-                    <div className="fish__item">
+                  {fishes.map(({ id, name, amount }) => (
+                    <div key={id} className="fish__item">
                       <div className="fish__icon">
                         <img src={`/images/${name}.svg`} alt="" />
                       </div>
@@ -269,15 +259,15 @@ class Traderboard extends Component {
                   <div className="pickers">
                     <div className="date__picker">
                       <DatePicker
-                        dateFormat="dd/MM/yyyy hh:mm aa"
                         selected={startDate}
                         startDate={startDate}
                         endDate={endDate}
                         showTimeSelect
-                        timeFormat="HH:mm"
-                        timeIntervals={15}
-                        onChange={date => this.setStartDate(date)}
+                        dateFormat="Pp"
+                        timeFormat="p"
+                        onChange={this.setStartDate}
                         placeholderText="FROM"
+                        onBlur={this.onBlurSendRequest}
                       />
                     </div>
                     <div className="date__picker">
@@ -285,12 +275,13 @@ class Traderboard extends Component {
                         selected={endDate}
                         startDate={startDate}
                         endDate={endDate}
-                        showTimeSelect
-                        timeFormat="p"
-                        dateFormat="Pp"
-                        onChange={this.setEndDate}
                         minDate={startDate}
+                        showTimeSelect
+                        dateFormat="Pp"
+                        timeFormat="HH:mm"
+                        onChange={this.setEndDate}
                         placeholderText="TO"
+                        onBlur={this.onBlurSendRequest}
                       />
                     </div>
                   </div>
@@ -302,24 +293,24 @@ class Traderboard extends Component {
                   <p className="with__arrow">Start trading</p>
                 </div>
                 <div className="second__row">
-                  <div>
-                    <p>ETH/USD - 2 weeks</p>
-                    <span>GET INVOLVED</span>
-                  </div>
-                  <div>
-                    <p>XD/ETH - 2 weeks</p>
-                    <span>SEE WINNERS</span>
-                  </div>
-                  <div>
-                    <p>ZRX/ETH - 2 weeks</p>
-                    <span>SEE WINNERS</span>
-                  </div>
+                  {posts.map(post => (
+                    <div key={post.id}>
+                      <p>{post.title}</p>
+                      <span>
+                        <a href={post.url} target="_blank">
+                          READ MORE
+                        </a>
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
-          {traders.length ? (
-            <div className="table__container">
+          {isFetching && !traders.length ? (
+            this._noRowsRenderer('Loading...')
+          ) : traders.length ? (
+            <div className={isFetching ? 'table__container__blur' : 'table__container'}>
               <table>
                 <thead>
                   <tr>
@@ -351,7 +342,7 @@ class Traderboard extends Component {
               </table>
             </div>
           ) : (
-            this._noRowsRenderer()
+            this._noRowsRenderer('No records')
           )}
         </div>
       </div>
@@ -361,12 +352,17 @@ class Traderboard extends Component {
 
 const mapStateToProps = state => ({
   traders: state.traders.traders,
+  isFetching: state.traders.isFetching,
+  posts: state.competitions.posts,
 });
 
 Traderboard.propTypes = {
   fetchTraders: PropTypes.func.isRequired,
   fetchTradersByDate: PropTypes.func.isRequired,
   traders: PropTypes.instanceOf(Object).isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  posts: PropTypes.instanceOf(Object).isRequired,
+  fetchPostsByTag: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -374,5 +370,6 @@ export default connect(
   {
     fetchTraders,
     fetchTradersByDate,
+    fetchPostsByTag,
   }
 )(Traderboard);
