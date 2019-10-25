@@ -62,7 +62,7 @@ class Traderboard extends Component {
     this._noRowsRenderer = this._noRowsRenderer.bind(this);
     this.renderBadges = this.renderBadges.bind(this);
     this.renderPositionChanging = this.renderPositionChanging.bind(this);
-    this.onBlurSendRequest = this.onBlurSendRequest.bind(this);
+    this.onClickOutsideSendRequest = this.onClickOutsideSendRequest.bind(this);
   }
 
   componentDidMount() {
@@ -88,7 +88,7 @@ class Traderboard extends Component {
     });
   }
 
-  onBlurSendRequest() {
+  onClickOutsideSendRequest() {
     const { startDate, endDate, token } = this.state;
     const { fetchTradersByDate } = this.props;
 
@@ -247,7 +247,7 @@ class Traderboard extends Component {
                       </select>
                     </div>
                     <div className="select">
-                      <select name="interval" id="interval" onChange={this.handleDropdownChange}>
+                      <select name="interval" onChange={this.handleDropdownChange}>
                         <option value="30d" selected>
                           Latest 30 days
                         </option>
@@ -267,7 +267,8 @@ class Traderboard extends Component {
                         timeFormat="p"
                         onChange={this.setStartDate}
                         placeholderText="FROM"
-                        onBlur={this.onBlurSendRequest}
+                        shouldCloseOnSelect={false}
+                        onClickOutside={this.onClickOutsideSendRequest}
                       />
                     </div>
                     <div className="date__picker">
@@ -281,7 +282,8 @@ class Traderboard extends Component {
                         timeFormat="HH:mm"
                         onChange={this.setEndDate}
                         placeholderText="TO"
-                        onBlur={this.onBlurSendRequest}
+                        shouldCloseOnSelect={false}
+                        onClickOutside={this.onClickOutsideSendRequest}
                       />
                     </div>
                   </div>
@@ -296,11 +298,9 @@ class Traderboard extends Component {
                   {posts.map(post => (
                     <div key={post.id}>
                       <p>{post.title}</p>
-                      <span>
-                        <a href={post.url} target="_blank">
-                          READ MORE
-                        </a>
-                      </span>
+                      <a href={post.url} target="_blank">
+                        READ POST
+                      </a>
                     </div>
                   ))}
                 </div>

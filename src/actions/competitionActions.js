@@ -10,19 +10,20 @@ const fetchedPosts = payload => ({
 });
 
 export const fetchPostsByTag = () => async dispatch => {
-  // const endpoint = `${GHOST_API_URL}${API}posts/?key=${GHOST_CONTENT_API_KEY}&include=tags`;
-  const endpoint =
-    'https://deversifi-2.ghost.io/ghost/api/v2/content/posts/?key=1b9232f0014d858f227e5d6b11&include=tags';
+  const endpoint = `${GHOST_API_URL}${API}posts/?key=${GHOST_CONTENT_API_KEY}&limit=all&include=tags`;
 
   try {
     const promiseResp = await fetch(endpoint);
     const resp = await promiseResp.json();
 
-    const filteredPosts = resp.posts.filter(el => el.title.includes('Competition'));
+    const formattedPosts = resp.posts
+      .filter(el => el.title.includes('Competition'))
+      .sort((a, b) => b.published_at - a.published_at)
+      .slice(0, 3);
 
     dispatch(
       fetchedPosts({
-        posts: filteredPosts,
+        posts: formattedPosts,
       })
     );
   } catch (err) {

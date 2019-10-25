@@ -6,14 +6,13 @@
 
   .container {
     height: 100%;
-    h1 {
+    h1,
+    p,
+    a {
       margin: 0;
     }
     h3 {
       font-weight: 400;
-      margin: 0;
-    }
-    p {
       margin: 0;
     }
 
@@ -86,6 +85,10 @@
           margin-bottom: 30px;
         }
 
+        @media (max-width: 768px) {
+          max-width: unset;
+        }
+
         .bald__text {
           font-weight: 600;
         }
@@ -116,7 +119,7 @@
           flex-direction: column;
           font-weight: 300;
 
-          span {
+          a {
             margin-left: 15px;
             font-size: 10px;
             font-weight: 600;
@@ -126,7 +129,12 @@
             display: flex;
             flex-direction: row;
             align-items: center;
+            justify-content: space-between;
             margin-bottom: 10px;
+          }
+
+          & > div > p {
+            width: 70%;
           }
 
           & > *:last-child {
