@@ -344,7 +344,11 @@ class Traderboard extends Component {
                           ) : null}
                         </div>
                       </td>
-                      <td>{Math.floor(trader.amount || trader.USDValue)}</td>
+                      <td>
+                        {Math.floor(trader.amount || trader.USDValue)
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      </td>
                       <td>{this.renderPositionChanging(trader, index)}</td>
                       <td>{this.renderBadges(trader)}</td>
                     </tr>
