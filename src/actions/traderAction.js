@@ -34,6 +34,15 @@ function formatDate(date) {
   );
 }
 
+async function getNECHolders(traders) {
+  return fetch(`${endpoint}tokenRanking/NEC`)
+    .then(resp => resp.json())
+    .then(resp => {
+      const NECHoldersAddresses = resp.filter(el => el.amount >= 1000).map(el => el.address);
+      return traders.forEach(el => (el.isNECHolder = NECHoldersAddresses.includes(el.address)));
+    });
+}
+
 async function getNewTraders(traders) {
   const end = new Date();
   end.setDate(end.getDate() - 7);
@@ -83,6 +92,7 @@ export const fetchTraders = (endDate, token) => async dispatch => {
     const response = await promiseResponse.json();
 
     await Promise.all([
+      getNECHolders(response),
       getNewTraders(response),
       getPositionChange(response, token, endDateTimestamp),
       get30DaysVolume(response),
@@ -114,7 +124,11 @@ export const fetchTradersByDate = (startDate, endDate, token) => async dispatch 
     );
     const response = await promiseResponse.json();
 
-    await Promise.all([get30DaysVolume(response), getNewTraders(response)]);
+    await Promise.all([
+      getNECHolders(response),
+      get30DaysVolume(response),
+      getNewTraders(response),
+    ]);
 
     dispatch(
       fetchedTraders({

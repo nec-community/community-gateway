@@ -202,7 +202,8 @@
         }
 
         option {
-          color: #000000;
+          color: #ffffff;
+          background-color: #222a43;
         }
 
         &::after {
@@ -316,11 +317,10 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        width: 40px;
-        height: 40px;
-        animation-duration: 2s;
+        width: 30px;
+        height: 30px;
+        animation-duration: 1s;
         animation-name: shimmer;
-        animation-iteration-count: infinite;
         animation-delay: 0.5s;
 
         & > *:first-child {
@@ -333,7 +333,7 @@
           }
 
           50% {
-            opacity: 0;
+            opacity: 0.25;
           }
 
           100% {

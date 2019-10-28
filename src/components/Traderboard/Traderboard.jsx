@@ -171,7 +171,7 @@ class Traderboard extends Component {
 
     return (
       <div className="fish__badges">
-        {trader.tokens?.NEC?.tokenAmount > 1000 ? <img src="/images/nectar.svg" alt="" /> : null}
+        {trader.isNECHolder ? <img src="/images/nectar.png" alt="" /> : null}
         {amount >= 10 ** 5 ? <img src={`/images/${imgSrc}.svg`} alt="" /> : null}
       </div>
     );
@@ -233,7 +233,11 @@ class Traderboard extends Component {
                   {fishes.map(({ id, name, amount }) => (
                     <div key={id} className="fish__item">
                       <div className="fish__icon">
-                        <img src={`/images/${name}.svg`} alt="" />
+                        {name === 'nectar' ? (
+                          <img src="/images/nectar.png" alt="" />
+                        ) : (
+                          <img src={`/images/${name}.svg`} alt="" />
+                        )}
                       </div>
                       <div className="fish__text">
                         {name.charAt(0).toUpperCase() + name.slice(1)}
@@ -256,10 +260,10 @@ class Traderboard extends Component {
                     <div className="select">
                       <select name="interval" onChange={this.handleDropdownChange}>
                         <option value="30d" selected>
-                          Latest 30 days
+                          Rolling 30 days
                         </option>
-                        <option value="7d">Latest 7 days</option>
-                        <option value="24h">Latest 24 hours</option>
+                        <option value="7d">Rolling 7 days</option>
+                        <option value="24h">Rolling 24 hours</option>
                       </select>
                     </div>
                   </div>
@@ -323,7 +327,7 @@ class Traderboard extends Component {
                   <tr>
                     <th>{}</th>
                     <th>WALLET ADDRESS</th>
-                    <th>VOLUME</th>
+                    <th>USD VOLUME</th>
                     <th>POSITION</th>
                     <th>TROPHIES</th>
                   </tr>
@@ -340,7 +344,7 @@ class Traderboard extends Component {
                           ) : null}
                         </div>
                       </td>
-                      <td>{trader.amount?.toFixed(4) || Math.floor(trader.USDValue)}</td>
+                      <td>{Math.floor(trader.amount || trader.USDValue)}</td>
                       <td>{this.renderPositionChanging(trader, index)}</td>
                       <td>{this.renderBadges(trader)}</td>
                     </tr>
