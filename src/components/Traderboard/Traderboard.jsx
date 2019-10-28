@@ -96,7 +96,8 @@ class Traderboard extends Component {
       this.setState({
         dateIntervalMode: true,
       });
-      document.getElementById('interval').selectedIndex = -1;
+      const intervalSelect = document.getElementsByName('interval')[0];
+      intervalSelect.selectedIndex = -1;
       fetchTradersByDate(startDate, endDate, token);
     } else {
       return null;
