@@ -318,9 +318,27 @@
         align-items: center;
         width: 40px;
         height: 40px;
+        animation-duration: 2s;
+        animation-name: shimmer;
+        animation-iteration-count: infinite;
+        animation-delay: 0.5s;
 
         & > *:first-child {
           margin-right: 10px;
+        }
+
+        @keyframes shimmer {
+          0% {
+            opacity: 1;
+          }
+
+          50% {
+            opacity: 0;
+          }
+
+          100% {
+            opacity: 1;
+          }
         }
 
         img {

@@ -150,6 +150,12 @@ class Traderboard extends Component {
   }
 
   renderBadges(trader) {
+    const { isFetching } = this.props;
+
+    if (isFetching) {
+      return null;
+    }
+
     const amount = trader.lastMonthAmount;
     let imgSrc = '';
 
