@@ -9,7 +9,7 @@ import { fetchPostsByTag } from '../../actions/competitionActions';
 import './Traderboard.scss';
 
 const fishes = [
-  { id: 0, name: 'nectar', amount: '$1000' },
+  { id: 0, name: 'nectar', amount: '1000 NEC' },
   { id: 1, name: 'minnow', amount: '$100k' },
   { id: 2, name: 'dolphin', amount: '$1m' },
   { id: 3, name: 'shark', amount: '$2m' },
@@ -172,7 +172,9 @@ class Traderboard extends Component {
     return (
       <div className="fish__badges">
         {trader.isNECHolder ? <img src="/images/nectar.png" alt="" /> : null}
-        {amount >= 10 ** 5 ? <img src={`/images/${imgSrc}.svg`} alt="" /> : null}
+        {amount >= 10 ** 5 ? (
+          <img src={`/images/${imgSrc}.svg`} className="animated" alt="" />
+        ) : null}
       </div>
     );
   }
