@@ -10,10 +10,10 @@ import './Traderboard.scss';
 
 const fishes = [
   { id: 0, name: 'nectar', amount: '1000 NEC' },
-  { id: 1, name: 'minnow', amount: '$100k' },
-  { id: 2, name: 'dolphin', amount: '$1m' },
-  { id: 3, name: 'shark', amount: '$2m' },
-  { id: 4, name: 'whale', amount: '$5m' },
+  { id: 1, name: 'minnow', amount: '$100k monthly' },
+  { id: 2, name: 'dolphin', amount: '$1m monthly' },
+  { id: 3, name: 'shark', amount: '$2m monthly' },
+  { id: 4, name: 'whale', amount: '$5m monthly' },
 ];
 
 const tokens = [
@@ -275,7 +275,7 @@ class Traderboard extends Component {
                       </div>
                       <div className="fish__text">
                         {name.charAt(0).toUpperCase() + name.slice(1)}
-                        <br /> {amount} monthly
+                        <br /> {amount}
                       </div>
                     </div>
                   ))}
