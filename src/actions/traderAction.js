@@ -142,3 +142,13 @@ export const fetchTradersByDate = (startDate, endDate, token) => async dispatch 
     console.log(err);
   }
 };
+
+export async function convertToken(token) {
+  const cors = 'https://cors-anywhere.herokuapp.com/';
+  const api = 'https://api-pub.bitfinex.com/v2/tickers?symbols=t';
+
+  const response = await fetch(`${cors}${api}${token}USD`);
+  const result = await response.json();
+
+  return result[0][1];
+}

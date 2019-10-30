@@ -4,7 +4,7 @@ import 'react-virtualized/styles.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchTraders, fetchTradersByDate } from '../../actions/traderAction';
+import { fetchTraders, fetchTradersByDate, convertToken } from '../../actions/traderAction';
 import { fetchPostsByTag } from '../../actions/competitionActions';
 import './Traderboard.scss';
 
@@ -53,6 +53,7 @@ class Traderboard extends Component {
       startDate: '',
       endDate: '',
       dateIntervalMode: false,
+      conversionRate: 1,
     };
 
     this.handleTokenChange = this.handleTokenChange.bind(this);
@@ -109,9 +110,25 @@ class Traderboard extends Component {
     const { fetchTraders, fetchTradersByDate } = this.props;
     const { value } = e.target;
 
-    this.setState({
-      token: value,
-    });
+    if (value === 'ALL' || value === 'USD') {
+      this.setState({
+        token: value,
+        conversionRate: 1,
+      });
+    } else {
+      this.setState(
+        {
+          token: value,
+        },
+        () => {
+          convertToken(value).then(resp =>
+            this.setState({
+              conversionRate: resp,
+            })
+          );
+        }
+      );
+    }
 
     if (dateIntervalMode) {
       await fetchTradersByDate(startDate, endDate, value);
@@ -147,6 +164,21 @@ class Traderboard extends Component {
 
   _noRowsRenderer(text) {
     return <div className="noRows">{text}</div>;
+  }
+
+  calculateVolume(trader) {
+    const { conversionRate } = this.state;
+    const { isFetching } = this.props;
+
+    if (isFetching) {
+      return null;
+    }
+
+    const amount = trader.amount || trader.USDValue;
+
+    return Math.floor(amount * conversionRate)
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 
   renderBadges(trader) {
@@ -346,11 +378,7 @@ class Traderboard extends Component {
                           ) : null}
                         </div>
                       </td>
-                      <td>
-                        {Math.floor(trader.amount || trader.USDValue)
-                          .toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                      </td>
+                      <td>{this.calculateVolume(trader)}</td>
                       <td>{this.renderPositionChanging(trader, index)}</td>
                       <td>{this.renderBadges(trader)}</td>
                     </tr>
