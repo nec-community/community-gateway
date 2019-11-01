@@ -26,7 +26,10 @@ class Stats extends Component {
           <h2>Statistics</h2>
           <div className="stats-grid">
             <div>
-              <div>Total fees pledged <br />to token holders:</div>
+              <div>
+                Total fees pledged <br />
+                to token holders:
+              </div>
               <div className="stat-wrapper">
                 <div className="stat">{this.props.ethfinexData.totalFee}</div>
                 <div className="stat-addon">
@@ -35,7 +38,10 @@ class Stats extends Component {
               </div>
             </div>
             <div>
-              <div>Next token <br />distribution date:</div>
+              <div>
+                Next token <br />
+                distribution date:
+              </div>
               <div className="stat-wrapper">
                 <div className="stat">{this.getNextDate().getDate()}</div>
                 <div className="stat-addon">
@@ -46,14 +52,20 @@ class Stats extends Component {
             </div>
             <span className="breaker" />
             <div className="token-supply">
-              <div>Token <br />total supply:</div>
+              <div>
+                Token <br />
+                total supply:
+              </div>
               <div className="stat-wrapper">
                 <div className="stat">{this.props.ethfinexData.totalTokens}</div>
               </div>
             </div>
             <span className="breaker" />
             <div className="current-token">
-              <div>Current <br />token value:</div>
+              <div>
+                Current <br />
+                token value:
+              </div>
               <div className="stat-wrapper">
                 <div className="stat">{this.props.ethfinexData.necPrice}</div>
                 <div className="stat-addon">
@@ -62,7 +74,10 @@ class Stats extends Component {
               </div>
             </div>
             <div className="trading-volume">
-              <div>Ethfinex average 30-day <br />trading volume:</div>
+              <div>
+                Ethfinex average 30-day <br />
+                trading volume:
+              </div>
               <div className="stat-wrapper">
                 <div className="stat">0.15-0.2 bil</div>
                 <div className="stat-addon">
@@ -89,4 +104,7 @@ const mapStateToProps = state => ({
   ethfinexData: state.account.ethfinexData,
 });
 
-export default connect(mapStateToProps, {})(Stats);
+export default connect(
+  mapStateToProps,
+  {}
+)(Stats);

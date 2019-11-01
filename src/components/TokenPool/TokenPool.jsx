@@ -30,7 +30,11 @@ class TokenPool extends Component {
             <div className="left-header">
               <p>
                 In order for a token to be eligible for listing on Ethfinex it needs to meet certain
-                listing criteria (full list <a href="#criteria" onClick={() => scrollToSection('criteria')}>here</a>).
+                listing criteria (full list{' '}
+                <a href="#criteria" onClick={() => scrollToSection('criteria')}>
+                  here
+                </a>
+                ).
               </p>
               <p>
                 In line with our ethos of decentralised governance we hand over control of the
@@ -64,26 +68,42 @@ class TokenPool extends Component {
                 of the listing criteria.
               </p>
               <p>
-                For more information on Kleros click <a
-                href="https://blog.kleros.io/kleros-ethfinex-tcr-an-explainer/" target="_blank"
-                rel="noopener noreferrer">here</a>.
+                For more information on Kleros click{' '}
+                <a
+                  href="https://blog.kleros.io/kleros-ethfinex-tcr-an-explainer/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  here
+                </a>
+                .
                 <br />
-                Find our our listing criteria <a
-                href="#criteria"
-                onClick={() => scrollToSection('criteria')}>here</a><br />
+                Find our our listing criteria{' '}
+                <a href="#criteria" onClick={() => scrollToSection('criteria')}>
+                  here
+                </a>
+                <br />
               </p>
             </div>
             <div className="right-header">
-              <a className="side-badge" href="https://tokens.kleros.io" target="_blank"
-                 rel="noopener noreferrer">
+              <a
+                className="side-badge"
+                href="https://tokens.kleros.io"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Submit a token through Kleros
                 <br />
                 (requires Metamask)
               </a>
               <br />
               <br />
-              <a className="side-badge" href="https://blog.kleros.io/the-ethfinex-listing-guide/"
-                 target="_blank" rel="noopener noreferrer">
+              <a
+                className="side-badge"
+                href="https://blog.kleros.io/the-ethfinex-listing-guide/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Quick guide on token submissions
               </a>
             </div>
@@ -94,46 +114,38 @@ class TokenPool extends Component {
             <h5>Eligible tokens</h5>
           </div>
           <div className="container pool-grid" id="tokens">
-            {
-              this.props.pool.length === 0 &&
+            {this.props.pool.length === 0 && (
               <div className="container">
                 <p>No tokens are currently in the pool.</p>
               </div>
-            }
-            {
-              this.props.pool.map((token, index) => (
-                <div key={token.address} className="token-wrapper">
-                  <div className="details-wrapper">
-                    <div className="title">
-                      {token.shortName || token.token}
-                      {token.listed && <span className="listed" title="Listed" />}
-                      <div>{token.symbol}</div>
-                    </div>
-
-                    <div className="token-logo-wrapper">
-                      <img
-                        src={token.logo || `https://ipfs.kleros.io${token.symbolMultihash}`}
-                        alt={token.shortName}
-                      />
-                    </div>
-
-                    <div className="meta">
-                      <p className="description">
-                        {token.description ? token.description : 'No description available.'}
-                      </p>
-                      <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href={token.website}
-                      >
-                        {token.website ? 'Visit website' : 'No website available.'}
-                      </a>
-                    </div>
+            )}
+            {this.props.pool.map((token, index) => (
+              <div key={token.address} className="token-wrapper">
+                <div className="details-wrapper">
+                  <div className="title">
+                    {token.shortName || token.token}
+                    {token.listed && <span className="listed" title="Listed" />}
+                    <div>{token.symbol}</div>
                   </div>
 
+                  <div className="token-logo-wrapper">
+                    <img
+                      src={token.logo || `https://ipfs.kleros.io${token.symbolMultihash}`}
+                      alt={token.shortName}
+                    />
+                  </div>
+
+                  <div className="meta">
+                    <p className="description">
+                      {token.description ? token.description : 'No description available.'}
+                    </p>
+                    <a target="_blank" rel="noopener noreferrer" href={token.website}>
+                      {token.website ? 'Visit website' : 'No website available.'}
+                    </a>
+                  </div>
                 </div>
-              ))
-            }
+              </div>
+            ))}
           </div>
         </div>
         <div className="container conditions-wrapper" id="criteria">
@@ -147,41 +159,49 @@ class TokenPool extends Component {
           </p>
           <h3>1. Compliance and Legal</h3>
           <ul>
-            <li>The token is not an investment product under Swiss law or the jurisdiction of
+            <li>
+              The token is not an investment product under Swiss law or the jurisdiction of
               issuance.
             </li>
-            <li>The token issuer is not on the FATF High Risk Jurisdiction list as per the below
-              link: http://www.fatf-gafi.org/countries/#high-risk
+            <li>
+              The token issuer is not on the FATF High Risk Jurisdiction list as per the below link:
+              http://www.fatf-gafi.org/countries/#high-risk
             </li>
-            <li>The token issuer has not been subject to previous successful enforcement action by a
+            <li>
+              The token issuer has not been subject to previous successful enforcement action by a
               financial services regulator in any jurisdiction
             </li>
           </ul>
 
           <h3>2. Team and Governance</h3>
           <ul>
-            <li>The token issuer’s directors are fit and proper persons (for example they have no
+            <li>
+              The token issuer’s directors are fit and proper persons (for example they have no
               previous record of fraud or similar dishonesty offences)
             </li>
-            <li>The project leadership, whether as volunteer community members or founders/issuers,
+            <li>
+              The project leadership, whether as volunteer community members or founders/issuers,
               are deemed to have the specialised knowledge and experience to deliver the technology
               roadmap. This could be evaluated for example with:
             </li>
             <ul>
               <li>prior track records of protocol or product development</li>
               <li>a clearly articulated vision and roadmap</li>
-              <li>backing and support from advisors or investors who are familiar with the subject
+              <li>
+                backing and support from advisors or investors who are familiar with the subject
                 matter and relevant industries
               </li>
             </ul>
-            <li>There is a plan and governance structure in place for allocation of funding towards
+            <li>
+              There is a plan and governance structure in place for allocation of funding towards
               key aspects of the team’s roadmap, and or for future fund-raising
             </li>
           </ul>
 
           <h3>3. Technology and Product</h3>
           <ul>
-            <li>There must be evidence of novel technology in development. This may be evaluated for
+            <li>
+              There must be evidence of novel technology in development. This may be evaluated for
               example by demonstrating:
             </li>
             <ul>
@@ -189,23 +209,27 @@ class TokenPool extends Component {
               <li>open-source code in development,</li>
               <li>architecture diagrams or novel applications of cryptography and mathematics</li>
             </ul>
-            <li>There is a demand for the token driven by an existing or future utility. This
-              utility is obtained from obtaining, holding, participating, or spending the token. The
-              team has identified a reason for the token to exist which is not just fundraising.
+            <li>
+              There is a demand for the token driven by an existing or future utility. This utility
+              is obtained from obtaining, holding, participating, or spending the token. The team
+              has identified a reason for the token to exist which is not just fundraising.
             </li>
           </ul>
 
           <h3>4. Tradability</h3>
           <ul>
-            <li>The token has passed a third-party review or security audit that deems it as safe,
-              or be using a well-known audited framework (such as OpenZeppelin) without changes.
+            <li>
+              The token has passed a third-party review or security audit that deems it as safe, or
+              be using a well-known audited framework (such as OpenZeppelin) without changes.
             </li>
             <li>The token source code must be available open-source.</li>
-            <li>If the token can be frozen or minted, it must be evident that reasonable protection
+            <li>
+              If the token can be frozen or minted, it must be evident that reasonable protection
               and security has been implemented around the private keys which control these
               functions (this may be part of the third-party audit).
             </li>
-            <li>The token has either a minimum market cap of $1m USD at the time of according to
+            <li>
+              The token has either a minimum market cap of $1m USD at the time of according to
               CoinMarketCap at the time of the token listing application OR if this is not
               applicable a minimum fundraise of $1m.
             </li>
@@ -219,8 +243,8 @@ class TokenPool extends Component {
               entities after the token is released.
             </li>
             <li>
-              At least 10% of the total supply is freely circulating in the market or will be
-              freely circulating after the token is released.
+              At least 10% of the total supply is freely circulating in the market or will be freely
+              circulating after the token is released.
             </li>
             <li>
               The team which issued the token should have made efforts to be transparent about
@@ -229,10 +253,9 @@ class TokenPool extends Component {
             </li>
           </ul>
         </div>
-        {
-          this.state.showModal &&
+        {this.state.showModal && (
           <TokenListingVoteModal closeModal={this.toggleModal} tokenData={this.state.tokenData} />
-        }
+        )}
       </div>
     );
   }
@@ -251,6 +274,9 @@ const mapStateToProps = state => ({
   account: state.account.account,
 });
 
-export default connect(mapStateToProps, {
-  getPoolTokens,
-})(TokenPool);
+export default connect(
+  mapStateToProps,
+  {
+    getPoolTokens,
+  }
+)(TokenPool);

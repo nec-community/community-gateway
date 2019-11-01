@@ -9,7 +9,7 @@ import grenache from './grenacheService';
 import keystore from './keystoreService';
 
 let ledgerComm;
-const defaultPath = '44\'/60\'/0\'/0';
+const defaultPath = "44'/60'/0'/0";
 let ledgerPath = defaultPath;
 
 let ethPrice;
@@ -21,12 +21,10 @@ let burningEnabled;
 
 const setWeb3toMetamask = () => {
   if (window.ethereum) {
-    return window._web3 = new Web3(ethereum);
-  }
-  else if (window.web3) {
-    return window._web3 = new Web3(web3.currentProvider);
-  }
-  else throw new Error('Web3 provider not found')
+    return (window._web3 = new Web3(ethereum));
+  } else if (window.web3) {
+    return (window._web3 = new Web3(web3.currentProvider));
+  } else throw new Error('Web3 provider not found');
 };
 
 const setupWeb3 = () => {
@@ -34,16 +32,16 @@ const setupWeb3 = () => {
 };
 
 const isMetamaskApproved = async () => {
-  if (!window.ethereum) return true
-  if (!window.ethereum.enable) return true
-  if (!window.ethereum._metamask) return false
-  if (!window.ethereum._metamask.isApproved) return false
-  return window.ethereum._metamask.isApproved()
-}
+  if (!window.ethereum) return true;
+  if (!window.ethereum.enable) return true;
+  if (!window.ethereum._metamask) return false;
+  if (!window.ethereum._metamask.isApproved) return false;
+  return window.ethereum._metamask.isApproved();
+};
 
 const metamaskApprove = async () => {
   if (window.ethereum && window.ethereum.enable) return window.ethereum.enable();
-}
+};
 
 const getAccount = async () => {
   const accounts = await window._web3.eth.getAccounts();
@@ -51,8 +49,8 @@ const getAccount = async () => {
   return accounts[0];
 };
 
-const getBalance = async (_account) => {
-  const account = _account || await getAccount();
+const getBalance = async _account => {
+  const account = _account || (await getAccount());
   const balanceWei = await window._web3.eth.getBalance(account);
   const balanceEth = window._web3.utils.fromWei(balanceWei);
   // optionally convert to BigNumber here
@@ -60,17 +58,15 @@ const getBalance = async (_account) => {
   return balanceEth;
 };
 
-const isAdmin = async (_account) => {
-  const account = _account || await getAccount();
+const isAdmin = async _account => {
+  const account = _account || (await getAccount());
   const proposalContract = getProposalContract();
   return proposalContract.methods.isAdmin(account).call();
 };
 
-const weiToEth = weiVal =>
-  window._web3.utils.fromWei(new window._web3.utils.BN(`${weiVal}`));
+const weiToEth = weiVal => window._web3.utils.fromWei(new window._web3.utils.BN(`${weiVal}`));
 
-const ethToWei = ethVal =>
-  window._web3.utils.toWei(`${ethVal}`);
+const ethToWei = ethVal => window._web3.utils.toWei(`${ethVal}`);
 
 const getBlockNumber = () => window._web3.eth.getBlockNumber();
 
@@ -99,9 +95,9 @@ const getLedgerTransport = async () => {
     ledgerComm = await TransportU2F.create();
   }
   return ledgerComm;
-}
+};
 
-const ledgerLogin = async (path) => {
+const ledgerLogin = async path => {
   ledgerPath = path;
   const _transport = await getLedgerTransport();
   const eth = new Eth(_transport);
@@ -165,14 +161,15 @@ const signAndSendLedger = async (contractCall, value = 0, gasPrice = config.defa
   });
   log('LEDGER tx2', tx2);
 
-  return window._web3.eth.sendSignedTransaction(`0x${tx2.serialize().toString('hex')}`)
-    .on('transactionHash', (transactionHash) => {
+  return window._web3.eth
+    .sendSignedTransaction(`0x${tx2.serialize().toString('hex')}`)
+    .on('transactionHash', transactionHash => {
       log('LEDGER transactionHash', transactionHash);
     })
-    .on('receipt', (res) => {
+    .on('receipt', res => {
       log('LEDGER receipt', res);
     })
-    .on('error', (err) => {
+    .on('error', err => {
       log('LEDGER error', err);
     });
 };
@@ -210,14 +207,15 @@ const signAndSendKeystore = async (contractCall, value = 0, gasPrice = config.de
   await account.signRawTransaction(tx);
   log('KEYSTORE signed tx', tx);
 
-  return window._web3.eth.sendSignedTransaction(`0x${tx.serialize().toString('hex')}`)
-    .on('transactionHash', (transactionHash) => {
+  return window._web3.eth
+    .sendSignedTransaction(`0x${tx.serialize().toString('hex')}`)
+    .on('transactionHash', transactionHash => {
       log(`KEYSTORE Vote successful: https://etherscan.io/tx/${transactionHash}`);
     })
-    .on('receipt', (res) => {
+    .on('receipt', res => {
       log('KEYSTORE receipt', res);
     })
-    .on('error', (err) => {
+    .on('error', err => {
       log('KEYSTORE error', err);
     });
 };
@@ -232,7 +230,7 @@ const totalSupply = async () => {
   return tokenContract.methods.totalSupply().call();
 };
 
-const estimatePayout = async (tokensToBurn) => {
+const estimatePayout = async tokensToBurn => {
   if (!totalFee) totalFee = await totalPledgedFees();
   log(`Total fees on contract ${weiToEth(totalFee)}`);
   if (!totalTokens) totalTokens = await totalSupply();
@@ -242,8 +240,8 @@ const estimatePayout = async (tokensToBurn) => {
   return Math.floor(feeValueOfTokens);
 };
 
-const getTokenBalance = async (_account) => {
-  const account = _account || await getAccount();
+const getTokenBalance = async _account => {
+  const account = _account || (await getAccount());
   log(`token balance for ${account}`);
   const tokenContract = getTokenContract();
   return tokenContract.methods.balanceOf(account).call();
@@ -261,7 +259,7 @@ const contribute = async () => {
 };
 
 // dev
-const authorize = async (address) => {
+const authorize = async address => {
   const controllerContract = getControllerContract();
   const account = await getAccount();
   return controllerContract.methods.authoriseMaker(address).send({
@@ -293,7 +291,10 @@ const denyProposal = async (id, accountType) => {
 
 const submitProposal = async (duration, hash, accountType) => {
   const proposalContract = getProposalContract();
-  const contractCall = proposalContract.methods.addProposal(duration, window._web3.utils.toHex(hash));
+  const contractCall = proposalContract.methods.addProposal(
+    duration,
+    window._web3.utils.toHex(hash)
+  );
   if (accountType === 'ledger') return signAndSendLedger(contractCall);
   if (accountType === 'keystore') return signAndSendKeystore(contractCall);
   const account = await getAccount();
@@ -328,7 +329,11 @@ const voteTokens = async (tokenId, amount, accountType) => {
   const tokenProposalContract = getAdvancedTokenProposalContract();
   let activeProposal = await tokenProposalContract.methods.numberOfProposals().call();
   activeProposal = parseInt(activeProposal, 10) - 1;
-  const contractCall = tokenProposalContract.methods.vote(activeProposal, tokenId, ethToWei(amount));
+  const contractCall = tokenProposalContract.methods.vote(
+    activeProposal,
+    tokenId,
+    ethToWei(amount)
+  );
   if (accountType === 'ledger') return signAndSendLedger(contractCall);
   if (accountType === 'keystore') return signAndSendKeystore(contractCall);
   const account = await getAccount();
@@ -358,21 +363,22 @@ const userBalanceOnProposal = async (account, proposalToken) => {
   return tokenContract.methods.balanceOf(account).call();
 };
 
-const getProposalDetails = async (id) => {
+const getProposalDetails = async id => {
   const proposalContract = getProposalContract();
   const details = await proposalContract.methods.proposal(id).call();
   log(details);
   const storageHash = details._storageHash.substr(2, 40);
 
   let description = await grenache.get(storageHash);
-  const separator = description.indexOf('\n') === -1
-    ? description.length
-    : description.indexOf('\n');
+  const separator =
+    description.indexOf('\n') === -1 ? description.length : description.indexOf('\n');
   const title = description.substr(0, separator);
   description = description.substr(separator).trim();
 
-  let yesPercentage = 100 * (parseInt(details._totalYes, 10) /
-    (parseInt(details._totalYes, 10) + parseInt(details._totalNo, 10)));
+  let yesPercentage =
+    100 *
+    (parseInt(details._totalYes, 10) /
+      (parseInt(details._totalYes, 10) + parseInt(details._totalNo, 10)));
   if (isNaN(yesPercentage)) yesPercentage = 0;
   else yesPercentage = Math.floor(yesPercentage * 100) / 100;
 
@@ -381,8 +387,10 @@ const getProposalDetails = async (id) => {
   let totalNo = weiToEth(details._totalNo);
   totalNo = Math.floor(totalNo * 100) / 100;
 
-  let noPercentage = 100 * (parseInt(details._totalNo, 10) /
-    (parseInt(details._totalYes, 10) + parseInt(details._totalNo, 10)));
+  let noPercentage =
+    100 *
+    (parseInt(details._totalNo, 10) /
+      (parseInt(details._totalYes, 10) + parseInt(details._totalNo, 10)));
   if (isNaN(noPercentage)) noPercentage = 0;
   else noPercentage = Math.floor(noPercentage * 100) / 100;
 
@@ -419,7 +427,7 @@ const getTokenProposalDetails = async () => {
     if (!details) throw new Error('No active token proposal');
     const yesVotes = details._votes.map(x => weiToEth(x));
     const totalVotes = yesVotes.reduce((a, b) => parseInt(a, 10) + parseInt(b, 10), 0);
-    const endingTime = new Date((details._startTime * 1000) + (details._duration * 1000));
+    const endingTime = new Date(details._startTime * 1000 + details._duration * 1000);
     return {
       ...details,
       yesVotes,
@@ -430,13 +438,16 @@ const getTokenProposalDetails = async () => {
     log(err);
     return {
       totalVotes: 0,
-      yesVotes: new Array(14 + 1).join('0').split('').map(parseFloat),
+      yesVotes: new Array(14 + 1)
+        .join('0')
+        .split('')
+        .map(parseFloat),
       endingTime: new Date(),
     };
   }
 };
 
-const getVotingTokenBalance = async (_account) => {
+const getVotingTokenBalance = async _account => {
   let _votingToken;
   try {
     const details = await getActiveTokenListingProposal();
@@ -446,7 +457,7 @@ const getVotingTokenBalance = async (_account) => {
     log('Error getting voting token balance', err);
     return 0;
   }
-  const account = _account || await getAccount();
+  const account = _account || (await getAccount());
 
   const votingTokenContract = getVotingTokenContract(_votingToken);
   const ownBalance = await votingTokenContract.methods.balanceOf(account).call();
@@ -509,11 +520,11 @@ const getDelegates = async () =>
     const promises = ids.map(id => advancedTokenProposalContract.methods.allDelegates(id).call());
 
     Promise.all(promises)
-      .then(async (delegates) => {
+      .then(async delegates => {
         log(delegates);
         resolve(delegates);
       })
-      .catch((error) => {
+      .catch(error => {
         reject(error);
       });
   });
@@ -521,7 +532,9 @@ const getDelegates = async () =>
 const becomeDelegate = async (storageHash, accountType) => {
   const advancedTokenProposalContract = getAdvancedTokenProposalContract();
   log(storageHash, web3.fromAscii(storageHash));
-  const contractCall = advancedTokenProposalContract.methods.registerAsDelegate(window._web3.utils.toHex(storageHash));
+  const contractCall = advancedTokenProposalContract.methods.registerAsDelegate(
+    window._web3.utils.toHex(storageHash)
+  );
   if (accountType === 'ledger') return signAndSendLedger(contractCall);
   if (accountType === 'keystore') return signAndSendKeystore(contractCall);
   const account = await getAccount();
@@ -552,12 +565,12 @@ const undelegate = async accountType => {
   });
 };
 
-const getDelegate = (account) => {
+const getDelegate = account => {
   const advancedTokenProposalContract = getAdvancedTokenProposalContract();
   return advancedTokenProposalContract.methods.myDelegate(account).call();
 };
 
-const hasVotedOnTokenListing = async (account) => {
+const hasVotedOnTokenListing = async account => {
   const activeProposal = await getActiveTokenListingProposal();
   if (!activeProposal._active) return false;
   const advancedTokenProposalContract = getAdvancedTokenProposalContract();
@@ -592,7 +605,7 @@ const getNecPrice = async () => {
   return ticker[6];
 };
 
-const calculateNecReward = async (volume) => {
+const calculateNecReward = async volume => {
   if (!ethPrice) ethPrice = await getEthPrice();
   log(`Eth price ${ethPrice}`);
   const volumeFee = volume * 0.001; // Assume fee is 0.1%

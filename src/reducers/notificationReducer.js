@@ -1,7 +1,4 @@
-import {
-  SHOW_NOTIF,
-  HIDE_NOTIF,
-} from '../actions/actionTypes';
+import { SHOW_NOTIF, HIDE_NOTIF } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   displayed: false,

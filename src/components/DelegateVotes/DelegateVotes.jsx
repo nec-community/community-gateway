@@ -36,7 +36,7 @@ class DelegateVotes extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.delegates !== this.props.delegates)
-      this.props.delegates.forEach(delegate => this.formatDescription(delegate.user))
+      this.props.delegates.forEach(delegate => this.formatDescription(delegate.user));
   }
 
   async submitDelegate() {
@@ -63,40 +63,42 @@ class DelegateVotes extends Component {
 
   formatDescription(id) {
     var text = document.getElementById(`delegate-description-${id}`).innerHTML;
-    text = text.replace(new RegExp('https?:\\/\\/[a-zA-Z0-9_\\-.\\/#%:=?&\'@]+', 'g'), '<a rel="noopener noreferrer" target="_blank" href="$&">$&</a>');
+    text = text.replace(
+      new RegExp("https?:\\/\\/[a-zA-Z0-9_\\-.\\/#%:=?&'@]+", 'g'),
+      '<a rel="noopener noreferrer" target="_blank" href="$&">$&</a>'
+    );
     document.getElementById(`delegate-description-${id}`).innerHTML = text;
   }
 
   render() {
-    const {
-      delegates,
-    } = this.props;
+    const { delegates } = this.props;
 
     return (
       <div className="delegates">
         <div className="container">
           <h1>Delegates</h1>
           <p className="page-description">
-            The Ethfinex Voting token makes voting power liquid, dissociable for different topics, and allows it to be transferred. <br />
-            This has made it possible to implement a basic form of <a href="https://en.wikipedia.org/wiki/Delegative_democracy" target="_blank">liquid democracy</a>.
+            The Ethfinex Voting token makes voting power liquid, dissociable for different topics,
+            and allows it to be transferred. <br />
+            This has made it possible to implement a basic form of{' '}
+            <a href="https://en.wikipedia.org/wiki/Delegative_democracy" target="_blank">
+              liquid democracy
+            </a>
+            .
           </p>
         </div>
         <div className="delegate-section form-wrapper">
           <div className="container flex">
             <img src="/images/delegate-icon.svg" alt="" />
             <div>
-              <h2 className="small-title">
-                Allow others to delegate their vote to you
-              </h2>
+              <h2 className="small-title">Allow others to delegate their vote to you</h2>
               <p className="section-description">
-                The delegates section enables you put yourself forward
-                to represent the interests of other community members. For example,
-                you can choose to nominate yourself as a delegate who's policy is
-                to vote each round for whichever token has highest trading volume on other
-                exchanges.
+                The delegates section enables you put yourself forward to represent the interests of
+                other community members. For example, you can choose to nominate yourself as a
+                delegate who's policy is to vote each round for whichever token has highest trading
+                volume on other exchanges.
               </p>
-              {
-                !this.props.userHasVoted &&
+              {!this.props.userHasVoted && (
                 <div>
                   <textarea
                     name="description"
@@ -112,13 +114,12 @@ class DelegateVotes extends Component {
                     </button>
                   </div>
                 </div>
-              }
-              {
-                this.props.userHasVoted &&
+              )}
+              {this.props.userHasVoted && (
                 <p className="info-tip undelegate">
                   You've already voted in this round - you can not become a delegate at the moment.
                 </p>
-              }
+              )}
             </div>
           </div>
         </div>
@@ -126,9 +127,7 @@ class DelegateVotes extends Component {
           <div className="container flex">
             <img src="/images/delegators-icon.svg" alt="" />
             <div>
-              <div className="small-title">
-                Delegate your vote
-              </div>
+              <div className="small-title">Delegate your vote</div>
               <p className="section-description">
                 If you prefer not to participate in every token listing vote as a Nectar token
                 holder you can choose a delegate who best represents your interests. <br />
@@ -136,48 +135,41 @@ class DelegateVotes extends Component {
                 tokens.
               </p>
 
-              {
-                this.props.userHasVoted &&
+              {this.props.userHasVoted && (
                 <p className="info-tip undelegate">
-                  You've already voted in this round - you can not change your delegate at the moment.
+                  You've already voted in this round - you can not change your delegate at the
+                  moment.
                 </p>
-              }
+              )}
 
-              {
-                this.props.myDelegate !== '0x0000000000000000000000000000000000000000' &&
+              {this.props.myDelegate !== '0x0000000000000000000000000000000000000000' && (
                 <p className="info-tip undelegate">
                   You've delegated your vote to {this.props.myDelegate}.
                   <br />
                   <a onClick={() => this.undelegateVote()}>Undelegate vote</a>
                 </p>
-              }
+              )}
 
-              {
-                delegates.length === 0 && <p>No delegates</p>
-              }
+              {delegates.length === 0 && <p>No delegates</p>}
 
-              {
-                delegates.map(delegate => (
-                  <div className="single-delegate" key={delegate.user}>
-                    <div className="delegate-information">
-                      <p className="delegate-address">
-                        {delegate.user}
-                      </p>
-                      <p className="delegate-mission" id={`delegate-description-${delegate.user}`}>
-                        {delegate.description}
-                      </p>
-                    </div>
-                    <div className="vote-for-delegate submit-wrapper">
-                      <button
-                        onClick={() => this.delegateVote(delegate.user)}
-                        disabled={this.props.userHasVoted}
-                      >
-                        Choose delegate
-                      </button>
-                    </div>
+              {delegates.map(delegate => (
+                <div className="single-delegate" key={delegate.user}>
+                  <div className="delegate-information">
+                    <p className="delegate-address">{delegate.user}</p>
+                    <p className="delegate-mission" id={`delegate-description-${delegate.user}`}>
+                      {delegate.description}
+                    </p>
                   </div>
-                ))
-              }
+                  <div className="vote-for-delegate submit-wrapper">
+                    <button
+                      onClick={() => this.delegateVote(delegate.user)}
+                      disabled={this.props.userHasVoted}
+                    >
+                      Choose delegate
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -205,10 +197,13 @@ const mapStateToProps = state => ({
   account: state.account.account,
 });
 
-export default connect(mapStateToProps, {
-  getDelegates,
-  becomeDelegate,
-  delegateVote,
-  undelegate,
-  getMyDelegate,
-})(DelegateVotes);
+export default connect(
+  mapStateToProps,
+  {
+    getDelegates,
+    becomeDelegate,
+    delegateVote,
+    undelegate,
+    getMyDelegate,
+  }
+)(DelegateVotes);

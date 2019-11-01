@@ -17,12 +17,9 @@ const filter = [
 const zeroAddress = '0x0000000000000000000000000000000000000000';
 const zeroSubmissionID = '0x0000000000000000000000000000000000000000000000000000000000000000';
 
-export const getTokenInfo = async (address) => {
+export const getTokenInfo = async address => {
   try {
-    const t2crContract = new window._web3.eth.Contract(
-      abis.klerosT2CR,
-      config.klerosT2CR,
-    );
+    const t2crContract = new window._web3.eth.Contract(abis.klerosT2CR, config.klerosT2CR);
 
     const submissionID = await t2crContract.methods
       .queryTokens(
@@ -30,8 +27,9 @@ export const getTokenInfo = async (address) => {
         100, // Number of items to return at once.
         filter,
         true, // Return oldest first.
-        address, // The token address for which to return the submissions.
-      ).call()
+        address // The token address for which to return the submissions.
+      )
+      .call()
       .then(res => res.values.find(ID => ID !== zeroSubmissionID));
 
     const data = await t2crContract.methods.getTokenInfo(submissionID).call();
@@ -54,10 +52,7 @@ export const getTokenInfo = async (address) => {
 };
 
 export const getApprovedTokens = async () => {
-  const badgeContract = new window._web3.eth.Contract(
-    abis.klerosBadge,
-    config.klerosBadge,
-  );
+  const badgeContract = new window._web3.eth.Contract(abis.klerosBadge, config.klerosBadge);
 
   // Fetch addresses of tokens that have the badge.
   // Since the contract returns fixed sized arrays, we must filter out unused items.
@@ -66,14 +61,13 @@ export const getApprovedTokens = async () => {
       zeroAddress, // A token address to start/end the query from. Set to zero means unused.
       100, // Number of items to return at once.
       filter,
-      true, // Return oldest first.
+      true // Return oldest first.
     )
     .call()).values
     .map(address => address.toLowerCase())
     .filter(address => address !== zeroAddress);
-    // .filter(address => listedTokens.indexOf(address) === -1);
+  // .filter(address => listedTokens.indexOf(address) === -1);
 
   // With the token IDs, get the information and add it to the object.
   return Promise.all(addressesWithBadge.map(address => getTokenInfo(address)));
 };
-

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { getNonApprovedProposals } from '../../actions/proposalActions';
 import './Admin.scss';
-import eth from '../../services/ethereumService'
+import eth from '../../services/ethereumService';
 
 class Admin extends Component {
   componentDidMount() {
@@ -17,45 +17,36 @@ class Admin extends Component {
         <div className="container">
           <h1>Submitted Proposals</h1>
           <div className="active-section">
-            {
-              this.props.proposals.map(proposal => (
-                <div key={proposal.id} className="proposal-wrapper">
-                  <div className="details-wrapper">
-                    <p className="title">
-                      {proposal.title}
+            {this.props.proposals.map(proposal => (
+              <div key={proposal.id} className="proposal-wrapper">
+                <div className="details-wrapper">
+                  <p className="title">{proposal.title}</p>
+                  <p className="duration">Duration: {proposal.duration} days</p>
+                  <p className="proposer">Submitted by: {proposal._proposer}</p>
+                  <p className="description">{proposal.description}</p>
+                  {!this.props.isAdmin && (
+                    <p className="description">
+                      This proposal is pending approval by the administrators
                     </p>
-                    <p className="duration">Duration: {proposal.duration} days</p>
-                    <p className="proposer">Submitted by: {proposal._proposer}</p>
-                    <p className="description">{proposal.description}</p>
-                    {
-                      !this.props.isAdmin &&
-                      <p className="description">
-                        This proposal is pending approval by the administrators
-                      </p>
-                    }
-                    {
-                      this.props.isAdmin &&
-                      <div>
-                        <a onClick={() => eth.approveProposal(proposal.id, this.props.accountType)}>
-                          Approve
-                        </a>
-                        <br />
-                        <a onClick={() => eth.denyProposal(proposal.id, this.props.accountType)}>
-                          Deny
-                        </a>
-                      </div>
-                    }
-                  </div>
+                  )}
+                  {this.props.isAdmin && (
+                    <div>
+                      <a onClick={() => eth.approveProposal(proposal.id, this.props.accountType)}>
+                        Approve
+                      </a>
+                      <br />
+                      <a onClick={() => eth.denyProposal(proposal.id, this.props.accountType)}>
+                        Deny
+                      </a>
+                    </div>
+                  )}
                 </div>
-              ))
-            }
-
-            {
-              !this.props.proposals.length &&
-              <div className="empty">
-                No proposals are currently pending.
               </div>
-            }
+            ))}
+
+            {!this.props.proposals.length && (
+              <div className="empty">No proposals are currently pending.</div>
+            )}
           </div>
         </div>
       </div>
@@ -78,6 +69,9 @@ const mapStateToProps = state => ({
   isAdmin: state.account.isAdmin,
 });
 
-export default connect(mapStateToProps, {
-  getNonApprovedProposals,
-})(Admin);
+export default connect(
+  mapStateToProps,
+  {
+    getNonApprovedProposals,
+  }
+)(Admin);

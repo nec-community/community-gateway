@@ -44,7 +44,7 @@ class PreviousTokenListing extends Component {
   render() {
     const periods = Object.keys(previousTokenData);
     const tokens = previousTokenData[periods[this.state.periodIndex]];
-    tokens.data = tokens.data.map((token) => {
+    tokens.data = tokens.data.map(token => {
       const name = token.token;
       const symbolBreak = name.indexOf(' (');
       const shortName = name.substr(0, symbolBreak);
@@ -59,44 +59,51 @@ class PreviousTokenListing extends Component {
       <div className="listings previouslistings">
         <div className="container">
           <h1>Previous Community Vote Results</h1>
-          <h5>{tokens.winThreshold} tokens were selected by the Ethfinex community
-            between {Object.keys(previousTokenData)[this.state.periodIndex]}</h5>
+          <h5>
+            {tokens.winThreshold} tokens were selected by the Ethfinex community between{' '}
+            {Object.keys(previousTokenData)[this.state.periodIndex]}
+          </h5>
 
           <div className="header-desc-container">
             <div className="left-header">
-              <p>
-
-              </p>
+              <p></p>
               Showing data for:{' '}
               <select
                 value={this.state.periodIndex}
                 onChange={e => this.setState({ periodIndex: e.target.value, detailsShown: null })}
               >
-                {
-                  Object.keys(previousTokenData).map((period, i) => (
-                    <option value={i} key={period}>{period}</option>
-                  ))
-                }
+                {Object.keys(previousTokenData).map((period, i) => (
+                  <option value={i} key={period}>
+                    {period}
+                  </option>
+                ))}
               </select>
-              <br /><br />
+              <br />
+              <br />
               Ethfinex Voting Tokens are issued to traders in proportion to their NEC holdings,
-              allowing loyal users more of a say without requiring you to burn your tokens.
-              To find out more about the voting process and how tokens are selected to be voted on,
-              see the <Link to='/faq'>FAQ</Link>.<br /><br />
+              allowing loyal users more of a say without requiring you to burn your tokens. To find
+              out more about the voting process and how tokens are selected to be voted on, see the{' '}
+              <Link to="/faq">FAQ</Link>.<br />
+              <br />
               The blockchain based record of this past vote can be viewed on{' '}
-              <a href={tokens.link} target='blank'>etherscan</a>.
+              <a href={tokens.link} target="blank">
+                etherscan
+              </a>
+              .
             </div>
           </div>
         </div>
         <div>
           <div className="active-section">
-
             <div className="container">
-              {
-                tokens.data.sort((a, b) => (b.totalYes - a.totalYes)).map((token, index) => (
+              {tokens.data
+                .sort((a, b) => b.totalYes - a.totalYes)
+                .map((token, index) => (
                   <div
                     key={token.id}
-                    className={`listing-wrapper ${this.state.detailsShown === token.id ? '-active' : ''}`}
+                    className={`listing-wrapper ${
+                      this.state.detailsShown === token.id ? '-active' : ''
+                    }`}
                     onClick={() => this.toggleDetails(token.id)}
                   >
                     <div className="details-wrapper">
@@ -109,9 +116,7 @@ class PreviousTokenListing extends Component {
                       </div>
 
                       <div className="title-result-wrapper">
-                        <div
-                          className="title"
-                        >
+                        <div className="title">
                           {token.shortName}
                           <span>{token.symbol}</span>
                         </div>
@@ -120,7 +125,7 @@ class PreviousTokenListing extends Component {
                             <div className="bar">
                               <div
                                 className="bar-yes"
-                                style={{ width: `${99 * token.totalYes / token.total}%` }}
+                                style={{ width: `${(99 * token.totalYes) / token.total}%` }}
                               />
                             </div>
                           </div>
@@ -139,11 +144,12 @@ class PreviousTokenListing extends Component {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={e => e.stopPropagation()}
-                      >Visit Website</a>
+                      >
+                        Visit Website
+                      </a>
                     </p>
                   </div>
-                ))
-              }
+                ))}
             </div>
           </div>
         </div>
@@ -155,4 +161,7 @@ class PreviousTokenListing extends Component {
 
 const mapStateToProps = state => ({});
 
-export default connect(mapStateToProps, {})(PreviousTokenListing);
+export default connect(
+  mapStateToProps,
+  {}
+)(PreviousTokenListing);

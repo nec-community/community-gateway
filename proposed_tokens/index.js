@@ -57,8 +57,7 @@ export default [
   PMA,
   SOLVE,
   SWM,
-  SPC
-  
+  SPC,
 ].reduce((tmp, token) => {
   tmp[token.address.toLowerCase()] = token;
   return tmp;

@@ -29,4 +29,8 @@ export const CLOSE_HELP = 'close_help';
 
 export const FETCHED_POOL_TOKENS = 'fetched_pool_tokens';
 
+export const FETCH_TRADERS_START = 'fetch_traders_start';
 export const FETCH_TRADERS_BY_TOKEN = 'fetch_traders_by_token';
+export const FETCH_TRADERS_ERROR = 'fetch_traders_error';
+
+export const FETCH_COMPETITIONS_BY_TAG = 'fetch_competitions_by_tag';

@@ -29,8 +29,8 @@ class TokenAbout extends Component {
             </p>
             <p>
               To reward the research and choosing of quality tokens, traders who voted for a
-              successfully listed token will receive a percentage of trading fees for that token
-              for the following twelve months.
+              successfully listed token will receive a percentage of trading fees for that token for
+              the following twelve months.
             </p>
             <p>Read more below:</p>
           </div>
@@ -69,12 +69,14 @@ class TokenAbout extends Component {
           </div>
         </div>
 
-
         <section className="video">
           <div className="container">
             <h3>Here's a video that explains the ethos behind our approach to listing tokens</h3>
-            <video src="/videos/Ethfinex_voEDIT.mp4" poster="/images/Ethfinex_voEDIT.png"
-                   controls={true} />
+            <video
+              src="/videos/Ethfinex_voEDIT.mp4"
+              poster="/images/Ethfinex_voEDIT.png"
+              controls={true}
+            />
           </div>
         </section>
 
@@ -120,9 +122,8 @@ class TokenAbout extends Component {
                 <h4>How does a token get in the Pool?</h4>
                 <p>
                   Anyone can propose a token for the Pool, including NEC holders, Token Issuers, and
-                  Ethfinex themselves. More information on submitting a token <Link
-                    to="/token-pool"
-                  >here</Link>.
+                  Ethfinex themselves. More information on submitting a token{' '}
+                  <Link to="/token-pool">here</Link>.
                 </p>
                 <p>
                   Through the Kleros token curated registry ‘badge’ process, the token proposer adds
@@ -136,11 +137,15 @@ class TokenAbout extends Component {
                 </p>
                 <p>
                   We appreciate this isn’t the easiest process to summarise in a short paragraph, so
-                  if you’d like to learn more about how the Kleros process works, head <a
-                  href="https://tokens.kleros.io" target="_blank" rel="noopener noreferrer"
-                  >here</a> for more details or ask us in the <a
-                  href="https://t.me/ethfinextelegram" target="_blank" rel="noopener noreferrer"
-                  >Ethfinex Telegram Group</a>.
+                  if you’d like to learn more about how the Kleros process works, head{' '}
+                  <a href="https://tokens.kleros.io" target="_blank" rel="noopener noreferrer">
+                    here
+                  </a>{' '}
+                  for more details or ask us in the{' '}
+                  <a href="https://t.me/ethfinextelegram" target="_blank" rel="noopener noreferrer">
+                    Ethfinex Telegram Group
+                  </a>
+                  .
                 </p>
 
                 <h4>Are all tokens in the Pool eligible for voting?</h4>
@@ -249,7 +254,6 @@ class TokenAbout extends Component {
 
         <section id="vote">
           <div className="container">
-
             <div className="decorated">
               <div>
                 <h2 data-decoration="4">The Vote</h2>
@@ -292,8 +296,8 @@ class TokenAbout extends Component {
 
                 <h4>Can I keep track of which tokens are in the lead?</h4>
                 <p>
-                  Yes. We will keep a live tracker of votes on our leaderboard page <Link
-                  to="token-leaderboard">here</Link>
+                  Yes. We will keep a live tracker of votes on our leaderboard page{' '}
+                  <Link to="token-leaderboard">here</Link>
                 </p>
                 <p>For full transparency, all votes cast can be viewed on the blockchain.</p>
               </div>
@@ -306,7 +310,6 @@ class TokenAbout extends Component {
 
         <section className="white" id="winners">
           <div className="container">
-
             <div className="decorated">
               <div>
                 <h2 data-decoration="5">The Winners</h2>
@@ -314,9 +317,11 @@ class TokenAbout extends Component {
                 <h4>When are the winners announced?</h4>
                 <p>
                   The winners will be announced immediately after the voting closes on our
-                  leaderboard page <Link to="token-leaderboard">here</Link> and on <a
-                  href="https://twitter.com/ethfinex" target="_blank"
-                  rel="noopener noreferrer">Twitter</a>.
+                  leaderboard page <Link to="token-leaderboard">here</Link> and on{' '}
+                  <a href="https://twitter.com/ethfinex" target="_blank" rel="noopener noreferrer">
+                    Twitter
+                  </a>
+                  .
                 </p>
 
                 <h4>When are the winning tokens listed?</h4>
@@ -354,7 +359,6 @@ class TokenAbout extends Component {
                   The fees are distributed pro-rata based on the proportion of votes. This means
                   that the more votes you cast for the winning token, the more fees you’ll get.
                 </p>
-
               </div>
               <div>
                 <img src={winnersGif} alt="" />

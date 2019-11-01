@@ -67,9 +67,7 @@ class App extends Component {
             <Link to="/traderboard" onClick={this.clickLinkHandler}>
               Traderboard
             </Link>
-            <Link to="/whitepaper">
-              Whitepaper
-            </Link>
+            <Link to="/whitepaper">Whitepaper</Link>
             <div className="dropdown-wrapper">
               <a>Token Listings</a>
               <div>

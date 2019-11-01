@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const dotenv = require('dotenv');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -11,6 +12,12 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   filename: 'index.html',
   inject: 'body',
 });
+
+const env = dotenv.config().parsed;
+const envKeys = Object.keys(env).reduce((prev, next) => {
+  prev[`process.env.${next}`] = JSON.stringify(env[next]);
+  return prev;
+}, {});
 
 module.exports = {
   entry: ['@babel/polyfill', './src/index.jsx'],
@@ -27,19 +34,20 @@ module.exports = {
   },
   output: {
     path: path.resolve('dist'),
-    filename: 'index_bundle.js'
+    filename: 'index_bundle.js',
   },
   module: {
     loaders: [
       {
-        test: /\.(js|jsx)$/, loaders:[
+        test: /\.(js|jsx)$/,
+        loaders: [
           'babel-loader',
           {
             loader: 'eslint-loader',
-            options: { emitWarning: true, emitError: false }
-          }
+            options: { emitWarning: true, emitError: false },
+          },
         ],
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.(jpe?g|png|gif|svg|pdf)$/i,
@@ -53,26 +61,23 @@ module.exports = {
                 optimizationLevel: 7,
                 interlaced: false,
               },
-            }
+            },
           },
-        ]
+        ],
       },
       {
         test: /\.(scss|css)$/,
-        loader: 'style-loader!css-loader?modules&importLoaders=2&sourceMap&localIdentName=[local]!sass-loader?outputStyle=expanded&sourceMap'
-      }
-    ]
+        loader:
+          'style-loader!css-loader?modules&importLoaders=2&sourceMap&localIdentName=[local]!sass-loader?outputStyle=expanded&sourceMap',
+      },
+    ],
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
   plugins: [
     HtmlWebpackPluginConfig,
-    new webpack.DefinePlugin({
-      'process.env': {
-        env: '"development"'
-      }
-    }),
+    new webpack.DefinePlugin(envKeys),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new FaviconsWebpackPlugin(path.resolve('nec.png')),
@@ -88,6 +93,6 @@ module.exports = {
         from: './src/constants/videos/',
         to: 'videos/',
       },
-    ])
-  ]
+    ]),
+  ],
 };
