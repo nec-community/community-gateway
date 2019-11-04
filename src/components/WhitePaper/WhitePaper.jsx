@@ -1,5 +1,5 @@
 import React from 'react';
-import pdf from './NEC 2.0 WP V1.3.pdf';
+import pdf from './NEC 2.0 WP V1.4.pdf';
 import './WhitePaper.scss';
 
 export default ({ location }) => (
