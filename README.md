@@ -1,6 +1,8 @@
- # Nectar Community
+# Nectar Community
 
-![Logo](/src/constants/images/nectar.png "Logo") [nectar.community](https://nectar.community) 
+<p align="center">
+  <img src="https://github.com/ethfinex/community-gateway/src/constants/images/nectar.png></img>
+</p>
 
 With the aim of building the world’s largest community of decentralised exchange users, the [Nectar token (NEC)](https://github.com/ethfinex/nectar) encompasses governance and platform loyalty functionalities specifically tailored for decentralised exchanges.  
 
@@ -47,7 +49,7 @@ More details about the process for submitting a token will be available once the
 ## Traderboard  
 
 Implemented in nectar.community is a traderboard, where the live rankings of every trader on the DeversiFi decentralised exchange can be seen:  
-[![Traderboard Example](https://github.com/ethfinex/community-gateway/raw/screenshots/traderboard_screenshot.png?raw=true "Traderboard Example")](https://github.com/ethfinex/community-gateway/blob/screenshots/traderboard_screenshot.png?raw=true) 
+[![Traderboard Example](https://github.com/silvastrings/community-gateway/raw/InfoUpdates/screenshots/traderboard_screenshot.png?raw=true "Traderboard Example")](https://github.com/silvastrings/community-gateway/blob/InfoUpdates/screenshots/traderboard_screenshot.png?raw=true) 
   
 
 Statistics are displayed in 30 day Volume rank as default, with options to change the time period, with the table updating accordingly.  A novelty trophy is also shown corresponding to each wallets volume amount, ranging from minnow ($100k 30 day volume) to whale ($5m 30 day volume). Addresses holding NEC are also displayed with a NEC logo in the trophies column.   
