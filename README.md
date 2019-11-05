@@ -32,7 +32,7 @@ Token Listing Proposals are also voted on and managed by `TokenListingManager.so
 
 ##  [](https://github.com/ethfinex/community-gateway#listing-votes-proposing-a-token)  
 
-Listing Votes: Proposing A Token _(currently inactive)_**  
+## Listing Votes: Proposing A Token _(currently inactive)_**  
   
 
 Every 2 weeks a new listing proposal begins, allowing a certain number of tokens to be selected by the community to be listed.  
