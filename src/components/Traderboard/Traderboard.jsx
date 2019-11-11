@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
+import ReactTooltip from 'react-tooltip';
 import 'react-virtualized/styles.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchTraders, fetchTradersByDate, convertToken } from '../../actions/traderAction';
+import { fetchTraders, fetchTradersByCustomDate, convertToken } from '../../actions/traderAction';
 import { fetchPostsByTag } from '../../actions/competitionActions';
 import './Traderboard.scss';
 
@@ -47,9 +48,14 @@ class Traderboard extends Component {
     const oneMonthAgo = new Date();
     oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
 
+    const oldDate = new Date();
+    oldDate.setDate(oldDate.getDate() - 60);
+
     this.state = {
       token: 'ALL',
+      oldDate,
       dropdownDate: oneMonthAgo,
+      dropdownDateTextValue: '30d',
       startDate: '',
       endDate: '',
       dateIntervalMode: false,
@@ -67,13 +73,10 @@ class Traderboard extends Component {
   }
 
   componentDidMount() {
-    const { token } = this.state;
+    const { oldDate, dropdownDate, token } = this.state;
     const { fetchTraders, fetchPostsByTag } = this.props;
 
-    const date = new Date();
-    date.setDate(date.getDate() - 30);
-
-    fetchTraders(date, token);
+    fetchTraders(oldDate, dropdownDate, token);
     fetchPostsByTag();
   }
 
@@ -91,7 +94,7 @@ class Traderboard extends Component {
 
   onClickOutsideSendRequest() {
     const { startDate, endDate, token } = this.state;
-    const { fetchTradersByDate } = this.props;
+    const { fetchTradersByCustomDate } = this.props;
 
     if (startDate && endDate) {
       this.setState({
@@ -99,15 +102,15 @@ class Traderboard extends Component {
       });
       const intervalSelect = document.getElementsByName('interval')[0];
       intervalSelect.selectedIndex = -1;
-      fetchTradersByDate(startDate, endDate, token);
+      fetchTradersByCustomDate(startDate, endDate, token);
     } else {
       return null;
     }
   }
 
   async handleTokenChange(e) {
-    const { startDate, endDate, dropdownDate, dateIntervalMode } = this.state;
-    const { fetchTraders, fetchTradersByDate } = this.props;
+    const { startDate, endDate, oldDate, dropdownDate, dateIntervalMode } = this.state;
+    const { fetchTraders, fetchTradersByCustomDate } = this.props;
     const { value } = e.target;
 
     if (value === 'ALL' || value === 'USD') {
@@ -131,9 +134,9 @@ class Traderboard extends Component {
     }
 
     if (dateIntervalMode) {
-      await fetchTradersByDate(startDate, endDate, value);
+      await fetchTradersByCustomDate(startDate, endDate, value);
     } else {
-      await fetchTraders(dropdownDate, value);
+      await fetchTraders(oldDate, dropdownDate, value);
     }
   }
 
@@ -143,23 +146,29 @@ class Traderboard extends Component {
     const { value } = e.target;
 
     const date = new Date();
+    const old = new Date();
 
     if (value === '24h') {
+      old.setDate(old.getDate() - 2);
       date.setDate(date.getDate() - 1);
     } else if (value === '7d') {
+      old.setDate(old.getDate() - 14);
       date.setDate(date.getDate() - 7);
     } else {
+      old.setDate(old.getDate() - 60);
       date.setDate(date.getDate() - 30);
     }
 
     this.setState({
+      oldDate: old,
       dropdownDate: date,
+      dropdownDateTextValue: value,
       dateIntervalMode: false,
       startDate: '',
       endDate: '',
     });
 
-    await fetchTraders(date, token);
+    await fetchTraders(old, date, token);
   }
 
   _noRowsRenderer(text) {
@@ -247,7 +256,7 @@ class Traderboard extends Component {
   }
 
   render() {
-    const { startDate, endDate } = this.state;
+    const { startDate, endDate, dropdownDateTextValue } = this.state;
     const { traders, isFetching, posts } = this.props;
 
     return (
@@ -362,7 +371,11 @@ class Traderboard extends Component {
                     <th>{}</th>
                     <th>WALLET ADDRESS</th>
                     <th>USD VOLUME</th>
-                    <th>POSITION</th>
+                    <th
+                      data-tip={`A previous ${dropdownDateTextValue} period is used for comparison.`}
+                    >
+                      POSITION
+                    </th>
                     <th>TROPHIES</th>
                   </tr>
                 </thead>
@@ -372,7 +385,12 @@ class Traderboard extends Component {
                       <td>{index + 1}</td>
                       <td>
                         <div>
-                          <p>{trader.address}</p>
+                          <a
+                            href={`https://etherscan.io/address/${trader.address}`}
+                            target="_blank"
+                          >
+                            {trader.address}
+                          </a>
                           {trader.isNewTrader ? (
                             <span className="new__trader">new trader!</span>
                           ) : null}
@@ -385,6 +403,7 @@ class Traderboard extends Component {
                   ))}
                 </tbody>
               </table>
+              <ReactTooltip />
             </div>
           ) : (
             this._noRowsRenderer('No records')
@@ -403,7 +422,7 @@ const mapStateToProps = state => ({
 
 Traderboard.propTypes = {
   fetchTraders: PropTypes.func.isRequired,
-  fetchTradersByDate: PropTypes.func.isRequired,
+  fetchTradersByCustomDate: PropTypes.func.isRequired,
   traders: PropTypes.instanceOf(Object).isRequired,
   isFetching: PropTypes.bool.isRequired,
   posts: PropTypes.instanceOf(Object).isRequired,
@@ -414,7 +433,7 @@ export default connect(
   mapStateToProps,
   {
     fetchTraders,
-    fetchTradersByDate,
+    fetchTradersByCustomDate,
     fetchPostsByTag,
   }
 )(Traderboard);

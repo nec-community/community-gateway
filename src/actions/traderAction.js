@@ -56,11 +56,11 @@ async function getNewTraders(traders) {
     });
 }
 
-async function getPositionChange(traders, token, endDate) {
+async function getPositionChange(traders, token, oldStart, oldEnd) {
   const api = token === 'ALL' ? 'USDRanking' : 'tokenRanking/';
   const tokenAPI = token === 'ALL' ? '' : token;
 
-  return fetch(`${endpoint}${api}${tokenAPI}?startDate=${startDateTimestamp}&endDate=${endDate}`)
+  return fetch(`${endpoint}${api}${tokenAPI}?startDate=${oldStart}&endDate=${oldEnd}`)
     .then(resp => resp.json())
     .then(resp => {
       const tradersAddresses = resp.map(el => el.address);
@@ -81,20 +81,24 @@ async function get30DaysVolume(traders) {
   });
 }
 
-export const fetchTraders = (endDate, token) => async dispatch => {
+export const fetchTraders = (oldDate, date, token) => async dispatch => {
   dispatch(startFetching());
-  const endDateTimestamp = formatDate(endDate);
+  const oldStart = formatDate(oldDate);
+  const start = formatDate(date);
+  const end = formatDate(new Date());
   const api = token === 'ALL' ? 'USDRanking' : 'tokenRanking/';
   const tokenAPI = token === 'ALL' ? '' : token;
 
   try {
-    const promiseResponse = await fetch(`${endpoint}${api}${tokenAPI}`);
+    const promiseResponse = await fetch(
+      `${endpoint}${api}${tokenAPI}?startDate=${start}&endDate=${end}`
+    );
     const response = await promiseResponse.json();
 
     await Promise.all([
       getNECHolders(response),
       getNewTraders(response),
-      getPositionChange(response, token, endDateTimestamp),
+      getPositionChange(response, token, oldStart, start),
       get30DaysVolume(response),
     ]);
 
@@ -111,7 +115,7 @@ export const fetchTraders = (endDate, token) => async dispatch => {
   }
 };
 
-export const fetchTradersByDate = (startDate, endDate, token) => async dispatch => {
+export const fetchTradersByCustomDate = (startDate, endDate, token) => async dispatch => {
   dispatch(startFetching());
   const start = formatDate(startDate);
   const end = formatDate(endDate);
