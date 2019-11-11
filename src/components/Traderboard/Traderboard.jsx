@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
+import ReactTooltip from 'react-tooltip';
 import 'react-virtualized/styles.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import PropTypes from 'prop-types';
@@ -54,6 +55,7 @@ class Traderboard extends Component {
       token: 'ALL',
       oldDate,
       dropdownDate: oneMonthAgo,
+      dropdownDateTextValue: '30d',
       startDate: '',
       endDate: '',
       dateIntervalMode: false,
@@ -73,12 +75,6 @@ class Traderboard extends Component {
   componentDidMount() {
     const { oldDate, dropdownDate, token } = this.state;
     const { fetchTraders, fetchPostsByTag } = this.props;
-
-    // const date = new Date();
-    // date.setDate(date.getDate() - 30);
-    //
-    // const oldDate = new Date();
-    // oldDate.setDate(oldDate.getDate() - 60)
 
     fetchTraders(oldDate, dropdownDate, token);
     fetchPostsByTag();
@@ -166,6 +162,7 @@ class Traderboard extends Component {
     this.setState({
       oldDate: old,
       dropdownDate: date,
+      dropdownDateTextValue: value,
       dateIntervalMode: false,
       startDate: '',
       endDate: '',
@@ -259,7 +256,7 @@ class Traderboard extends Component {
   }
 
   render() {
-    const { startDate, endDate } = this.state;
+    const { startDate, endDate, dropdownDateTextValue } = this.state;
     const { traders, isFetching, posts } = this.props;
 
     return (
@@ -374,7 +371,11 @@ class Traderboard extends Component {
                     <th>{}</th>
                     <th>WALLET ADDRESS</th>
                     <th>USD VOLUME</th>
-                    <th>POSITION</th>
+                    <th
+                      data-tip={`A previous ${dropdownDateTextValue} period is used for comparison.`}
+                    >
+                      POSITION
+                    </th>
                     <th>TROPHIES</th>
                   </tr>
                 </thead>
@@ -402,6 +403,7 @@ class Traderboard extends Component {
                   ))}
                 </tbody>
               </table>
+              <ReactTooltip />
             </div>
           ) : (
             this._noRowsRenderer('No records')
