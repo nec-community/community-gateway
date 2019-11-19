@@ -212,7 +212,7 @@ class Traderboard extends Component {
 
     return (
       <div className="fish__badges">
-        {trader.isNECHolder ? <img src="/images/nectar.png" alt="" /> : null}
+        {trader.tokenNEC >= 1000 ? <img src="/images/nectar.png" alt="" /> : null}
         {amount >= 10 ** 5 ? (
           <img src={`/images/${imgSrc}.svg`} className="animated" alt="" />
         ) : null}
@@ -346,7 +346,11 @@ class Traderboard extends Component {
               <div className="right__part">
                 <div className="first__row">
                   <p className="bald__text">Competitions</p>
-                  <p className="with__arrow">Start trading</p>
+                  <p className="with__arrow">
+                    <a href="https://app.deversifi.com" target="_blank">
+                      Start trading
+                    </a>
+                  </p>
                 </div>
                 <div className="second__row">
                   {posts.map(post => (

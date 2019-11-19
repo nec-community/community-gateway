@@ -95,6 +95,10 @@
 
         .with__arrow {
           position: relative;
+
+          a {
+            text-decoration: none;
+          }
         }
 
         .with__arrow::after {
