@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Web3 from 'web3';
 import './Auction.scss';
 import Diagram from './Diagrams/Diagram';
-import engine from '../../constants/engine';
-import erc20 from '../../constants/erc20';
+import abis from '../../constants/abis.json';
+import config from '../../constants/config.dev.json';
 import { convertToken } from '../../actions/traderAction';
 import Circle from './Diagrams/Circle';
 import BarDiagram from './Diagrams/BarDiagram';
@@ -39,12 +39,11 @@ class Auction extends Component {
     if (typeof window.web3 !== 'undefined') {
       this.web3 = new Web3(window.web3.currentProvider);
     } else {
-      console.log('No web3? You should consider trying MetaMask!');
       this.web3 = new Web3(new Web3.providers.HttpProvider('https://kovan.infura.io'));
     }
 
     this.engineAddress = '0x8AaEEa652EBD90fB8D64A6cac09a0293CE62dD45';
-    this.nectarAddress = '0xE9d1510B09f6ED9aB13C6221Da32380CF1f757EB';
+    this.nectarAddress = config.necTokenContract;
   }
 
   componentDidMount() {
@@ -54,12 +53,16 @@ class Auction extends Component {
           account: res[0],
         },
         () => {
-          const tokenContract = new this.web3.eth.Contract(erc20.abi, this.nectarAddress, {
+          const tokenContract = new this.web3.eth.Contract(abis.necContract, this.nectarAddress, {
             from: this.state.account,
           });
-          const engineContract = new this.web3.eth.Contract(engine.abi, this.engineAddress, {
-            from: this.state.account,
-          });
+          const engineContract = new this.web3.eth.Contract(
+            abis.engineContract,
+            this.engineAddress,
+            {
+              from: this.state.account,
+            }
+          );
 
           engineContract.methods
             .getNextAuction()
@@ -116,7 +119,7 @@ class Auction extends Component {
   sellTokens = () => {
     const { tokensForSell, account } = this.state;
 
-    const nectarContract = new this.web3.eth.Contract(erc20.abi, this.nectarAddress);
+    const nectarContract = new this.web3.eth.Contract(abis.necContract, this.nectarAddress);
 
     nectarContract.methods
       .approve(account, tokensForSell)
