@@ -147,11 +147,11 @@ export const fetchTradersByCustomDate = (startDate, endDate, token) => async dis
   }
 };
 
-export async function convertToken(token) {
+export async function convertToken(tokenFrom, tokenTo) {
   const cors = 'https://cors-anywhere.herokuapp.com/';
   const api = 'https://api-pub.bitfinex.com/v2/tickers?symbols=t';
 
-  const response = await fetch(`${cors}${api}${token}USD`);
+  const response = await fetch(`${cors}${api}${tokenFrom}${tokenTo}`);
   const result = await response.json();
 
   return result[0][1];

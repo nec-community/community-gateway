@@ -124,7 +124,7 @@ class Traderboard extends Component {
           token: value,
         },
         () => {
-          convertToken(value).then(resp =>
+          convertToken(value, 'USD').then(resp =>
             this.setState({
               conversionRate: resp,
             })
@@ -429,11 +429,8 @@ Traderboard.propTypes = {
   fetchPostsByTag: PropTypes.func.isRequired,
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    fetchTraders,
-    fetchTradersByCustomDate,
-    fetchPostsByTag,
-  }
-)(Traderboard);
+export default connect(mapStateToProps, {
+  fetchTraders,
+  fetchTradersByCustomDate,
+  fetchPostsByTag,
+})(Traderboard);

@@ -11,7 +11,7 @@ import {
 } from './actionTypes';
 import ethService from '../services/ethereumService';
 import keystoreService from '../services/keystoreService';
-import config from '../constants/config.json';
+import config from '../constants/config.dev.json';
 import { nameOfNetwork, log, toDecimal } from '../services/utils';
 import { notify, notifyError } from './notificationActions';
 
