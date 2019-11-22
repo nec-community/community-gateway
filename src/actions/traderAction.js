@@ -1,12 +1,13 @@
 import { FETCH_TRADERS_BY_TOKEN, FETCH_TRADERS_START, FETCH_TRADERS_ERROR } from './actionTypes';
 import Web3 from 'web3';
-import abi from '../constants/abi';
+import abis from '../constants/abis.json';
+import config from '../constants/config.json';
 
-const INFURA_ENDPOINT = 'https://mainnet.infura.io/v3/a809da2620ae4733aa86edde64cc86ad';
+// const INFURA_ENDPOINT = 'https://mainnet.infura.io/v3/a809da2620ae4733aa86edde64cc86ad';
 const NECTAR_CONTRACT_ADDRESS = '0xcc80c051057b774cd75067dc48f8987c4eb97a5e';
 
 const web3 = new Web3();
-web3.setProvider(new web3.providers.HttpProvider(INFURA_ENDPOINT));
+web3.setProvider(new web3.providers.HttpProvider(config.providerUrl));
 
 const startFetching = () => ({
   type: FETCH_TRADERS_START,
@@ -43,7 +44,7 @@ function formatDate(date) {
 }
 
 async function getAddressNectarBalance(address) {
-  const contract = new web3.eth.Contract(abi, NECTAR_CONTRACT_ADDRESS);
+  const contract = new web3.eth.Contract(abis.etherscanContract, config.necTokenContract);
 
   return contract.methods.balanceOf(address).call();
 }
