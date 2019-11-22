@@ -3,9 +3,6 @@ import Web3 from 'web3';
 import abis from '../constants/abis.json';
 import config from '../constants/config.json';
 
-// const INFURA_ENDPOINT = 'https://mainnet.infura.io/v3/a809da2620ae4733aa86edde64cc86ad';
-const NECTAR_CONTRACT_ADDRESS = '0xcc80c051057b774cd75067dc48f8987c4eb97a5e';
-
 const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider(config.providerUrl));
 
@@ -44,7 +41,7 @@ function formatDate(date) {
 }
 
 async function getAddressNectarBalance(address) {
-  const contract = new web3.eth.Contract(abis.etherscanContract, config.necTokenContract);
+  const contract = new web3.eth.Contract(abis.necTokenContract, config.necTokenContract);
 
   return contract.methods.balanceOf(address).call();
 }
@@ -54,15 +51,6 @@ async function getNECHolders(traders) {
     getAddressNectarBalance(el.address).then(res => (el.tokenNEC = res / 10 ** 18))
   );
 }
-
-// async function getNECHolders(traders) {
-//   return fetch(`${endpoint}tokenRanking/NEC`)
-//     .then(resp => resp.json())
-//     .then(resp => {
-//       const NECHoldersAddresses = resp.filter(el => el.amount >= 1000).map(el => el.address);
-//       return traders.forEach(el => (el.isNECHolder = NECHoldersAddresses.includes(el.address)));
-//     });
-// }
 
 async function getNewTraders(traders) {
   const end = new Date();
