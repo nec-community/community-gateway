@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-import Tx from 'ethereumjs-tx';
 import './Auction.scss';
 import Diagram from './Diagrams/Diagram';
 import engine from '../../constants/engine';
@@ -48,30 +47,31 @@ class Auction extends Component {
     this.nectarAddress = '0xE9d1510B09f6ED9aB13C6221Da32380CF1f757EB';
   }
 
-  async componentDidMount() {
-    const accounts = await this.web3.eth.getAccounts();
-    this.setState(
-      {
-        account: accounts[0],
-      },
-      () => {
-        const tokenContract = new this.web3.eth.Contract(erc20.abi, this.nectarAddress, {
-          from: this.state.account,
-        });
-        const engineContract = new this.web3.eth.Contract(engine.abi, this.engineAddress, {
-          from: this.state.account,
-        });
+  componentDidMount() {
+    this.web3.eth.getAccounts().then(res => {
+      this.setState(
+        {
+          account: res[0],
+        },
+        () => {
+          const tokenContract = new this.web3.eth.Contract(erc20.abi, this.nectarAddress, {
+            from: this.state.account,
+          });
+          const engineContract = new this.web3.eth.Contract(engine.abi, this.engineAddress, {
+            from: this.state.account,
+          });
 
-        console.log(engineContract.methods);
-
-        // tokenContract.methods
-        //   .approve(this.state.account, 1000)
-        //   .call()
-        //   .then(res => console.log(res));
-      }
-    );
-
-    const engineContract = new this.web3.eth.Contract(engine.abi, this.engineAddress);
+          engineContract.methods
+            .getNextAuction()
+            .call()
+            .then(res =>
+              this.setState({
+                nextAuctionMs: res[0],
+              })
+            );
+        }
+      );
+    });
 
     convertToken('NEC', 'ETH').then(res =>
       this.setState({
@@ -114,12 +114,12 @@ class Auction extends Component {
   };
 
   sellTokens = () => {
-    const { tokensForSell } = this.state;
+    const { tokensForSell, account } = this.state;
 
-    const nectarContract = new this.web3.eth.Contract(nectar.abi, this.nectarAddress);
+    const nectarContract = new this.web3.eth.Contract(erc20.abi, this.nectarAddress);
 
     nectarContract.methods
-      .approve(this.nectarAddress, tokensForSell)
+      .approve(account, tokensForSell)
       .call()
       .then(res => console.log(res));
   };
