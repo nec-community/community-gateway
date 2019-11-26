@@ -17,238 +17,114 @@ class FAQ extends Component {
         </div>
         <div className="faq-wrapper">
           <div className="faq-container">
-            <h2>What is Ethfinex?</h2>
+            <h2>What is DeversiFi?</h2>
             <p className="info-tip">
-              <a href="https://ethfinex.com" target="_blank">
-                Ethfinex{' '}
+              <a href="https://deversifi.com" target="_blank">
+                DeversiFi{' '}
               </a>{' '}
-              is building a hybrid trading and discussion platform for Ethereum tokens. We use the
-              term hybrid because users will have the option of trading on a centralized or
-              decentralized version of the platform. Market makers are incentivized to use the
-              platform through Nectar tokens. The goal of the platform is to democratize the
-              decision-making process required to operate a cryptocurrency exchange to our users.
+             is a high-speed, comprehensive decentralised trading platform for digital assets and is the only existing exchange where traders can execute large orders at low cost directly from their privately owned wallets. With no sign-up or registration needed, DeversiFi supports all of the most popular wallet choices such as Metamask, Squarelink, Portis, Ledger and Trezor. Incubated over a 2 year period by Ethfinex under the trustless.ethfinex banner, DeversiFi is now a fully independent exchange that meets the needs of professional traders, without compromising on speed, security or choice and will be the first-to-market exchange to be powered by StarkWare technology, bringing instant settlement, deep liquidity, enhanced security and competitive fees to non-custodial trading.
             </p>
+          </div>
+          <div className="faq-container">
+          <h2>What is Nectar.Community?</h2>
+            <p className="info-tip">
+              Nectar.Community is the decentralized governance portal for DeversiFi and is fully{' '}
+              <a href="https://github.com/ethfinex/community-gateway" target="_blank">
+                open source.{' '}
+              </a>{' '}
+               As well as functionality for submitting proposals and voting, the site also provides statistics, learning resources, and tools such as the trader leaderboard and the NEC burn event, which places Nectar token holders at the heart of the necDAO ecosystem.
+          </p>
           </div>
           <div className="faq-container">
             <h2>What is the Nectar token (NEC)?</h2>
             <p className="info-tip">
-              The Nectar token is a crypto token created by Ethfinex. The function of the token is
-              to incentivize market makers to provide liquidity on the platform, and give users a
-              way to participate in democratic decision making for the future of Ethfinex. Every
-              30-day period, 50% of all of the fees collected from trading activity are put into a
-              smart contract pool. Those who make markets on Ethfinex receive a proportional amount
-              of NEC based on their activity for the given period, and can redeem these tokens for
-              the fees in the pool.
+              The Nectar token is a deflationary governance and utility token created originally by Ethfinex as part of its journey towards decentralisation, and now underpinning DeversiFi’s continuation of that journey. The function of the token is to help grow the world’s largest decentralised exchange member base. Today the token incentivises holders with fee discounts on DeversiFi, and empowers them, as necDAO members, to participate in the collective decision making and direction of Nectar and DeversiFi. Furthermore, every week, up to 50% of the revenues from DeversiFi trading fees will be used in an auction type NEC “buy and burn” event, thus reducing the supply over time. To find out more information about the Nectar token please read the {' '} 
+              <a href="https://nectar.community/whitepaper" target="_blank">
+                Whitepaper </a>{' '} and visit our {' '}
+              <a href="https://support.deversifi.com/en/knowledgebase/5-the-nectar-token" target="_blank">
+                support pages.</a>{' '}              
             </p>
           </div>
           <div className="faq-container">
             <h2>Where can I get Nectar tokens?</h2>
             <p className="info-tip">
-              <a href="https://ethfinex.com" target="_blank">
-                Ethfinex{' '}
+              <a href="https://app.deversifi.com" target="_blank">
+                DeversiFi{' '}
               </a>{' '}
-              lists the Nectar token for{' '}
+              lists the {' '}
               <a href="https://www.coingecko.com/en/coins/nectar-token" target="_blank">
-                trading
+                Nectar token
               </a>{' '}
-              against USD, ETH, and BTC. Market makers (customers who place limit orders onto the
-              order book which are later executed) receive Nectar tokens at the end of every 30-day
-              period as a reward for providing liquidity to the exchange. By adding liquidity and
-              therefore creating well populated order books, aiding price discovery, these market
-              makers improve the experience of trading on Ethfinex for all users, since spreads are
-              reduced which in turn leads to a lower effective cost of trading. The amount of tokens
-              received is proportional to the user’s 30-day trading volume.
-            </p>
-          </div>
-          <div className="faq-container">
-            <h2>What is Nectar.Community?</h2>
-            <p className="info-tip">
-              Nectar.Community is the decentralized governance portal for Ethfinex. It is fully{' '}
-              <a href="https://github.com/ethfinex/community-gateway" target="blank">
-                open source
-              </a>
-              . Nectar tokens are earned by traders on Ethfinex and can be used to submit and vote
-              on coin listings. As well as functionality for submitting proposals and voting, the
-              site also provides statistics, learning resources, and tools to allow the Nectar token
-              holders to safely redeem their tokens for the proportional amount of Ethereum locked
-              in the Nectar smart contract.
+               for trading against USDt and ETH, and {' '}
+              <a href="https://www.bitfinex.com/" target="_blank">
+                Bitfinex </a>{' '}
+              against USD, ETH and BTC. This list will continue to grow as the implementation and usage of Nectar increases, and follows the removal of a KYC whitelist, which now opens the token up to the wider DeFi ecosystem.
             </p>
           </div>
         </div>
         <div className="faq-wrapper-dark">
           <div className="faq-container">
-            <h2>What is the Ethfinex Voting Token (EVT)?</h2>
+            <h2>What is the necDAO?</h2>
             <p className="info-tip">
-              The Ethfinex Voting Token is a bi-monthly distributed token used for the voting of
-              ERC20 tokens to be listed on Ethfinex. You can view the currently ongoing vote{' '}
-              <Link to="/token-leaderboard"> here </Link>. These tokens are distributed to Nectar
-              Token (NEC) holders every time a vote starts in a 1:1 ratio, eg. a user holding 5,000
-              NEC on the date and time that the voting begins, would receive 5,000 EVT.
+              The necDAO is a <b>decentralised autonomous organisation</b> with the goal of growing and governing the world’s largest decentralised exchange network, as well as promoting the utility of the Nectar token and the developmental growth of DeversiFi. It will launch as one of the most highly funded DAOs, owning up to 17,500 ETH, with its initial remit being to govern aspects of DeversiFi and Nectar. NEC holders will serve as de facto members and voters within the DAO and be able to make proposals, deploy capital and grow the DAO as they see fit. Developers, researchers and other individuals in the wider world will be free to submit proposals to the DAO which will subsequently be deliberated over by NEC holding members.
             </p>
           </div>
           <div className="faq-container">
-            <h2>Are EVTs used only for voting?</h2>
+            <h2>Will the necDAO be dependant on DeversiFi?</h2>
             <p className="info-tip">
-              Whilst the main purpose for the Ethfinex Voting Token is for the community to vote
-              which tokens will be listed, users are able to trade EVT on the platform, with the
-              EVT/USD pair.
+              The necDAO will exist independently of DeversiFi, but given the utility that DeversiFi gives NEC, there will be a close and synergistic relationship. For instance, NEC holders may wish to propose and fund new features for DeversiFi, agree marketing & events budgets, or propose additional incentives for traders who contribute to DeversiFi. The necDAO places the NEC community in direct control of a substantial amount of ETH and also puts them at the heart of DeversiFi.
             </p>
           </div>
           <div className="faq-container">
-            <h2>Is EVT a long term investment token?</h2>
+            <h2>Will proposals be made through the necDAO?</h2>
             <p className="info-tip">
-              EVT is a terrible long term investment. The tokens expire and disappear every two
-              weeks, at the end of a voting period. New EVT tokens are then distributed to NEC
-              holders. The EVT market is stopped 3 hours before voting ends, to ensure plenty of
-              time is left for remaining EVT tokens to be withdrawn for voting purposes.
+              Yes, when the necDAO launches nectar holders will be able to submit proposals, including ones to do with platform changes, enhancements and token listings. We originally implemented our own proposal and voting system into nectar.community as a way of empowering nectar holders to be active in the platform’s directional planning and having a say on which tokens get listed. Submitted proposals then went to DeversiFi admins for screening, and then into a voting phase for a predefined amount of time, allowing community members to cast their votes. Similarly, for token listings, interested projects submitted their application to the admins, who vetted and then placed suitable projects into a random draw mechanism. The results of which were given to the community to vote for listing spots. We then integrated the Kleros blockchain dispute resolution layer into the token listing process. This decentralisation of the vetting process empowered the community with the responsibility for curating projects interested in listing and paved the way for a more efficient governance mechanism. 
+It became clear however, that these voting processes were in need of a major overhaul, and thus the future voting process will be conducted via the necDAO. 
+</p>
+          </div>
+          <div className="faq-container">
+            <h2>Will proposals through the necDAO be binding?</h2>
+            <p className="info-tip">
+              As the future proposals will be on-chain, they therefore can be binding, unlike our previous proposal system. The necDAO will have decentralised governance at its core, and be underpinned by DAOstack’s holographic consensus methodologies.
             </p>
           </div>
           <div className="faq-container">
-            <h2>What happens to my EVT if I do not vote?</h2>
+            <h2>What types of events will I be able to vote on via necDAO?</h2>
             <p className="info-tip">
-              EVT are spent when voting for one of the tokens on the list, or trading on the
-              Ethfinex platform. All remaining EVT not used in voting expire at the end of the two
-              week period and the EVT markets on Ethfinex are then cleared. Users will be required
-              to vote or sell the EVT before expiration to avoid any loss.
-            </p>
-          </div>
-          <div className="faq-container">
-            <h2>If I withdraw my EVT to an external wallet, will they still expire?</h2>
-            <p className="info-tip">
-              Tokens withdrawn to external wallets will also expire and balances will disappear at
-              the end of the voting period. This is automatic and will expire across all Wallets.
-              EVT are then reissued based on users updated NEC balances, to be used in the next
-              token listing vote and when the EVT market begins again.
-            </p>
-          </div>
-          <div className="faq-container">
-            <h2>If the token we are voting on does not go through, do we get the EVT back?</h2>
-            <p className="info-tip">
-              No, as the EVT tokens expire every 2 weeks when the voting period ends, the EVT market
-              is cleared 3 hours before voting ends. Once voting ends the EVT tokens expire and new
-              tokens with a new contract address are issued to NEC holders at the ratio of 1:1.
+              As members of the necDAO, it will be possible to vote on events such as submitted proposals, potential token listings, platform improvements and governance methods. 
             </p>
           </div>
         </div>
         <div className="faq-wrapper">
           <div className="faq-container">
-            <h2>What is a proposal?</h2>
+            <h2>What is the DeversiFi Voting Token (DVT)?</h2>
             <p className="info-tip">
-              A proposal is a submission for a change to Ethfinex and how it operates. After
-              submission, proposals are then voted on by the community.
+              The DeversiFi Voting Token (previously the Ethfinex Voting Token EVT) is a distributed token used for the voting of ERC20 tokens to be listed on DeversiFi. Currently the voting process is on pause as we have been focusing on the Ethfinex to DeversiFi rebrand process. These tokens were distributed to Nectar Token (NEC) holders every time a vote started in a 1:1 ratio, eg. a user holding 5,000 NEC on the date and time that the voting began, received 5,000 DVT. These voting tokens were also tradeable on a USDt paired market on Ethfinex. As DVT tokens expire and disappear at the end of every voting period, they are not meant for long term hodling, as such practice will result in getting rekt.
             </p>
           </div>
           <div className="faq-container">
-            <h2>How can I submit a proposal? Can anyone submit a proposal?</h2>
+            <h2>How can I learn more about DeversiFi and the Nectar token?</h2>
             <p className="info-tip">
-              Anyone that holds Nectar tokens may submit a proposal to the platform, and can do so
-              using their Ethereum wallet via Metamask, Ledger Nano S, or an Ethereum Keystore
-              wallet file.
-            </p>
-          </div>
-          <div className="faq-container">
-            <h2>What happens after a proposal is submitted?</h2>
-            <p className="info-tip">
-              The proposal goes to Ethfinex administrators for review, and when accepted enters the
-              voting phase for a predefined amount of time, allowing community members to cast their
-              votes.
-            </p>
-          </div>
-          <div className="faq-container">
-            <h2>Are proposals binding?</h2>
-            <p className="info-tip">
-              Not yet, only when the governance layer goes on-chain. The on-chain governance layer
-              is irreversible and we’re taking our time to get it right. For the moment proposals
-              are considered advisory, to allow any users of Ethfinex and holders of Nectar tokens
-              to transparently give their opinion.
-            </p>
-          </div>
-          <div className="faq-container">
-            <h2>What types of event am I able to vote on?</h2>
-            <p className="info-tip">
-              Currently there are two major categories of events where you can vote:
-              <br />
-              <br />
-              1. Token listing selection.
-              <br />
-              <br />
-              2. Any Ethfinex improval suggestion made by the community. These can include new fee
-              structures, governance methods, referral schemes, or Nectar token functionality.
-              Further into the future we envision users voting on all operational decisions
-              affecting the platform.
-            </p>
-          </div>
-          <div className="faq-container">
-            <h2>How do tokens get selected to be included in a community listing vote?</h2>
-            <p className="info-tip">
-              The best starting point is to submit information via the Ethfinex{' '}
-              <a
-                href="https://support.ethfinex.com/hc/en-us/articles/115002526172-Listing-a-Token-on-Ethfinex"
-                target="_blank"
-              >
-                token listing form
-              </a>
-              . Along with our own review processes, community interest on the Ethfinex discussion
-              forums or other social channels is also important. We feel Ethfinex should aim to be
-              part of an industry wide effort to self-regulate, and so all tokens included in a
-              community listing vote have already met the minimum standards required according to
-              our own due diligence. Amongst other criteria, we look for original, open-source
-              projects which use blockchain technology to solve a real business or societal need.
-            </p>
-          </div>
-          <div className="faq-container">
-            <h2>How are token votes decided?</h2>
-            <p className="info-tip">
-              Every few weeks 12 tokens are to be placed up for community vote. All holders of the
-              Nectar token will receive an equal number of temporary voting tokens. These are spent
-              to vote for any of the tokens on the list, and can also be transferred to others who
-              you wish to vote on your behalf. The 3 tokens on the list which receive the highest
-              number of votes will then be listed at the end of the period. A new period will then
-              begin, with redistribution of temporary voting tokens. You can see an example of the
-              voting page <Link to="/token-leaderboard"> here </Link>.
-            </p>
-          </div>
-          <div className="faq-container">
-            <h2>What is the purpose of the Ethfinex Discussion forums?</h2>
-            <p className="info-tip">
-              The goal of the discussion forums is to foster learning around new tokens, and to
-              allow interest in new tokens to be evaluated from crowdsourced ratings and comments.
-              Users receive a reputational rating based on the quality of information they provide.
-              A higher reputational score carries more weight with respect to token ratings.
-            </p>
-          </div>
-          <div className="faq-container">
-            <h2>When will Ethfinex launch on-chain governance?</h2>
-            <p className="info-tip">
-              This is difficult to say and is likely still a long way off, as blockchain based
-              governance is still unchartered territory. We’re working as part of the{' '}
-              <a href="https://blog.aragon.one/announcing-aragon-labs-a679693429ae" target="_blank">
-                Aragon Working Group
+              Grab a cuppa and read the {' '}
+              <a href="https://nectar.community/whitepaper" target="_blank">
+                Nectar 2.0 Whitepaper,
               </a>{' '}
-              to share knowledge and expedite on-chain governance.
-            </p>
-          </div>
-          <div className="faq-container">
-            <h2>After being submitted, how long will a proposal remain open for voting?</h2>
-            <p className="info-tip">
-              The user submitting a proposal selects the time period, however this may need to be
-              adjusted to ensure all users have sufficient time to cast a vote if they wish to. We
-              anticipate that voting will always remain open for at least seven days, with longer
-              time periods for more critical decisions.
-            </p>
-          </div>
-          <div className="faq-container">
-            <h2>How can I learn more about Ethfinex and the Nectar token?</h2>
-            <p className="info-tip">
-              Join our active{' '}
-              <a href="https://t.me/joinchat/GgM7eBFC-BdMYaC_3hN4Kg" target="_blank">
+              join our active {' '}
+              <a href="https://t.me/DeversiFi" target="_blank">
                 Telegram
               </a>{' '}
-              channel and ask us anything, or find us on{' '}
-              <a href="https://twitter.com/ethfinex" target="_blank">
+              channel and ask us anything, or find us on {' '}
+              <a href="https://twitter.com/deversifi/" target="_blank">
                 Twitter
-              </a>{' '}
-              and tweet at us.
+                </a>{' '}
+              and send us a tweet. You may also navigate to {' '}
+              <a href="https://deversifi.com" target="_blank">
+                DeversiFi
+                </a>{' '}
+              or jump straight into decentralised trading at {' '}
+              <a href="https://app.deversifi.com" target="_blank">
+                app.deversifi.com.
+                </a>{' '}
             </p>
           </div>
         </div>
