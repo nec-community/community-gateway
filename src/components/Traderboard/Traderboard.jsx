@@ -212,7 +212,7 @@ class Traderboard extends Component {
 
     return (
       <div className="fish__badges">
-        {trader.isNECHolder ? <img src="/images/nectar.png" alt="" /> : null}
+        {trader.tokenNEC >= 1000 ? <img src="/images/nectar.png" alt="" /> : null}
         {amount >= 10 ** 5 ? (
           <img src={`/images/${imgSrc}.svg`} className="animated" alt="" />
         ) : null}
@@ -346,7 +346,11 @@ class Traderboard extends Component {
               <div className="right__part">
                 <div className="first__row">
                   <p className="bald__text">Competitions</p>
-                  <p className="with__arrow">Start trading</p>
+                  <p className="with__arrow">
+                    <a href="https://app.deversifi.com" target="_blank">
+                      Start trading
+                    </a>
+                  </p>
                 </div>
                 <div className="second__row">
                   {posts.map(post => (
@@ -367,40 +371,40 @@ class Traderboard extends Component {
             <div className={isFetching ? 'table__container__blur' : 'table__container'}>
               <table>
                 <thead>
-                  <tr>
-                    <th>{}</th>
-                    <th>WALLET ADDRESS</th>
-                    <th>USD VOLUME</th>
-                    <th
-                      data-tip={`A previous ${dropdownDateTextValue} period is used for comparison.`}
-                    >
-                      POSITION
-                    </th>
-                    <th>TROPHIES</th>
-                  </tr>
+                <tr>
+                  <th>{}</th>
+                  <th>WALLET ADDRESS</th>
+                  <th>USD VOLUME</th>
+                  <th
+                    data-tip={`A previous ${dropdownDateTextValue} period is used for comparison.`}
+                  >
+                    POSITION
+                  </th>
+                  <th>TROPHIES</th>
+                </tr>
                 </thead>
                 <tbody>
-                  {traders.map((trader, index) => (
-                    <tr key={trader.address}>
-                      <td>{index + 1}</td>
-                      <td>
-                        <div>
-                          <a
-                            href={`https://etherscan.io/address/${trader.address}`}
-                            target="_blank"
-                          >
-                            {trader.address}
-                          </a>
-                          {trader.isNewTrader ? (
-                            <span className="new__trader">new trader!</span>
-                          ) : null}
-                        </div>
-                      </td>
-                      <td>{this.calculateVolume(trader)}</td>
-                      <td>{this.renderPositionChanging(trader, index)}</td>
-                      <td>{this.renderBadges(trader)}</td>
-                    </tr>
-                  ))}
+                {traders.map((trader, index) => (
+                  <tr key={trader.address}>
+                    <td>{index + 1}</td>
+                    <td>
+                      <div>
+                        <a
+                          href={`https://etherscan.io/address/${trader.address}`}
+                          target="_blank"
+                        >
+                          {trader.address}
+                        </a>
+                        {trader.isNewTrader ? (
+                          <span className="new__trader">new trader!</span>
+                        ) : null}
+                      </div>
+                    </td>
+                    <td>{this.calculateVolume(trader)}</td>
+                    <td>{this.renderPositionChanging(trader, index)}</td>
+                    <td>{this.renderBadges(trader)}</td>
+                  </tr>
+                ))}
                 </tbody>
               </table>
               <ReactTooltip />
