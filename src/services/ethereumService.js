@@ -2,7 +2,7 @@ import TransportU2F from '@ledgerhq/hw-transport-u2f';
 import Eth from '@ledgerhq/hw-app-eth';
 import Tx from 'ethereumjs-tx';
 import Web3 from 'web3';
-import config from '../constants/config.dev.json';
+import config from '../constants/config.json';
 import abis from '../constants/abis.json';
 import { log, toDecimal } from './utils';
 import grenache from './grenacheService';

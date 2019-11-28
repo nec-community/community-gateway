@@ -3,7 +3,7 @@ import Web3 from 'web3';
 import './Auction.scss';
 import Diagram from './Diagrams/Diagram';
 import abis from '../../constants/abis.json';
-import config from '../../constants/config.dev.json';
+import config from '../../constants/config.json';
 import { convertToken } from '../../actions/traderAction';
 import Circle from './Diagrams/Circle';
 import BarDiagram from './Diagrams/BarDiagram';
