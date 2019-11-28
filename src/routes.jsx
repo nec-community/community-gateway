@@ -14,6 +14,7 @@ import TokenAbout from './components/TokenAbout/TokenAbout';
 import Traderboard from './components/Traderboard/Traderboard';
 import WhitePaper from './components/WhitePaper/WhitePaper';
 import Auction from './components/Auction/Auction';
+import DAO from './components/DAO/DAO';
 
 const Routes = () => (
   <Switch>
@@ -35,6 +36,8 @@ const Routes = () => (
 
     <Route exact path="/traderboard" component={Traderboard} />
     <Route exact path="/burn" component={Auction} />
+
+    <Route exact path="/dao" component={DAO} />
   </Switch>
 );
 
