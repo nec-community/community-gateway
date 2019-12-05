@@ -21,19 +21,30 @@ class DAO extends Component {
           <div className="header-desc-container">
             <div className="left-header">
             <p>
-              The Nectar DAO will govern etc etc. Learn more reading the whitepaper.
+              The Nectar DAO (necDAO) is the decentralized nerve-centre of Nectar.
+              It empowers the community to democratically drive development of the
+              Nectar ecosystem whilst giving people the world-over a new way to pitch
+              and be rewarded for their talents.
+            </p>
+            <h2>
+              But why what and how necDAO?
+            </h2>
+            <p>
+              For some background, it was Ethfinex who first developed Nectar - a
+              utility token designed to serve the Nectar ecosystem. They built visionary
+              governance tools and collected a whopping 50% of trading fees which
+              were pledged to market makers of the exchange. In August 2019, Ethfinex
+              closed their doors for good, coinciding with the launch of a brand
+              new entity - DeversiFi.
             </p>
             <p>
-              Copy to be written etc etc. Copy to be written etc etc. Copy to be written etc etc.
-              Copy to be written etc etc. Copy to be written etc etc. Copy to be written etc etc.
-              Copy to be written etc etc.
+              It is the guiding raison d'etre of DeversiFi to build infrastructure
+              facilitating the emergent transition to a new, open and decentralized world.
+              In that light, it was only right that DeversiFi carried on the Nectar
+              torch for Ethfinex, keeping it alight and assigning the remaining 17,000 ETH
+              to Nectar holders. It is this legacy, and these funds that launch the
+              largest DAO to date - necDAO.
             </p>
-            <p>
-              There are 3 ways to earn Reputation in the new organisation, which can be used to
-              vote on proposals. Proposals can be on a variety of topics, including on how the funds
-              previously pledged to Nectar token holders as part of the Ethfinex loyalty scheme can be spent.
-            </p>
-            <p>Read more about earning reputation and the launch of the DAO:</p>
             </div>
               <div className="right-header">
               <a
@@ -86,29 +97,42 @@ class DAO extends Component {
 
                 <h4>'Decentralised Autonomous Organisation'</h4>
                 <p>
-                    Imagine a company who's governance rules are programmed
-                    into the blockchain. Members democratically determine the
-                    decisions that are taken, crowdsourcing ideas and work.
+                    Stop and picture a company who’s governance rules are programmed into the blockchain.
+                    Open and transparent, for all to see. Members democratically determine the decisions taken,
+                    the allocation of resources and participate in the crowdsourcing of ideas,
+                    work and collaborate. All in a trustless manner, through a vote,
+                    the result of which is secured by smart-contracts.
                 </p>
 
                 <p>
-                    Read more at PROVIDE_SOME_LINK.
+                    DAOs make this possible. Small or large groups can collaborate remotely,
+                    ensuring TRUE stakeholders have REAL input whilst attracting the global talent pool,
+                    who can engage and capitalize on their skills in ways not possible before.
+                    Unlike legacy, top-down governance structures, we can now level the hierarchy,
+                    instead of depending on a small group of often over-stretched executives.
+                </p>
+                <p>
+                  We encourage you to continue learning, to get ahead of the curve and
+                  to waste no time in becoming the first-movers in necDAO.
                 </p>
 
                 <h4>How can you participate?</h4>
                 <p>
-                  One option is to make proposals, which can be submitted by anyone,
-                  and allows those with ideas to suggest them to be voted on by the
-                  organisation.
+                  There’s no sugar-coating it, the concept of a DAO can be tricky to grasp.
+                  But getting involved is can be as easy as Pi.
+                  There are two ways you can <b>dive in, and engage with the necDAO</b>:
                 </p>
+                <p><b>1. Become a member</b></p>
                 <p>
-                  The second way to participate is open to members of the DAO, who hold
-                  'Reputation'. These members can vote on proposals to decide whether
-                  they are accepted and ultimately determine the future of the organisation.
+                  Anyone can become a voting member of necDAO and enjoy the right to determine proposals.
+                  There are several ways to do this which we cover in the Reputation section later on.
                 </p>
+                <p><b>2. Become a proposer</b></p>
                 <p>
-                  There are several ways to earn Reputation which you can learn about
-                  in later sections.
+                  Anyone, anywhere (at any time!) can submit a proposal to necDAO
+                  provided it serves the Nectar ecosystem. Unlike proposals related to Nectar
+                  itself or the DAO, proposals directly relating to the functioning of
+                  the DeversiFi exchange will be subject to approval from the DeversiFi team.
                 </p>
               </div>
               <div>
@@ -126,7 +150,26 @@ class DAO extends Component {
 
                 <h4>How is a decentralised organisation born?</h4>
                 <p>
-                  Write some copy here which describes the launch process.
+                  The Nectar 2.0 whitepaper does a good job at narrating Nectar’s
+                  journey into full decentralization, timelining the milestones in
+                  the roadmap and how it got here. For some background, we recommend you give it a read.
+                </p>
+                <p>
+                  But for now, it goes without saying that launching a DAO of this
+                  magnitude requires...due-diligence. The founding Nectar team has
+                  spent months undergoing rigorous testing, including opening the
+                  necDAO bug-bounty program with rewards of up to $10,000. With
+                  testing close to finished, necDAO will be rolling out in two phases:
+                </p>
+                <p>
+                <strong>1. The Reputation Bootstrap Phase </strong> is the first opportunity
+                you will have to become a member and earn your Reputation in necDAO.
+                This period will last one month, followed by;
+                </p>
+                <p>
+                <strong>2. The Governance Phase </strong> This is the first time necDAO will
+                open its contracts for submitting proposals, voting and the active
+                governance process.
                 </p>
 
                 <h4>Important dates</h4>
@@ -162,22 +205,24 @@ class DAO extends Component {
 
                 <h4>What is Reputation in the DAO?</h4>
                 <p>
-                  To do describe what it can do. I.e. lets you vote on proposals and
-                  specifically decide how funds are spent.
+                  They say Reputation is worth more than money. Reputation refers
+                  to your membership and assigned voting power within necDAO.
+                  It is not a token and cannot be transferred or used outside the system.
                 </p>
 
-                <h4>How can Reputation be earned?</h4>
+                <h4>How to get Reputation in necDAO</h4>
                 <p>
-                  There are many ways to earn reputation:
+                  There are many ways you can claim your Reputation:
                   <ol>
-                    <li> Submitting a proposal which gets approved by the organisation.</li>
-                    <li> Staking Nectar tokens into the DAO (Perpetual)</li>
-                    <li> Receiving an initial airdrop (All Nectar Token Holders)</li>
-                    <li> Buying it using GEN during the initial bootstrap phase</li>
+                    <li> Submit a successful proposal. You can request Reputation as a reward when submitting proposals.</li>
+                    <li> Stake Nectar tokens. Staking Nectar will result in the most Reputation and is the recommended method.</li>
+                    <li> Claim an initial airdrop. This one-off event will airdrop Reputation to on-chain Nectar holders.</li>
+                    <li> Buy it in a GEN auction. You can bid for Reputation using GEN tokens during the initial bootstrap phase.</li>
                   </ol>
                 </p>
                 <p>
-                  Give more information on each method.
+                  More comprehensive information about these various options as well
+                  as the bootstrap phase can be found on our master FAQ page.
                 </p>
 
               </div>
@@ -196,17 +241,26 @@ class DAO extends Component {
 
                 <h4>What is staking?</h4>
                 <p>
-                  You will stake by using the app here etc etc
-                </p>
-                <p>
-                  The process will take x motnhs in total. You get more points for
-                  staking for a longer time etc. You can extend but not shorten.
-                  Takes NEC off the market.
+                  Staking involves locking Nectar tokens up for a certain amount of time.
+                  You are taking a risk in that you cannot transfer your tokens until the
+                  lock expires, however in return you get many benefits.
                 </p>
 
-                <h4>Benfits of staking NEC</h4>
+                <h4>Benefits of staking NEC</h4>
                 <p>
-                  Staking NEC gets you teslas
+                  This is by far the best way to earn Reputation.
+                  Nectar holders who stake will take advantage of a notably higher share (85%) of available Reputation.
+                  It is the necDAO after all and serves to empower Nectar holders.
+                </p>
+                <p>
+                  And it doesn’t end there! There are a number of positive side-effects
+                  to staking Nectar above and beyond gaining more Reputation.
+                  Not only does it reduce Circulating Supply by taking Nectar off
+                  the open market but it also xxxxx
+                </p>
+                <p>
+                  What if I don’t own Nectar yet but want to stake? Nectar is tradable
+                  against USDt and ETH on both DeversiFi and Bitfinex.
                 </p>
 
               </div>
@@ -221,19 +275,50 @@ class DAO extends Component {
           <div className="container">
             <div className="decorated">
               <div>
-                <h2 data-decoration="5">DAOstack</h2>
+                <h2 data-decoration="5">Proposals</h2>
 
-                <h4>What is DAOstack?</h4>
                 <p>
-                  Copy to be provided etc
+                  Whilst necDAO is open to proposals of all shapes and sizes, it
+                  is paramount that best practices are followed to ensure healthy
+                  functioning, longevity and to increase your chances of a successful
+                  submission. For the sharpest edge, proposers should follow this
+                  detailed blueprint, covering each section and why it’s important.
                 </p>
 
-                <h4>What is holographic consensus?</h4>
-                <p>A method for distributed governance etc etc </p>
+                <h4>What kinds of proposals can be submitted? </h4>
+                <p>
+                  Think outside the box! There is no limit to the scope of potential proposals,
+                  but to be a good fit for necDAO they need to be deliverable,
+                  reasonable and convincing whilst producing a real benefit to
+                  the Nectar ecosystem. Still not sure? Here are two examples to
+                  spark the imagination:
+                </p>
+                <ol>
+                  <li> Development of a gamified trader leaderboard for the DeversiFi exchange.
+                  This one actually happened, and was funded through a test DAO!
+                  You can see and use it today. This could theoretically be further
+                  improved on with another proposal
+                  </li>
+                  <li> Organization of a Nectar community summit in, Zanzibar?
+                  Okay, maybe not Zanzibar but if you’re a marketer, event organizer
+                  or community builder, you can put your skills to use to promote
+                  the Nectar ecosystem. Word of advice, be prepared to justify your ideas!
+                  </li>
+                </ol>
 
-                <h4>What is Alchemy?</h4>
-                <p>A tool used for voting etc etc </p>
-
+                <h4>What is the process for a proposal to pass?</h4>
+                <p>
+                  In short, a proposal is only successful once it has won either
+                  absolute or relative-majority approval, which depends on whether
+                  it’s boosted or not. For a deeper dive on the difference between
+                  the two, navigate to the master FAQ page here. To put it into
+                  three stages:
+                </p>
+                <ol>
+                  <li> The proposal is convincing, meets best-practices, and benefits the ecosystem.</li>
+                  <li> Stakeholders share their thoughts, fine-tune the proposal and align expectations.</li>
+                  <li> If all is well, stakeholders cast their vote and collectively determine its success. Geronimo!</li>
+                </ol>
               </div>
               <div>
                 <img src={winnersGif} alt="" />
@@ -245,15 +330,52 @@ class DAO extends Component {
         <div className="container">
           <div className="decorated">
             <div>
-              <h2 data-decoration="6">Proposals</h2>
+              <h2 data-decoration="6">DAOstack</h2>
 
-              <h4>What sort of proposals can be submitted?</h4>
+              <h4>What is DAOstack?</h4>
               <p>
-                Copy to be provided etc
+                You can think of DAOstack as Wordpress, but for DAOs. DAOstack is
+                a platform supplying the bricks (and blocks) needed to build reliable
+                yet effective structures for decentralized governance. Underpinned by blockchain,
+                smart-contracts and holographic consensus, they empower collectives
+                (just like the Nectar community) to meaningfully harmonize and
+                self-organize around a common purpose.
               </p>
 
-              <h4>What is the process for a proposal to be passed?</h4>
-              <p>Copy to be provided etc.</p>
+              <h4>What is Holographic Consensus?</h4>
+              <p>
+                This is a bit more technical. Holographic Consensus refers to the
+                sophisticated mechanism underpinning DAOstack’s approach to scalable,
+                decentralized decision making. They call it Holographic Consensus
+                on account of its metaphoric comparison to a hologram whereby every
+                little piece of the picture actually contains the information of the entire image.
+              </p>
+              <p>
+                So what it is then?
+              </p>
+              <p>
+                HC bridges the gap between scalability and resilience.
+                Requiring too much of a DAO’s collective attention (absolute-majority voting)
+                for every proposal makes scalability impossible. Using prediction markets,
+                HC can securely enable relative-majority voting, resulting in less
+                required attention. But that’s a gross simplification. If you prefer
+                the finer maths of life, read it in all its puzzling glory here.
+              </p>
+
+              <h4>What is Alchemy?</h4>
+              <p>
+                Alchemy refers to the DAOstack built DAO interface. The user-facing
+                portal within which proposals are submitted, voted on and where
+                discussions can be held.
+              </p>
+              <p>
+                It is from here you can see how much resource a DAO owns, how many members
+                it has, which proposals are on-going and which have passed/failed,
+                as well as finer details about the history, make-up and functioning of the DAO.
+              </p>
+              <p>
+                necDAO will be live soon! But for a primer, check out the Genesis Alpha DAO
+              </p>
 
             </div>
             <div>
