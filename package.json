@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "webpack-dev-server --history-api-fallback --compress --config ./build/webpack-dev.config.js --host=0.0.0.0",
     "prod": "webpack --config ./build/webpack-prod.config.js",
-    "prod-serve": "webpack-dev-server --https --history-api-fallback --compress --config ./build/webpack-prod.config.js"
+    "prod-serve": "webpack-dev-server --https --history-api-fallback --compress --config ./build/webpack-prod.config.js",
+    "build-dao": "cd src && git clone https://github.com/ethfinex/nectar-dao-staking.git && cd nectar-dao-staking && yarn && yarn build"
   },
   "engines": {
     "node": "10.x"
