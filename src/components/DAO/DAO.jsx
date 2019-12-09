@@ -138,7 +138,7 @@ class DAO extends Component {
 
                 <p>
                   DAOs make this possible. Small or large groups can collaborate remotely,
-                  ensuring <strong>true</strong> stakeholders have <strong>real</strong>
+                  ensuring <strong>true</strong> stakeholders have <strong>real</strong> &nbsp;
                   input whilst attracting the global talent pool, who can engage and
                   capitalize on their skills in ways not possible before.
                 </p>
@@ -201,15 +201,15 @@ class DAO extends Component {
                 <div className="important-dates-wrapper">
                   <div className="">
                     <span>Reputation bootstrap phase begins</span>
-                    <span>14th Dec 2019 </span>
+                    <span>18th Dec 2019 </span>
                   </div>
                   <div className="">
                     <span>Reputation bootstrap phase ends</span>
-                    <span>14th Jan 2019</span>
+                    <span>18th Jan 2019</span>
                   </div>
                   <div className="">
                     <span>Governance phase begins</span>
-                    <span>28th Jan 2019</span>
+                    <span>24th Jan 2019</span>
                   </div>
                 </div>
 
@@ -368,7 +368,7 @@ class DAO extends Component {
                 (just like the Nectar community) to meaningfully harmonize around a
                 common purpose. &nbsp;
                 <a
-                  href = "https://medium.com/daostack/an-explanation-of-daostack-in-fairly-simple-terms-d0e034739c5a"
+                  href = "https://medium.com/daostack/an-explanation-of-daostack-in-fairly-simple-terms-1956e26b374"
                   target="_blank"
                   rel="noopener noreferrer"
                 >Read more
