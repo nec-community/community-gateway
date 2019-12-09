@@ -5,7 +5,7 @@ import './Terms.scss'
 export default class Terms extends React.Component {
   render () {
   return (
-    <div>
+    <div class="terms-content">
       <p>
         Read this Participation Agreement (<strong>"Agreement"</strong>) carefully
         before confirming your intent to be bound by it and participating in the necDAO.
