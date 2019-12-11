@@ -64,8 +64,8 @@ class DAO extends Component {
               facilitating the emergent transition to a new, open and decentralized world.
               In that light, it was only right that DeversiFi carried on the Nectar
               torch for Ethfinex, keeping it alight and assigning the remaining 17,000 ETH
-              to Nectar holders. It is this legacy, and these funds that launch the
-              largest DAO to date - necDAO.
+              to Nectar holders. It is this legacy, and these funds that launch one of the
+              largest DAOs to date - necDAO.
             </p>
             </div>
               <div className="right-header">
@@ -102,22 +102,22 @@ class DAO extends Component {
           </div>
           <div className="toc-wrapper">
             <h3 onClick={() => scrollToSection('dao')} data-decoration="1">
-              <a href="#launch">What is a DAO?</a>
+              <a href="#what">What is a DAO?</a>
             </h3>
             <h3 onClick={() => scrollToSection('launch')} data-decoration="2">
-              <a href="#draw">Launch Process</a>
+              <a href="#launch">Launch Process</a>
             </h3>
             <h3 onClick={() => scrollToSection('reputation')} data-decoration="3">
-              <a href="#candidates">Reputation</a>
+              <a href="#reputation">Reputation</a>
             </h3>
             <h3 onClick={() => scrollToSection('staking')} data-decoration="4">
-              <a href="#vote">Staking Nectar</a>
+              <a href="#staking">Staking Nectar</a>
             </h3>
-            <h3 onClick={() => scrollToSection('daostack')} data-decoration="5">
-              <a href="#vote">DAOstack</a>
+            <h3 onClick={() => scrollToSection('proposals')} data-decoration="5">
+              <a href="#proposals">Proposals</a>
             </h3>
-            <h3 onClick={() => scrollToSection('proposals')} data-decoration="6">
-              <a href="#vote">Proposals</a>
+            <h3 onClick={() => scrollToSection('daostack')} data-decoration="6">
+              <a href="#daostack">DAOstack</a>
             </h3>
           </div>
         </div>
