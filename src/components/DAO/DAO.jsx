@@ -296,7 +296,7 @@ class DAO extends Component {
           </div>
         </section>
 
-        <section className="white" id="daostack">
+        <section className="white" id="proposals">
           <div className="container">
             <div className="decorated">
               <div>
@@ -353,7 +353,7 @@ class DAO extends Component {
             </div>
           </div>
         </section>
-        <section id="proposals">
+        <section id="daostack">
         <div className="container">
           <div className="decorated">
             <div>
