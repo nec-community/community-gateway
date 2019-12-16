@@ -205,11 +205,11 @@ class DAO extends Component {
                   </div>
                   <div className="">
                     <span>Reputation bootstrap phase ends</span>
-                    <span>18th Jan 2019</span>
+                    <span>17th Jan 2020</span>
                   </div>
                   <div className="">
                     <span>Governance phase begins</span>
-                    <span>24th Jan 2019</span>
+                    <span>24th Jan 2020</span>
                   </div>
                 </div>
 
