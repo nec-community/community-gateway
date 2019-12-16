@@ -139,27 +139,10 @@ export default class Terms extends React.Component {
           </p>
           <ol>
             <li>Rules of interpretation:
-              <ol>
-                <li>Terms written in Title Case are defined terms and have the meanings given to them in clause 2.2.</li>
-                <li>Clause headings shall not affect the interpretation of this Agreement.</li>
-                <li>A person includes a natural person, corporate or unincorporated body
-                (whether or not having separate legal personality), Smart Contract, a
-                decentralised autonomous organisation or similar, unless specified otherwise.</li>
-                <li>A reference to writing or written includes email andany Digital
-                Signature (as defined in clause 2.2).</li>
-                <li>An obligation of a party not to do something includes an obligation
-                not to allow that thing to be done.</li>
-                <li>A reference to this Agreement is a reference to this Agreement
-                as varied or novated (in each case, other than in breach of the
-                  terms of this Agreement) from time to time.</li>
-                <li>References to clauses are to the clauses of this Agreement.</li>
-                <li>Any words following the terms 'including, include, in particular,
-                for example' or any similar expression shall be construed as
-                illustrative and shall not limit the sense of the words,
-                description , definition , phrase or term preceding those terms.</li>
-                <li>Unless the context otherwise requires, words in the singular
-                shall include the plural and in the plural shall include the singular.</li>
-              </ol>
+              <p>Terms written in title case and/or in bold font are defined terms and have the meanings given to them in clause 2.</p>
+              <p>Clause headings shall not affect the interpretation of this Agreement.</p>
+              <p>A person includes a natural person, corporate or unincorporated body (whether or not having separate legal personality), Smart Contract, a decentralised autonomous organisation or similar, unless specified otherwise.</p>
+              <p>Reference to writing or written includes email and any Digital Signature (as defined in clause 2.2).</p>
             </li>
             <li>Definitions:
               <ol>
@@ -398,6 +381,231 @@ export default class Terms extends React.Component {
             </li>
             <li>
               Constant and dynamic regulatory developments with regard to crypto assets: Applicable laws may be uncertain and/or subject to clarification, implementation or change.
+            </li>
+          </ol>
+        </li>
+        <li><strong>COVENANTS</strong>
+          <ol>
+            <li>
+              You covenant with the other Parties as set out in clause10.2 and10.3, respectively, and undertake to comply with those covenants.
+            </li>
+            <li>
+              Each necDAO Reputation Holder shall:
+              <ol>
+                <li>
+                  actively participate in the decision-making process;
+                </li>
+                <li>
+                  support the purpose of the necDAO as described in the Background to this Agreement and refrain from any action that may conflict with or harm that purpose;
+                </li>
+                <li>
+                  not sell or transfer or otherwise dispose of in any manner (or purport to do so) all or any part of, or any interest in, the necDAO Reputation Holder's Reputation unless it is to give up control of the corresponding Wallet address by irreversible measures to an ownerless address;
+                </li>
+                <li>
+                  to the extent that the necDAO Reputation Holder has the capacity to do so, exercise their Reputation to procure that the provisions of this Agreement are properly and promptly observed and given full force and effect according to the spirit and intention of the Agreement;
+                </li>
+              </ol>
+            </li>
+            <li>
+              Each necDAO Participant (including each necDAO Reputation Holder) shall:
+              <ol>
+                <li>
+                  comply in all respects with all relevant laws to which You may be subject, if failure to do so would materially impair Your ability to perform Your obligations under this Agreement;
+                </li>
+                <li>
+                  not attempt to gain unauthorised access to the Vote Staking Interface or the Alchemy Earth Interface and/or to interact with the Smart Contracts in any matter not contemplated by this Agreement;
+                </li>
+                <li>
+                  not to sue the Company, the Related Parties or necDAO Participants for any of the Released Claims that you have waived, released, or discharged in clause 11 or for any other claims;
+                </li>
+                <li>
+                  inform Yourself continuously about the regulatory status of DLT and crypto assets to ensure compliance with the legal framework applicable to You when taking part in the decision-making process of the necDAO;
+                </li>
+                <li>
+                  comply with all legislation, regulations, professional standards and other provisions as may govern the conduct of the necDAO;
+                </li>
+                <li>
+                  comply with any applicable tax obligations in their jurisdiction arising from their interaction with the necDAO;
+                </li>
+                <li>
+                  not misuse the Vote Staking Interface, the Alchemy Earth Interface and/or the Smart Contract by knowingly introducing viruses, bugs, worms or other material that is malicious or technologically harmful;
+                </li>
+                <li>
+                  not use the necDAO to finance, engage in, or otherwise support any unlawful activities.
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li><strong>WAIVER AND RELEASE OF RECOURSE TO LEGAL ACTION</strong>
+          <ol>
+            <li>
+              You hereby irrevocably release and forever discharge all and/or any actions, suits, proceedings, claims, rights, demands, however arising, whether for damages, loss or injury sustained, loss of profits, accounting, set-offs, costs or expenses or for any other remedy, whether in England & Wales or any other jurisdiction, whether or not presently known to the Parties or to the law, and whether in law or equity, that You ever had, may have or hereafter can, shall or may have against the Company, any of its Related Parties or any other necDAO Participant arising out of or connected with this Agreement, the necDAO, or any other matter arising out of or connected with the relationship between the Parties (collectively, the ​“<strong>Released Claims
+              </strong>”​).
+            </li>
+            <li>
+              Each necDAO Participant agrees not to sue, commence, voluntarily aid in any way, prosecute or cause to be commenced or prosecuted against the Company, its Related Parties or any other necDAO Participant any action, suit, arbitral proceedings or other proceedings concerning the Released Claims in England & Wales or any other jurisdiction.
+            </li>
+          </ol>
+        </li>
+        <li><strong>INDEMNITY</strong>
+          <ol>
+            <li>
+              You shall indemnify the Company and the Related Parties against all liabilities, costs, expenses, damages and losses (including any direct, indirect or consequential losses, loss of profits, loss of reputation and all interest, penalties and legal costs (calculated on a full indemnity basis) and all other reasonable professional costs and expenses) suffered or incurred arising out of or in connection with Your breach of this Agreement, and any of Your acts or omissions that infringe the rights of any Party under this Agreement, including:
+              <ol>
+                <li>
+                  Your breach of any of the warranties, representations, waivers, releases and covenants contained in clauses 8 to 11;
+                </li>
+                <li>
+                  Your breach or negligent performance or non-performance of this Agreement;
+                </li>
+                <li>
+                  any claim made against the Company or any of its Related Parties for actual or alleged infringement of a third party's intellectual property rights arising out of or in connection with Your participation in the Reputation Bootstrap Period or Governance Period;
+                </li>
+                <li>
+                  any claim made against the Company or any of its Related Parties by a third party arising out of or in connection with Your breach of the warranties, representations, waivers, releases or covenants as contained in clauses 8 to 11;
+                </li>
+                <li>
+                  any claim made against the Company or any of its Related Parties by a third party for loss or damage to property arising out of or in connection with Your participation in the Governance Period of the necDAO;
+                </li>
+                <li>
+                  any claims made by You or other persons, for liabilities assessed against the Company, or any of the Related Parties, including but not limited to legal costs, attorneys' fees and dispute resolution expenses, arising out of or resulting from, directly or indirectly, in whole or in part, Your breach or failure to abide by any part of this Agreement.
+                </li>
+              </ol>
+            </li>
+            <li>
+              The provisions of this clause shall be for the benefit of the Company and its Related Parties and shall be enforceable the Company and also each of its Related Parties.
+            </li>
+            <li>
+              If a payment due from You under this clause is subject to tax (whether by way of direct assessment or withholding at its source), the Company and/ or the Related Parties shall be entitled to receive from You such amounts as shall ensure that the net receipt, after tax, to the Companies and the Related Parties in respect of the payment is the same as it would have been were the payment not subject to tax.
+            </li>
+          </ol>
+        </li>
+        <li><strong>DISCLAIMER OF WARRANTIES</strong>
+          <ol>
+            <li>
+              The necDAO is an experiment in the field of decentralized governance structures. Accordingly, the Foundational code, the Vote Staking Interface, the Alchemy Earth Interface and the coordination of the Vote Staking Period are provided on an “as is” and “as available” basis without any representation or warranty, whether express, implied or statutory, to the maximum extent permitted by applicable law. We specifically disclaim any implied warranties of title, legality validity, adequacy or enforceability, merchantability, fitness for a particular purpose and/or non-infringement. We do not make any representations or warranties that access to or use of the Foundational Code, the provision of the Vote Staking Interface and the Alchemy Earth Interface and coordination of the Reputation Bootstrap Period will be continuous, uninterrupted, timely, or error-free.
+            </li>
+          </ol>
+        </li>
+        <li><strong>LIMITATION OF LIABILITY</strong>
+          <ol>
+            <li>
+              Participation in or interaction with the necDAO is at a person’s own risk and the person assumes full responsibility for such participation or interaction. We exclude all implied conditions, warranties, representations or other terms that may apply to the Foundational Code, the Vote Staking Interface, the Alchemy Earth Interface and the coordination of the Reputation Bootstrap Period. We will not be liable for any loss or damage whether in contract, tort (including negligence), breach of statutory duty, or otherwise, even if foreseeable, arising under or in connection with the use of, or inability to use the Foundation Code, the Vote Staking Interface, the Alchemy Earth Interface or the coordination of the Reputation Bootstrap Period. We will not be liable for the loss of profits, sales, business, or revenue, business interruption, anticipated savings, business opportunity, goodwill or reputation or any indirect or consequential loss or damage.
+            </li>
+            <li>
+              Some jurisdictions do not allow the exclusion or limitation of incidental or consequential damages, disclaimers, exclusions, and limitations of liability under this Agreement will not apply to the extent prohibited by applicable law. insofar as the aforementioned elements of the Agreement can be applied in a legally compliant manner, they remain binding to the maximum extent permitted by applicable law.
+            </li>
+            <li>
+              Unless expressly provided otherwise in this Agreement, any remaining liability of the Parties for obligations under this Agreement shall be several only and extend only to any loss or damage arising out of their own breaches.
+            </li>
+          </ol>
+        </li>
+        <li><strong>VARIATION</strong>
+          <ol>
+            <li>
+              In the Governance Period, no variation of this Agreement shall be effective unless it is voted on by way of Proposal, which is accepted.
+            </li>
+          </ol>
+        </li>
+        <li><strong>SEVERABILITY</strong>
+          <ol>
+            <li>
+              If any provision of this Agreement is or becomes invalid, illegal or unenforceable, it shall be deemed modified to the minimum extent necessary to make it valid, legal and enforceable.
+            </li>
+            <li>
+              If such modification is not possible, the relevant provision shall be deemed deleted and replaced by the application of the law that complies with the remaining Agreement to the maximum extent. Any modification to or deletion of a provision under this clause shall not affect the validity and enforceability of the rest of this Agreement.
+            </li>
+          </ol>
+        </li>
+        <li><strong>ENTIRE AGREEMENT</strong>
+          <ol>
+            <li>
+              This Agreement constitutes the entire and exclusive agreement between the Parties regarding its subject matter and supersedes and replaces any previous or contemporaneous written or oral contract, promises, assurances, warranty, representation or understanding regarding its subject matter and/or the necDAO, whether written, coded or oral, including any version of the necDAO Whitepaper (​https://nectar.community/whitepaper​).
+            </li>
+            <li>
+              Each Party acknowledges that in entering into this Agreement they do not rely on, and shall have no remedy in respect of, any statement, representation, assurance or warranty (whether made innocently or negligently) that is not set out in this Agreement.
+            </li>
+            <li>
+              No party shall have a claim for innocent or negligent misrepresentation or misstatement based on any statement in this Agreement.
+            </li>
+          </ol>
+        </li>
+        <li><strong>NO WAIVER</strong>
+          <ol>
+            <li>
+              A failure or delay by any Party to exercise any right or remedy provided under this Agreement or by law shall not constitute a waiver of that or any other right or remedy, nor shall it prevent or restrict any further exercise of that or any other right or remedy.
+            </li>
+          </ol>
+        </li>
+        <li><strong>NO THIRD-PARTY RIGHTS</strong>
+          <ol>
+            <li>
+              Unless expressly stated otherwise, this Agreement does not give rise to any rights under the Contracts (Rights of Third Parties) Act 1999 to enforce any term of this Agreement.
+            </li>
+            <li>
+              The rights of the Parties to terminate, rescind or agree any variation, waiver or settlement under this Agreement are not subject to the consent of any third party.
+            </li>
+          </ol>
+        </li>
+        <li><strong>RELATIONSHIP OF THE PARTIES</strong>
+          <ol>
+            <li>
+              Nothing in this Agreement is intended to, nor shall create any partnership, joint venture, agency or trusteeship.
+            </li>
+            <li>
+              The Parties agree on the coordination form of a Distributed Heterarchical Network.
+            </li>
+            <li>
+              Each Party confirms:
+              <ul>
+                <li>
+                  it is acting on its own behalf and not for the benefit of any other person;
+                </li>
+                <li>
+                  it is liable for its own taxes;
+                </li>
+                <li>
+                  the Parties have no fiduciary duties or equivalent obligations towards each other.
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </li>
+        <li><strong>FORCE MAJEURE</strong>
+          <ol>
+            <li>
+              If the Foundational Code, the coordination of the Vote Staking Period and/or provision of the Vote Staking Interface are affected, hindered or made impossible in whole or in part by a Force Majeure Event, this shall under no circumstances be deemed a breach of this Agreement and no loss or damage shall be claimed by reason thereof.
+            </li>
+          </ol>
+        </li>
+        <li><strong>NO ASSIGNMENT</strong>
+          <ol>
+            <li>
+              necDAO Participants may not assign or transfer any of their rights or duties arising out of or in connection with this Agreement to a third party. Any such assignment or transfer shall be void and shall not impose any obligation or liability on the Parties to the assignee or transferee.
+            </li>
+            <li>
+              The Company may assign its rights or duties arising out of or in connection with this Agreement to any of their affiliates or in connection with a merger or other disposition of all or substantially all of their assets.
+            </li>
+          </ol>
+        </li>
+        <li><strong>DISPUTE RESOLUTION</strong>
+          <ol>
+            <li>
+              You agree and understand that by entering into this agreement, you expressly waive any right, if any, to a trial by jury and right to participate in a class action lawsuit.
+            </li>
+            <li>
+              In the event a Dispute cannot be resolved amicably in accordance with clause 23, you must first refer the Dispute to proceedings under the International Chamber of Commerce ("ICC") Mediation Rules, which Rules are deemed to be incorporated by reference into this clause 23. The place of mediation shall be London, United Kingdom. The language of the mediation proceedings shall be English.
+            </li>
+            <li>
+              If the Dispute has not been settled pursuant to the ICC Mediation Rules within 40 days following the filing of a Request for Mediation in accordance with the ICC Mediation Rules or within such other period as the parties to the Dispute may agree in writing, such Dispute shall thereafter be finally settled under the Rules of Arbitration of the International Chamber of Commerce by three arbitrators appointed in accordance with the said Rules. The seat of Arbitration shall be London, United Kingdom. The governing law of this arbitration clause shall be the laws of England and Wales. The language of the arbitration shall be English. The Emergency Arbitrator Provisions shall not apply.
+            </li>
+          </ol>
+        </li>
+        <li><strong>GOVERNING LAW</strong>
+          <ol>
+            <li>
+              This Agreement shall be governed by and construed in accordance with the substantive laws of England & Wales without regard to conflict of laws principles but with the Hague Principles on the Choice of Law in International Commercial Contracts hereby incorporated by reference.
             </li>
           </ol>
         </li>
