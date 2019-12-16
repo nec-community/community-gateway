@@ -133,7 +133,7 @@ export default class TermsModal extends React.Component {
         <ModalBody>
           <Terms/>
         </ModalBody>
-        <AcceptTerms onClick={handleClose}>Confirm</AcceptTerms>
+        <AcceptTerms><a href='https://stake.nectar.community'>Confirm</a></AcceptTerms>
       </Modal>
     )
   }
