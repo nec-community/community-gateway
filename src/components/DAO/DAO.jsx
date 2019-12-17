@@ -79,7 +79,6 @@ class DAO extends Component {
               </a>
               <br/>
               <br/>
-              {/*
               <a
                 className="side-badge"
                 href="#"
@@ -91,13 +90,6 @@ class DAO extends Component {
                 isOpen={this.state.isTermsModalOpen}
                 handleClose={this.toggleTermsModal}
               />
-              */}
-              <a
-                className="side-badge"
-                href="#"
-              >
-              Starting: 18th December
-              </a>
             </div>
           </div>
           <div className="toc-wrapper">
