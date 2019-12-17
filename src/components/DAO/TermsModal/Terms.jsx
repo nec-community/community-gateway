@@ -308,6 +308,42 @@ export default class Terms extends React.Component {
                   <li>in the case of an expired Regular Proposal, returning the total Upstake and Downstake to its respective Predictor’s.</li>
                 </ul>
               </p>
+              <p>
+                ​“<strong>Proposal</strong>”: ​a suggestion for actions to be taken by the necDAO functionally categorised into any of the three necDAO Schemes, which may be submitted by anyone to be voted on by the necDAO Reputation Holders in accordance with the governance parameters and the DAOstack's Framework.
+              </p>
+              <p>
+                ​“<strong>Proposer</strong>”: ​a person submitting a Proposal to the necDAO.
+              </p>
+              <p>
+                ​“<strong>Related Parties</strong>”: ​​the Company’s parents, subsidiaries, affiliates, assigns, transferees as well as any of its representatives, principals, agents, directors, officers, employees, consultants, members, shareholders or guarantors.
+              </p>
+              <p>
+                ​“<strong>Reputation</strong>”: ​​a measure of voting power in the necDAO that attaches to a specific Wallet address and is non-transferable, whereby the greater the amount of Reputation a person holds, the greater the person's voting power.
+              </p>
+              <p>
+                ​“<strong>Reputation Bootstrap Period</strong>”: ​the time period beginning once the necDAO contract is deployed and lasing 30 days, with the distribution of the Reputation occurring during the Freeze Period.
+              </p>
+              <p>
+                ​“<strong>Smart Contract</strong>”: ​autonomous software code that is deployed on the Ethereum Blockchain.
+              </p>
+              <p>
+                ​“<strong>Upstake</strong>”: ​GEN staked in favour of the acceptance of a Proposal.
+              </p>
+              <p>
+                ​“<strong>Vote Staking Interface</strong>”: ​a graphical user interface developed by dOrg to facilitate participation in the Reputation Bootstrap Period.
+              </p>
+              <p>
+                ​“<strong>Vote Staking Period</strong>”: ​​the time period beginning with the deployment of the necDAO Smart Contract and ending 30 days later, with the distribution of the Reputation occurring during the Freeze Period.
+              </p>
+              <p>
+                ​“<strong>Wallet</strong>”: ​an ERC20 compatible wallet through which necDAO Stakeholders have access to and control of their private keys.
+              </p>
+              <p>
+                ​“<strong>We, Our, Us</strong>”: ​at all times refers to the Company, and with the start of the Governance Period also to the necDAO.
+              </p>
+              <p>
+                ​“<strong>You, Your, Yourself</strong>”: ​​refers, at all times, to each necDAO Participant.
+              </p>
             </li>
           </ol>
         </li>
