@@ -145,11 +145,169 @@ export default class Terms extends React.Component {
               <p>Reference to writing or written includes email and any Digital Signature (as defined in clause 2.2).</p>
             </li>
             <li>Definitions:
-              <ol>
-                <li>TBC</li>
-                <li>TBC</li>
-                <li>TBC</li>
-              </ol>
+              <p>
+                ​“<strong>Agreement</strong>” ​refers to this Participation Agreement entered into by the Parties.
+              </p>
+              <p>
+                ​“<strong>Agreement Termination Event</strong>”: prior to the Governance Period, decision by the Company to terminate this Agreement; and during the Governance Period, a successful proposal submitted to the necDAO that the Agreement shall terminate at a specified time.
+              </p>
+              <p>
+                ​“<strong>Alchemy Earth Interface</strong>”: A generic graphical user interface for DAOs built on DAOstack's Framework to facilitate, among other things, the submission, review, voting on and boosting of DAO proposals, which may be used to interact with the necDAO.
+              </p>
+              <p>
+                ​“<strong>Boosted Proposal</strong>”: A Pending Proposal (1) whose Confidence Level meets the Boosting Threshold without dropping below it during the Pending Proposal Period and (2) that is activated by an External Call.
+              </p>
+              <p>
+                ​“<strong>Boosted Proposal Voting Period</strong>”: The period a Boosted Proposal stays open for voting, which is for Boosted Proposals affecting:
+                <ul>
+                  <li>Scheme registrar - (admin scheme) - 14 days</li>
+                  <li>Generic scheme - ENS Registrar - 14 days</li>
+                  <li>Generic scheme - ENS public resolver - 14 days</li>
+                  <li>Contribution reward (funding) - 7 days</li>
+                  <li>Generic scheme - Whitelist - 2 days</li>
+                </ul>
+              </p>
+              <p>
+                ​“<strong>Boosted Threshold</strong>”: Boosting Threshold Constant to the power of the number of outstanding Boosted Proposals.
+              </p>
+              <p>
+                ​“<strong>Boosting Threshold Constant </strong>”: a factor of:
+                <ul>
+                  <li>Scheme registrar - (admin scheme) - 1.3</li>
+                  <li>Generic scheme - ENS Registrar - 1.3</li>
+                  <li>Generic scheme - ENS public resolver - 1.3</li>
+                  <li>Contribution reward (funding) - 1.2</li>
+                  <li>Generic scheme - Whitelist - 1.15</li>
+                </ul>
+              </p>
+              <p>
+                ​“<strong>Company Termination Event</strong>”: as defined in clause 6.
+              </p>
+              <p>
+                ​“<strong>Confidence Level</strong>”: total Upstake divided by the total Downstake of a Proposal.
+              </p>
+              <p>
+                ​“<strong>Consumer</strong>”: ​a natural person who is acting outside the scope of an economic activity
+              </p>
+              <p>
+                ​“<strong>Contribution Award Scheme</strong>”: a Smart Contract that allows by way of Proposal changing rewards for token contribution, including sending tokens or ETH​ ​to or assign Reputation to a Wallet address.
+              </p>
+              <p>
+                ​“<strong>DAO</strong>”: ​decentralised Autonomous organisation
+              </p>
+              <p>
+                ​“<strong>DAOstack's Framework</strong>”: Smart Contract framework for decentralised autonomous organisations developed by DAOstack based on its ARC version v0.0.1-rc34.
+              </p>
+              <p>
+                ​“<strong>Digital Signature</strong>”: a transaction on the Ethereum Blockchain, which confirms that a person controls a respective Wallet address and which includes the hash to this Agreement.
+              </p>
+              <p>
+                ​“<strong>Digitally Signed</strong>”: means executing a transaction on the Ethereum Blockchain that includes a hash to this Agreement.
+              </p>
+              <p>
+                ​“<strong>Distributed Heterarchical Network</strong>”: A network where the elements of the organisation are distributed and unranked, such as, for purposes of illustration, Bitcoin or Ethereum.
+              </p>
+              <p>
+                ​“<strong>DLT</strong>”:  distributed ledger technology.
+              </p>
+              <p>
+                ​“<strong>Dispute</strong>”: ​any dispute arising out of or in connection with this Agreement, including any question regarding its existence, validity or termination as well as any tort or other non-contractual claim.
+              </p>
+              <p>
+                ​“<strong>Downstake</strong>”: GEN staked against the acceptance of a Proposal.
+              </p>
+              <p>
+                ​“<strong>necDAO</strong>”: a Distributed Heterarchical Network, regularly referred to as a decentralised autonomous organisation (a "DAO"), created by the deployment of the Foundational Code, which allows the necDAO Reputation Holders to interact and manage resources transparently, and to which this Agreement refers.
+              </p>
+              <p>
+                ​“<strong>necDAO Participant</strong>”: ​a person who Digitally Signed this Agreement, including any necDAO Reputation Holder.
+              </p>
+              <p>
+                ​“<strong>necDAO Reputation Holder</strong>”: the owner(s) of an Ethereum address with an amount of Reputation.
+              </p>
+              <p>
+                ​“<strong>necDAO Schemes</strong>”: ​the Reputation Allocation Schemes, the ENS Register Scheme, and the Reward Contribution Scheme.
+              </p>
+              <p>
+                ​“<strong>necDAO Smart Contracts</strong>”: set of Smart Contracts based on DAOstack's Framework, including the necDAO Schemes and the governance parameters, and the Vote Staking Smart Contracts.
+              </p>
+              <p>
+                ​“<strong>necDAO Stakeholder</strong>”: ​a person who participates in the governance processes of the necDAO, including a necDAO Reputation Holder, a necDAO Participant, a Predictor and Proposer.
+              </p>
+              <p>
+                ​“<strong>Ethereum Blockchain</strong>”: the open source, public, blockchain-based distributed computing platform and operating system featuring Smart Contract (scripting) functionality.
+              </p>
+              <p>
+                ​“<strong>Expire</strong>”: ​a Regular Proposal expires at the end of the Regular Proposal Voting Period, if it neither met the Non-Boosted Acceptance Threshold nor its complement, the Non-Boosted Rejection Threshold, during the Regular Proposal Voting Period.
+              </p>
+              <p>
+                ​“<strong>External Call</strong>”: A function call to the necDAO Smart Contracts executed by any Wallet address to effect a change in the Proposal’s state in accordance with the consensus rules.
+              </p>
+              <p>
+                ​“<strong>External Call Reward</strong>”: GEN amount paid to a person placing an External Call to execute a Boosted Proposal,whichis(t/15O)%butatmost10%ofthetotalUpstakeoftherespectiveBoostedProposal,where​ti​s the number of seconds passed since the conclusion of Proposal voting.
+              </p>
+              <p>
+                ​“<strong>Force Majeure Event</strong>”: ​any event beyond our reasonable control, including, but not limited to, flood, extraordinary weather conditions, earthquake, or other act of God, fire, war, insurrection, riot, labor dispute, accident, action of government, communications, power failure, or equipment or software malfunction or bugs including network splits or Forks or unexpected changes in a network upon which the provision of the Vote Staking Interface and the coordination of the Reputation Bootstrap Period rely, as well as hacks, phishing attacks, distributed denials of service or any other security attacks on the Foundational Code.
+              </p>
+              <p>
+                ​“<strong>Fork</strong>”: a change to the underlying protocol of a blockchain that results in more than one version of that blockchain.
+              </p>
+              <p>
+                ​“<strong>Foundational Code</strong>”: ​the time period between the end of the Reputation Bootstrap Period and the Governance Period.
+              </p>
+              <p>
+                ​“<strong>Freeze Period</strong>”: ​the time period between the end of the Reputation Bootstrap Period and the Governance Period.
+              </p>
+              <p>
+                ​“<strong>GEN</strong>”: DAOstack's native ERC20 token.
+              </p>
+              <p>
+                ​“<strong>Governance Period</strong>”: The open-ended time period starting at the end of the Freeze Period with the simultaneous activation of all dxDAO schemes.
+              </p>
+              <p>
+                ​“<strong>NEC</strong>”: Nectar Token
+              </p>
+              <p>
+                ​“<strong>Nectar Smart Contract</strong>”: the Nectar Token contract with Ethereum address - 0xcc80c051057b774cd75067dc48f8987c4eb97a5e
+              </p>
+              <p>
+                ​“<strong>Non-Boosted Acceptance Threshold</strong>”: ​the percentage of Reputation votes required for a Regular Proposal to be accepted, which is for all necDAO Schemes more than 50% of the outstanding Reputation of the necDAO (i.e. the absolute majority).
+              </p>
+              <p>
+                ​“<strong>Non- Boosted Rejection Threshold</strong>”: ​the percentage of Reputation votes required for a Regular Proposal to be rejected by vote (as distinguished from rejection by expiration), which is for all necDAO Schemes 50% or more of the outstanding Reputation of the necDAO.
+              </p>
+              <p>
+                ​“<strong>Party Termination Event</strong>”: ​has the meaning given in clause 6.
+              </p>
+              <p>
+                ​“<strong>Pending Proposal</strong>”: a Proposal whose Confidence Level passed the Boosting Threshold within the Pending Proposal Period, whereby it will revert to being a Regular Proposal if its Confidence Level drops below its earlier Boosting Threshold at any point during the Pending Proposal Period.
+              </p>
+              <p>
+                ​“<strong>Pending Proposal Period</strong>”: he period a Pending Proposal stays pending after having passed its Boosting Threshold and is for Proposals affecting:
+                <ul>
+                  <li>Scheme registrar - (admin scheme) - 2 days</li>
+                  <li>Generic scheme - ENS Registrar - 2 days</li>
+                  <li>Generic scheme - ENS public resolver - 2 days</li>
+                  <li>Contribution reward (funding) - 1 days</li>
+                  <li>Generic scheme - Whitelist - 4 hours</li>
+                </ul>
+              </p>
+              <p>
+                ​“<strong>Pre-boost Voting Reputation Stake</strong>”: ​in each necDAO Scheme, 4% of a necDAO Reputation Holder's Reputation deducted for voting on a Regular Proposal or a Proposal prior to it being boosted, and returned to the necDAO Reputation Holder, if the necDAO Reputation Holder's vote aligns with the voting outcome, and retained, where this is not the case.
+              </p>
+              <p>
+                ​“<strong>Predictor</strong>”: ​a person participating in the Prediction Challenge.
+              </p>
+              <p>
+                ​“<strong>Prediction Challenge</strong>”: ​a mechanism built into the dxDAO Proposal process that involves:
+                <ul>
+                  <li>the necDAO automatically staking the DAO stake against a Proposal’s acceptance;</li>
+                  <li>allowing anyone to stake GEN in favour of or against a Proposal;</li>
+                  <li>in the case of an accepted or rejected Boosted Proposal, paying the total Upstake (minus the External Call Reward) and the total Downstake to the Predictors, whose predictions where aligned with the correct outcome, distributed in proportion to their share of the GEN staked on the correct outcome;</li>
+                  <li>in the case of a Regular Proposal decided by vote, paying the total GEN staked on the correct outcome and incorrect outcome to the Predictors, whose predictions where aligned with the correct outcome, distributed in proportion to their share of the GEN staked on the correct outcome;</li>
+                  <li>in the case of an expired Regular Proposal, returning the total Upstake and Downstake to its respective Predictor’s.</li>
+                </ul>
+              </p>
             </li>
           </ol>
         </li>
