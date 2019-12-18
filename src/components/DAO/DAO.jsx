@@ -82,6 +82,13 @@ class DAO extends Component {
               <a
                 className="side-badge"
                 href="#"
+              >
+                Earn voting power here once the first stage of the DAO launches
+              </a>
+              {/*
+              <a
+                className="side-badge"
+                href="#"
                 onClick={this.toggleTermsModal}
               >
               Participate Now
@@ -90,6 +97,7 @@ class DAO extends Component {
                 isOpen={this.state.isTermsModalOpen}
                 handleClose={this.toggleTermsModal}
               />
+              */}
             </div>
           </div>
           <div className="toc-wrapper">
