@@ -89,7 +89,17 @@ class DAO extends Component {
               <TermsModal
                 isOpen={this.state.isTermsModalOpen}
                 handleClose={this.toggleTermsModal}
-              />
+                />
+              <br/>
+              <br/>
+              <a
+                className=“side-badge”
+                href=“https://support.deversifi.com/en/knowledgebase/8-necdao”
+                target=“_blank”
+                rel=“noopener noreferrer”
+                >
+              Visit The necDAO Knolwedge Base 
+              </a>
             </div>
           </div>
           <div className="toc-wrapper">
