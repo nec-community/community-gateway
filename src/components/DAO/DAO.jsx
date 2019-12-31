@@ -98,7 +98,7 @@ class DAO extends Component {
                 target="_blank"
                 rel="noopener noreferrer"
                 >
-              Visit The necDAO Knolwedge Base 
+              Visit The necDAO Knowledge Base 
               </a>
             </div>
           </div>
