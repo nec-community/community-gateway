@@ -93,10 +93,10 @@ class DAO extends Component {
               <br/>
               <br/>
               <a
-                className=“side-badge”
-                href=“https://support.deversifi.com/en/knowledgebase/8-necdao”
-                target=“_blank”
-                rel=“noopener noreferrer”
+                className="side-badge"
+                href="https://support.deversifi.com/en/knowledgebase/8-necdao"
+                target="_blank"
+                rel="noopener noreferrer"
                 >
               Visit The necDAO Knolwedge Base 
               </a>
