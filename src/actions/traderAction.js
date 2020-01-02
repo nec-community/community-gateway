@@ -21,8 +21,8 @@ const fetchedTraders = payload => ({
   dates: payload.dates,
 });
 
-const endpoint = 'https://api.deversifi.com/api/v1/';
-const startDate = new Date('2019/01/01');
+const endpoint = 'https://api.deversifi.com/v1/pub/';
+const startDate = new Date('2020/01/01');
 const startDateTimestamp = Date.UTC(
   startDate.getFullYear(),
   startDate.getMonth(),
@@ -157,10 +157,9 @@ export const fetchTradersByCustomDate = (startDate, endDate, token) => async dis
 };
 
 export async function convertToken(token) {
-  const cors = 'https://cors-anywhere.herokuapp.com/';
-  const api = 'https://api-pub.bitfinex.com/v2/tickers?symbols=t';
+  const api = 'https://api.deversifi.com/bfx/v2/tickers?symbols=t';
 
-  const response = await fetch(`${cors}${api}${token}USD`);
+  const response = await fetch(`${api}${token}USD`);
   const result = await response.json();
 
   return result[0][1];

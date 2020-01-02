@@ -594,13 +594,13 @@ const delegatedTokenBalance = async (account, _votingToken) => {
 };
 
 const getEthPrice = async () => {
-  const tickerRes = await fetch('https://api.ethfinex.com/v2/ticker/tETHUSD');
+  const tickerRes = await fetch('https://api.deversifi.com/bfx/v2/ticker/tETHUSD');
   const ticker = await tickerRes.json();
   return ticker[6];
 };
 
 const getNecPrice = async () => {
-  const tickerRes = await fetch('https://api.ethfinex.com/v2/ticker/tNECUSD');
+  const tickerRes = await fetch('https://api.deversifi.com/bfx/v2/ticker/tNECUSD');
   const ticker = await tickerRes.json();
   return ticker[6];
 };
