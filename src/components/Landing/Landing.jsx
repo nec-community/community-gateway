@@ -64,7 +64,7 @@ class Landing extends Component {
     });
     this.unlistenHistoryChange = history.listen(this.historyChange);
 
-    fetch('https://api.deversifi.com/api/v1/last24HoursVolume', {
+    fetch('https://api.deversifi.com/v1/pub/last24HoursVolume', {
       method: 'GET',
       mode: 'cors',
       signal: this.controller.signal,

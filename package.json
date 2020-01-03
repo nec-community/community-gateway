@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "webpack-dev-server --history-api-fallback --compress --config ./build/webpack-dev.config.js --host=0.0.0.0",
     "prod": "webpack --config ./build/webpack-prod.config.js",
-    "prod-serve": "webpack-dev-server --https --history-api-fallback --compress --config ./build/webpack-prod.config.js"
+    "prod-serve": "webpack-dev-server --https --history-api-fallback --compress --config ./build/webpack-prod.config.js",
+    "build-dao": "cd src && git clone https://github.com/ethfinex/nectar-dao-staking.git && cd nectar-dao-staking && yarn && yarn build"
   },
   "engines": {
     "node": "10.x"
@@ -63,6 +64,7 @@
     "sqlite3": "^4.1.0",
     "style-loader": "^0.20.1",
     "web3": "1.2.4",
+    "styled-components": "^4.4.1",
     "webpack": "^3.10.0",
     "write-file-webpack-plugin": "^4.2.0"
   },

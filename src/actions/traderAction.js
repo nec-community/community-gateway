@@ -1,4 +1,10 @@
 import { FETCH_TRADERS_BY_TOKEN, FETCH_TRADERS_START, FETCH_TRADERS_ERROR } from './actionTypes';
+import Web3 from 'web3';
+import abis from '../constants/abis.json';
+import config from '../constants/config.json';
+
+const web3 = new Web3();
+web3.setProvider(new web3.providers.HttpProvider(config.providerUrl));
 
 const startFetching = () => ({
   type: FETCH_TRADERS_START,
@@ -15,8 +21,8 @@ const fetchedTraders = payload => ({
   dates: payload.dates,
 });
 
-const endpoint = 'https://api.deversifi.com/api/v1/';
-const startDate = new Date('2019/01/01');
+const endpoint = 'https://api.deversifi.com/v1/pub/';
+const startDate = new Date('2020/01/01');
 const startDateTimestamp = Date.UTC(
   startDate.getFullYear(),
   startDate.getMonth(),
@@ -34,13 +40,16 @@ function formatDate(date) {
   );
 }
 
+async function getAddressNectarBalance(address) {
+  const contract = new web3.eth.Contract(abis.necTokenContract, config.necTokenContract);
+
+  return contract.methods.balanceOf(address).call();
+}
+
 async function getNECHolders(traders) {
-  return fetch(`${endpoint}tokenRanking/NEC`)
-    .then(resp => resp.json())
-    .then(resp => {
-      const NECHoldersAddresses = resp.filter(el => el.amount >= 1000).map(el => el.address);
-      return traders.forEach(el => (el.isNECHolder = NECHoldersAddresses.includes(el.address)));
-    });
+  return traders.forEach(el =>
+    getAddressNectarBalance(el.address).then(res => (el.tokenNEC = res / 10 ** 18))
+  );
 }
 
 async function getNewTraders(traders) {
@@ -147,11 +156,10 @@ export const fetchTradersByCustomDate = (startDate, endDate, token) => async dis
   }
 };
 
-export async function convertToken(tokenFrom, tokenTo) {
-  const cors = 'https://cors-anywhere.herokuapp.com/';
-  const api = 'https://api-pub.bitfinex.com/v2/tickers?symbols=t';
+export async function convertToken(token) {
+  const api = 'https://api.deversifi.com/bfx/v2/tickers?symbols=t';
 
-  const response = await fetch(`${cors}${api}${tokenFrom}${tokenTo}`);
+  const response = await fetch(`${api}${token}USD`);
   const result = await response.json();
 
   return result[0][1];

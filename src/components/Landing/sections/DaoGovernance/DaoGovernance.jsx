@@ -23,7 +23,11 @@ export default function DaoGovernance() {
       <Link to="/whitepaper#page=19" className="landing__link dao-governance__link">
         Find out more
       </Link>
-      <p className="dao-governance__label">Coming soon</p>
+      
+      <Link to="/dao" className="dao-governance__label">
+        Visit DAO page
+      </Link>
+      
     </section>
   );
 }

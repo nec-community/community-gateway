@@ -16,5 +16,23 @@
 }
 
 .dao-governance__link {
-  margin: 20px 0 40px;
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 232px;
+  height: 50px;
+  margin-top: 77px;
+
+  mix-blend-mode: normal;
+  background-color: #6326ff;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: rgba(#6326ff, 0.8);
+  }
 }
