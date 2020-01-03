@@ -39,10 +39,10 @@ class Auction extends Component {
     if (typeof window.web3 !== 'undefined') {
       this.web3 = new Web3(window.web3.currentProvider);
     } else {
-      this.web3 = new Web3(new Web3.providers.HttpProvider('https://kovan.infura.io'));
+      this.web3 = new Web3(new Web3.providers.HttpProvider(config.providerUrl));
     }
 
-    this.engineAddress = '0x8AaEEa652EBD90fB8D64A6cac09a0293CE62dD45';
+    this.engineAddress = config.necEngineContract;
     this.nectarAddress = config.necTokenContract;
   }
 
@@ -143,7 +143,7 @@ class Auction extends Component {
               <p>
                 Once per week DeversiFi exchange trading fees that are pledged to NEC token holders
                 are auctioned. NEC holders can sell their NEC in exchange for the auctioned ETH.
-                 Any NEC tokens sold in the auctions are burned.
+                Any NEC tokens sold in the auctions are burned.
               </p>
               <div className="overview__auction">
                 <p>
