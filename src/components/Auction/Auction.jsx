@@ -178,6 +178,7 @@ const TABS = [
     ],
   },
 ];
+
 class Auction extends Component {
   constructor(props) {
     super(props);
@@ -316,13 +317,13 @@ class Auction extends Component {
                     onClick={() => this.onTabClick(index)}
                   >
                     <p>{tab.name}</p>
-                    <span>100</span>
+                    <span>{tab.titleAmount}</span>
                     <span className="little__text">1$</span>
                   </button>
                 </li>
               ))}
             </ul>
-            <ActiveTabComponent data={activeTabIndex} />
+            <ActiveTabComponent tabContent={TABS[activeTabIndex]} />
           </section>
           <section>
             <h3>Current Auction - live</h3>
