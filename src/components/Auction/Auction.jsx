@@ -11,22 +11,173 @@ import BarDiagram from './Diagrams/BarDiagram';
 const TABS = [
   {
     name: 'Circulating NEC',
+    titleAmount: 100,
     Component: Diagram,
+    data: [
+      {
+        name: 'Page A',
+        pv: 2400,
+        amt: 2400,
+      },
+      {
+        name: 'Page B',
+        pv: 1398,
+        amt: 2210,
+      },
+      {
+        name: 'Page C',
+        pv: 9800,
+        amt: 2290,
+      },
+      {
+        name: 'Page D',
+        pv: 3908,
+        amt: 2000,
+      },
+      {
+        name: 'Page E',
+        pv: 4800,
+        amt: 2181,
+      },
+      {
+        name: 'Page F',
+        pv: 3800,
+        amt: 2500,
+      },
+      {
+        name: 'Page G',
+        pv: 4300,
+        amt: 2100,
+      },
+    ],
   },
   {
     name: 'Burned NEC',
+    titleAmount: 50,
     Component: Diagram,
+    data: [
+      {
+        name: 'Page A',
+        pv: 1200,
+        amt: 1200,
+      },
+      {
+        name: 'Page B',
+        pv: 2398,
+        amt: 1210,
+      },
+      {
+        name: 'Page C',
+        pv: 8800,
+        amt: 3290,
+      },
+      {
+        name: 'Page D',
+        pv: 2908,
+        amt: 3000,
+      },
+      {
+        name: 'Page E',
+        pv: 5800,
+        amt: 1181,
+      },
+      {
+        name: 'Page F',
+        pv: 4800,
+        amt: 1500,
+      },
+      {
+        name: 'Page G',
+        pv: 5300,
+        amt: 3100,
+      },
+    ],
   },
   {
     name: 'DeversiFi NEC/ETH Price',
+    titleAmount: 140,
     Component: Diagram,
+    data: [
+      {
+        name: 'Page A',
+        pv: 3000,
+        amt: 2000,
+      },
+      {
+        name: 'Page B',
+        pv: 798,
+        amt: 2210,
+      },
+      {
+        name: 'Page C',
+        pv: 8900,
+        amt: 2290,
+      },
+      {
+        name: 'Page D',
+        pv: 1908,
+        amt: 2000,
+      },
+      {
+        name: 'Page E',
+        pv: 4080,
+        amt: 2181,
+      },
+      {
+        name: 'Page F',
+        pv: 3008,
+        amt: 2500,
+      },
+      {
+        name: 'Page G',
+        pv: 9300,
+        amt: 2100,
+      },
+    ],
   },
   {
     name: 'Next Auction ETH',
+    titleAmount: 70,
     Component: Diagram,
+    data: [
+      {
+        name: 'Page A',
+        pv: 5400,
+        amt: 2400,
+      },
+      {
+        name: 'Page B',
+        pv: 1398,
+        amt: 2210,
+      },
+      {
+        name: 'Page C',
+        pv: 6800,
+        amt: 2290,
+      },
+      {
+        name: 'Page D',
+        pv: 9908,
+        amt: 2000,
+      },
+      {
+        name: 'Page E',
+        pv: 4800,
+        amt: 2181,
+      },
+      {
+        name: 'Page F',
+        pv: 3800,
+        amt: 2500,
+      },
+      {
+        name: 'Page G',
+        pv: 300,
+        amt: 2100,
+      },
+    ],
   },
 ];
-
 class Auction extends Component {
   constructor(props) {
     super(props);
@@ -142,8 +293,8 @@ class Auction extends Component {
             <div className="overview__text">
               <p>
                 Once per week DeversiFi exchange trading fees that are pledged to NEC token holders
-                are auctioned. NEC holders can sell their NEC in exchange for the auctioned ETH.
-                Any NEC tokens sold in the auctions are burned.
+                are auctioned. NEC holders can sell their NEC in exchange for the auctioned ETH. Any
+                NEC tokens sold in the auctions are burned.
               </p>
               <div className="overview__auction">
                 <p>
