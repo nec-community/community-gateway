@@ -234,6 +234,18 @@ class Auction extends Component {
     );
   }
 
+  onTabClick = index => {
+    const { activeTabIndex } = this.state;
+
+    if (index === activeTabIndex) {
+      return null;
+    }
+
+    this.setState({
+      activeTabIndex: index,
+    });
+  };
+
   formatNextAuction = () => {
     const { nextAuctionMs } = this.state;
 
@@ -245,18 +257,6 @@ class Auction extends Component {
     minutes = minutes < 10 ? `0${minutes}` : minutes;
 
     return `${days}d ${hours}h ${minutes}m`;
-  };
-
-  onTabClick = index => {
-    const { activeTabIndex } = this.state;
-
-    if (index === activeTabIndex) {
-      return null;
-    }
-
-    this.setState({
-      activeTabIndex: index,
-    });
   };
 
   changeInputValue = e => {
