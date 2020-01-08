@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Web3 from 'web3';
 import './Auction.scss';
 import Diagram from './Diagrams/Diagram';
 import abis from '../../constants/abis.json';
 import config from '../../constants/config.json';
-import { convertToken } from '../../actions/traderAction';
+import {
+  convertToken,
+  fetchCirculatingNec,
+  fetchBurnedNec,
+  fetchDeversifiNecEth,
+  fetchNextAuctionEth,
+} from '../../actions/traderAction';
 import Circle from './Diagrams/Circle';
 import BarDiagram from './Diagrams/BarDiagram';
 
@@ -13,169 +21,21 @@ const TABS = [
     name: 'Circulating NEC',
     titleAmount: 100,
     Component: Diagram,
-    data: [
-      {
-        name: 'Page A',
-        pv: 2400,
-        amt: 2400,
-      },
-      {
-        name: 'Page B',
-        pv: 1398,
-        amt: 2210,
-      },
-      {
-        name: 'Page C',
-        pv: 9800,
-        amt: 2290,
-      },
-      {
-        name: 'Page D',
-        pv: 3908,
-        amt: 2000,
-      },
-      {
-        name: 'Page E',
-        pv: 4800,
-        amt: 2181,
-      },
-      {
-        name: 'Page F',
-        pv: 3800,
-        amt: 2500,
-      },
-      {
-        name: 'Page G',
-        pv: 4300,
-        amt: 2100,
-      },
-    ],
   },
   {
     name: 'Burned NEC',
     titleAmount: 50,
     Component: Diagram,
-    data: [
-      {
-        name: 'Page A',
-        pv: 1200,
-        amt: 1200,
-      },
-      {
-        name: 'Page B',
-        pv: 2398,
-        amt: 1210,
-      },
-      {
-        name: 'Page C',
-        pv: 8800,
-        amt: 3290,
-      },
-      {
-        name: 'Page D',
-        pv: 2908,
-        amt: 3000,
-      },
-      {
-        name: 'Page E',
-        pv: 5800,
-        amt: 1181,
-      },
-      {
-        name: 'Page F',
-        pv: 4800,
-        amt: 1500,
-      },
-      {
-        name: 'Page G',
-        pv: 5300,
-        amt: 3100,
-      },
-    ],
   },
   {
     name: 'DeversiFi NEC/ETH Price',
     titleAmount: 140,
     Component: Diagram,
-    data: [
-      {
-        name: 'Page A',
-        pv: 3000,
-        amt: 2000,
-      },
-      {
-        name: 'Page B',
-        pv: 798,
-        amt: 2210,
-      },
-      {
-        name: 'Page C',
-        pv: 8900,
-        amt: 2290,
-      },
-      {
-        name: 'Page D',
-        pv: 1908,
-        amt: 2000,
-      },
-      {
-        name: 'Page E',
-        pv: 4080,
-        amt: 2181,
-      },
-      {
-        name: 'Page F',
-        pv: 3008,
-        amt: 2500,
-      },
-      {
-        name: 'Page G',
-        pv: 9300,
-        amt: 2100,
-      },
-    ],
   },
   {
     name: 'Next Auction ETH',
     titleAmount: 70,
     Component: Diagram,
-    data: [
-      {
-        name: 'Page A',
-        pv: 5400,
-        amt: 2400,
-      },
-      {
-        name: 'Page B',
-        pv: 1398,
-        amt: 2210,
-      },
-      {
-        name: 'Page C',
-        pv: 6800,
-        amt: 2290,
-      },
-      {
-        name: 'Page D',
-        pv: 9908,
-        amt: 2000,
-      },
-      {
-        name: 'Page E',
-        pv: 4800,
-        amt: 2181,
-      },
-      {
-        name: 'Page F',
-        pv: 3800,
-        amt: 2500,
-      },
-      {
-        name: 'Page G',
-        pv: 300,
-        amt: 2100,
-      },
-    ],
   },
 ];
 
@@ -186,6 +46,7 @@ class Auction extends Component {
       activeTabIndex: 1,
       convert: 1,
       tokensForSell: '',
+      data: [],
     };
 
     if (typeof window.web3 !== 'undefined') {
@@ -219,11 +80,17 @@ class Auction extends Component {
           engineContract.methods
             .getNextAuction()
             .call()
-            .then(res =>
+            .then(async res => {
+              await this.props.fetchCirculatingNec();
+              await this.props.fetchBurnedNec();
+              await this.props.fetchDeversifiNecEth();
+              await this.props.fetchNextAuctionEth();
+
               this.setState({
                 nextAuctionMs: res[0],
-              })
-            );
+                data: this.props.burnedNecData,
+              });
+            });
         }
       );
     });
@@ -235,11 +102,28 @@ class Auction extends Component {
     );
   }
 
-  onTabClick = index => {
+  onTabClick = async index => {
     const { activeTabIndex } = this.state;
 
     if (index === activeTabIndex) {
       return null;
+    }
+    if (index === 0) {
+      this.setState({
+        data: this.props.circulatingNecData,
+      });
+    } else if (index === 1) {
+      this.setState({
+        data: this.props.burnedNecData,
+      });
+    } else if (index === 2) {
+      this.setState({
+        data: this.props.deversifiNecEthData,
+      });
+    } else if (index === 3) {
+      this.setState({
+        data: this.props.nextAuctionEthData,
+      });
     }
 
     this.setState({
@@ -323,7 +207,7 @@ class Auction extends Component {
                 </li>
               ))}
             </ul>
-            <ActiveTabComponent tabContent={TABS[activeTabIndex]} />
+            <ActiveTabComponent tabContent={TABS[activeTabIndex]} data={this.state.data} />
           </section>
           <section>
             <h3>Current Auction - live</h3>
@@ -411,4 +295,27 @@ class Auction extends Component {
   }
 }
 
-export default Auction;
+Auction.propTypes = {
+  fetchCirculatingNec: PropTypes.func.isRequired,
+  fetchBurnedNec: PropTypes.func.isRequired,
+  fetchDeversifiNecEth: PropTypes.func.isRequired,
+  fetchNextAuctionEth: PropTypes.func.isRequired,
+  circulatingNecData: PropTypes.Array,
+  burnedNecData: PropTypes.Array,
+  deversifiNecEthData: PropTypes.Array,
+  nextAuctionEthData: PropTypes.Array,
+};
+
+const mapStateToProps = state => ({
+  circulatingNecData: state.traders.circulatingNecData,
+  burnedNecData: state.traders.burnedNecData,
+  deversifiNecEthData: state.traders.deversifiNecEthData,
+  nextAuctionEthData: state.traders.nextAuctionEthData,
+});
+
+export default connect(mapStateToProps, {
+  fetchCirculatingNec,
+  fetchBurnedNec,
+  fetchDeversifiNecEth,
+  fetchNextAuctionEth,
+})(Auction);
