@@ -9,7 +9,7 @@ export function renderTooltip({ active, payload }) {
 
   return (
     <div className="tooltip__container">
-      <p>{`${payload[0].value}`}</p>
+      <p>{payload && payload[0] && `${payload[0].value}`}</p>
       {/* <span className="tooltip__triangle" /> */}
     </div>
   );
@@ -27,7 +27,7 @@ export default class Diagram extends Component {
         <LineChart
           width={870}
           height={300}
-          data={this.props.tabContent.data}
+          data={this.props.data}
           margin={{ top: 20, right: 50, bottom: 30 }}
         >
           <CartesianGrid vertical={false} stroke="#000000" />
