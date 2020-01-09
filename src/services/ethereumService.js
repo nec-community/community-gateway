@@ -24,7 +24,8 @@ const setWeb3toMetamask = () => {
     return (window._web3 = new Web3(ethereum));
   } else if (window.web3) {
     return (window._web3 = new Web3(web3.currentProvider));
-  } else throw new Error('Web3 provider not found');
+  }
+  throw new Error('Web3 provider not found');
 };
 
 const setupWeb3 = () => {
@@ -70,6 +71,16 @@ const ethToWei = ethVal => window._web3.utils.toWei(`${ethVal}`);
 
 const getBlockNumber = () => window._web3.eth.getBlockNumber();
 
+const getChartBlockRange = async days => {
+  if (!days) {
+    days = config.chartDuration;
+  }
+  const toBlock = await getBlockNumber();
+  const blocksInDays = Math.floor((days * 24 * 60 * 60) / 17);
+  const fromBlock = Math.floor(toBlock - blocksInDays);
+  return { fromBlock, toBlock };
+};
+
 const getNetwork = () => window._web3.eth.net.getId();
 
 const getProposalContract = () =>
@@ -83,6 +94,9 @@ const getAdvancedTokenProposalContract = () =>
 
 const getTokenContract = _address =>
   new window._web3.eth.Contract(abis.necTokenContract, _address || config.necTokenContract);
+
+const getEngineContract = _address =>
+  new window._web3.eth.Contract(abis.engineContract, _address || config.necEngineContract);
 
 const getVotingTokenContract = _votingToken =>
   new window._web3.eth.Contract(abis.necTokenContract, _votingToken);
@@ -110,7 +124,7 @@ const ledgerListAccounts = async (pathPrefix, start, n) => {
   const eth = new Eth(_transport);
   const accounts = [];
   for (let i = 0; i < n; i++) {
-    const path = pathPrefix + '/' + (start + i);
+    const path = `${pathPrefix}/${start + i}`;
     const account = await eth.getAddress(path);
     account.path = path;
     accounts.push(account);
@@ -691,4 +705,7 @@ export default {
   undelegate,
   getDelegate,
   hasVotedOnTokenListing,
+  getEngineContract,
+  getTokenContract,
+  getChartBlockRange,
 };
