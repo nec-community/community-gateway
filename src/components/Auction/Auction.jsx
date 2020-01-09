@@ -6,13 +6,13 @@ import './Auction.scss';
 import Diagram from './Diagrams/Diagram';
 import abis from '../../constants/abis.json';
 import config from '../../constants/config.json';
+import { convertToken } from '../../actions/traderAction';
 import {
-  convertToken,
   fetchCirculatingNec,
   fetchBurnedNec,
   fetchDeversifiNecEth,
   fetchNextAuctionEth,
-} from '../../actions/traderAction';
+} from '../../actions/auctionActions';
 import Circle from './Diagrams/Circle';
 import BarDiagram from './Diagrams/BarDiagram';
 
@@ -21,21 +21,25 @@ const TABS = [
     name: 'Circulating NEC',
     titleAmount: 100,
     Component: Diagram,
+    title: 'circulatingNecData',
   },
   {
     name: 'Burned NEC',
     titleAmount: 50,
     Component: Diagram,
+    title: 'burnedNecData',
   },
   {
     name: 'DeversiFi NEC/ETH Price',
     titleAmount: 140,
     Component: Diagram,
+    title: 'deversifiNecEthData',
   },
   {
     name: 'Next Auction ETH',
     titleAmount: 70,
     Component: Diagram,
+    title: 'nextAuctionEthData',
   },
 ];
 
@@ -108,26 +112,10 @@ class Auction extends Component {
     if (index === activeTabIndex) {
       return null;
     }
-    if (index === 0) {
-      this.setState({
-        data: this.props.circulatingNecData,
-      });
-    } else if (index === 1) {
-      this.setState({
-        data: this.props.burnedNecData,
-      });
-    } else if (index === 2) {
-      this.setState({
-        data: this.props.deversifiNecEthData,
-      });
-    } else if (index === 3) {
-      this.setState({
-        data: this.props.nextAuctionEthData,
-      });
-    }
 
     this.setState({
       activeTabIndex: index,
+      data: this.props[TABS[index].title],
     });
   };
 
@@ -300,17 +288,13 @@ Auction.propTypes = {
   fetchBurnedNec: PropTypes.func.isRequired,
   fetchDeversifiNecEth: PropTypes.func.isRequired,
   fetchNextAuctionEth: PropTypes.func.isRequired,
-  circulatingNecData: PropTypes.Array,
-  burnedNecData: PropTypes.Array,
-  deversifiNecEthData: PropTypes.Array,
-  nextAuctionEthData: PropTypes.Array,
 };
 
 const mapStateToProps = state => ({
-  circulatingNecData: state.traders.circulatingNecData,
-  burnedNecData: state.traders.burnedNecData,
-  deversifiNecEthData: state.traders.deversifiNecEthData,
-  nextAuctionEthData: state.traders.nextAuctionEthData,
+  circulatingNecData: state.auction.circulatingNecData,
+  burnedNecData: state.auction.burnedNecData,
+  deversifiNecEthData: state.auction.deversifiNecEthData,
+  nextAuctionEthData: state.auction.nextAuctionEthData,
 });
 
 export default connect(mapStateToProps, {
