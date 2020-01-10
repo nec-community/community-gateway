@@ -39,3 +39,6 @@ export const FETCH_CIRCULATING_NEC_DATA = 'fetch_circulating_nec_data';
 export const FETCH_BURNED_NEC = 'fetch_burned_nec';
 export const FETCH_DEVERSIFI_NEC_ETH_DATA = 'fetch_deversifi_nec_eth_data';
 export const FETCH_NEXT_AUCTION_ETH_DATA = 'fetch_next_auction_eth_data';
+
+export const FETCH_CURRENT_AUCTION_SUMMARY = 'fetch_current_auction_summary';
+export const FETCH_AUCTION_INTERVAL_DATA = 'fetch_auction_interval_data';
