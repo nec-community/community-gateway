@@ -3,9 +3,10 @@ import {
   FETCH_BURNED_NEC,
   FETCH_DEVERSIFI_NEC_ETH_DATA,
   FETCH_NEXT_AUCTION_ETH_DATA,
+  FETCH_CURRENT_AUCTION_SUMMARY,
+  FETCH_AUCTION_INTERVAL_DATA,
 } from './actionTypes';
 import Web3 from 'web3';
-import abis from '../constants/abis.json';
 import config from '../constants/config.json';
 import eth from '../services/ethereumService';
 
@@ -13,7 +14,7 @@ const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider(config.providerUrl));
 
 export async function getBurnedNEC() {
-  const account = await eth.getAccount();
+  // const account = await eth.getAccount();
   const engineContract = eth.getEngineContract();
   const blockRange = eth.getChartBlockRange();
   console.log(blockRange);
@@ -44,8 +45,7 @@ export async function getBurnedNEC() {
       event: 'AuctionClose',
       signature: '0xa6cc937511bcbe4aa9f9693416797c7d255412e27bda9ef791a45903f7e97d4e',
       raw: {
-        data:
-          '0x0000000000000000000000000000000000000000000000000de0b6b3a76400000000000000000000000000000000000000000000000000000000000000000000',
+        data: '0x0000000000000000',
         topics: [Array],
       },
     },
@@ -71,8 +71,7 @@ export async function getBurnedNEC() {
       event: 'AuctionClose',
       signature: '0xa6cc937511bcbe4aa9f9693416797c7d255412e27bda9ef791a45903f7e97d4e',
       raw: {
-        data:
-          '0x0000000000000000000000000000000000000000000000000de0b6b3a76400000000000000000000000000000000000000000000000000000000000000000000',
+        data: '0x0000000000000000',
         topics: [Array],
       },
     },
@@ -98,8 +97,7 @@ export async function getBurnedNEC() {
       event: 'AuctionClose',
       signature: '0xa6cc937511bcbe4aa9f9693416797c7d255412e27bda9ef791a45903f7e97d4e',
       raw: {
-        data:
-          '0x0000000000000000000000000000000000000000000000000de0b6b3a76400000000000000000000000000000000000000000000000000000000000000000000',
+        data: '0x0000000000000000',
         topics: [Array],
       },
     },
@@ -125,8 +123,7 @@ export async function getBurnedNEC() {
       event: 'AuctionClose',
       signature: '0xa6cc937511bcbe4aa9f9693416797c7d255412e27bda9ef791a45903f7e97d4e',
       raw: {
-        data:
-          '0x0000000000000000000000000000000000000000000000000de0b6b3a76400000000000000000000000000000000000000000000000000000000000000000000',
+        data: '0x0000000000000000',
         topics: [Array],
       },
     },
@@ -152,8 +149,7 @@ export async function getBurnedNEC() {
       event: 'AuctionClose',
       signature: '0xa6cc937511bcbe4aa9f9693416797c7d255412e27bda9ef791a45903f7e97d4e',
       raw: {
-        data:
-          '0x0000000000000000000000000000000000000000000000000de0b6b3a76400000000000000000000000000000000000000000000000000000000000000000000',
+        data: '0x0000000000000000',
         topics: [Array],
       },
     },
@@ -169,57 +165,48 @@ export async function getBurnedNEC() {
   return burnedNec;
 }
 
-export const fetchCirculatingNec = data => ({
-  type: FETCH_CIRCULATING_NEC_DATA,
-  circulatingNecData: [
-    {
-      name: 'Page A',
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: 'Page B',
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: 'Page C',
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: 'Page D',
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: 'Page E',
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: 'Page F',
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: 'Page G',
-      pv: 4300,
-      amt: 2100,
-    },
-  ],
+export async function getCirculatingNEC() {
+  const tokenContract = eth.getTokenContract();
+  const blockRange = await eth.getChartBlockRange();
+  const blockDiff = Math.floor((blockRange.toBlock - blockRange.fromBlock) / 7);
+  const circulatingNec = [];
+  for (let block = blockRange.fromBlock; block <= blockRange.toBlock; block += blockDiff) {
+    tokenContract.methods.totalSupply().call(null, block, (error, totalSupply) => {
+      circulatingNec.push({
+        name: `Point ${block}`,
+        pv: Math.floor(totalSupply / 10 ** 22) + block,
+        amount: block,
+      });
+    });
+  }
+  console.log('Circulating NEC Data ', circulatingNec);
+  return circulatingNec;
+}
+const fetchedBurnedNec = burnedNecData => ({
+  type: FETCH_BURNED_NEC,
+  burnedNecData,
 });
 
-export const fetchBurnedNec = data => {
-  const burnedNec = getBurnedNEC();
-  console.log('burnedNec in action ', burnedNec);
-  return {
-    type: FETCH_BURNED_NEC,
-    burnedNecData: burnedNec,
-  };
+export const fetchBurnedNec = () => async dispatch => {
+  const burnedNecData = await Promise.all(await getBurnedNEC());
+  dispatch(fetchedBurnedNec(burnedNecData));
 };
 
-export const fetchDeversifiNecEth = data => ({
+const fetchedCirculatingNec = circulatingNecData => ({
+  type: FETCH_CIRCULATING_NEC_DATA,
+  circulatingNecData,
+});
+
+export const fetchCirculatingNec = () => async dispatch => {
+  const circulatingNecData = await getCirculatingNEC();
+  dispatch(fetchedCirculatingNec(circulatingNecData));
+};
+
+export const fetchDeversifiNecEth = data => async (dispatch, getState) => {
+  dispatch(fetchedDeversifiNecEth());
+};
+
+const fetchedDeversifiNecEth = data => ({
   type: FETCH_DEVERSIFI_NEC_ETH_DATA,
   deversifiNecEthData: [
     {
@@ -260,7 +247,7 @@ export const fetchDeversifiNecEth = data => ({
   ],
 });
 
-export const fetchNextAuctionEth = data => ({
+const fetchedNextAuctionEth = data => ({
   type: FETCH_NEXT_AUCTION_ETH_DATA,
   nextAuctionEthData: [
     {
@@ -300,3 +287,75 @@ export const fetchNextAuctionEth = data => ({
     },
   ],
 });
+
+export const fetchNextAuctionEth = data => async (dispatch, getState) => {
+  dispatch(fetchedNextAuctionEth());
+};
+
+const fetchedCurrentActionSummary = data => ({
+  type: FETCH_CURRENT_AUCTION_SUMMARY,
+  currentAuctionSummary: [
+    {
+      title: 'Sold',
+      token_price: 8,
+      dollar_price: '1360',
+    },
+    {
+      title: 'Sold',
+      token_price: 24,
+      dollar_price: 0.006,
+    },
+    {
+      title: 'Remaining',
+      token_price: 17.5,
+      dollar_price: 850,
+    },
+    {
+      title: 'Sold NEC Average Price',
+      token_price: 0.00035,
+      dollar_price: 0.055,
+    },
+  ],
+});
+
+export const fetchCurrentActionSummary = data => async dispatch => {
+  dispatch(fetchedCurrentActionSummary());
+};
+
+const fetchedAuctionIntervalData = data => ({
+  type: FETCH_AUCTION_INTERVAL_DATA,
+  auctionIntervalData: [
+    {
+      name: 'Page A',
+      uv: 2,
+    },
+    {
+      name: 'Page B',
+      uv: 4,
+    },
+    {
+      name: 'Page C',
+      uv: 6,
+    },
+    {
+      name: 'Page D',
+      uv: 7,
+    },
+    {
+      name: 'Page E',
+      uv: 8,
+    },
+    {
+      name: 'Page F',
+      uv: 9,
+    },
+    {
+      name: 'Page G',
+      uv: 11,
+    },
+  ],
+});
+
+export const fetchAuctionIntervalData = data => async dispatch => {
+  dispatch(fetchedAuctionIntervalData());
+};

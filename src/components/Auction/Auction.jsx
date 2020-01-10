@@ -12,6 +12,8 @@ import {
   fetchBurnedNec,
   fetchDeversifiNecEth,
   fetchNextAuctionEth,
+  fetchCurrentActionSummary,
+  fetchAuctionIntervalData,
 } from '../../actions/auctionActions';
 import Circle from './Diagrams/Circle';
 import BarDiagram from './Diagrams/BarDiagram';
@@ -64,6 +66,13 @@ class Auction extends Component {
   }
 
   componentDidMount() {
+    this.props.fetchBurnedNec();
+    this.props.fetchCirculatingNec();
+    this.props.fetchDeversifiNecEth();
+    this.props.fetchNextAuctionEth();
+    this.props.fetchCurrentActionSummary();
+    this.props.fetchAuctionIntervalData();
+
     this.web3.eth.getAccounts().then(res => {
       this.setState(
         {
@@ -85,14 +94,8 @@ class Auction extends Component {
             .getNextAuction()
             .call()
             .then(async res => {
-              await this.props.fetchCirculatingNec();
-              await this.props.fetchBurnedNec();
-              await this.props.fetchDeversifiNecEth();
-              await this.props.fetchNextAuctionEth();
-
               this.setState({
                 nextAuctionMs: res[0],
-                data: this.props.burnedNecData,
               });
             });
         }
@@ -115,7 +118,6 @@ class Auction extends Component {
 
     this.setState({
       activeTabIndex: index,
-      data: this.props[TABS[index].title],
     });
   };
 
@@ -195,42 +197,28 @@ class Auction extends Component {
                 </li>
               ))}
             </ul>
-            <ActiveTabComponent tabContent={TABS[activeTabIndex]} data={this.state.data} />
+            <ActiveTabComponent
+              tabContent={TABS[activeTabIndex]}
+              data={this.props[TABS[activeTabIndex].title]}
+            />
           </section>
           <section>
             <h3>Current Auction - live</h3>
             <div className="current-auction__info">
-              <div className="info__item">
-                <p>Sold</p>
-                <span>
-                  8<span className="little__text">ETH</span>
-                </span>
-                <span className="little__text">US $1360</span>
-              </div>
-              <div className="info__item">
-                <p>Sold</p>
-                <span>
-                  24<span className="little__text">kNEC</span>
-                </span>
-                <span className="little__text">US $0.006m</span>
-              </div>
-              <div className="info__item">
-                <p>Remaining</p>
-                <span>
-                  17.5<span className="little__text">kNEC</span>
-                </span>
-                <span className="little__text">~US $850</span>
-              </div>
-              <div className="info__item">
-                <p>Sold NEC Average Price</p>
-                <span>
-                  0.00035<span className="little__text">NEC</span>
-                </span>
-                <span className="little__text">US $.055</span>
-              </div>
+              {this.props.currentAuctionSummary &&
+                this.props.currentAuctionSummary.map((item, index) => (
+                  <div className="info__item">
+                    <p>{item.title}</p>
+                    <span>
+                      {item.token_price}
+                      <span className="little__text">ETH</span>
+                    </span>
+                    <span className="little__text">US ${item.dollar_price}</span>
+                  </div>
+                ))}
             </div>
             <div className="graphics__container">
-              <BarDiagram />
+              <BarDiagram data={this.props.auctionIntervalData} />
               <Circle />
             </div>
           </section>
@@ -288,6 +276,8 @@ Auction.propTypes = {
   fetchBurnedNec: PropTypes.func.isRequired,
   fetchDeversifiNecEth: PropTypes.func.isRequired,
   fetchNextAuctionEth: PropTypes.func.isRequired,
+  fetchCurrentActionSummary: PropTypes.func.isRequired,
+  fetchAuctionIntervalData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -295,6 +285,8 @@ const mapStateToProps = state => ({
   burnedNecData: state.auction.burnedNecData,
   deversifiNecEthData: state.auction.deversifiNecEthData,
   nextAuctionEthData: state.auction.nextAuctionEthData,
+  currentAuctionSummary: state.auction.currentAuctionSummary,
+  auctionIntervalData: state.auction.auctionIntervalData,
 });
 
 export default connect(mapStateToProps, {
@@ -302,4 +294,6 @@ export default connect(mapStateToProps, {
   fetchBurnedNec,
   fetchDeversifiNecEth,
   fetchNextAuctionEth,
+  fetchCurrentActionSummary,
+  fetchAuctionIntervalData,
 })(Auction);
