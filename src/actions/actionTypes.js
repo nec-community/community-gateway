@@ -42,3 +42,5 @@ export const FETCH_NEXT_AUCTION_ETH_DATA = 'fetch_next_auction_eth_data';
 
 export const FETCH_CURRENT_AUCTION_SUMMARY = 'fetch_current_auction_summary';
 export const FETCH_AUCTION_INTERVAL_DATA = 'fetch_auction_interval_data';
+export const SELL_IN_AUCTION_START = 'sell_in_action_start';
+export const FETCH_AUCTION_TRANSACTIONS = 'fetch_auction_transactions';
