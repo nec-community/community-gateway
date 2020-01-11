@@ -14,6 +14,8 @@ import {
   fetchNextAuctionEth,
   fetchCurrentActionSummary,
   fetchAuctionIntervalData,
+  sellInAuctionStart,
+  fetchAuctionTransactions,
 } from '../../actions/auctionActions';
 import Circle from './Diagrams/Circle';
 import BarDiagram from './Diagrams/BarDiagram';
@@ -72,6 +74,7 @@ class Auction extends Component {
     this.props.fetchNextAuctionEth();
     this.props.fetchCurrentActionSummary();
     this.props.fetchAuctionIntervalData();
+    this.props.fetchAuctionTransactions();
 
     this.web3.eth.getAccounts().then(res => {
       this.setState(
@@ -143,6 +146,7 @@ class Auction extends Component {
   };
 
   sellTokens = () => {
+    this.props.sellInAuctionStart();
     const { tokensForSell, account } = this.state;
 
     const nectarContract = new this.web3.eth.Contract(abis.necContract, this.nectarAddress);
@@ -233,7 +237,12 @@ class Auction extends Component {
               <p>{this.state.convert}</p>
               <span>NEC/ETH</span>
             </div>
-            <button onClick={this.sellTokens}>SELL</button>
+            <button
+              onClick={this.sellTokens}
+              disabled={!this.state.tokensForSell || this.state.tokensForSell < 0}
+            >
+              SELL
+            </button>
           </div>
           <div className="table__container">
             <table>
@@ -250,18 +259,19 @@ class Auction extends Component {
                 </tr>
               </thead>
               <tbody>
-                {Array.from(new Array(5)).map((el, index) => (
-                  <tr key={index}>
-                    <td>5th Oct 12:05:04</td>
-                    <td>789890080</td>
-                    <td>0XFC898B18A70CE49579F8D79A32E29928C15B4BC8</td>
-                    <td>10,049</td>
-                    <td>3.12</td>
-                    <td>0.00345</td>
-                    <td>0.055</td>
-                    <td>552</td>
-                  </tr>
-                ))}
+                {this.props.auctionTransactions &&
+                  this.props.auctionTransactions.map((trxn, index) => (
+                    <tr key={index}>
+                      <td>{trxn.date}</td>
+                      <td>{trxn.tx}</td>
+                      <td>{trxn.wallet_address}</td>
+                      <td>{trxn.nec}</td>
+                      <td>{trxn.eth}</td>
+                      <td>{trxn.price_nec_eth}</td>
+                      <td>{trxn.price_nec_usd}</td>
+                      <td>{trxn.usd}</td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
@@ -278,6 +288,8 @@ Auction.propTypes = {
   fetchNextAuctionEth: PropTypes.func.isRequired,
   fetchCurrentActionSummary: PropTypes.func.isRequired,
   fetchAuctionIntervalData: PropTypes.func.isRequired,
+  sellInAuctionStart: PropTypes.func.isRequired,
+  fetchAuctionTransactions: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -287,6 +299,8 @@ const mapStateToProps = state => ({
   nextAuctionEthData: state.auction.nextAuctionEthData,
   currentAuctionSummary: state.auction.currentAuctionSummary,
   auctionIntervalData: state.auction.auctionIntervalData,
+  sellInAuctionData: state.auction.sellInAuctionData,
+  auctionTransactions: state.auction.auctionTransactions,
 });
 
 export default connect(mapStateToProps, {
@@ -296,4 +310,6 @@ export default connect(mapStateToProps, {
   fetchNextAuctionEth,
   fetchCurrentActionSummary,
   fetchAuctionIntervalData,
+  sellInAuctionStart,
+  fetchAuctionTransactions,
 })(Auction);

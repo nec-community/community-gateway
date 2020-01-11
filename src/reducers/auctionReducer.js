@@ -5,6 +5,8 @@ import {
   FETCH_NEXT_AUCTION_ETH_DATA,
   FETCH_CURRENT_AUCTION_SUMMARY,
   FETCH_AUCTION_INTERVAL_DATA,
+  SELL_IN_AUCTION_START,
+  FETCH_AUCTION_TRANSACTIONS,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -45,6 +47,16 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         auctionIntervalData: action.auctionIntervalData,
+      };
+    case SELL_IN_AUCTION_START:
+      return {
+        ...state,
+        sellInAuctionData: action.sellInAuctionData,
+      };
+    case FETCH_AUCTION_TRANSACTIONS:
+      return {
+        ...state,
+        auctionTransactions: action.auctionTransactions,
       };
     default:
       return state;
