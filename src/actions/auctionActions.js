@@ -3,8 +3,6 @@ import {
   FETCH_BURNED_NEC,
   FETCH_DEVERSIFI_NEC_ETH_DATA,
   FETCH_NEXT_AUCTION_ETH_DATA,
-  FETCH_CURRENT_AUCTION_SUMMARY,
-  FETCH_AUCTION_INTERVAL_DATA,
 } from './actionTypes';
 import Web3 from 'web3';
 import config from '../constants/config.json';
@@ -45,7 +43,8 @@ export async function getBurnedNEC() {
       event: 'AuctionClose',
       signature: '0xa6cc937511bcbe4aa9f9693416797c7d255412e27bda9ef791a45903f7e97d4e',
       raw: {
-        data: '0x0000000000000000',
+        data:
+          '0x0000000000000000000000000000000000000000000000000de0b6b3a76400000000000000000000000000000000000000000000000000000000000000000000',
         topics: [Array],
       },
     },
@@ -71,7 +70,8 @@ export async function getBurnedNEC() {
       event: 'AuctionClose',
       signature: '0xa6cc937511bcbe4aa9f9693416797c7d255412e27bda9ef791a45903f7e97d4e',
       raw: {
-        data: '0x0000000000000000',
+        data:
+          '0x0000000000000000000000000000000000000000000000000de0b6b3a76400000000000000000000000000000000000000000000000000000000000000000000',
         topics: [Array],
       },
     },
@@ -97,7 +97,8 @@ export async function getBurnedNEC() {
       event: 'AuctionClose',
       signature: '0xa6cc937511bcbe4aa9f9693416797c7d255412e27bda9ef791a45903f7e97d4e',
       raw: {
-        data: '0x0000000000000000',
+        data:
+          '0x0000000000000000000000000000000000000000000000000de0b6b3a76400000000000000000000000000000000000000000000000000000000000000000000',
         topics: [Array],
       },
     },
@@ -123,7 +124,8 @@ export async function getBurnedNEC() {
       event: 'AuctionClose',
       signature: '0xa6cc937511bcbe4aa9f9693416797c7d255412e27bda9ef791a45903f7e97d4e',
       raw: {
-        data: '0x0000000000000000',
+        data:
+          '0x0000000000000000000000000000000000000000000000000de0b6b3a76400000000000000000000000000000000000000000000000000000000000000000000',
         topics: [Array],
       },
     },
@@ -149,7 +151,8 @@ export async function getBurnedNEC() {
       event: 'AuctionClose',
       signature: '0xa6cc937511bcbe4aa9f9693416797c7d255412e27bda9ef791a45903f7e97d4e',
       raw: {
-        data: '0x0000000000000000',
+        data:
+          '0x0000000000000000000000000000000000000000000000000de0b6b3a76400000000000000000000000000000000000000000000000000000000000000000000',
         topics: [Array],
       },
     },
@@ -247,6 +250,10 @@ const fetchedDeversifiNecEth = data => ({
   ],
 });
 
+export const fetchNextAuctionEth = data => async (dispatch, getState) => {
+  dispatch(fetchedNextAuctionEth());
+};
+
 const fetchedNextAuctionEth = data => ({
   type: FETCH_NEXT_AUCTION_ETH_DATA,
   nextAuctionEthData: [
@@ -287,75 +294,3 @@ const fetchedNextAuctionEth = data => ({
     },
   ],
 });
-
-export const fetchNextAuctionEth = data => async (dispatch, getState) => {
-  dispatch(fetchedNextAuctionEth());
-};
-
-const fetchedCurrentActionSummary = data => ({
-  type: FETCH_CURRENT_AUCTION_SUMMARY,
-  currentAuctionSummary: [
-    {
-      title: 'Sold',
-      token_price: 8,
-      dollar_price: '1360',
-    },
-    {
-      title: 'Sold',
-      token_price: 24,
-      dollar_price: 0.006,
-    },
-    {
-      title: 'Remaining',
-      token_price: 17.5,
-      dollar_price: 850,
-    },
-    {
-      title: 'Sold NEC Average Price',
-      token_price: 0.00035,
-      dollar_price: 0.055,
-    },
-  ],
-});
-
-export const fetchCurrentActionSummary = data => async dispatch => {
-  dispatch(fetchedCurrentActionSummary());
-};
-
-const fetchedAuctionIntervalData = data => ({
-  type: FETCH_AUCTION_INTERVAL_DATA,
-  auctionIntervalData: [
-    {
-      name: 'Page A',
-      uv: 2,
-    },
-    {
-      name: 'Page B',
-      uv: 4,
-    },
-    {
-      name: 'Page C',
-      uv: 6,
-    },
-    {
-      name: 'Page D',
-      uv: 7,
-    },
-    {
-      name: 'Page E',
-      uv: 8,
-    },
-    {
-      name: 'Page F',
-      uv: 9,
-    },
-    {
-      name: 'Page G',
-      uv: 11,
-    },
-  ],
-});
-
-export const fetchAuctionIntervalData = data => async dispatch => {
-  dispatch(fetchedAuctionIntervalData());
-};
