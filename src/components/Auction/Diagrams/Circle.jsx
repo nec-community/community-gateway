@@ -1,6 +1,7 @@
 import React from 'react';
 
-export default function Circle() {
+export default function Circle(props) {
+  const soldEthVal = `${props.sold_eth_value}, 100`;
   return (
     <div className="graphics-item__container">
       <p className="graphic__label">Sold ETH</p>
@@ -14,7 +15,7 @@ export default function Circle() {
           />
           <path
             className="circle"
-            strokeDasharray="80, 100"
+            strokeDasharray={soldEthVal}
             d="M18 2.0845
           a 15.9155 15.9155 0 0 1 0 31.831
           a 15.9155 15.9155 0 0 1 0 -31.831"

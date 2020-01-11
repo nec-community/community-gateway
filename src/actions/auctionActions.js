@@ -18,12 +18,11 @@ web3.setProvider(new web3.providers.HttpProvider(config.providerUrl));
 export async function getBurnedNEC() {
   // const account = await eth.getAccount();
   const engineContract = eth.getEngineContract();
-  const blockRange = eth.getChartBlockRange();
-  console.log(blockRange);
+  const blockRange = await eth.getChartBlockRange();
   const burnedNec = [];
   let pastEvents = await engineContract.getPastEvents('AuctionClose', blockRange);
-  console.log('pastEvents '.pastEvents);
-  // Dummy data below, needs to be removed.
+  console.log('pastEvents getBurnedNEC ', pastEvents);
+  // Dummy data below, needs to be removed
   pastEvents = [
     {
       address: '0x8AaEEa652EBD90fB8D64A6cac09a0293CE62dD45',
@@ -42,13 +41,12 @@ export async function getBurnedNEC() {
         '2': '1000000000000000000',
         auctionCounter: '15',
         totalEtherConsumed: '1000000000000000000',
-        totalNecBurned: '1000000000000000000',
+        necBurned: '1000000000000000000',
       },
       event: 'AuctionClose',
       signature: '0xa6cc937511bcbe4aa9f9693416797c7d255412e27bda9ef791a45903f7e97d4e',
       raw: {
-        data:
-          '0x0000000000000000000000000000000000000000000000000de0b6b3a76400000000000000000000000000000000000000000000000000000000000000000000',
+        data: 'x0000',
         topics: [Array],
       },
     },
@@ -69,13 +67,12 @@ export async function getBurnedNEC() {
         '2': '2000000000000000000',
         auctionCounter: '16',
         totalEtherConsumed: '1000000000000000000',
-        totalNecBurned: '2000000000000000000',
+        necBurned: '2000000000000000000',
       },
       event: 'AuctionClose',
       signature: '0xa6cc937511bcbe4aa9f9693416797c7d255412e27bda9ef791a45903f7e97d4e',
       raw: {
-        data:
-          '0x0000000000000000000000000000000000000000000000000de0b6b3a76400000000000000000000000000000000000000000000000000000000000000000000',
+        data: 'x0000',
         topics: [Array],
       },
     },
@@ -96,13 +93,12 @@ export async function getBurnedNEC() {
         '2': '2500000000000000000',
         auctionCounter: '17',
         totalEtherConsumed: '500000000000000000',
-        totalNecBurned: '2500000000000000000',
+        necBurned: '2500000000000000000',
       },
       event: 'AuctionClose',
       signature: '0xa6cc937511bcbe4aa9f9693416797c7d255412e27bda9ef791a45903f7e97d4e',
       raw: {
-        data:
-          '0x0000000000000000000000000000000000000000000000000de0b6b3a76400000000000000000000000000000000000000000000000000000000000000000000',
+        data: 'x0000',
         topics: [Array],
       },
     },
@@ -123,13 +119,12 @@ export async function getBurnedNEC() {
         '2': '2000000000000000000',
         auctionCounter: '17',
         totalEtherConsumed: '1000000000000000000',
-        totalNecBurned: '2000000000000000000',
+        necBurned: '2000000000000000000',
       },
       event: 'AuctionClose',
       signature: '0xa6cc937511bcbe4aa9f9693416797c7d255412e27bda9ef791a45903f7e97d4e',
       raw: {
-        data:
-          '0x0000000000000000000000000000000000000000000000000de0b6b3a76400000000000000000000000000000000000000000000000000000000000000000000',
+        data: 'x0000',
         topics: [Array],
       },
     },
@@ -150,13 +145,12 @@ export async function getBurnedNEC() {
         '2': '1000000000000000000',
         auctionCounter: '168',
         totalEtherConsumed: '1000000000000000000',
-        totalNecBurned: '1000000000000000000',
+        necBurned: '1000000000000000000',
       },
       event: 'AuctionClose',
       signature: '0xa6cc937511bcbe4aa9f9693416797c7d255412e27bda9ef791a45903f7e97d4e',
       raw: {
-        data:
-          '0x0000000000000000000000000000000000000000000000000de0b6b3a76400000000000000000000000000000000000000000000000000000000000000000000',
+        data: 'x0000',
         topics: [Array],
       },
     },
@@ -164,11 +158,10 @@ export async function getBurnedNEC() {
   pastEvents.map((event, index) => {
     burnedNec.push({
       name: `Point ${index}`,
-      pv: event.returnValues[2],
+      pv: event.returnValues.necBurned,
       amt: event.event,
     });
   });
-  console.log('processed Data ', burnedNec);
   return burnedNec;
 }
 
@@ -181,14 +174,121 @@ export async function getCirculatingNEC() {
     tokenContract.methods.totalSupply().call(null, block, (error, totalSupply) => {
       circulatingNec.push({
         name: `Point ${block}`,
-        pv: Math.floor(totalSupply / 10 ** 22) + block,
-        amount: block,
+        pv: Math.floor(totalSupply / 10 ** 18),
       });
     });
   }
   console.log('Circulating NEC Data ', circulatingNec);
   return circulatingNec;
 }
+
+export async function getDeversifiNecEth() {
+  // const account = await eth.getAccount();
+  const engineContract = eth.getEngineContract();
+  const blockRange = await eth.getChartBlockRange();
+  const deversifiNecEth = [];
+  let pastEvents = await engineContract.getPastEvents('Burn', blockRange);
+  console.log('pastEvents getDeversifiNecEth ', pastEvents);
+  // Dummy data below, needs to be removed
+  pastEvents = [
+    {
+      returnValues: {
+        '0': '1234556789',
+        '1': '121875000000000000000',
+        '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
+        amount: '1234556789',
+        price: '129875000000000000000',
+        burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
+      },
+      event: 'Burn',
+    },
+    {
+      returnValues: {
+        '0': '1234556789',
+        '1': '121875000000000000000',
+        '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
+        amount: '1234556789',
+        price: '121875000000000000000',
+        burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
+      },
+      event: 'Burn',
+    },
+    {
+      returnValues: {
+        '0': '1234556789',
+        '1': '121875000000000000000',
+        '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
+        amount: '1234556789',
+        price: '121575000000000000000',
+        burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
+      },
+      event: 'Burn',
+    },
+    {
+      returnValues: {
+        '0': '1234556789',
+        '1': '121875000000000000000',
+        '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
+        amount: '1234556789',
+        price: '121815000000000000000',
+        burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
+      },
+      event: 'Burn',
+    },
+    {
+      returnValues: {
+        '0': '1234556789',
+        '1': '121875000000000000000',
+        '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
+        amount: '1234556789',
+        price: '121895000000000000000',
+        burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
+      },
+      event: 'Burn',
+    },
+    {
+      returnValues: {
+        '0': '1234556789',
+        '1': '121875000000000000000',
+        '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
+        amount: '1234556789',
+        price: '111875000000000000000',
+        burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
+      },
+      event: 'Burn',
+    },
+    {
+      returnValues: {
+        '0': '1234556789',
+        '1': '121875000000000000000',
+        '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
+        amount: '1234556789',
+        price: '121375000000000000000',
+        burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
+      },
+      event: 'Burn',
+    },
+    {
+      returnValues: {
+        '0': '1234556789',
+        '1': '121875000000000000000',
+        '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
+        amount: '1234556789',
+        price: '121855000000000000000',
+        burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
+      },
+      event: 'Burn',
+    },
+  ];
+  pastEvents.map((event, index) => {
+    deversifiNecEth.push({
+      name: `Point ${index}`,
+      pv: Math.floor(event.returnValues.price / 10 ** 18),
+    });
+  });
+  return deversifiNecEth;
+}
+
 const fetchedBurnedNec = burnedNecData => ({
   type: FETCH_BURNED_NEC,
   burnedNecData,
@@ -209,50 +309,15 @@ export const fetchCirculatingNec = () => async dispatch => {
   dispatch(fetchedCirculatingNec(circulatingNecData));
 };
 
-export const fetchDeversifiNecEth = data => async (dispatch, getState) => {
-  dispatch(fetchedDeversifiNecEth());
-};
-
-const fetchedDeversifiNecEth = data => ({
+const fetchedDeversifiNecEth = deversifiNecEthData => ({
   type: FETCH_DEVERSIFI_NEC_ETH_DATA,
-  deversifiNecEthData: [
-    {
-      name: 'Page A',
-      pv: 3000,
-      amt: 2000,
-    },
-    {
-      name: 'Page B',
-      pv: 798,
-      amt: 2210,
-    },
-    {
-      name: 'Page C',
-      pv: 8900,
-      amt: 2290,
-    },
-    {
-      name: 'Page D',
-      pv: 1908,
-      amt: 2000,
-    },
-    {
-      name: 'Page E',
-      pv: 4080,
-      amt: 2181,
-    },
-    {
-      name: 'Page F',
-      pv: 3008,
-      amt: 2500,
-    },
-    {
-      name: 'Page G',
-      pv: 9300,
-      amt: 2100,
-    },
-  ],
+  deversifiNecEthData,
 });
+
+export const fetchDeversifiNecEth = () => async dispatch => {
+  const deversifiNecEthData = await getDeversifiNecEth();
+  dispatch(fetchedDeversifiNecEth(deversifiNecEthData));
+};
 
 const fetchedNextAuctionEth = data => ({
   type: FETCH_NEXT_AUCTION_ETH_DATA,

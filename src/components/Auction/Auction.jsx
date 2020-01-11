@@ -223,7 +223,7 @@ class Auction extends Component {
             </div>
             <div className="graphics__container">
               <BarDiagram data={this.props.auctionIntervalData} />
-              <Circle />
+              <Circle sold_eth_value="50" />
             </div>
           </section>
           <div className="sell__tokens">
