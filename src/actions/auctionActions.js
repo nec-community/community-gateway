@@ -3,6 +3,10 @@ import {
   FETCH_BURNED_NEC,
   FETCH_DEVERSIFI_NEC_ETH_DATA,
   FETCH_NEXT_AUCTION_ETH_DATA,
+  FETCH_CURRENT_AUCTION_SUMMARY,
+  FETCH_AUCTION_INTERVAL_DATA,
+  SELL_IN_AUCTION_START,
+  FETCH_AUCTION_TRANSACTIONS,
 } from './actionTypes';
 import Web3 from 'web3';
 import config from '../constants/config.json';
@@ -250,10 +254,6 @@ const fetchedDeversifiNecEth = data => ({
   ],
 });
 
-export const fetchNextAuctionEth = data => async (dispatch, getState) => {
-  dispatch(fetchedNextAuctionEth());
-};
-
 const fetchedNextAuctionEth = data => ({
   type: FETCH_NEXT_AUCTION_ETH_DATA,
   nextAuctionEthData: [
@@ -294,3 +294,164 @@ const fetchedNextAuctionEth = data => ({
     },
   ],
 });
+
+export const fetchNextAuctionEth = data => async (dispatch, getState) => {
+  dispatch(fetchedNextAuctionEth());
+};
+
+const fetchedCurrentActionSummary = data => ({
+  type: FETCH_CURRENT_AUCTION_SUMMARY,
+  currentAuctionSummary: [
+    {
+      title: 'Sold',
+      token_price: 8,
+      dollar_price: '1360',
+    },
+    {
+      title: 'Sold',
+      token_price: 24,
+      dollar_price: 0.006,
+    },
+    {
+      title: 'Remaining',
+      token_price: 17.5,
+      dollar_price: 850,
+    },
+    {
+      title: 'Sold NEC Average Price',
+      token_price: 0.00035,
+      dollar_price: 0.055,
+    },
+  ],
+});
+
+export const fetchCurrentActionSummary = data => async dispatch => {
+  dispatch(fetchedCurrentActionSummary());
+};
+
+const fetchedAuctionIntervalData = data => ({
+  type: FETCH_AUCTION_INTERVAL_DATA,
+  auctionIntervalData: [
+    {
+      name: 'Page A',
+      uv: 2,
+    },
+    {
+      name: 'Page B',
+      uv: 4,
+    },
+    {
+      name: 'Page C',
+      uv: 6,
+    },
+    {
+      name: 'Page D',
+      uv: 7,
+    },
+    {
+      name: 'Page E',
+      uv: 8,
+    },
+    {
+      name: 'Page F',
+      uv: 9,
+    },
+    {
+      name: 'Page G',
+      uv: 11,
+    },
+  ],
+});
+
+export const fetchAuctionIntervalData = data => async dispatch => {
+  dispatch(fetchedAuctionIntervalData());
+};
+
+const sellInAuctionEnd = data => ({
+  type: SELL_IN_AUCTION_START,
+  sellInAuctionData: [],
+});
+
+export const sellInAuctionStart = data => async dispatch => {
+  dispatch(sellInAuctionEnd());
+};
+
+const fetchedAuctionTransactions = data => ({
+  type: FETCH_AUCTION_TRANSACTIONS,
+  auctionTransactions: [
+    {
+      date: '5th Oct 12:05:04',
+      tx: '789890080',
+      wallet_address: '0XFC898B18A70CE49579F8D79A32E29928C15B4BC8',
+      nec: '10,049',
+      eth: '3.12',
+      price_nec_eth: '0.00345',
+      price_nec_usd: '0.055',
+      usd: '552',
+    },
+    {
+      date: '5th Oct 12:05:04',
+      tx: '789890080',
+      wallet_address: '0XFC898B18A70CE49579F8D79A32E29928C15B4BC8',
+      nec: '10,049',
+      eth: '3.12',
+      price_nec_eth: '0.00345',
+      price_nec_usd: '0.055',
+      usd: '552',
+    },
+    {
+      date: '5th Oct 12:05:04',
+      tx: '789890080',
+      wallet_address: '0XFC898B18A70CE49579F8D79A32E29928C15B4BC8',
+      nec: '10,049',
+      eth: '3.12',
+      price_nec_eth: '0.00345',
+      price_nec_usd: '0.055',
+      usd: '552',
+    },
+    {
+      date: '5th Oct 12:05:04',
+      tx: '789890080',
+      wallet_address: '0XFC898B18A70CE49579F8D79A32E29928C15B4BC8',
+      nec: '10,049',
+      eth: '3.12',
+      price_nec_eth: '0.00345',
+      price_nec_usd: '0.055',
+      usd: '552',
+    },
+    {
+      date: '5th Oct 12:05:04',
+      tx: '789890080',
+      wallet_address: '0XFC898B18A70CE49579F8D79A32E29928C15B4BC8',
+      nec: '10,049',
+      eth: '3.12',
+      price_nec_eth: '0.00345',
+      price_nec_usd: '0.055',
+      usd: '552',
+    },
+    {
+      date: '5th Oct 12:05:04',
+      tx: '789890080',
+      wallet_address: '0XFC898B18A70CE49579F8D79A32E29928C15B4BC8',
+      nec: '10,049',
+      eth: '3.12',
+      price_nec_eth: '0.00345',
+      price_nec_usd: '0.055',
+      usd: '552',
+    },
+    {
+      date: '5th Oct 12:05:04',
+      tx: '789890080',
+      wallet_address: '0XFC898B18A70CE49579F8D79A32E29928C15B4BC8',
+      nec: '10,049',
+      eth: '3.12',
+      price_nec_eth: '0.00345',
+      price_nec_usd: '0.055',
+      usd: '552',
+    },
+  ],
+});
+
+export const fetchAuctionTransactions = data => async dispatch => {
+  dispatch(fetchedAuctionTransactions());
+};
