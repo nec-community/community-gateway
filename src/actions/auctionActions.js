@@ -155,10 +155,12 @@ export async function getBurnedNEC() {
       },
     },
   ];
+  let burnedSum = 0
   pastEvents.map((event, index) => {
+    burnedSum = burnedSum + event.returnValues.necBurned / 10 ** 18
     burnedNec.push({
       name: `Point ${index}`,
-      pv: event.returnValues.necBurned,
+      pv: burnedSum,
       amt: event.event,
     });
   });
