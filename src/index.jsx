@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './components/App/App';
 import store from './store';
 
-ReactGA.initialize('UA-117611254-2');
+ReactGA.initialize('UA-156671651-3');
 
 render(
   <Provider store={store}>
