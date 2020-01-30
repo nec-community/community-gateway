@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import '../Auction.scss';
+import { formatNumber } from '../../../services/utils'
 
 export function renderTooltip({ active, payload }) {
   if (!active) {
@@ -38,7 +39,8 @@ export default class Diagram extends Component {
             tickMargin={10}
             tickLine={false}
           />
-          <YAxis tick={{ stroke: '#ffffff' }} stroke="#000000" axisLine={false} tickMargin={10} />
+          <YAxis tickFormatter={formatNumber}
+            tick={{ stroke: '#ffffff' }} stroke="#000000" axisLine={false} tickMargin={10} />
           <Tooltip content={renderTooltip} wrapperStyle={{ top: -60, left: -50 }} />
           <Line
             type="monotone"

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
 import '../Auction.scss';
 import { renderTooltip } from './Diagram';
 
@@ -9,18 +9,20 @@ export default class BarDiagram extends Component {
   }
 
   render() {
+    const { data, XAxisKey, YAxisKey } = this.props;
+
     return (
       <div className="graphics-item__container">
         <p className="graphic__label">Current Auction Price NEC/ETH</p>
         <BarChart
           width={450}
           height={300}
-          data={this.props.data}
+          data={data}
           margin={{ top: 20, right: 50, bottom: 30 }}
         >
           <CartesianGrid vertical={false} stroke="#000000" />
           <XAxis
-            dataKey="name"
+            dataKey={XAxisKey}
             tick={{ stroke: '#ffffff' }}
             stroke="#000000"
             axisLine={false}
@@ -29,7 +31,13 @@ export default class BarDiagram extends Component {
           />
           <YAxis tick={{ stroke: '#ffffff' }} stroke="#000000" axisLine={false} tickMargin={10} />
           <Tooltip content={renderTooltip} />
-          <Bar dataKey="uv" fill="#4D7198" />
+          <Bar dataKey={YAxisKey} >
+            {
+              this.props.data && this.props.data.map((entry, index) => (
+                <Cell key={index} fill={this.props.data[index].uv === 6 ? '#5ff5fc' : '#005599' }/>
+              ))
+            }
+          </Bar>
         </BarChart>
       </div>
     );
