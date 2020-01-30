@@ -7,10 +7,14 @@ import {
   FETCH_AUCTION_INTERVAL_DATA,
   SELL_IN_AUCTION_START,
   FETCH_AUCTION_TRANSACTIONS,
+  FETCH_ETH_PRICE,
+  SELL_AND_BURN_NEC
 } from './actionTypes';
 import Web3 from 'web3';
 import config from '../constants/config.json';
 import eth from '../services/ethereumService';
+import { formatEth } from '../services/utils';
+import { notify, notifyError } from './notificationActions';
 
 const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider(config.providerUrl));
@@ -21,6 +25,7 @@ export async function getBurnedNEC() {
   const blockRange = await eth.getChartBlockRange();
   const burnedNec = [];
   let pastEvents = await engineContract.getPastEvents('AuctionClose', blockRange);
+
   console.log('pastEvents getBurnedNEC ', pastEvents);
   // Dummy data below, needs to be removed
   pastEvents = [
@@ -172,6 +177,7 @@ export async function getCirculatingNEC() {
   const blockRange = await eth.getChartBlockRange();
   const blockDiff = Math.floor((blockRange.toBlock - blockRange.fromBlock) / 7);
   const circulatingNec = [];
+  //This should be totalSupplyAt()
   for (let block = blockRange.fromBlock; block <= blockRange.toBlock; block += blockDiff) {
     tokenContract.methods.totalSupply().call(null, block, (error, totalSupply) => {
       circulatingNec.push({
@@ -363,34 +369,58 @@ const fetchedNextAuctionEth = data => ({
 });
 
 export const fetchNextAuctionEth = data => async (dispatch, getState) => {
+  const engineContract = eth.getEngineContract();
+  const next = await engineContract.methods.getNextAuction().call();
+
   dispatch(fetchedNextAuctionEth());
 };
 
-const fetchedCurrentActionSummary = data => ({
-  type: FETCH_CURRENT_AUCTION_SUMMARY,
-  currentAuctionSummary: [
-    {
-      title: 'Sold',
-      token_price: 8,
-      dollar_price: '1360',
-    },
-    {
-      title: 'Sold',
-      token_price: 24,
-      dollar_price: 0.006,
-    },
-    {
-      title: 'Remaining',
-      token_price: 17.5,
-      dollar_price: 850,
-    },
-    {
-      title: 'Sold NEC Average Price',
-      token_price: 0.00035,
-      dollar_price: 0.055,
-    },
-  ],
-});
+const fetchedCurrentActionSummary = data => async dispatch => {
+  const engineContract = eth.getEngineContract();
+
+  try {
+    const current = await engineContract.methods.getCurrentAuction().call();
+    const blockRange = await eth.getChartBlockRange();
+    const lastThaw = await engineContract.methods.lastThaw().call()
+    let pastEvents = await engineContract.getPastEvents('AuctionClose', blockRange);
+    const necPrice = await eth.getNecPrice();
+
+    // let pastEvents = await engineContract.getPastEvents('allEvents');
+    console.log('currentAuctionSummary', current)
+
+    dispatch({
+      type: FETCH_CURRENT_AUCTION_SUMMARY,
+      nextPriceChange: current.nextPriceChangeSeconds,
+      currentAuctionSummary: [
+        {
+          title: 'Sold',
+          token_price: formatEth(current.initialEthAvailable) - formatEth(current.remainingEthAvailable),
+          dollar_price: ((current.initialEthAvailable - current.remainingEthAvailable) * necPrice).toFixed(2),
+        },
+        {
+          title: 'Purchased',
+          token_price: 24,
+          dollar_price: 0.006,
+        },
+        {
+          title: 'Remaining',
+          token_price: formatEth(current.remainingEthAvailable),
+          dollar_price: (current.remainingEthAvailable * necPrice).toFixed(2),
+        },
+        {
+          title: 'Sold NEC Average Price',
+          token_price: 0.00035,
+          dollar_price: 0.055,
+        },
+      ],
+    });
+  } catch(e) {
+    dispatch({
+      type: FETCH_CURRENT_AUCTION_SUMMARY,
+      currentAuctionSummary: null
+    });
+  }
+};
 
 export const fetchCurrentActionSummary = data => async dispatch => {
   dispatch(fetchedCurrentActionSummary());
@@ -520,5 +550,26 @@ const fetchedAuctionTransactions = data => ({
 });
 
 export const fetchAuctionTransactions = data => async dispatch => {
+  const engineContract = await eth.getEngineContract();
+  const pastEvents = await engineContract.getPastEvents('allEvents');
+
   dispatch(fetchedAuctionTransactions());
 };
+
+export const fetchEthPrice = () => async dispatch => {
+  const necPrice = await eth.getNecPrice();
+
+  dispatch({ type: FETCH_ETH_PRICE, necPrice })
+}
+
+export const sellAndBurn = necAmount => async dispatch => {
+  const engineContract = await eth.getEngineContract();
+
+  try {
+    await engineContract.methods.sellAndBurnNec().call(necAmount);
+
+    dispatch({ type: SELL_AND_BURN_NEC })
+  } catch(err) {
+    notifyError(err)(dispatch);
+  }
+}

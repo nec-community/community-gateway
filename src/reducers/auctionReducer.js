@@ -7,6 +7,7 @@ import {
   FETCH_AUCTION_INTERVAL_DATA,
   SELL_IN_AUCTION_START,
   FETCH_AUCTION_TRANSACTIONS,
+  FETCH_ETH_PRICE
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -14,6 +15,8 @@ const INITIAL_STATE = {
   burnedNecData: [],
   deversifiNecEthPriceData: [],
   nextAuctionEthData: [],
+  necPrice: '',
+  nextPriceChange: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -42,6 +45,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentAuctionSummary: action.currentAuctionSummary,
+        nextPriceChange: action.nextPriceChange
       };
     case FETCH_AUCTION_INTERVAL_DATA:
       return {
@@ -58,6 +62,11 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         auctionTransactions: action.auctionTransactions,
       };
+    case FETCH_ETH_PRICE:
+      return {
+        ...state,
+        necPrice: action.necPrice
+      }
     default:
       return state;
   }

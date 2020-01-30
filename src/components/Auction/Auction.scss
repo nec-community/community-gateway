@@ -29,6 +29,39 @@
       font-weight: 400;
     }
 
+    &__description {
+      background: #1E1D2E;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      padding: 32px;
+      margin: 42px 0;
+
+      p {
+        font-weight: 300;
+        font-size: 20px;
+        line-height: 36px;
+        margin-bottom: 16px;
+      }
+    }
+
+    &__close {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 60px;
+
+      button {
+        border: 1px solid #FFFFFF;
+        background: transparent;
+        font-size: 12px;
+        line-height: 30px;
+        letter-spacing: 0.02em;
+        color: #FFFFFF;
+        width: 159px;
+        height: 45px;
+        cursor: pointer;
+      }
+    }
+
+
     .overview__text {
       display: flex;
       width: 100%;

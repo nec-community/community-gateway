@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { formatNumber, formatToMinutes } from '../../services/utils'
 import Web3 from 'web3';
 import './Auction.scss';
 import Diagram from './Diagrams/Diagram';
+import Description from './Description';
 import abis from '../../constants/abis.json';
 import config from '../../constants/config.json';
 import { convertToken } from '../../actions/traderAction';
@@ -16,6 +18,8 @@ import {
   fetchAuctionIntervalData,
   sellInAuctionStart,
   fetchAuctionTransactions,
+  fetchEthPrice,
+  sellAndBurn
 } from '../../actions/auctionActions';
 import Circle from './Diagrams/Circle';
 import BarDiagram from './Diagrams/BarDiagram';
@@ -55,6 +59,7 @@ class Auction extends Component {
       convert: 1,
       tokensForSell: '',
       data: [],
+      summaryValues: []
     };
 
     if (typeof window.web3 !== 'undefined') {
@@ -75,6 +80,7 @@ class Auction extends Component {
     this.props.fetchCurrentActionSummary();
     this.props.fetchAuctionIntervalData();
     this.props.fetchAuctionTransactions();
+    this.props.fetchEthPrice();
 
     this.web3.eth.getAccounts().then(res => {
       this.setState(
@@ -154,12 +160,29 @@ class Auction extends Component {
     nectarContract.methods
       .approve(account, tokensForSell)
       .call()
-      .then(res => console.log(res));
+      .then(res => {
+        this.props.sellAndBurn(tokensForSell);
+      });
   };
+
+  renderTabTileAmount = (title) => {
+    if(this.props[title].length > 0) {
+      return formatNumber(this.props[title][this.props[title].length - 1].pv);
+    }
+  }
+
+  renderTabPrice = title => {
+    const { necPrice } = this.props;
+
+    if(this.props[title].length > 0) {
+      return `$ ${(this.props[title][this.props[title].length - 1].pv * necPrice).toFixed(2)}`;
+    }
+  }
 
   render() {
     const { activeTabIndex, tokensForSell } = this.state;
     const ActiveTabComponent = TABS[activeTabIndex].Component;
+    const { currentAuctionSummary, nextPriceChange } = this.props;
 
     return (
       <div className="auction">
@@ -184,6 +207,7 @@ class Auction extends Component {
                 <p className="little__text">Mon 19th Oct 12pm UST</p>
               </div>
             </div>
+            <Description />
           </div>
           <section className="summary">
             <h3>Summary</h3>
@@ -195,8 +219,10 @@ class Auction extends Component {
                     onClick={() => this.onTabClick(index)}
                   >
                     <p>{tab.name}</p>
-                    <span>{tab.titleAmount}</span>
-                    <span className="little__text">1$</span>
+                    <span>
+                      {this.props[tab.title] && this.renderTabTileAmount(tab.title)}
+                    </span>
+                    <span className="little__text">{this.props[tab.title] && this.renderTabPrice(tab.title)}</span>
                   </button>
                 </li>
               ))}
@@ -206,44 +232,51 @@ class Auction extends Component {
               data={this.props[TABS[activeTabIndex].title]}
             />
           </section>
-          <section>
-            <h3>Current Auction - live</h3>
-            <div className="current-auction__info">
-              {this.props.currentAuctionSummary &&
-                this.props.currentAuctionSummary.map((item, index) => (
-                  <div className="info__item">
-                    <p>{item.title}</p>
-                    <span>
-                      {item.token_price}
-                      <span className="little__text">ETH</span>
-                    </span>
-                    <span className="little__text">US ${item.dollar_price}</span>
-                  </div>
-                ))}
-            </div>
-            <div className="graphics__container">
-              <BarDiagram data={this.props.auctionIntervalData} />
-              <Circle sold_eth_value="50" />
-            </div>
-          </section>
-          <div className="sell__tokens">
-            <span>SELL</span>
-            <div className="input__container">
-              <input value={tokensForSell} onChange={this.changeInputValue} />
-              <span>NEC</span>
-            </div>
-            <span>FOR</span>
-            <div className="input__container">
-              <p>{this.state.convert}</p>
-              <span>NEC/ETH</span>
-            </div>
-            <button
-              onClick={this.sellTokens}
-              disabled={!this.state.tokensForSell || this.state.tokensForSell < 0}
-            >
-              SELL
-            </button>
-          </div>
+          {currentAuctionSummary && (
+            <>
+              <section>
+                <h3>Current Auction - live</h3>
+                <div className="current-auction__info">
+                  {currentAuctionSummary.map((item, index) => (
+                    <div className="info__item" key={index}>
+                      <p>{item.title}</p>
+                      <span>
+                        {formatNumber(item.token_price)}
+                        <span className="little__text">ETH</span>
+                      </span>
+                      <span className="little__text">US ${item.dollar_price}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="graphics__container">
+                  <BarDiagram
+                    XAxisKey="name"
+                    YAxisKey="uv"
+                    data={this.props.auctionIntervalData}
+                  />
+                  <Circle nextPrice={formatToMinutes(nextPriceChange)} sold_eth_value="50" />
+                </div>
+              </section>
+                <div className="sell__tokens">
+                <span>SELL</span>
+                <div className="input__container">
+                  <input value={tokensForSell} onChange={this.changeInputValue} />
+                  <span>NEC</span>
+                </div>
+                <span>FOR</span>
+                <div className="input__container">
+                  <p>{this.state.convert}</p>
+                  <span>NEC/ETH</span>
+                </div>
+                <button
+                  onClick={this.sellTokens}
+                  disabled={!this.state.tokensForSell || this.state.tokensForSell < 0}
+                >
+                  SELL
+                </button>
+              </div>
+            </>
+          )}
           <div className="table__container">
             <table>
               <thead>
@@ -301,6 +334,8 @@ const mapStateToProps = state => ({
   auctionIntervalData: state.auction.auctionIntervalData,
   sellInAuctionData: state.auction.sellInAuctionData,
   auctionTransactions: state.auction.auctionTransactions,
+  necPrice: state.auction.necPrice,
+  nextPriceChange: state.auction.nextPriceChange,
 });
 
 export default connect(mapStateToProps, {
@@ -312,4 +347,6 @@ export default connect(mapStateToProps, {
   fetchAuctionIntervalData,
   sellInAuctionStart,
   fetchAuctionTransactions,
+  fetchEthPrice,
+  sellAndBurn
 })(Auction);
