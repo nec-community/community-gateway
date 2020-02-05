@@ -111,10 +111,14 @@ export const formatNumber = number => {
     const newNumber = number / 1000;
     const fixedNumber = Number.isInteger(newNumber) ? newNumber.toFixed() : newNumber;
     return `${fixedNumber}K`;
-  } else {
+  } else if (number < 1000000000) {
     const newNumber = number / 1000000;
     const fixedNumber = Number.isInteger(newNumber) ? newNumber.toFixed() : newNumber.toFixed(1);
     return `${fixedNumber}M`;
+  } else {
+    const newNumber = number / 1000000000;
+    const fixedNumber = Number.isInteger(newNumber) ? newNumber.toFixed() : newNumber.toFixed(1);
+    return `${fixedNumber}B`;
   }
 }
 

@@ -182,7 +182,7 @@ class Auction extends Component {
   render() {
     const { activeTabIndex, tokensForSell } = this.state;
     const ActiveTabComponent = TABS[activeTabIndex].Component;
-    const { currentAuctionSummary, nextPriceChange } = this.props;
+    const { currentAuctionSummary, nextPriceChange, auctionTransactions } = this.props;
 
     return (
       <div className="auction">
@@ -281,8 +281,8 @@ class Auction extends Component {
             <table>
               <thead>
                 <tr>
-                  <th>DATE & TIME</th>
-                  <th>TX</th>
+                  <th>Block Number</th>
+                  <th></th>
                   <th>WALLET ADDRESS</th>
                   <th>NEC</th>
                   <th>ETH</th>
@@ -295,8 +295,8 @@ class Auction extends Component {
                 {this.props.auctionTransactions &&
                   this.props.auctionTransactions.map((trxn, index) => (
                     <tr key={index}>
-                      <td>{trxn.date}</td>
-                      <td>{trxn.tx}</td>
+                      <td>{trxn.blockNumber}</td>
+                      <td></td>
                       <td>{trxn.wallet_address}</td>
                       <td>{trxn.nec}</td>
                       <td>{trxn.eth}</td>

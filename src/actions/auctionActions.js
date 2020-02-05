@@ -198,96 +198,96 @@ export async function getDeversifiNecEth() {
   let pastEvents = await engineContract.getPastEvents('Burn', blockRange);
   console.log('pastEvents getDeversifiNecEth ', pastEvents);
   // Dummy data below, needs to be removed
-  pastEvents = [
-    {
-      returnValues: {
-        '0': '1234556789',
-        '1': '121875000000000000000',
-        '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
-        amount: '1234556789',
-        price: '129875000000000000000',
-        burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
-      },
-      event: 'Burn',
-    },
-    {
-      returnValues: {
-        '0': '1234556789',
-        '1': '121875000000000000000',
-        '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
-        amount: '1234556789',
-        price: '121875000000000000000',
-        burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
-      },
-      event: 'Burn',
-    },
-    {
-      returnValues: {
-        '0': '1234556789',
-        '1': '121875000000000000000',
-        '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
-        amount: '1234556789',
-        price: '121575000000000000000',
-        burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
-      },
-      event: 'Burn',
-    },
-    {
-      returnValues: {
-        '0': '1234556789',
-        '1': '121875000000000000000',
-        '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
-        amount: '1234556789',
-        price: '121815000000000000000',
-        burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
-      },
-      event: 'Burn',
-    },
-    {
-      returnValues: {
-        '0': '1234556789',
-        '1': '121875000000000000000',
-        '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
-        amount: '1234556789',
-        price: '121895000000000000000',
-        burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
-      },
-      event: 'Burn',
-    },
-    {
-      returnValues: {
-        '0': '1234556789',
-        '1': '121875000000000000000',
-        '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
-        amount: '1234556789',
-        price: '111875000000000000000',
-        burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
-      },
-      event: 'Burn',
-    },
-    {
-      returnValues: {
-        '0': '1234556789',
-        '1': '121875000000000000000',
-        '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
-        amount: '1234556789',
-        price: '121375000000000000000',
-        burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
-      },
-      event: 'Burn',
-    },
-    {
-      returnValues: {
-        '0': '1234556789',
-        '1': '121875000000000000000',
-        '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
-        amount: '1234556789',
-        price: '121855000000000000000',
-        burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
-      },
-      event: 'Burn',
-    },
-  ];
+  // pastEvents = [
+  //   {
+  //     returnValues: {
+  //       '0': '1234556789',
+  //       '1': '121875000000000000000',
+  //       '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
+  //       amount: '1234556789',
+  //       price: '129875000000000000000',
+  //       burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
+  //     },
+  //     event: 'Burn',
+  //   },
+  //   {
+  //     returnValues: {
+  //       '0': '1234556789',
+  //       '1': '121875000000000000000',
+  //       '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
+  //       amount: '1234556789',
+  //       price: '121875000000000000000',
+  //       burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
+  //     },
+  //     event: 'Burn',
+  //   },
+  //   {
+  //     returnValues: {
+  //       '0': '1234556789',
+  //       '1': '121875000000000000000',
+  //       '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
+  //       amount: '1234556789',
+  //       price: '121575000000000000000',
+  //       burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
+  //     },
+  //     event: 'Burn',
+  //   },
+  //   {
+  //     returnValues: {
+  //       '0': '1234556789',
+  //       '1': '121875000000000000000',
+  //       '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
+  //       amount: '1234556789',
+  //       price: '121815000000000000000',
+  //       burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
+  //     },
+  //     event: 'Burn',
+  //   },
+  //   {
+  //     returnValues: {
+  //       '0': '1234556789',
+  //       '1': '121875000000000000000',
+  //       '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
+  //       amount: '1234556789',
+  //       price: '121895000000000000000',
+  //       burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
+  //     },
+  //     event: 'Burn',
+  //   },
+  //   {
+  //     returnValues: {
+  //       '0': '1234556789',
+  //       '1': '121875000000000000000',
+  //       '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
+  //       amount: '1234556789',
+  //       price: '111875000000000000000',
+  //       burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
+  //     },
+  //     event: 'Burn',
+  //   },
+  //   {
+  //     returnValues: {
+  //       '0': '1234556789',
+  //       '1': '121875000000000000000',
+  //       '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
+  //       amount: '1234556789',
+  //       price: '121375000000000000000',
+  //       burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
+  //     },
+  //     event: 'Burn',
+  //   },
+  //   {
+  //     returnValues: {
+  //       '0': '1234556789',
+  //       '1': '121875000000000000000',
+  //       '2': '0x14d06788090769F669427B6AEA1c0240d2321f34',
+  //       amount: '1234556789',
+  //       price: '121855000000000000000',
+  //       burner: '0x14d06788090769F669427B6AEA1c0240d2321f34',
+  //     },
+  //     event: 'Burn',
+  //   },
+  // ];
   pastEvents.map((event, index) => {
     deversifiNecEth.push({
       name: `Point ${index}`,
@@ -473,87 +473,24 @@ export const sellInAuctionStart = data => async dispatch => {
   dispatch(sellInAuctionEnd());
 };
 
-const fetchedAuctionTransactions = data => ({
-  type: FETCH_AUCTION_TRANSACTIONS,
-  auctionTransactions: [
-    {
-      date: '5th Oct 12:05:04',
-      tx: '789890080',
-      wallet_address: '0XFC898B18A70CE49579F8D79A32E29928C15B4BC8',
-      nec: '10,049',
-      eth: '3.12',
-      price_nec_eth: '0.00345',
-      price_nec_usd: '0.055',
-      usd: '552',
-    },
-    {
-      date: '5th Oct 12:05:04',
-      tx: '789890080',
-      wallet_address: '0XFC898B18A70CE49579F8D79A32E29928C15B4BC8',
-      nec: '10,049',
-      eth: '3.12',
-      price_nec_eth: '0.00345',
-      price_nec_usd: '0.055',
-      usd: '552',
-    },
-    {
-      date: '5th Oct 12:05:04',
-      tx: '789890080',
-      wallet_address: '0XFC898B18A70CE49579F8D79A32E29928C15B4BC8',
-      nec: '10,049',
-      eth: '3.12',
-      price_nec_eth: '0.00345',
-      price_nec_usd: '0.055',
-      usd: '552',
-    },
-    {
-      date: '5th Oct 12:05:04',
-      tx: '789890080',
-      wallet_address: '0XFC898B18A70CE49579F8D79A32E29928C15B4BC8',
-      nec: '10,049',
-      eth: '3.12',
-      price_nec_eth: '0.00345',
-      price_nec_usd: '0.055',
-      usd: '552',
-    },
-    {
-      date: '5th Oct 12:05:04',
-      tx: '789890080',
-      wallet_address: '0XFC898B18A70CE49579F8D79A32E29928C15B4BC8',
-      nec: '10,049',
-      eth: '3.12',
-      price_nec_eth: '0.00345',
-      price_nec_usd: '0.055',
-      usd: '552',
-    },
-    {
-      date: '5th Oct 12:05:04',
-      tx: '789890080',
-      wallet_address: '0XFC898B18A70CE49579F8D79A32E29928C15B4BC8',
-      nec: '10,049',
-      eth: '3.12',
-      price_nec_eth: '0.00345',
-      price_nec_usd: '0.055',
-      usd: '552',
-    },
-    {
-      date: '5th Oct 12:05:04',
-      tx: '789890080',
-      wallet_address: '0XFC898B18A70CE49579F8D79A32E29928C15B4BC8',
-      nec: '10,049',
-      eth: '3.12',
-      price_nec_eth: '0.00345',
-      price_nec_usd: '0.055',
-      usd: '552',
-    },
-  ],
-});
 
 export const fetchAuctionTransactions = data => async dispatch => {
   const engineContract = await eth.getEngineContract();
-  const pastEvents = await engineContract.getPastEvents('allEvents');
+  const necPrice = await eth.getNecPrice();
+  const blockRange = await eth.getChartBlockRange();
+  const transactions = await engineContract.getPastEvents('Burn', blockRange);
 
-  dispatch(fetchedAuctionTransactions());
+  const transactionsList = transactions.map(transaction => ({
+    blockNumber: transaction.blockNumber,
+    wallet_address: transaction.returnValues.burner,
+    nec: transaction.returnValues.amount,
+    eth: formatEth(transaction.returnValues.price),
+    price_nec_eth: (transaction.returnValues.amount/formatEth(transaction.returnValues.price)).toFixed(3),
+    price_nec_usd: necPrice,
+    usd: (transaction.returnValues.amount * necPrice).toFixed(2),
+  }));
+
+  dispatch({ type: FETCH_AUCTION_TRANSACTIONS, auctionTransactions: transactionsList });
 };
 
 export const fetchEthPrice = () => async dispatch => {

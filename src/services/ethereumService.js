@@ -708,5 +708,6 @@ export default {
   getEngineContract,
   getTokenContract,
   getChartBlockRange,
-  getNecPrice
+  getNecPrice,
+  getEthPrice
 };
