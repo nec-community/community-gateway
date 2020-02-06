@@ -426,6 +426,7 @@ export const fetchCurrentActionSummary = data => async dispatch => {
   dispatch(fetchedCurrentActionSummary());
 };
 
+
 const fetchedAuctionIntervalData = data => ({
   type: FETCH_AUCTION_INTERVAL_DATA,
   auctionIntervalData: [
@@ -460,8 +461,18 @@ const fetchedAuctionIntervalData = data => ({
   ],
 });
 
-export const fetchAuctionIntervalData = data => async dispatch => {
-  dispatch(fetchedAuctionIntervalData());
+export const fetchAuctionIntervalData = () => async dispatch => {
+  const engineContract = await eth.getEngineContract();
+  const necPrice = await eth.getNecPrice();
+  const blockRange = await eth.getChartBlockRange();
+  const transactions = await engineContract.getPastEvents('Burn', blockRange);
+
+  const data = transactions.map(transaction => ({
+    nec: transaction.returnValues.amount,
+    eth: formatEth(transaction.returnValues.price)
+  }));
+
+  dispatch({ type: FETCH_AUCTION_INTERVAL_DATA, auctionIntervalData: data });
 };
 
 const sellInAuctionEnd = data => ({
@@ -499,14 +510,14 @@ export const fetchEthPrice = () => async dispatch => {
   dispatch({ type: FETCH_ETH_PRICE, necPrice })
 }
 
-export const sellAndBurn = necAmount => async dispatch => {
+export const sellAndBurn = (necAmount, userAccount) => async dispatch => {
   const engineContract = await eth.getEngineContract();
-
   try {
-    await engineContract.methods.sellAndBurnNec().call(necAmount);
-
+    const response = await engineContract.methods.sellAndBurnNec(necAmount)
+    debugger
     dispatch({ type: SELL_AND_BURN_NEC })
   } catch(err) {
+    console.log(err)
     notifyError(err)(dispatch);
   }
 }

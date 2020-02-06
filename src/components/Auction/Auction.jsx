@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import eth from '../../services/ethereumService';
 import { formatNumber, formatToMinutes } from '../../services/utils'
 import Web3 from 'web3';
 import './Auction.scss';
@@ -151,18 +152,26 @@ class Auction extends Component {
     });
   };
 
-  sellTokens = () => {
+  sellTokens = async () => {
     this.props.sellInAuctionStart();
     const { tokensForSell, account } = this.state;
 
     const nectarContract = new this.web3.eth.Contract(abis.necContract, this.nectarAddress);
+    const engineContract = await eth.getEngineContract();
+    nectarContract.methods.allowance(account, engineContract._address)
+      .call().then(a => {
+        nectarContract.methods
+        .approve('0xfCeB04C697a7708776C3936760aE256Eb92046f5', tokensForSell)
+        .send({ from: account })
+        .then(res => {
+          this.props.sellAndBurn(tokensForSell, account);
+        }).catch(e => {
+          debugger;
+        })
+      }).catch(e => {
+        debugger
+      })
 
-    nectarContract.methods
-      .approve(account, tokensForSell)
-      .call()
-      .then(res => {
-        this.props.sellAndBurn(tokensForSell);
-      });
   };
 
   renderTabTileAmount = (title) => {
@@ -182,7 +191,7 @@ class Auction extends Component {
   render() {
     const { activeTabIndex, tokensForSell } = this.state;
     const ActiveTabComponent = TABS[activeTabIndex].Component;
-    const { currentAuctionSummary, nextPriceChange, auctionTransactions } = this.props;
+    const { currentAuctionSummary, nextPriceChange, auctionTransactions, necPrice } = this.props;
 
     return (
       <div className="auction">
@@ -250,8 +259,9 @@ class Auction extends Component {
                 </div>
                 <div className="graphics__container">
                   <BarDiagram
-                    XAxisKey="name"
-                    YAxisKey="uv"
+                    XAxisKey="eth"
+                    YAxisKey="nec"
+                    highlightValue={necPrice}
                     data={this.props.auctionIntervalData}
                   />
                   <Circle nextPrice={formatToMinutes(nextPriceChange)} sold_eth_value="50" />
@@ -292,8 +302,8 @@ class Auction extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.props.auctionTransactions &&
-                  this.props.auctionTransactions.map((trxn, index) => (
+                {auctionTransactions &&
+                  auctionTransactions.map((trxn, index) => (
                     <tr key={index}>
                       <td>{trxn.blockNumber}</td>
                       <td></td>

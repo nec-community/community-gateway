@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
 import '../Auction.scss';
 import { renderTooltip } from './Diagram';
+import { formatNumber } from '../../../services/utils';
 
 export default class BarDiagram extends Component {
   constructor(props) {
@@ -9,7 +10,7 @@ export default class BarDiagram extends Component {
   }
 
   render() {
-    const { data, XAxisKey, YAxisKey } = this.props;
+    const { data, XAxisKey, YAxisKey, highlightValue } = this.props;
 
     return (
       <div className="graphics-item__container">
@@ -22,6 +23,7 @@ export default class BarDiagram extends Component {
         >
           <CartesianGrid vertical={false} stroke="#000000" />
           <XAxis
+            tickFormatter={formatNumber}
             dataKey={XAxisKey}
             tick={{ stroke: '#ffffff' }}
             stroke="#000000"
@@ -29,12 +31,12 @@ export default class BarDiagram extends Component {
             tickMargin={10}
             tickLine={false}
           />
-          <YAxis tick={{ stroke: '#ffffff' }} stroke="#000000" axisLine={false} tickMargin={10} />
+          <YAxis tickFormatter={formatNumber} tick={{ stroke: '#ffffff' }} stroke="#000000" axisLine={false} tickMargin={10} />
           <Tooltip content={renderTooltip} />
-          <Bar dataKey={YAxisKey} >
+          <Bar dataKey={YAxisKey}>
             {
               this.props.data && this.props.data.map((entry, index) => (
-                <Cell key={index} fill={this.props.data[index].uv === 6 ? '#5ff5fc' : '#005599' }/>
+                <Cell key={index} fill={this.props.data[index].nec === highlightValue  ? '#5ff5fc' : '#005599' }/>
               ))
             }
           </Bar>
