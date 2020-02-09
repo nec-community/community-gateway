@@ -381,38 +381,24 @@ const fetchedCurrentActionSummary = data => async dispatch => {
   try {
     const current = await engineContract.methods.getCurrentAuction().call();
     const blockRange = await eth.getChartBlockRange();
-    const lastThaw = await engineContract.methods.lastThaw().call()
-    let pastEvents = await engineContract.getPastEvents('AuctionClose', blockRange);
-    const necPrice = await eth.getNecPrice();
+    const necPrice = await eth.getNecPriceInEth();
+    const transactions = await engineContract.getPastEvents('Burn', blockRange);
+    const sumEthPrice = transactions.reduce((transaction, nextTransaction) => {
+      transaction.returnValues.price + nextTransaction.returnValues.price
+    });
 
-    // let pastEvents = await engineContract.getPastEvents('allEvents');
     console.log('currentAuctionSummary', current)
-
     dispatch({
       type: FETCH_CURRENT_AUCTION_SUMMARY,
       nextPriceChange: current.nextPriceChangeSeconds,
-      currentAuctionSummary: [
-        {
-          title: 'Sold',
-          token_price: formatEth(current.initialEthAvailable) - formatEth(current.remainingEthAvailable),
-          dollar_price: ((current.initialEthAvailable - current.remainingEthAvailable) * necPrice).toFixed(2),
-        },
-        {
-          title: 'Purchased',
-          token_price: 24,
-          dollar_price: 0.006,
-        },
-        {
-          title: 'Remaining',
-          token_price: formatEth(current.remainingEthAvailable),
-          dollar_price: (current.remainingEthAvailable * necPrice).toFixed(2),
-        },
-        {
-          title: 'Sold NEC Average Price',
-          token_price: 0.00035,
-          dollar_price: 0.055,
-        },
-      ],
+      currentAuctionSummary: {
+        currentNecPrice: formatEth(current.currentPrice),
+        nextNecPrice: current.nextPrice,
+        remainingEth: current.remainingEthAvailable,
+        initialEth: current.remainingEthAvailable,
+        necAveragePrice: (sumEthPrice / transactions.length),
+        purchasedNec: (formatEth(Number(current.initialEthAvailable)) - formatEth(Number(current.remainingEthAvailable))) * necPrice
+      }
     });
   } catch(e) {
     dispatch({

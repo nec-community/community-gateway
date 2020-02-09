@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import eth from '../../services/ethereumService';
-import { formatNumber, formatToMinutes } from '../../services/utils'
+import { formatNumber, formatToMinutes, formatEth } from '../../services/utils'
 import Web3 from 'web3';
 import './Auction.scss';
 import Diagram from './Diagrams/Diagram';
@@ -262,7 +262,7 @@ class Auction extends Component {
                       Current Auction <br /> NEC Price
                     </span>
                     <span className="current-auction__value">
-                      0.0067ETH
+                      {currentAuctionSummary.currentNecPrice} <small>ETH</small>
                     </span>
                   </div>
                   <div className="current-auction__card">
@@ -270,33 +270,33 @@ class Auction extends Component {
                       Next Auction <br /> NEC Price
                     </span>
                     <span className="current-auction__value">
-                      0.0067ETH
+                      {currentAuctionSummary.nextNecPrice} <small>ETH</small>
                     </span>
                   </div>
                 </div>
-                <div className="current-auction__info">
-                  {currentAuctionSummary.map((item, index) => (
-                    <div className="info__item" key={index}>
-                      <p>{item.title}</p>
-                      <span>
-                        {formatNumber(item.token_price)}
-                        <span className="little__text">ETH</span>
-                      </span>
-                      <span className="little__text">US ${item.dollar_price}</span>
-                    </div>
-                  ))}
-                </div>
                 <div className="graphics__container">
                   <Circle
-                   nextPrice={this.format(nextPriceChange)}
-                   sold_eth_value="50"
+                   percentage="50"
                    title="Next price change"
-                  />
+                  >
+                    <text x="18" y="20" className="chart-title">
+                      {this.format(nextPriceChange)}
+                    </text>
+                  </Circle>
                   <Circle
-                    nextPrice={this.format(nextPriceChange)}
-                    sold_eth_value="80"
+                    percentage="80"
                     title="ETH Remaining"
-                  />
+                  >
+                    <text x="18" y="12" className="chart-title">
+                      <tspan x="18"  dy="1.2em">
+                        {formatEth(currentAuctionSummary.remainingEth)}
+                      </tspan>
+                      <tspan x="18"  dy="1.2em">of</tspan>
+                      <tspan  x="18" dy="1.2em">
+                        {formatEth(currentAuctionSummary.initialEth)}
+                      </tspan>
+                    </text>
+                  </Circle>
                 </div>
                 <div className="current-auction">
                   <div className="current-auction__card">
@@ -304,7 +304,7 @@ class Auction extends Component {
                       Purchased NEC
                     </span>
                     <span className="current-auction__value">
-                      0.0067ETH
+                      {formatNumber(currentAuctionSummary.purchasedNec)}
                     </span>
                   </div>
                   <div className="current-auction__card">
@@ -312,7 +312,7 @@ class Auction extends Component {
                       Purchased NEC <br />average price
                     </span>
                     <span className="current-auction__value">
-                      0.0067ETH
+                      {formatEth(currentAuctionSummary.necAveragePrice)} <small>ETH</small>
                     </span>
                   </div>
                 </div>

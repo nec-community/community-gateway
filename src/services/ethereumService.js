@@ -619,6 +619,12 @@ const getNecPrice = async () => {
   return ticker[6];
 };
 
+const getNecPriceInEth = async () => {
+  const tickerRes = await fetch('https://api.deversifi.com/bfx/v2/ticker/tNECETH');
+  const ticker = await tickerRes.json();
+  return ticker[6];
+}
+
 const calculateNecReward = async volume => {
   if (!ethPrice) ethPrice = await getEthPrice();
   log(`Eth price ${ethPrice}`);
@@ -709,5 +715,6 @@ export default {
   getTokenContract,
   getChartBlockRange,
   getNecPrice,
-  getEthPrice
+  getEthPrice,
+  getNecPriceInEth
 };

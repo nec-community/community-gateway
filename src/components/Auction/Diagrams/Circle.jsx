@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default function Circle({ title, sold_eth_value, soldEthVal, nextPrice }) {
-  const sold = `${sold_eth_value}, 100`;
+export default function Circle({ children, title, percentage, soldEthVal }) {
+  const sold = `${percentage}, 100`;
   return (
     <div className="graphics-item__container">
       <p className="graphic__label">{title}</p>
@@ -20,9 +20,7 @@ export default function Circle({ title, sold_eth_value, soldEthVal, nextPrice })
           a 15.9155 15.9155 0 0 1 0 31.831
           a 15.9155 15.9155 0 0 1 0 -31.831"
           />
-          <text x="18" y="20" className="chart-title">
-            {nextPrice}
-          </text>
+          {children}
         </svg>
       </div>
     </div>
