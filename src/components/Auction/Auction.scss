@@ -158,7 +158,7 @@
     .graphics__container {
       display: flex;
       justify-content: space-between;
-      margin-top: 15px;
+      margin: 8px 0;
 
       &:first-child {
         margin-right: 15px;
@@ -245,6 +245,12 @@
         font-size: 2px;
         text-anchor: middle;
       }
+
+      .chart-title {
+        font-size: 3px;
+        text-anchor: middle;
+        fill: #ffffff;
+      }
     }
 
     .tooltip__container {
@@ -268,6 +274,34 @@
         border-right: 7px solid transparent;
         border-top: 10px solid #1e1c2c;
       }
+    }
+  }
+
+  .current-auction {
+    display: flex;
+    justify-content: space-between;
+
+    &__card {
+      width: 460px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 16px;
+      background: #1E1D2E;
+    }
+
+    &__title {
+      font-size: 20px;
+      line-height: 24px;
+      color: #FFFCFC;
+    }
+
+
+    &__value {
+      font-weight: bold;
+      font-size: 36px;
+      line-height: 44px;
+      color: #FFFCFC;
     }
   }
 

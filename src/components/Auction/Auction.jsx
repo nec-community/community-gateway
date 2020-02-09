@@ -144,6 +144,17 @@ class Auction extends Component {
     return `${days}d ${hours}h ${minutes}m`;
   };
 
+  format = (nextAuctionMs) => {
+    let minutes = Math.floor((nextAuctionMs / (1000 * 60)) % 60);
+    let hours = Math.floor((nextAuctionMs / (1000 * 60 * 60)) % 24);
+    const days = Math.floor(nextAuctionMs / (1000 * 60 * 60 * 24));
+
+    hours = hours < 10 ? `0${hours}` : hours;
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+
+    return `${days}d ${hours}h ${minutes}m`;
+  };
+
   changeInputValue = e => {
     const { value } = e.target;
 
@@ -245,6 +256,24 @@ class Auction extends Component {
             <>
               <section>
                 <h3>Current Auction - live</h3>
+                <div className="current-auction">
+                  <div className="current-auction__card">
+                    <span className="current-auction__title">
+                      Current Auction <br /> NEC Price
+                    </span>
+                    <span className="current-auction__value">
+                      0.0067ETH
+                    </span>
+                  </div>
+                  <div className="current-auction__card">
+                    <span className="current-auction__title">
+                      Next Auction <br /> NEC Price
+                    </span>
+                    <span className="current-auction__value">
+                      0.0067ETH
+                    </span>
+                  </div>
+                </div>
                 <div className="current-auction__info">
                   {currentAuctionSummary.map((item, index) => (
                     <div className="info__item" key={index}>
@@ -258,13 +287,34 @@ class Auction extends Component {
                   ))}
                 </div>
                 <div className="graphics__container">
-                  <BarDiagram
-                    XAxisKey="eth"
-                    YAxisKey="nec"
-                    highlightValue={necPrice}
-                    data={this.props.auctionIntervalData}
+                  <Circle
+                   nextPrice={this.format(nextPriceChange)}
+                   sold_eth_value="50"
+                   title="Next price change"
                   />
-                  <Circle nextPrice={formatToMinutes(nextPriceChange)} sold_eth_value="50" />
+                  <Circle
+                    nextPrice={this.format(nextPriceChange)}
+                    sold_eth_value="80"
+                    title="ETH Remaining"
+                  />
+                </div>
+                <div className="current-auction">
+                  <div className="current-auction__card">
+                    <span className="current-auction__title">
+                      Purchased NEC
+                    </span>
+                    <span className="current-auction__value">
+                      0.0067ETH
+                    </span>
+                  </div>
+                  <div className="current-auction__card">
+                    <span className="current-auction__title">
+                      Purchased NEC <br />average price
+                    </span>
+                    <span className="current-auction__value">
+                      0.0067ETH
+                    </span>
+                  </div>
                 </div>
               </section>
                 <div className="sell__tokens">
