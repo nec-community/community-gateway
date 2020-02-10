@@ -249,11 +249,10 @@ class Auction extends Component {
               data={this.props[TABS[activeTabIndex].title]}
             />
           </section>
-          {console.log(currentAuctionSummary)}
           {currentAuctionSummary && (
             <>
               <section>
-                <h3>Current Auction - live</h3>
+                <h3 className="current-auction__header">Current Auction - live</h3>
                 <div className="current-auction">
                   <div className="current-auction__card">
                     <span className="current-auction__title">
@@ -285,7 +284,7 @@ class Auction extends Component {
                     percentage="80"
                     title="ETH Remaining"
                   >
-                    <text x="18" y="12" className="chart-title">
+                    <text x="18" y="10" className="chart-title">
                       <tspan x="18"  dy="1.2em">
                         {formatEth(currentAuctionSummary.remainingEth)}
                       </tspan>
@@ -310,7 +309,7 @@ class Auction extends Component {
                       Purchased NEC <br />average price
                     </span>
                     <span className="current-auction__value">
-                      {formatEth(currentAuctionSummary.necAveragePrice)} <small>ETH</small>
+                      {currentAuctionSummary.necAveragePrice} <small>ETH</small>
                     </span>
                   </div>
                 </div>
