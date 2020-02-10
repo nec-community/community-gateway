@@ -383,24 +383,32 @@ const fetchedCurrentActionSummary = data => async dispatch => {
     const blockRange = await eth.getChartBlockRange();
     const necPrice = await eth.getNecPriceInEth();
     const transactions = await engineContract.getPastEvents('Burn', blockRange);
-    const sumEthPrice = transactions.reduce((transaction, nextTransaction) => {
-      transaction.returnValues.price + nextTransaction.returnValues.price
-    });
+    let sumEthPrice = 0
+    try {
+      if (transactions.length) {
+        sumEthPrice = transactions.reduce((transaction, nextTransaction) => {
+          transaction.returnValues.price + nextTransaction.returnValues.price
+        })
+      }
+    } catch(e) {
+      console.log(e)
+    }
 
     console.log('currentAuctionSummary', current)
     dispatch({
       type: FETCH_CURRENT_AUCTION_SUMMARY,
-      nextPriceChange: current.nextPriceChangeSeconds,
+      nextPriceChange: current.nextPriceChangeSeconds - Date.now() / 1000,
       currentAuctionSummary: {
         currentNecPrice: formatEth(current.currentPrice),
         nextNecPrice: current.nextPrice,
         remainingEth: current.remainingEthAvailable,
         initialEth: current.remainingEthAvailable,
-        necAveragePrice: (sumEthPrice / transactions.length),
+        necAveragePrice: transactions.length ? (sumEthPrice / transactions.length) : 'N/A',
         purchasedNec: (formatEth(Number(current.initialEthAvailable)) - formatEth(Number(current.remainingEthAvailable))) * necPrice
       }
     });
   } catch(e) {
+    console.log('storm', e)
     dispatch({
       type: FETCH_CURRENT_AUCTION_SUMMARY,
       currentAuctionSummary: null
@@ -496,14 +504,16 @@ export const fetchEthPrice = () => async dispatch => {
   dispatch({ type: FETCH_ETH_PRICE, necPrice })
 }
 
-export const sellAndBurn = (necAmount, userAccount) => async dispatch => {
-  const engineContract = await eth.getEngineContract();
+export const sellAndBurn = (necAmount) => async (dispatch, getState) => {
+  if (!getState().account.tokenBalance || getState().account.tokenBalance < 0.1) {
+    return notifyError('You first need nectar tokens!')(dispatch);
+  }
+
   try {
-    const response = await engineContract.methods.sellAndBurnNec(necAmount)
-    debugger
+    await eth.sellAndBurn(necAmount, getState().account.accountType)
+    notify('You have sold NEC!', 'success')(dispatch);
     dispatch({ type: SELL_AND_BURN_NEC })
   } catch(err) {
-    console.log(err)
     notifyError(err)(dispatch);
   }
 }

@@ -356,6 +356,32 @@ const voteTokens = async (tokenId, amount, accountType) => {
   });
 };
 
+const sellAndBurn = async (amount, accountType) => {
+  const account = await getAccount()
+
+  const engineContract = getEngineContract()
+  const nectarContract = getTokenContract()
+  const allowance = await nectarContract.methods.allowance(account, engineContract._address).call()
+  if (+allowance < +amount) {
+    const approveCall = nectarContract.methods.approve(
+      engineContract._address,
+      '10000000000000000000000000000000')
+    if (accountType === 'ledger') await signAndSendLedger(approveCall)
+    if (accountType === 'keystore') await signAndSendKeystore(approveCall)
+    if (accountType === 'metamask') await approveCall.send({from: account})
+  }
+
+  const contractCall = engineContract.methods.sellAndBurnNec(
+    amount
+  )
+  if (accountType === 'ledger') return signAndSendLedger(contractCall)
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall)
+
+  return contractCall.send({
+    from: account,
+  })
+}
+
 const hasUserVoted = async (proposalId, address) => {
   if (!address) return false;
   const proposalContract = getProposalContract();
@@ -695,6 +721,7 @@ export default {
   voteTokens,
   getActiveTokenListingProposal,
   getTokenProposalDetails,
+  sellAndBurn,
   hasUserVoted,
   userBalanceOnProposal,
   calculateNecReward,
