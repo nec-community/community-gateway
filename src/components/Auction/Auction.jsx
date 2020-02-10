@@ -105,7 +105,7 @@ class Auction extends Component {
             .call()
             .then(async res => {
               this.setState({
-                nextAuctionMs: res[0],
+                nextAuctionS: res[0] - Date.now() / 1000,
               });
             });
         }
@@ -132,28 +132,41 @@ class Auction extends Component {
   };
 
   formatNextAuction = () => {
-    const { nextAuctionMs } = this.state;
+    const { nextAuctionS } = this.state
 
-    let minutes = Math.floor((nextAuctionMs / (1000 * 60)) % 60);
-    let hours = Math.floor((nextAuctionMs / (1000 * 60 * 60)) % 24);
-    const days = Math.floor(nextAuctionMs / (1000 * 60 * 60 * 24));
+    let minutes = Math.floor((nextAuctionS / (60)) % 60)
+    let hours = Math.floor((nextAuctionS / (60 * 60)) % 24)
+    const days = Math.floor(nextAuctionS / (60 * 60 * 24))
 
-    hours = hours < 10 ? `0${hours}` : hours;
-    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    hours = hours < 10 ? `0${hours}` : hours
+    minutes = minutes < 10 ? `0${minutes}` : minutes
 
-    return `${days}d ${hours}h ${minutes}m`;
-  };
+    return `${days}d ${hours}h ${minutes}m`
+  }
 
-  format = (nextAuctionMs) => {
-    let minutes = Math.floor((nextAuctionMs / (1000 * 60)) % 60);
-    let hours = Math.floor((nextAuctionMs / (1000 * 60 * 60)) % 24);
-    const days = Math.floor(nextAuctionMs / (1000 * 60 * 60 * 24));
+  formatTimeNextAuction = () => {
+    const { nextAuctionS } = this.state
 
-    hours = hours < 10 ? `0${hours}` : hours;
-    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    const timestampMs = Date.now() + nextAuctionS * 1000
+    return new Date(timestampMs).toLocaleString()
+  }
 
-    return `${days}d ${hours}h ${minutes}m`;
-  };
+  format = (nextAuctionS) => {
+    let minutes = Math.floor((nextAuctionS / (60)) % 60)
+    let hours = Math.floor((nextAuctionS / (60 * 60)) % 24)
+    const days = Math.floor(nextAuctionS / (60 * 60 * 24))
+
+    hours = hours < 10 ? `0${hours}` : hours
+    minutes = minutes < 10 ? `0${minutes}` : minutes
+
+    if (days == 0 && hours == 0) {
+      return `${minutes}m`
+    }
+    if (days == 0) {
+      return `${hours}h ${minutes}m`
+    }
+    return `${days}d ${hours}h ${minutes}m`
+  }
 
   changeInputValue = e => {
     const { value } = e.target;
@@ -164,26 +177,10 @@ class Auction extends Component {
   };
 
   sellTokens = async () => {
-    this.props.sellInAuctionStart();
-    const { tokensForSell, account } = this.state;
-
-    const nectarContract = new this.web3.eth.Contract(abis.necContract, this.nectarAddress);
-    const engineContract = await eth.getEngineContract();
-    nectarContract.methods.allowance(account, engineContract._address)
-      .call().then(a => {
-        nectarContract.methods
-        .approve('0xfCeB04C697a7708776C3936760aE256Eb92046f5', tokensForSell)
-        .send({ from: account })
-        .then(res => {
-          this.props.sellAndBurn(tokensForSell, account);
-        }).catch(e => {
-          debugger;
-        })
-      }).catch(e => {
-        debugger
-      })
-
-  };
+    this.props.sellInAuctionStart()
+    const { tokensForSell } = this.state;
+    this.props.sellAndBurn(tokensForSell)
+  }
 
   renderTabTileAmount = (title) => {
     if(this.props[title].length > 0) {
@@ -224,7 +221,7 @@ class Auction extends Component {
                 </p>
                 <p className="little__text">Next auction start</p>
                 <p>{this.formatNextAuction()}</p>
-                <p className="little__text">Mon 19th Oct 12pm UST</p>
+                <p className="little__text">{this.formatTimeNextAuction()}</p>
               </div>
             </div>
             <Description />
@@ -252,6 +249,7 @@ class Auction extends Component {
               data={this.props[TABS[activeTabIndex].title]}
             />
           </section>
+          {console.log(currentAuctionSummary)}
           {currentAuctionSummary && (
             <>
               <section>
