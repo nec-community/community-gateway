@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../Auction.scss';
 
-const AuctionDescription = () => {
-  const[visible, setVisible] = useState(true);
-
+const AuctionDescription = ({ closeDescription, visible }) => {
   return visible && (
     <div className="overview__description">
       <p>
@@ -22,7 +20,7 @@ const AuctionDescription = () => {
         For the purposes of the necBurn auction revenues from DeversiFi trading fees are defined as  trading fees collected from users minus on-chain settlement costs minus external liquidity  provider costs if one exists.
         </p>
       <div className="overview__close">
-        <button onClick={() => setVisible(false)}>CLOSE</button>
+        <button onClick={closeDescription}>CLOSE</button>
       </div>
     </div>
   )

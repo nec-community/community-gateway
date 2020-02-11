@@ -60,7 +60,8 @@ class Auction extends Component {
       tokensForSell: '',
       data: [],
       summaryValues: [],
-      sellAndBurnLoading: false
+      sellAndBurnLoading: false,
+      descriptionVisible: false
     };
 
     if (typeof window.web3 !== 'undefined') {
@@ -220,6 +221,7 @@ class Auction extends Component {
                 Once per week DeversiFi exchange trading fees that are pledged to NEC token holders
                 are auctioned. NEC holders can sell their NEC in exchange for the auctioned ETH. Any
                 NEC tokens sold in the auctions are burned.
+                <strong onClick={() => this.setState({ descriptionVisible: true })} className="overview__link">See details</strong>
               </p>
               <div className="overview__auction">
                 <p>
@@ -230,7 +232,10 @@ class Auction extends Component {
                 <p className="little__text">{this.formatTimeNextAuction()}</p>
               </div>
             </div>
-            <Description />
+            <Description
+              visible={this.state.descriptionVisible}
+              closeDescription={() => this.setState({ descriptionVisible: false })}
+            />
           </div>
           {currentAuctionSummary && (
             <>
