@@ -71,6 +71,8 @@ module.exports = {
       compress: {
         warnings: false,
       },
+      minimize: true,
+      include: /\.min\.js$/
     }),
     new FaviconsWebpackPlugin(path.resolve('nec.png')),
     new webpack.DefinePlugin({
