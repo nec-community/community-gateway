@@ -14,7 +14,6 @@ import {
   fetchCirculatingNec,
   fetchBurnedNec,
   fetchDeversifiNecEth,
-  fetchNextAuctionEth,
   fetchCurrentActionSummary,
   fetchAuctionIntervalData,
   sellInAuctionStart,
@@ -78,7 +77,6 @@ class Auction extends Component {
     this.props.fetchBurnedNec();
     this.props.fetchCirculatingNec();
     this.props.fetchDeversifiNecEth();
-    this.props.fetchNextAuctionEth();
     this.props.fetchCurrentActionSummary();
     this.props.fetchAuctionIntervalData();
     this.props.fetchAuctionTransactions();
@@ -188,7 +186,7 @@ class Auction extends Component {
 
   renderTabTileAmount = (title) => {
     if(this.props[title].length > 0) {
-      return formatNumber(this.props[title][this.props[title].length - 1].pv);
+      return formatNumber(this.props[title][this.props[title].length - 1].pv.toFixed(3));
     }
   }
 
@@ -196,7 +194,7 @@ class Auction extends Component {
     const { necPrice } = this.props;
 
     if(this.props[title].length > 0) {
-      return `$ ${(this.props[title][this.props[title].length - 1].pv * necPrice).toFixed(2)}`;
+      return `US $ ${formatNumber((this.props[title][this.props[title].length - 1].pv * necPrice).toFixed(2))}`;
     }
   }
 
@@ -235,22 +233,20 @@ class Auction extends Component {
               <section className="summary">
                 <h3>Summary</h3>
                 <ul className="tabs">
-                  {TABS.map((tab, index) => {
-                    this.props[tab.title] && (
-                      <li key={tab.name}>
-                        <button
-                          className={`tab__button ${index === activeTabIndex ? 'active__tab' : null}`}
-                          onClick={() => this.onTabClick(index)}
-                        >
-                          <p>{tab.name}</p>
-                          <span>
-                            {this.props[tab.title] && this.renderTabTileAmount(tab.title)}
-                          </span>
-                          <span className="little__text">{this.props[tab.title] && this.renderTabPrice(tab.title)}</span>
-                        </button>
-                      </li>
-                    )
-                  })}
+                  {TABS.map((tab, index) => (
+                    <li key={tab.name}>
+                      <button
+                        className={`tab__button ${index === activeTabIndex ? 'active__tab' : null}`}
+                        onClick={() => this.onTabClick(index)}
+                      >
+                        <p>{tab.name}</p>
+                        <span>
+                          {this.props[tab.title] && this.renderTabTileAmount(tab.title)}
+                        </span>
+                        <span className="little__text">{this.props[tab.title] && this.renderTabPrice(tab.title)}</span>
+                      </button>
+                    </li>
+                  ))}
                 </ul>
                 <ActiveTabComponent
                   tabContent={TABS[activeTabIndex]}
@@ -369,7 +365,7 @@ class Auction extends Component {
                       <td>{trxn.price_nec_usd}</td>
                       <td>{trxn.usd}</td>
                     </tr>
-                  )) : <div className="table__loading"><Loading /></div>}
+                  )) : <tr className="table__loading"><Loading /></tr>}
               </tbody>
             </table>
           </div>
@@ -383,7 +379,6 @@ Auction.propTypes = {
   fetchCirculatingNec: PropTypes.func.isRequired,
   fetchBurnedNec: PropTypes.func.isRequired,
   fetchDeversifiNecEth: PropTypes.func.isRequired,
-  fetchNextAuctionEth: PropTypes.func.isRequired,
   fetchCurrentActionSummary: PropTypes.func.isRequired,
   fetchAuctionIntervalData: PropTypes.func.isRequired,
   sellInAuctionStart: PropTypes.func.isRequired,
@@ -407,7 +402,6 @@ export default connect(mapStateToProps, {
   fetchCirculatingNec,
   fetchBurnedNec,
   fetchDeversifiNecEth,
-  fetchNextAuctionEth,
   fetchCurrentActionSummary,
   fetchAuctionIntervalData,
   sellInAuctionStart,

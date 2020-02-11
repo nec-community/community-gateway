@@ -38,6 +38,12 @@ export async function getBurnedNEC() {
   return burnedNec;
 }
 
+export const fetchBurnedNec = () => async dispatch => {
+  const burnedNecData = await Promise.all(await getBurnedNEC());
+
+  dispatch({ type: FETCH_BURNED_NEC, burnedNecData });
+};
+
 export async function getCirculatingNEC() {
   const tokenContract = eth.getTokenContract();
   const blockRange = await eth.getChartBlockRange();
@@ -72,82 +78,15 @@ export async function getDeversifiNecEth() {
   return deversifiNecEth;
 }
 
-const fetchedBurnedNec = burnedNecData => ({
-  type: FETCH_BURNED_NEC,
-  burnedNecData,
-});
-
-export const fetchBurnedNec = () => async dispatch => {
-  const burnedNecData = await Promise.all(await getBurnedNEC());
-  dispatch(fetchedBurnedNec(burnedNecData));
-};
-
-const fetchedCirculatingNec = circulatingNecData => ({
-  type: FETCH_CIRCULATING_NEC_DATA,
-  circulatingNecData,
-});
-
 export const fetchCirculatingNec = () => async dispatch => {
   const circulatingNecData = await getCirculatingNEC();
-  dispatch(fetchedCirculatingNec(circulatingNecData));
-};
 
-const fetchedDeversifiNecEth = deversifiNecEthData => ({
-  type: FETCH_DEVERSIFI_NEC_ETH_DATA,
-  deversifiNecEthData,
-});
+  dispatch({ type: FETCH_CIRCULATING_NEC_DATA, circulatingNecData });
+};
 
 export const fetchDeversifiNecEth = () => async dispatch => {
   const deversifiNecEthData = await getDeversifiNecEth();
-  dispatch(fetchedDeversifiNecEth(deversifiNecEthData));
-};
-
-const fetchedNextAuctionEth = data => ({
-  type: FETCH_NEXT_AUCTION_ETH_DATA,
-  nextAuctionEthData: [
-    {
-      name: 'Page A',
-      pv: 5400,
-      amt: 2400,
-    },
-    {
-      name: 'Page B',
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: 'Page C',
-      pv: 6800,
-      amt: 2290,
-    },
-    {
-      name: 'Page D',
-      pv: 9908,
-      amt: 2000,
-    },
-    {
-      name: 'Page E',
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: 'Page F',
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: 'Page G',
-      pv: 300,
-      amt: 2100,
-    },
-  ],
-});
-
-export const fetchNextAuctionEth = data => async (dispatch, getState) => {
-  const engineContract = eth.getEngineContract();
-  const next = await engineContract.methods.getNextAuction().call();
-
-  dispatch(fetchedNextAuctionEth());
+  dispatch({ type: FETCH_DEVERSIFI_NEC_ETH_DATA, deversifiNecEthData });
 };
 
 const fetchedCurrentActionSummary = data => async dispatch => {
@@ -161,7 +100,7 @@ const fetchedCurrentActionSummary = data => async dispatch => {
     let sumEthPrice = 0;
 
     if(transactions.length) {
-      const transactionsPrices = transactions.map(transaction => Number(transaction.returnValues.price));
+      const transactionsPrices = transactions.map(transaction => Number(transaction.returnValues.price)/Number(transaction.returnValues.amount));
       sumEthPrice = transactionsPrices.reduce((price, nextPrice) => price + nextPrice);
     }
 
@@ -173,7 +112,7 @@ const fetchedCurrentActionSummary = data => async dispatch => {
         nextNecPrice: current.nextPrice,
         remainingEth: current.remainingEthAvailable,
         initialEth: current.remainingEthAvailable,
-        necAveragePrice: transactions.length ? formatNumber(fomatEth(sumEthPrice / transactions.length)) : 'N/A',
+        necAveragePrice: transactions.length ? formatEth(sumEthPrice / transactions.length) : 'N/A',
         purchasedNec: (formatEth(Number(current.initialEthAvailable)) - formatEth(Number(current.remainingEthAvailable))) * necPrice
       }
     });
