@@ -130,30 +130,10 @@ class Auction extends Component {
     });
   };
 
-  formatNextAuction = () => {
-    const { nextAuctionS } = this.state
-
-    let minutes = Math.floor((nextAuctionS / (60)) % 60)
-    let hours = Math.floor((nextAuctionS / (60 * 60)) % 24)
-    const days = Math.floor(nextAuctionS / (60 * 60 * 24))
-
-    hours = hours < 10 ? `0${hours}` : hours
-    minutes = minutes < 10 ? `0${minutes}` : minutes
-
-    return `${days}d ${hours}h ${minutes}m`
-  }
-
-  formatTimeNextAuction = () => {
-    const { nextAuctionS } = this.state
-
-    const timestampMs = Date.now() + nextAuctionS * 1000
-    return new Date(timestampMs).toLocaleString()
-  }
-
-  format = (nextAuctionS) => {
-    let minutes = Math.floor((nextAuctionS / (60)) % 60)
-    let hours = Math.floor((nextAuctionS / (60 * 60)) % 24)
-    const days = Math.floor(nextAuctionS / (60 * 60 * 24))
+  timeCountdown = (date) => {
+    let minutes = Math.floor((date / (60)) % 60)
+    let hours = Math.floor((date / (60 * 60)) % 24)
+    const days = Math.floor(date / (60 * 60 * 24))
 
     hours = hours < 10 ? `0${hours}` : hours
     minutes = minutes < 10 ? `0${minutes}` : minutes
@@ -165,6 +145,13 @@ class Auction extends Component {
       return `${hours}h ${minutes}m`
     }
     return `${days}d ${hours}h ${minutes}m`
+  }
+
+  formatTimeNextAuction = () => {
+    const { nextAuctionS } = this.state
+
+    const timestampMs = Date.now() + nextAuctionS * 1000
+    return new Date(timestampMs).toLocaleString()
   }
 
   changeInputValue = e => {
@@ -198,6 +185,23 @@ class Auction extends Component {
     }
   }
 
+  calcEthPercentage = () => {
+    const { remainingEth, initialEth } = this.props.currentAuctionSummary;
+
+    return (100 - (remainingEth * 100) / initialEth)
+  }
+
+  calcTimestampPercentage = () => {
+    const { nextPriceChange, startTimeSeconds } = this.props;
+    const timeStarted = new Date(startTimeSeconds);
+    const timeNow = new Date().getTime();
+    let timeLimit = new Date();
+    timeLimit.setSeconds(timeLimit.getSeconds() + nextPriceChange);
+    const initialPercentage = (timeNow - timeStarted) / ((timeLimit.getTime() - timeStarted) * 100);
+
+    return Math.floor(100 - initialPercentage)
+  }
+
   render() {
     const { activeTabIndex, tokensForSell, sellAndBurnLoading } = this.state;
     const ActiveTabComponent = TABS[activeTabIndex].Component;
@@ -222,7 +226,7 @@ class Auction extends Component {
                   Auction: <span className="auction__status">live</span>
                 </p>
                 <p className="little__text">Next auction start</p>
-                <p>{this.formatNextAuction()}</p>
+                <p>{this.timeCountdown(this.state.nextAuctionS)}</p>
                 <p className="little__text">{this.formatTimeNextAuction()}</p>
               </div>
             </div>
@@ -276,15 +280,15 @@ class Auction extends Component {
                 </div>
                 <div className="graphics__container">
                   <Circle
-                   percentage="50"
+                   percentage={this.calcTimestampPercentage()}
                    title="Next price change"
                   >
                     <text x="18" y="20" className="chart-title">
-                      {this.format(nextPriceChange)}
+                      {this.timeCountdown(nextPriceChange)}
                     </text>
                   </Circle>
                   <Circle
-                    percentage="80"
+                    percentage={this.calcEthPercentage()}
                     title="ETH Remaining"
                   >
                     <text x="18" y="10" className="chart-title">
@@ -396,6 +400,7 @@ const mapStateToProps = state => ({
   auctionTransactions: state.auction.auctionTransactions,
   necPrice: state.auction.necPrice,
   nextPriceChange: state.auction.nextPriceChange,
+  startTimeSeconds: state.auction.startTimeSeconds,
 });
 
 export default connect(mapStateToProps, {
