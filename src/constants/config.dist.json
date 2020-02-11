@@ -4,6 +4,7 @@
   "backendUrl": "http://139.59.146.81:3000",
   "defaultGasPrice": 20,
   "hiddenProposals": [1, 2, 3, 4],
+  "chartDuration": 60,
   "tokenListingManager": "0x29c317dCcC79ef77eF04BB7e9A852926050Bc92D",
   "proposalContract": "0xb24ed9d62d4c660faf56a4cddada06c88b2d5ddb",
   "simpleVoteContract": "0x7511576ab7adbcb466366C8cd3529FE2E4833c6E",

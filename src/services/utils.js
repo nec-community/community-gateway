@@ -93,3 +93,35 @@ export const timeUntilDate = date => {
   const remainingMinutes = Math.floor(diff / (60 * 1000));
   return { count: remainingMinutes, unit: `min${remainingMinutes > 1 ? 's' : ''}` };
 };
+
+export const formatEth = number => {
+  if (number === 0) {
+    return number;
+  }
+
+  return (number/1000000000000000000).toFixed(3);
+}
+
+export const formatNumber = number => {
+  if (number === '0' || !number) return 0;
+
+  if (number < 1000) {
+    return number;
+  } else if (number < 1000000) {
+    const newNumber = number / 1000;
+    const fixedNumber = Number.isInteger(newNumber) ? newNumber.toFixed() : newNumber;
+    return `${fixedNumber}K`;
+  } else if (number < 1000000000) {
+    const newNumber = number / 1000000;
+    const fixedNumber = Number.isInteger(newNumber) ? newNumber.toFixed() : newNumber.toFixed(1);
+    return `${fixedNumber}M`;
+  } else {
+    const newNumber = number / 1000000000;
+    const fixedNumber = Number.isInteger(newNumber) ? newNumber.toFixed() : newNumber.toFixed(1);
+    return `${fixedNumber}B`;
+  }
+}
+
+export const formatToMinutes = time => {
+  return `${Math.floor(time / 60)} mins`
+}
