@@ -109,8 +109,9 @@ const fetchedCurrentActionSummary = data => async dispatch => {
       nextPriceChange: current.nextPriceChangeSeconds - Date.now() / 1000,
       startTimeSeconds: Number(current.startTimeSeconds),
       currentAuctionSummary: {
-        currentNecPrice: formatEth(current.currentPrice),
-        nextNecPrice: current.nextPrice,
+        currentNecPrice: (1000000000000000000/current.currentPrice).toFixed(5),
+        nextNecPrice: (1000000000000000000/current.nextPrice).toFixed(5),
+        nextNecPrice: formatEth((1000000000000000000/current.nextPrice)),
         remainingEth: current.remainingEthAvailable,
         initialEth: current.remainingEthAvailable,
         necAveragePrice: transactions.length ? formatEth(sumEthPrice / transactions.length) : 'N/A',
