@@ -414,8 +414,26 @@
     }
   }
 
-  .table__container {
-    margin-top: 120px;
+  .table {
+    &__container {
+      margin-top: 58px;
+
+      h3 {
+        font-weight: 500;
+        font-size: 30px;
+        line-height: 52px;
+        margin-top: 0;
+        margin-bottom: 42px;
+      }
+    }
+
+    &__loading {
+      width: 100%;
+      margin: 30px 0;
+      display: flex;
+      justify-content: center;
+    }
+
   }
 
   table {

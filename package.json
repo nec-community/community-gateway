@@ -52,6 +52,7 @@
     "react-dom": "^16.2.0",
     "react-draggable": "^3.3.0",
     "react-ga": "^2.5.0",
+    "react-loader-spinner": "^3.1.5",
     "react-redux": "^5.0.6",
     "react-router-dom": "^5.0.0",
     "react-router-redux": "^4.0.8",
@@ -63,8 +64,8 @@
     "sass-loader": "^6.0.6",
     "sqlite3": "^4.1.0",
     "style-loader": "^0.20.1",
+    "styled-components": "^5.0.1",
     "web3": "1.2.4",
-    "styled-components": "^4.4.1",
     "webpack": "^3.10.0",
     "write-file-webpack-plugin": "^4.2.0"
   },

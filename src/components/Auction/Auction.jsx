@@ -23,7 +23,7 @@ import {
   sellAndBurn
 } from '../../actions/auctionActions';
 import Circle from './Diagrams/Circle';
-import BarDiagram from './Diagrams/BarDiagram';
+import Loading from '../Loading';
 
 const TABS = [
   {
@@ -60,7 +60,8 @@ class Auction extends Component {
       convert: 1,
       tokensForSell: '',
       data: [],
-      summaryValues: []
+      summaryValues: [],
+      sellAndBurnLoading: false
     };
 
     if (typeof window.web3 !== 'undefined') {
@@ -177,9 +178,12 @@ class Auction extends Component {
   };
 
   sellTokens = async () => {
-    this.props.sellInAuctionStart()
+    this.setState({ sellAndBurnLoading: true });
+    await this.props.sellInAuctionStart();
+
     const { tokensForSell } = this.state;
-    this.props.sellAndBurn(tokensForSell)
+    await this.props.sellAndBurn(tokensForSell);
+    this.setState({ sellAndBurnLoading: false });
   }
 
   renderTabTileAmount = (title) => {
@@ -197,7 +201,7 @@ class Auction extends Component {
   }
 
   render() {
-    const { activeTabIndex, tokensForSell } = this.state;
+    const { activeTabIndex, tokensForSell, sellAndBurnLoading } = this.state;
     const ActiveTabComponent = TABS[activeTabIndex].Component;
     const { currentAuctionSummary, nextPriceChange, auctionTransactions, necPrice } = this.props;
 
@@ -226,31 +230,34 @@ class Auction extends Component {
             </div>
             <Description />
           </div>
-          <section className="summary">
-            <h3>Summary</h3>
-            <ul className="tabs">
-              {TABS.map((tab, index) => (
-                <li key={tab.name}>
-                  <button
-                    className={`tab__button ${index === activeTabIndex ? 'active__tab' : null}`}
-                    onClick={() => this.onTabClick(index)}
-                  >
-                    <p>{tab.name}</p>
-                    <span>
-                      {this.props[tab.title] && this.renderTabTileAmount(tab.title)}
-                    </span>
-                    <span className="little__text">{this.props[tab.title] && this.renderTabPrice(tab.title)}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-            <ActiveTabComponent
-              tabContent={TABS[activeTabIndex]}
-              data={this.props[TABS[activeTabIndex].title]}
-            />
-          </section>
           {currentAuctionSummary && (
             <>
+              <section className="summary">
+                <h3>Summary</h3>
+                <ul className="tabs">
+                  {TABS.map((tab, index) => {
+                    this.props[tab.title] && (
+                      <li key={tab.name}>
+                        <button
+                          className={`tab__button ${index === activeTabIndex ? 'active__tab' : null}`}
+                          onClick={() => this.onTabClick(index)}
+                        >
+                          <p>{tab.name}</p>
+                          <span>
+                            {this.props[tab.title] && this.renderTabTileAmount(tab.title)}
+                          </span>
+                          <span className="little__text">{this.props[tab.title] && this.renderTabPrice(tab.title)}</span>
+                        </button>
+                      </li>
+                    )
+                  })}
+                </ul>
+                <ActiveTabComponent
+                  tabContent={TABS[activeTabIndex]}
+                  data={this.props[TABS[activeTabIndex].title]}
+                />
+              </section>
+
               <section>
                 <h3 className="current-auction__header">Current Auction - live</h3>
                 <div className="current-auction">
@@ -327,14 +334,15 @@ class Auction extends Component {
                 </div>
                 <button
                   onClick={this.sellTokens}
-                  disabled={!this.state.tokensForSell || this.state.tokensForSell < 0}
+                  disabled={!this.state.tokensForSell || this.state.tokensForSell < 0 || sellAndBurnLoading}
                 >
-                  SELL
+                  {sellAndBurnLoading ? <Loading /> : 'SELL'}
                 </button>
               </div>
             </>
           )}
           <div className="table__container">
+            <h3>Transaction History</h3>
             <table>
               <thead>
                 <tr>
@@ -349,7 +357,7 @@ class Auction extends Component {
                 </tr>
               </thead>
               <tbody>
-                {auctionTransactions &&
+                {auctionTransactions ?
                   auctionTransactions.map((trxn, index) => (
                     <tr key={index}>
                       <td>{trxn.blockNumber}</td>
@@ -361,7 +369,7 @@ class Auction extends Component {
                       <td>{trxn.price_nec_usd}</td>
                       <td>{trxn.usd}</td>
                     </tr>
-                  ))}
+                  )) : <div className="table__loading"><Loading /></div>}
               </tbody>
             </table>
           </div>
