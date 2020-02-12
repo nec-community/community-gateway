@@ -28,7 +28,7 @@ export const fetchBurnedNec = () => async dispatch => {
 
   await Promise.all(pastEvents.map(async (event, index) => {
     const { timestamp } = await eth.getBlockByNumber(event.blockNumber);
-    burnedSum = burnedSum + event.returnValues.necBurned / 10 ** 18;
+    burnedSum = burnedSum + (event.returnValues.necBurned / 1000000000000000000);
 
     burnedNec.push({
       name: new Date(timestamp * 1000),
@@ -37,7 +37,7 @@ export const fetchBurnedNec = () => async dispatch => {
     });
   }));
 
-  const extratedPv = pastEvents.map(event => event.returnValues.necBurned / 10 ** 18);
+  const extratedPv = pastEvents.map(event => event.returnValues.necBurned / 1000000000000000000);
 
   dispatch({
     type: FETCH_BURNED_NEC,

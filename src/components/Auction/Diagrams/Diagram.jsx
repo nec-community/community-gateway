@@ -10,7 +10,7 @@ export function renderTooltip({ active, payload }) {
 
   return (
     <div className="tooltip__container">
-      <p>{payload && payload[0] && `${payload[0].value}`}</p>
+      <p>{payload && payload[0] && `${payload[0].value.toFixed(2)}`}</p>
       {/* <span className="tooltip__triangle" /> */}
     </div>
   );
