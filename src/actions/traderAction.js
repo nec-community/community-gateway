@@ -156,10 +156,10 @@ export const fetchTradersByCustomDate = (startDate, endDate, token) => async dis
   }
 };
 
-export async function convertToken(token) {
+export async function convertToken(token, base) {
   const api = 'https://api.deversifi.com/bfx/v2/tickers?symbols=t';
 
-  const response = await fetch(`${api}${token}USD`);
+  const response = await fetch(`${api}${token}${base}`);
   const result = await response.json();
 
   return result[0][1];

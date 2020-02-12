@@ -15,6 +15,7 @@ import config from '../constants/config.json';
 import eth from '../services/ethereumService';
 import { formatEth, formatNumber } from '../services/utils';
 import { notify, notifyError } from './notificationActions';
+import { openLogin } from './accountActions';
 
 const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider(config.providerUrl));
@@ -95,30 +96,38 @@ const fetchedCurrentActionSummary = data => async dispatch => {
   try {
     const current = await engineContract.methods.getCurrentAuction().call();
     const blockRange = await eth.getChartBlockRange();
-    const necPrice = await eth.getNecPriceInEth();
     const transactions = await engineContract.getPastEvents('Burn', blockRange);
-    let sumEthPrice = 0;
 
+    let purchasedNec = 0
+    let sumEth = 0
+    let necAveragePrice = 'N/A'
+    console.log(transactions.length)
     if(transactions.length) {
-      const transactionsPrices = transactions.map(transaction => Number(transaction.returnValues.price)/Number(transaction.returnValues.amount));
-      sumEthPrice = transactionsPrices.reduce((price, nextPrice) => price + nextPrice);
+      transactions.forEach(transaction => {
+        purchasedNec = purchasedNec + transaction.returnValues.amount
+        sumEth = sumEth + +transaction.returnValues.amount / +transaction.returnValues.price
+      })
+      purchasedNec = purchasedNec / 1000000000000000000
+      necAveragePrice = sumEth / purchasedNec
     }
+    const currentNecPrice = (1000000000000000000/current.currentPrice).toFixed(5)
+
 
     dispatch({
       type: FETCH_CURRENT_AUCTION_SUMMARY,
       nextPriceChange: current.nextPriceChangeSeconds - Date.now() / 1000,
       startTimeSeconds: Number(current.startTimeSeconds),
       currentAuctionSummary: {
-        currentNecPrice: (1000000000000000000/current.currentPrice).toFixed(5),
+        currentNecPrice: currentNecPrice,
         nextNecPrice: (1000000000000000000/current.nextPrice).toFixed(5),
-        nextNecPrice: formatEth((1000000000000000000/current.nextPrice)),
         remainingEth: current.remainingEthAvailable,
-        initialEth: current.remainingEthAvailable,
-        necAveragePrice: transactions.length ? formatEth(sumEthPrice / transactions.length) : 'N/A',
-        purchasedNec: (formatEth(Number(current.initialEthAvailable)) - formatEth(Number(current.remainingEthAvailable))) * necPrice
+        initialEth: current.initialEthAvailable,
+        necAveragePrice: necAveragePrice,
+        purchasedNec: purchasedNec
       }
     });
   } catch(e) {
+    console.log(e)
     dispatch({
       type: FETCH_CURRENT_AUCTION_SUMMARY,
       currentAuctionSummary: null
@@ -163,11 +172,11 @@ export const fetchAuctionTransactions = data => async dispatch => {
   const transactionsList = transactions.map(transaction => ({
     blockNumber: transaction.blockNumber,
     wallet_address: transaction.returnValues.burner,
-    nec: transaction.returnValues.amount,
-    eth: formatEth(transaction.returnValues.price),
-    price_nec_eth: (transaction.returnValues.amount/formatEth(transaction.returnValues.price)).toFixed(3),
+    nec: formatEth(transaction.returnValues.amount),
+    eth: (formatEth(transaction.returnValues.amount) / transaction.returnValues.price).toFixed(5),
+    price_nec_eth: ( 1 / transaction.returnValues.price).toFixed(5),
     price_nec_usd: necPrice,
-    usd: (transaction.returnValues.amount * necPrice).toFixed(2),
+    usd: (formatEth(transaction.returnValues.amount) * necPrice).toFixed(2),
   }));
 
   dispatch({ type: FETCH_AUCTION_TRANSACTIONS, auctionTransactions: transactionsList });
@@ -180,15 +189,27 @@ export const fetchEthPrice = () => async dispatch => {
 }
 
 export const sellAndBurn = (necAmount) => async (dispatch, getState) => {
-  if (!getState().account.tokenBalance || getState().account.tokenBalance < 0.1) {
-    return notifyError('You first need nectar tokens!')(dispatch);
+  if (!getState().account.accountType) return dispatch(openLogin())
+
+  const userTokenBalance = getState().account.tokenBalance
+
+  if (necAmount < 1) {
+    return notifyError('This is below the minimum you can sell')(dispatch)
+  }
+
+  if (!userTokenBalance || userTokenBalance < 0.1) {
+    return notifyError('You first need nectar tokens in your wallet')(dispatch)
+  }
+
+  if (userTokenBalance < necAmount) {
+    return notifyError(`You only have: ${userTokenBalance} NEC in your wallet`)(dispatch)
   }
 
   try {
     await eth.sellAndBurn(necAmount, getState().account.accountType)
-    notify('You have sold NEC!', 'success')(dispatch);
+    notify('You have sold NEC!', 'success')(dispatch)
     dispatch({ type: SELL_AND_BURN_NEC })
   } catch(err) {
-    notifyError(err)(dispatch);
+    notifyError(err)(dispatch)
   }
 }
