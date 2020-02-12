@@ -68,14 +68,17 @@ export async function getDeversifiNecEth() {
   const engineContract = eth.getEngineContract();
   const blockRange = await eth.getChartBlockRange();
   const deversifiNecEth = [];
-  let pastEvents = await engineContract.getPastEvents('Burn', blockRange);
+  let pastEvents = await engineContract.getPastEvents('AuctionClose', blockRange);
 
-  pastEvents.map((event, index) => {
+  await Promise.all(pastEvents.map(async (event, index) => {
+    const { timestamp } = await eth.getBlockByNumber(event.blockNumber);
+
     deversifiNecEth.push({
-      name: `Point ${index}`,
-      pv: Math.floor(event.returnValues.price / 10 ** 18),
+      name: new Date(timestamp * 1000).toLocaleDateString(),
+      pv: Math.floor(event.returnValues.price /1000000000000000000),
     });
-  });
+  }));
+
   return deversifiNecEth;
 }
 

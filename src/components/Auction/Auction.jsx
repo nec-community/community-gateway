@@ -61,6 +61,10 @@ class Auction extends Component {
       data: [],
       summaryValues: [],
       sellAndBurnLoading: false,
+      circulatingNecDataLoading: false,
+      burnedNecDataLoading: true,
+      deversifiNecEthDataLoading: true,
+      nextAuctionEthDataLoading: true,
       descriptionVisible: false
     };
 
@@ -75,13 +79,12 @@ class Auction extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchBurnedNec();
-    this.props.fetchCirculatingNec();
-    this.props.fetchDeversifiNecEth();
-    this.props.fetchCurrentActionSummary();
-    this.props.fetchAuctionIntervalData();
-    this.props.fetchAuctionTransactions();
-    this.props.fetchEthPrice();
+    this.fetchBurnData();
+
+    this.dataPolling = setInterval(
+      () => {
+        this.fetchBurnData();
+      }, 60000);
 
     this.web3.eth.getAccounts().then(res => {
       this.setState(
@@ -117,6 +120,23 @@ class Auction extends Component {
         convert: res.toFixed(5),
       })
     );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.dataPolling);
+  }
+
+  fetchBurnData = async () => {
+    await this.props.fetchBurnedNec();
+    this.setState({ burnedNecDataLoading: true });
+    await this.props.fetchCirculatingNec();
+    this.setState({ circulatingNecDataLoading: false });
+    await this.props.fetchDeversifiNecEth();
+    this.setState({ deversifiNecEthDataLoading: false });
+    this.props.fetchCurrentActionSummary();
+    this.props.fetchAuctionIntervalData();
+    this.props.fetchAuctionTransactions();
+    this.props.fetchEthPrice();
   }
 
   onTabClick = async index => {
@@ -260,7 +280,7 @@ class Auction extends Component {
                       >
                         <p>{tab.name}</p>
                         <span>
-                          {this.props[tab.title] && this.renderTabTileAmount(tab.title)}
+                          {this.state[`${this.props[tab.title]}Loading`] ? <Loading /> : this.renderTabTileAmount(tab.title)}
                         </span>
                         <span className="little__text">{this.props[tab.title] && this.renderTabPrice(tab.title)}</span>
                       </button>
