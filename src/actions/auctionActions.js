@@ -8,7 +8,8 @@ import {
   SELL_IN_AUCTION_START,
   FETCH_AUCTION_TRANSACTIONS,
   FETCH_ETH_PRICE,
-  SELL_AND_BURN_NEC
+  SELL_AND_BURN_NEC,
+  FETCH_NEXT_AUCTION_DATE
 } from './actionTypes';
 import Web3 from 'web3';
 import config from '../constants/config.json';
@@ -18,6 +19,14 @@ import { notify, notifyError } from './notificationActions';
 
 const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider(config.providerUrl));
+
+export const fetchNextAuctionDate = () => async dispatch => {
+  const engineContract = eth.getEngineContract();
+
+  const {nextStartTimeSeconds} = await engineContract.methods.getNextAuction().call();
+
+  dispatch({ type: FETCH_NEXT_AUCTION_DATE, nextAuctionDate: nextStartTimeSeconds - Date.now() / 1000 })
+}
 
 export const fetchBurnedNec = () => async dispatch => {
   const engineContract = eth.getEngineContract();

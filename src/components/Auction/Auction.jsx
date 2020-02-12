@@ -19,7 +19,8 @@ import {
   sellInAuctionStart,
   fetchAuctionTransactions,
   fetchEthPrice,
-  sellAndBurn
+  sellAndBurn,
+  fetchNextAuctionDate
 } from '../../actions/auctionActions';
 import Circle from './Diagrams/Circle';
 import Loading from '../Loading';
@@ -67,15 +68,6 @@ class Auction extends Component {
       nextAuctionEthDataLoading: true,
       descriptionVisible: false
     };
-
-    if (typeof window.web3 !== 'undefined') {
-      this.web3 = new Web3(window.web3.currentProvider);
-    } else {
-      this.web3 = new Web3(new Web3.providers.HttpProvider(config.providerUrl));
-    }
-
-    this.engineAddress = config.necEngineContract;
-    this.nectarAddress = config.necTokenContract;
   }
 
   componentDidMount() {
@@ -85,35 +77,6 @@ class Auction extends Component {
       () => {
         this.fetchBurnData();
       }, 60000);
-
-    this.web3.eth.getAccounts().then(res => {
-      this.setState(
-        {
-          account: res[0],
-        },
-        () => {
-          const tokenContract = new this.web3.eth.Contract(abis.necContract, this.nectarAddress, {
-            from: this.state.account,
-          });
-          const engineContract = new this.web3.eth.Contract(
-            abis.engineContract,
-            this.engineAddress,
-            {
-              from: this.state.account,
-            }
-          );
-
-          engineContract.methods
-            .getNextAuction()
-            .call()
-            .then(async res => {
-              this.setState({
-                nextAuctionS: res[0] - Date.now() / 1000,
-              });
-            });
-        }
-      );
-    });
 
     convertToken('NEC', 'ETH').then(res =>
       this.setState({
@@ -127,6 +90,7 @@ class Auction extends Component {
   }
 
   fetchBurnData = async () => {
+    this.props.fetchNextAuctionDate();
     await this.props.fetchBurnedNec();
     this.setState({ burnedNecDataLoading: true });
     await this.props.fetchCirculatingNec();
@@ -169,10 +133,10 @@ class Auction extends Component {
   }
 
   formatTimeNextAuction = () => {
-    const { nextAuctionS } = this.state
+    const { nextAuctionDate } = this.props;
 
-    const timestampMs = Date.now() + nextAuctionS * 1000
-    return new Date(timestampMs).toLocaleString()
+    const timestampMs = Date.now() + nextAuctionDate * 1000;
+    return new Date(timestampMs).toLocaleString();
   }
 
   changeInputValue = e => {
@@ -258,7 +222,7 @@ class Auction extends Component {
                   Auction: <span className="auction__status">live</span>
                 </p>
                 <p className="little__text">Next auction start</p>
-                <p>{this.timeCountdown(this.state.nextAuctionS)}</p>
+                <p>{this.timeCountdown(this.props.nextAuctionDate)}</p>
                 <p className="little__text">{this.formatTimeNextAuction()}</p>
               </div>
             </div>
@@ -437,6 +401,7 @@ const mapStateToProps = state => ({
   necPrice: state.auction.necPrice,
   nextPriceChange: state.auction.nextPriceChange,
   startTimeSeconds: state.auction.startTimeSeconds,
+  nextAuctionDate: state.auction.nextAuctionDate
 });
 
 export default connect(mapStateToProps, {
@@ -448,5 +413,6 @@ export default connect(mapStateToProps, {
   sellInAuctionStart,
   fetchAuctionTransactions,
   fetchEthPrice,
-  sellAndBurn
+  sellAndBurn,
+  fetchNextAuctionDate
 })(Auction);

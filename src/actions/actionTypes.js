@@ -46,3 +46,4 @@ export const SELL_IN_AUCTION_START = 'sell_in_action_start';
 export const FETCH_AUCTION_TRANSACTIONS = 'fetch_auction_transactions';
 export const FETCH_ETH_PRICE = 'fetch_eth_price';
 export const SELL_AND_BURN_NEC = 'sell_and_burn_nec';
+export const FETCH_NEXT_AUCTION_DATE = 'fetch_next_auction_date';
