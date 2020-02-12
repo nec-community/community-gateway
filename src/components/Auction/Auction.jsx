@@ -363,7 +363,7 @@ class Auction extends Component {
               </thead>
               <tbody>
                 {auctionTransactions ?
-                  auctionTransactions.map((trxn, index) => (
+                  auctionTransactions.reverse().map((trxn, index) => (
                     <tr key={index}>
                       <td>{trxn.blockNumber}</td>
                       <td></td>
