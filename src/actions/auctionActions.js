@@ -104,7 +104,7 @@ const fetchedCurrentActionSummary = data => async dispatch => {
     console.log(transactions.length)
     if(transactions.length) {
       transactions.forEach(transaction => {
-        purchasedNec = purchasedNec + transaction.returnValues.amount
+        purchasedNec = purchasedNec + +transaction.returnValues.amount
         sumEth = sumEth + +transaction.returnValues.amount / +transaction.returnValues.price
       })
       purchasedNec = purchasedNec / 1000000000000000000
