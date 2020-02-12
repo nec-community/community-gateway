@@ -28,11 +28,10 @@ export const fetchBurnedNec = () => async dispatch => {
 
   await Promise.all(pastEvents.map(async (event, index) => {
     const { timestamp } = await eth.getBlockByNumber(event.blockNumber);
-    burnedSum = burnedSum + (event.returnValues.necBurned / 1000000000000000000);
 
     burnedNec.push({
-      name: new Date(timestamp * 1000),
-      pv: burnedSum,
+      name: new Date(timestamp * 1000).toLocaleDateString(),
+      pv: event.returnValues.necBurned / 1000000000000000000,
       amt: event.event,
     });
   }));
@@ -50,13 +49,14 @@ export async function getCirculatingNEC() {
   const blockRange = await eth.getChartBlockRange();
   const blockDiff = Math.floor((blockRange.toBlock - blockRange.fromBlock) / 7);
   const circulatingNec = [];
-  //This should be totalSupplyAt()
-  for (let block = blockRange.fromBlock; block <= blockRange.toBlock; block += blockDiff) {
-    tokenContract.methods.totalSupply().call(null, block, (error, totalSupply) => {
-      circulatingNec.push({
-        name: `Point ${block}`,
-        pv: Math.floor(totalSupply / 10 ** 18),
-      });
+
+  for(let block = blockRange.fromBlock; block <= blockRange.toBlock; block += blockDiff) {
+    const supply = await tokenContract.methods.totalSupplyAt(blockRange.fromBlock).call();
+    const { timestamp } = await eth.getBlockByNumber(block);
+
+    circulatingNec.push({
+      name:  new Date(timestamp * 1000).toLocaleDateString(),
+      pv: Math.floor(supply/1000000000000000000)
     });
   }
 

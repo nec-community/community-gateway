@@ -176,7 +176,7 @@ class Auction extends Component {
     if(this.props[title].length > 0) {
       switch(title) {
         case 'burnedNecData':
-          return formatNumber(this.props.totalBurned).toFixed(2);
+          return formatNumber(this.props.totalBurned);
         default:
           return formatNumber(this.props[title][this.props[title].length - 1].pv.toFixed(3));
       }
@@ -189,7 +189,7 @@ class Auction extends Component {
     if(this.props[title].length > 0) {
       switch(title) {
         case 'burnedNecData':
-          return `US $ ${formatNumber(this.props.totalBurned * 2).toFixed(2)}`;
+          return `US $ ${formatNumber(this.props.totalBurned * 2)}`;
         default:
           return `US $ ${formatNumber((this.props[title][this.props[title].length - 1].pv * necPrice).toFixed(2))}`;
       }
