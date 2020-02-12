@@ -81,6 +81,9 @@ const getChartBlockRange = async days => {
   return { fromBlock, toBlock };
 };
 
+
+const getBlockByNumber = block => window._web3.eth.getBlock(block);
+
 const getNetwork = () => window._web3.eth.net.getId();
 
 const getProposalContract = () =>
@@ -743,5 +746,6 @@ export default {
   getChartBlockRange,
   getNecPrice,
   getEthPrice,
-  getNecPriceInEth
+  getNecPriceInEth,
+  getBlockByNumber
 };

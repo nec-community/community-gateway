@@ -174,7 +174,12 @@ class Auction extends Component {
 
   renderTabTileAmount = (title) => {
     if(this.props[title].length > 0) {
-      return formatNumber(this.props[title][this.props[title].length - 1].pv.toFixed(3));
+      switch(title) {
+        case 'burnedNecData':
+          return formatNumber(this.props.totalBurned).toFixed(5);
+        default:
+          return formatNumber(this.props[title][this.props[title].length - 1].pv.toFixed(3));
+      }
     }
   }
 
@@ -397,6 +402,7 @@ Auction.propTypes = {
 const mapStateToProps = state => ({
   circulatingNecData: state.auction.circulatingNecData,
   burnedNecData: state.auction.burnedNecData,
+  totalBurned: state.auction.totalBurned,
   deversifiNecEthData: state.auction.deversifiNecEthData,
   nextAuctionEthData: state.auction.nextAuctionEthData,
   currentAuctionSummary: state.auction.currentAuctionSummary,

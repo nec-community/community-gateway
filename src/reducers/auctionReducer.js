@@ -30,6 +30,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         burnedNecData: action.burnedNecData,
+        totalBurned: action.totalBurned
       };
     case FETCH_DEVERSIFI_NEC_ETH_DATA:
       return {

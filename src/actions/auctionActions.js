@@ -19,29 +19,30 @@ import { notify, notifyError } from './notificationActions';
 const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider(config.providerUrl));
 
-export async function getBurnedNEC() {
-  // const account = await eth.getAccount();
+export const fetchBurnedNec = () => async dispatch => {
   const engineContract = eth.getEngineContract();
-  const blockRange = await eth.getChartBlockRange();
+  const blockRange = await eth.getChartBlockRange(7);
   const burnedNec = [];
   let pastEvents = await engineContract.getPastEvents('AuctionClose', blockRange);
+  let burnedSum = 0;
 
-  let burnedSum = 0
-  pastEvents.map((event, index) => {
-    burnedSum = burnedSum + event.returnValues.necBurned / 10 ** 18
+  await Promise.all(pastEvents.map(async (event, index) => {
+    const { timestamp } = await eth.getBlockByNumber(event.blockNumber);
+    burnedSum = burnedSum + event.returnValues.necBurned / 10 ** 18;
+
     burnedNec.push({
-      name: `Point ${index}`,
+      name: new Date(timestamp * 1000),
       pv: burnedSum,
       amt: event.event,
     });
-  });
-  return burnedNec;
-}
+  }));
 
-export const fetchBurnedNec = () => async dispatch => {
-  const burnedNecData = await Promise.all(await getBurnedNEC());
+  const extratedPv = pastEvents.map(event => event.returnValues.necBurned / 10 ** 18);
 
-  dispatch({ type: FETCH_BURNED_NEC, burnedNecData });
+  dispatch({
+    type: FETCH_BURNED_NEC,
+    burnedNecData: burnedNec,
+    totalBurned: burnedNec.length ? extratedPv.reduce((current, next) => current + next) : 0 });
 };
 
 export async function getCirculatingNEC() {
