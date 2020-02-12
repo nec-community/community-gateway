@@ -334,7 +334,7 @@ class Auction extends Component {
                 </div>
                 <span>FOR</span>
                 <div className="input__container">
-                  <p>{currentAuctionSummary.currentNecPrice * this.state.tokensForSell}</p>
+                  <p>{(currentAuctionSummary.currentNecPrice * this.state.tokensForSell).toFixed(5)}</p>
                   <span>ETH</span>
                 </div>
                 <button
@@ -343,9 +343,6 @@ class Auction extends Component {
                 >
                   {sellAndBurnLoading ? <Loading /> : 'SELL'}
                 </button>
-              </div>
-              <div>
-                <span>({currentAuctionSummary.currentNecPrice} NEC/ETH)</span>
               </div>
             </>
           )}
