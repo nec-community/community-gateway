@@ -116,6 +116,9 @@ class Auction extends Component {
   };
 
   timeCountdown = (date) => {
+    if (date < 0) {
+      return '0 minutes'
+    }
     let minutes = Math.floor((date / (60)) % 60)
     let hours = Math.floor((date / (60 * 60)) % 24)
     const days = Math.floor(date / (60 * 60 * 24))
@@ -214,12 +217,12 @@ class Auction extends Component {
               <p>
                 Once per week DeversiFi exchange trading fees that are pledged to NEC token holders
                 are auctioned. NEC holders can sell their NEC in exchange for the auctioned ETH. Any
-                NEC tokens sold in the auctions are burned.
+                NEC tokens sold in the auctions are burned. &nbsp;
                 <strong onClick={() => this.setState({ descriptionVisible: true })} className="overview__link">See details</strong>
               </p>
               <div className="overview__auction">
                 <p>
-                  Auction: <span className="auction__status">live</span>
+                  Auction: <span className="auction__status">{this.props.nextAuctionDate > 0 ? 'live' : 'closed'}</span>
                 </p>
                 <p className="little__text">Next auction start</p>
                 <p>{this.timeCountdown(this.props.nextAuctionDate)}</p>
@@ -317,7 +320,7 @@ class Auction extends Component {
                       Burned <br />average price
                     </span>
                     <span className="current-auction__value">
-                      {currentAuctionSummary.necAveragePrice.toFixed(5)} <small>ETH</small>
+                      {currentAuctionSummary.necAveragePrice} <small>ETH</small>
                     </span>
                   </div>
                 </div>
