@@ -26,7 +26,7 @@ export default class Diagram extends Component {
       <div className="diagram__container">
         <p className="diagram__label">{this.props.tabContent.name}</p>
         <LineChart
-          width={870}
+          width={920}
           height={300}
           data={this.props.data}
           margin={{ top: 20, right: 50, bottom: 30 }}

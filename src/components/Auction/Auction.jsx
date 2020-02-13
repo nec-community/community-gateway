@@ -164,6 +164,8 @@ class Auction extends Component {
       switch(title) {
         case 'burnedNecData':
           return this.props.totalBurned ? formatNumber(this.props.totalBurned) : 0;
+        case 'deversifiNecEthData':
+          return this.props.deversifiNecEthData ? this.props[title][this.props[title].length - 1].pv.toFixed(6) : 0
         default:
           return formatNumber(this.props[title][this.props[title].length - 1].pv);
       }

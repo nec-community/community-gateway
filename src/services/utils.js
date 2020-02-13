@@ -105,7 +105,9 @@ export const formatEth = number => {
 export const formatNumber = number => {
   if (number === '0' || !number) return 0;
 
-  if (number < 1000) {
+  if (number < 1) {
+    return Number(number).toFixed(5)
+  } else if (number < 1000) {
     return number;
   } else if (number < 1000000) {
     const newNumber = number / 1000;
