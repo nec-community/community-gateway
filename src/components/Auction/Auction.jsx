@@ -165,7 +165,7 @@ class Auction extends Component {
         case 'burnedNecData':
           return this.props.totalBurned ? formatNumber(this.props.totalBurned) : 0;
         default:
-          return formatNumber(this.props[title][this.props[title].length - 1].pv.toFixed(3));
+          return formatNumber(this.props[title][this.props[title].length - 1].pv);
       }
     }
   }
