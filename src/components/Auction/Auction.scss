@@ -118,10 +118,17 @@
     .tabs {
       display: flex;
       align-items: center;
-      justify-content: space-between;
       width: 100%;
       list-style: none;
       padding: 0;
+
+      li {
+        margin-right: 13px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
 
       .active__tab {
         height: 155px;

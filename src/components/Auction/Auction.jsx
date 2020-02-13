@@ -236,7 +236,8 @@ class Auction extends Component {
               <section className="summary">
                 <h3>Summary</h3>
                 <ul className="tabs">
-                  {TABS.map((tab, index) => (
+                  {TABS.map((tab, index) => {
+                    return this.props[tab.title].length && (
                     <li key={tab.name}>
                       <button
                         className={`tab__button ${index === activeTabIndex ? 'active__tab' : null}`}
@@ -249,7 +250,8 @@ class Auction extends Component {
                         <span className="little__text">{this.props[tab.title] && this.renderTabPrice(tab.title)}</span>
                       </button>
                     </li>
-                  ))}
+                    )
+                  })}
                 </ul>
                 <ActiveTabComponent
                   tabContent={TABS[activeTabIndex]}
