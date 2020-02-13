@@ -109,15 +109,15 @@ export const formatNumber = number => {
     return number;
   } else if (number < 1000000) {
     const newNumber = number / 1000;
-    const fixedNumber = Number.isInteger(newNumber) ? newNumber.toFixed() : newNumber;
+    const fixedNumber = Number(newNumber).toFixed(2);
     return `${fixedNumber}K`;
   } else if (number < 1000000000) {
     const newNumber = number / 1000000;
-    const fixedNumber = Number.isInteger(newNumber) ? newNumber.toFixed() : newNumber.toFixed(1);
+    const fixedNumber = Number(newNumber).toFixed(2);
     return `${fixedNumber}M`;
   } else {
     const newNumber = number / 1000000000;
-    const fixedNumber = Number.isInteger(newNumber) ? newNumber.toFixed() : newNumber.toFixed(1);
+    const fixedNumber = Number(newNumber).toFixed(2);
     return `${fixedNumber}B`;
   }
 }

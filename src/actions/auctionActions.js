@@ -8,7 +8,8 @@ import {
   SELL_IN_AUCTION_START,
   FETCH_AUCTION_TRANSACTIONS,
   FETCH_ETH_PRICE,
-  SELL_AND_BURN_NEC
+  SELL_AND_BURN_NEC,
+  FETCH_NEXT_AUCTION_DATE
 } from './actionTypes';
 import Web3 from 'web3';
 import config from '../constants/config.json';
@@ -20,29 +21,37 @@ import { openLogin } from './accountActions';
 const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider(config.providerUrl));
 
-export async function getBurnedNEC() {
-  // const account = await eth.getAccount();
+export const fetchNextAuctionDate = () => async dispatch => {
   const engineContract = eth.getEngineContract();
-  const blockRange = await eth.getChartBlockRange();
-  const burnedNec = [];
-  let pastEvents = await engineContract.getPastEvents('AuctionClose', blockRange);
 
-  let burnedSum = 0
-  pastEvents.map((event, index) => {
-    burnedSum = burnedSum + event.returnValues.necBurned / 10 ** 18
-    burnedNec.push({
-      name: `Point ${index}`,
-      pv: burnedSum,
-      amt: event.event,
-    });
-  });
-  return burnedNec;
+  const {nextStartTimeSeconds} = await engineContract.methods.getNextAuction().call();
+
+  dispatch({ type: FETCH_NEXT_AUCTION_DATE, nextAuctionDate: nextStartTimeSeconds - Date.now() / 1000 })
 }
 
 export const fetchBurnedNec = () => async dispatch => {
-  const burnedNecData = await Promise.all(await getBurnedNEC());
+  const engineContract = eth.getEngineContract();
+  const blockRange = await eth.getChartBlockRange(7);
+  const burnedNec = [];
+  let pastEvents = await engineContract.getPastEvents('AuctionClose', blockRange);
+  let burnedSum = 0;
 
-  dispatch({ type: FETCH_BURNED_NEC, burnedNecData });
+  await Promise.all(pastEvents.map(async (event, index) => {
+    const { timestamp } = await eth.getBlockByNumber(event.blockNumber);
+
+    burnedNec.push({
+      name: new Date(timestamp * 1000).toLocaleDateString(),
+      pv: event.returnValues.necBurned / 1000000000000000000,
+      amt: event.event,
+    });
+  }));
+
+  const extratedPv = pastEvents.map(event => event.returnValues.necBurned / 1000000000000000000);
+
+  dispatch({
+    type: FETCH_BURNED_NEC,
+    burnedNecData: burnedNec,
+    totalBurned: burnedNec.length ? extratedPv.reduce((current, next) => current + next) : 0 });
 };
 
 export async function getCirculatingNEC() {
@@ -50,13 +59,14 @@ export async function getCirculatingNEC() {
   const blockRange = await eth.getChartBlockRange();
   const blockDiff = Math.floor((blockRange.toBlock - blockRange.fromBlock) / 7);
   const circulatingNec = [];
-  //This should be totalSupplyAt()
-  for (let block = blockRange.fromBlock; block <= blockRange.toBlock; block += blockDiff) {
-    tokenContract.methods.totalSupply().call(null, block, (error, totalSupply) => {
-      circulatingNec.push({
-        name: `Point ${block}`,
-        pv: Math.floor(totalSupply / 10 ** 18),
-      });
+
+  for(let block = blockRange.fromBlock; block <= blockRange.toBlock; block += blockDiff) {
+    const supply = await tokenContract.methods.totalSupplyAt(blockRange.fromBlock).call();
+    const { timestamp } = await eth.getBlockByNumber(block);
+
+    circulatingNec.push({
+      name:  new Date(timestamp * 1000).toLocaleDateString(),
+      pv: Math.floor(supply/1000000000000000000)
     });
   }
 
@@ -64,18 +74,20 @@ export async function getCirculatingNEC() {
 }
 
 export async function getDeversifiNecEth() {
-  // const account = await eth.getAccount();
   const engineContract = eth.getEngineContract();
   const blockRange = await eth.getChartBlockRange();
   const deversifiNecEth = [];
-  let pastEvents = await engineContract.getPastEvents('Burn', blockRange);
+  const transactions = await engineContract.getPastEvents('Burn', blockRange);
 
-  pastEvents.map((event, index) => {
+  await Promise.all(transactions.map(async (transaction) => {
+    const { timestamp } = await eth.getBlockByNumber(transaction.blockNumber);
+
     deversifiNecEth.push({
-      name: `Point ${index}`,
-      pv: Math.floor(event.returnValues.price / 10 ** 18),
+      name: new Date(timestamp * 1000).toLocaleDateString(),
+      pv: (transaction.returnValues.amount/formatEth(transaction.returnValues.price)).toFixed(3),
     });
-  });
+  }));
+
   return deversifiNecEth;
 }
 

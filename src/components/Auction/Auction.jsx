@@ -19,7 +19,8 @@ import {
   sellInAuctionStart,
   fetchAuctionTransactions,
   fetchEthPrice,
-  sellAndBurn
+  sellAndBurn,
+  fetchNextAuctionDate
 } from '../../actions/auctionActions';
 import Circle from './Diagrams/Circle';
 import Loading from '../Loading';
@@ -61,62 +62,45 @@ class Auction extends Component {
       data: [],
       summaryValues: [],
       sellAndBurnLoading: false,
+      circulatingNecDataLoading: false,
+      burnedNecDataLoading: true,
+      deversifiNecEthDataLoading: true,
+      nextAuctionEthDataLoading: true,
       descriptionVisible: false
     };
-
-    if (typeof window.web3 !== 'undefined') {
-      this.web3 = new Web3(window.web3.currentProvider);
-    } else {
-      this.web3 = new Web3(new Web3.providers.HttpProvider(config.providerUrl));
-    }
-
-    this.engineAddress = config.necEngineContract;
-    this.nectarAddress = config.necTokenContract;
   }
 
   componentDidMount() {
-    this.props.fetchBurnedNec();
-    this.props.fetchCirculatingNec();
-    this.props.fetchDeversifiNecEth();
-    this.props.fetchCurrentActionSummary();
-    this.props.fetchAuctionIntervalData();
-    this.props.fetchAuctionTransactions();
-    this.props.fetchEthPrice();
+    this.fetchBurnData();
 
-    this.web3.eth.getAccounts().then(res => {
-      this.setState(
-        {
-          account: res[0],
-        },
-        () => {
-          const tokenContract = new this.web3.eth.Contract(abis.necContract, this.nectarAddress, {
-            from: this.state.account,
-          });
-          const engineContract = new this.web3.eth.Contract(
-            abis.engineContract,
-            this.engineAddress,
-            {
-              from: this.state.account,
-            }
-          );
-
-          engineContract.methods
-            .getNextAuction()
-            .call()
-            .then(async res => {
-              this.setState({
-                nextAuctionS: res[0] - Date.now() / 1000,
-              });
-            });
-        }
-      );
-    });
+    this.dataPolling = setInterval(
+      () => {
+        this.fetchBurnData();
+      }, 60000);
 
     convertToken('NEC', 'ETH').then(res =>
       this.setState({
         convert: res.toFixed(5),
       })
     );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.dataPolling);
+  }
+
+  fetchBurnData = async () => {
+    this.props.fetchNextAuctionDate();
+    await this.props.fetchBurnedNec();
+    this.setState({ burnedNecDataLoading: true });
+    await this.props.fetchCirculatingNec();
+    this.setState({ circulatingNecDataLoading: false });
+    await this.props.fetchDeversifiNecEth();
+    this.setState({ deversifiNecEthDataLoading: false });
+    this.props.fetchCurrentActionSummary();
+    this.props.fetchAuctionIntervalData();
+    this.props.fetchAuctionTransactions();
+    this.props.fetchEthPrice();
   }
 
   onTabClick = async index => {
@@ -149,10 +133,10 @@ class Auction extends Component {
   }
 
   formatTimeNextAuction = () => {
-    const { nextAuctionS } = this.state
+    const { nextAuctionDate } = this.props;
 
-    const timestampMs = Date.now() + nextAuctionS * 1000
-    return new Date(timestampMs).toLocaleString()
+    const timestampMs = Date.now() + nextAuctionDate * 1000;
+    return new Date(timestampMs).toLocaleString();
   }
 
   changeInputValue = e => {
@@ -174,7 +158,12 @@ class Auction extends Component {
 
   renderTabTileAmount = (title) => {
     if(this.props[title].length > 0) {
-      return formatNumber(this.props[title][this.props[title].length - 1].pv.toFixed(3));
+      switch(title) {
+        case 'burnedNecData':
+          return this.props.totalBurned ? formatNumber(this.props.totalBurned) : 0;
+        default:
+          return formatNumber(this.props[title][this.props[title].length - 1].pv.toFixed(3));
+      }
     }
   }
 
@@ -182,7 +171,12 @@ class Auction extends Component {
     const { necPrice } = this.props;
 
     if(this.props[title].length > 0) {
-      return `US $ ${formatNumber((this.props[title][this.props[title].length - 1].pv * necPrice).toFixed(2))}`;
+      switch(title) {
+        case 'burnedNecData':
+          return `US $ ${this.props.totalBurned ? formatNumber((this.props.totalBurned * 2).toFixed(2)) : 0}`;
+        default:
+          return `US $ ${formatNumber((this.props[title][this.props[title].length - 1].pv * necPrice).toFixed(2))}`;
+      }
     }
   }
 
@@ -228,7 +222,7 @@ class Auction extends Component {
                   Auction: <span className="auction__status">live</span>
                 </p>
                 <p className="little__text">Next auction start</p>
-                <p>{this.timeCountdown(this.state.nextAuctionS)}</p>
+                <p>{this.timeCountdown(this.props.nextAuctionDate)}</p>
                 <p className="little__text">{this.formatTimeNextAuction()}</p>
               </div>
             </div>
@@ -242,7 +236,8 @@ class Auction extends Component {
               <section className="summary">
                 <h3>Summary</h3>
                 <ul className="tabs">
-                  {TABS.map((tab, index) => (
+                  {TABS.map((tab, index) => {
+                    return this.props[tab.title].length && (
                     <li key={tab.name}>
                       <button
                         className={`tab__button ${index === activeTabIndex ? 'active__tab' : null}`}
@@ -250,12 +245,13 @@ class Auction extends Component {
                       >
                         <p>{tab.name}</p>
                         <span>
-                          {this.props[tab.title] && this.renderTabTileAmount(tab.title)}
+                          {this.state[`${this.props[tab.title]}Loading`] ? <Loading /> : this.renderTabTileAmount(tab.title)}
                         </span>
                         <span className="little__text">{this.props[tab.title] && this.renderTabPrice(tab.title)}</span>
                       </button>
                     </li>
-                  ))}
+                    )
+                  })}
                 </ul>
                 <ActiveTabComponent
                   tabContent={TABS[activeTabIndex]}
@@ -397,6 +393,7 @@ Auction.propTypes = {
 const mapStateToProps = state => ({
   circulatingNecData: state.auction.circulatingNecData,
   burnedNecData: state.auction.burnedNecData,
+  totalBurned: state.auction.totalBurned,
   deversifiNecEthData: state.auction.deversifiNecEthData,
   nextAuctionEthData: state.auction.nextAuctionEthData,
   currentAuctionSummary: state.auction.currentAuctionSummary,
@@ -406,6 +403,7 @@ const mapStateToProps = state => ({
   necPrice: state.auction.necPrice,
   nextPriceChange: state.auction.nextPriceChange,
   startTimeSeconds: state.auction.startTimeSeconds,
+  nextAuctionDate: state.auction.nextAuctionDate
 });
 
 export default connect(mapStateToProps, {
@@ -417,5 +415,6 @@ export default connect(mapStateToProps, {
   sellInAuctionStart,
   fetchAuctionTransactions,
   fetchEthPrice,
-  sellAndBurn
+  sellAndBurn,
+  fetchNextAuctionDate
 })(Auction);

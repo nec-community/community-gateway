@@ -10,7 +10,7 @@ export function renderTooltip({ active, payload }) {
 
   return (
     <div className="tooltip__container">
-      <p>{payload && payload[0] && `${payload[0].value}`}</p>
+      <p>{payload && payload[0] && `${formatNumber(payload[0].value.toFixed(2))}`}</p>
       {/* <span className="tooltip__triangle" /> */}
     </div>
   );
@@ -38,6 +38,7 @@ export default class Diagram extends Component {
             axisLine={false}
             tickMargin={10}
             tickLine={false}
+            dataKey="name"
           />
           <YAxis tickFormatter={formatNumber}
             tick={{ stroke: '#ffffff' }} stroke="#000000" axisLine={false} tickMargin={10} />
