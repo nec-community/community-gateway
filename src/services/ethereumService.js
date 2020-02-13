@@ -50,6 +50,12 @@ const getAccount = async () => {
   return accounts[0];
 };
 
+const getNecEth = async () => {
+  const tickerRes = await fetch('https://api.deversifi.com/bfx/v2/candles/trade:1D:tNECETH/hist');
+  const ticker = await tickerRes.json();
+  return ticker;
+}
+
 const getBalance = async _account => {
   const account = _account || (await getAccount());
   const balanceWei = await window._web3.eth.getBalance(account);
@@ -747,5 +753,6 @@ export default {
   getNecPrice,
   getEthPrice,
   getNecPriceInEth,
-  getBlockByNumber
+  getBlockByNumber,
+  getNecEth
 };

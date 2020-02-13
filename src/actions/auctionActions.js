@@ -16,7 +16,9 @@ import config from '../constants/config.json';
 import eth from '../services/ethereumService';
 import { formatEth, formatNumber } from '../services/utils';
 import { notify, notifyError } from './notificationActions';
+import _ from 'lodash';
 import { openLogin } from './accountActions';
+
 
 const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider(config.providerUrl));
@@ -47,7 +49,7 @@ export const fetchBurnedNec = () => async dispatch => {
   }));
 
   const extratedPv = pastEvents.map(event => event.returnValues.necBurned / 1000000000000000000);
-  const orderedTransactions = burnedNec.sort((a, b) => a.name - b.name);
+  const orderedTransactions = burnedNec.sort((a, b) => new Date(a.name) - new Date(b.name));
 
   dispatch({
     type: FETCH_BURNED_NEC,
@@ -71,29 +73,20 @@ export async function getCirculatingNEC() {
     });
   }
 
-  const orderedTransactions = circulatingNec.sort((a, b) => a.name - b.name);
+  const orderedTransactions = circulatingNec.sort((a, b) => new Date(a.name) - new Date(b.name));
 
-  return orderedTransactions;
+  return _.uniqBy(orderedTransactions, 'name');
 }
 
 export async function getDeversifiNecEth() {
-  const engineContract = eth.getEngineContract();
-  const blockRange = await eth.getChartBlockRange();
-  const deversifiNecEth = [];
-  const transactions = await engineContract.getPastEvents('Burn', blockRange);
+  const necEth = await eth.getNecEth();
 
-  await Promise.all(transactions.map(async (transaction) => {
-    const { timestamp } = await eth.getBlockByNumber(transaction.blockNumber);
+  const transactions = necEth.slice(0,7).map((transaction, index) => ({
+    name: new Date(transaction[0]).toLocaleDateString(),
+    pv: transaction[2]
+  })).reverse();
 
-    deversifiNecEth.push({
-      name: new Date(timestamp * 1000).toLocaleDateString(),
-      pv: (transaction.returnValues.amount/formatEth(transaction.returnValues.price)).toFixed(3),
-    });
-  }));
-
-  const orderedTransactions = deversifiNecEth.sort((a, b) =>  a.name - b.name);
-
-  return orderedTransactions;
+  return transactions;
 }
 
 export const fetchCirculatingNec = () => async dispatch => {
