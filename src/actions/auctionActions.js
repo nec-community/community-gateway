@@ -46,10 +46,11 @@ export const fetchBurnedNec = () => async dispatch => {
   }));
 
   const extratedPv = pastEvents.map(event => event.returnValues.necBurned / 1000000000000000000);
+  const orderedTransactions = burnedNec.sort((a, b) => a.name - b.name);
 
   dispatch({
     type: FETCH_BURNED_NEC,
-    burnedNecData: burnedNec,
+    burnedNecData: orderedTransactions,
     totalBurned: burnedNec.length ? extratedPv.reduce((current, next) => current + next) : 0 });
 };
 
@@ -69,7 +70,9 @@ export async function getCirculatingNEC() {
     });
   }
 
-  return circulatingNec;
+  const orderedTransactions = circulatingNec.sort((a, b) => a.name - b.name);
+
+  return orderedTransactions;
 }
 
 export async function getDeversifiNecEth() {
@@ -87,7 +90,9 @@ export async function getDeversifiNecEth() {
     });
   }));
 
-  return deversifiNecEth;
+  const orderedTransactions = deversifiNecEth.sort((a, b) =>  a.name - b.name);
+
+  return orderedTransactions;
 }
 
 export const fetchCirculatingNec = () => async dispatch => {
