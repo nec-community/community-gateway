@@ -16,6 +16,7 @@ import config from '../constants/config.json';
 import eth from '../services/ethereumService';
 import { formatEth, formatNumber } from '../services/utils';
 import { notify, notifyError } from './notificationActions';
+import _ from 'lodash';
 
 const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider(config.providerUrl));
@@ -46,7 +47,7 @@ export const fetchBurnedNec = () => async dispatch => {
   }));
 
   const extratedPv = pastEvents.map(event => event.returnValues.necBurned / 1000000000000000000);
-  const orderedTransactions = burnedNec.sort((a, b) => a.name - b.name);
+  const orderedTransactions = burnedNec.sort((a, b) => new Date(a.name) - new Date(b.name));
 
   dispatch({
     type: FETCH_BURNED_NEC,
@@ -70,9 +71,9 @@ export async function getCirculatingNEC() {
     });
   }
 
-  const orderedTransactions = circulatingNec.sort((a, b) => a.name - b.name);
+  const orderedTransactions = circulatingNec.sort((a, b) => new Date(a.name) - new Date(b.name));
 
-  return orderedTransactions;
+  return _.uniqBy(orderedTransactions, 'name');
 }
 
 export async function getDeversifiNecEth() {
