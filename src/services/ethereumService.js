@@ -371,7 +371,7 @@ const sellAndBurn = async (amount, accountType) => {
   const engineContract = getEngineContract()
   const nectarContract = getTokenContract()
   const allowance = await nectarContract.methods.allowance(account, engineContract._address).call()
-  if (+allowance < +amount) {
+  if (+allowance < +ethToWei(amount)) {
     const approveCall = nectarContract.methods.approve(
       engineContract._address,
       '10000000000000000000000000000000')
@@ -381,7 +381,7 @@ const sellAndBurn = async (amount, accountType) => {
   }
 
   const contractCall = engineContract.methods.sellAndBurnNec(
-    amount
+    ethToWei(amount)
   )
   if (accountType === 'ledger') return signAndSendLedger(contractCall)
   if (accountType === 'keystore') return signAndSendKeystore(contractCall)

@@ -116,6 +116,9 @@ class Auction extends Component {
   };
 
   timeCountdown = (date) => {
+    if (date < 0) {
+      return '0 minutes'
+    }
     let minutes = Math.floor((date / (60)) % 60)
     let hours = Math.floor((date / (60 * 60)) % 24)
     const days = Math.floor(date / (60 * 60 * 24))
@@ -214,12 +217,12 @@ class Auction extends Component {
               <p>
                 Once per week DeversiFi exchange trading fees that are pledged to NEC token holders
                 are auctioned. NEC holders can sell their NEC in exchange for the auctioned ETH. Any
-                NEC tokens sold in the auctions are burned.
+                NEC tokens sold in the auctions are burned. &nbsp;
                 <strong onClick={() => this.setState({ descriptionVisible: true })} className="overview__link">See details</strong>
               </p>
               <div className="overview__auction">
                 <p>
-                  Auction: <span className="auction__status">live</span>
+                  Auction: <span className="auction__status">{this.props.nextAuctionDate > 0 ? 'live' : 'closed'}</span>
                 </p>
                 <p className="little__text">Next auction start</p>
                 <p>{this.timeCountdown(this.props.nextAuctionDate)}</p>
@@ -272,7 +275,7 @@ class Auction extends Component {
                   </div>
                   <div className="current-auction__card">
                     <span className="current-auction__title">
-                      Next Auction <br /> NEC Price
+                      Next Price Change <br /> NEC Price
                     </span>
                     <span className="current-auction__value">
                       {currentAuctionSummary.nextNecPrice} <small>ETH</small>
@@ -306,7 +309,7 @@ class Auction extends Component {
                 <div className="current-auction">
                   <div className="current-auction__card">
                     <span className="current-auction__title">
-                      Purchased NEC
+                      NEC burned in Auction
                     </span>
                     <span className="current-auction__value">
                       {formatNumber(currentAuctionSummary.purchasedNec)}
@@ -314,7 +317,7 @@ class Auction extends Component {
                   </div>
                   <div className="current-auction__card">
                     <span className="current-auction__title">
-                      Purchased NEC <br />average price
+                      Burned <br />average price
                     </span>
                     <span className="current-auction__value">
                       {currentAuctionSummary.necAveragePrice} <small>ETH</small>
@@ -330,8 +333,8 @@ class Auction extends Component {
                 </div>
                 <span>FOR</span>
                 <div className="input__container">
-                  <p>{this.state.convert}</p>
-                  <span>NEC/ETH</span>
+                  <p>{(currentAuctionSummary.currentNecPrice * this.state.tokensForSell).toFixed(5)}</p>
+                  <span>ETH</span>
                 </div>
                 <button
                   onClick={this.sellTokens}
@@ -359,7 +362,7 @@ class Auction extends Component {
               </thead>
               <tbody>
                 {auctionTransactions ?
-                  auctionTransactions.map((trxn, index) => (
+                  auctionTransactions.reverse().map((trxn, index) => (
                     <tr key={index}>
                       <td>{trxn.blockNumber}</td>
                       <td></td>
