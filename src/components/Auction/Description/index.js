@@ -13,7 +13,7 @@ const AuctionDescription = ({ closeDescription, visible }) => {
       </p>
 
       <p>
-        The portion of DeversiFi trading fee revenues dedicated to the auction is determined by the  following schedule.
+        The portion of DeversiFi trading fee revenues dedicated to the auction is determined by the  following schedule. <a target="__blank" href="https://nectar.community/whitepaper#page=17">Click here</a>
         </p>
 
         <p>
