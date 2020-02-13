@@ -76,23 +76,14 @@ export async function getCirculatingNEC() {
 }
 
 export async function getDeversifiNecEth() {
-  const engineContract = eth.getEngineContract();
-  const blockRange = await eth.getChartBlockRange();
-  const deversifiNecEth = [];
-  const transactions = await engineContract.getPastEvents('Burn', blockRange);
+  const necEth = await eth.getNecEth();
 
-  await Promise.all(transactions.map(async (transaction) => {
-    const { timestamp } = await eth.getBlockByNumber(transaction.blockNumber);
+  const transactions = necEth.slice(0,7).map((transaction, index) => ({
+    name: new Date(transaction[0]).toLocaleDateString(),
+    pv: transaction[2]
+  })).reverse();
 
-    deversifiNecEth.push({
-      name: new Date(timestamp * 1000).toLocaleDateString(),
-      pv: (transaction.returnValues.amount/formatEth(transaction.returnValues.price)).toFixed(3),
-    });
-  }));
-
-  const orderedTransactions = deversifiNecEth.sort((a, b) =>  a.name - b.name);
-
-  return orderedTransactions;
+  return transactions;
 }
 
 export const fetchCirculatingNec = () => async dispatch => {
