@@ -105,13 +105,14 @@ const fetchedCurrentActionSummary = data => async dispatch => {
 
   try {
     const current = await engineContract.methods.getCurrentAuction().call();
+    const auctionLength = await engineContract.methods.thawingDelay().call();
     const blockRange = await eth.getChartBlockRange();
     const transactions = await engineContract.getPastEvents('Burn', blockRange);
 
     let purchasedNec = 0
     let sumEth = 0
     let necAveragePrice = 'N/A'
-    console.log(transactions.length)
+
     if(transactions.length) {
       transactions.forEach(transaction => {
         purchasedNec = purchasedNec + +transaction.returnValues.amount
@@ -127,6 +128,7 @@ const fetchedCurrentActionSummary = data => async dispatch => {
       type: FETCH_CURRENT_AUCTION_SUMMARY,
       nextPriceChange: current.nextPriceChangeSeconds - Date.now() / 1000,
       startTimeSeconds: Number(current.startTimeSeconds),
+      priceChangeLengthSeconds: auctionLength / 35,
       currentAuctionSummary: {
         currentNecPrice: currentNecPrice,
         nextNecPrice: (1000000000000000000/current.nextPrice).toFixed(5),

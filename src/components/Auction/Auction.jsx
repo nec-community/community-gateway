@@ -192,13 +192,12 @@ class Auction extends Component {
   }
 
   calcTimestampPercentage = () => {
-    const { nextPriceChange, startTimeSeconds } = this.props;
-    const timeStarted = new Date(startTimeSeconds);
-    const timeNow = new Date().getTime();
-    let timeLimit = new Date();
-    timeLimit.setSeconds(timeLimit.getSeconds() + nextPriceChange);
-    const initialPercentage = (timeNow - timeStarted) / ((timeLimit.getTime() - timeStarted) * 100);
+    const { nextPriceChange, startTimeSeconds, priceChangeLengthSeconds } = this.props;
+    console.log(nextPriceChange, startTimeSeconds, priceChangeLengthSeconds)
 
+    const initialPercentage = 100 * nextPriceChange / priceChangeLengthSeconds;
+
+    console.log('timechange', initialPercentage)
     return Math.floor(100 - initialPercentage)
   }
 
@@ -408,7 +407,8 @@ const mapStateToProps = state => ({
   necPrice: state.auction.necPrice,
   nextPriceChange: state.auction.nextPriceChange,
   startTimeSeconds: state.auction.startTimeSeconds,
-  nextAuctionDate: state.auction.nextAuctionDate
+  nextAuctionDate: state.auction.nextAuctionDate,
+  priceChangeLengthSeconds: state.auction.priceChangeLengthSeconds
 });
 
 export default connect(mapStateToProps, {
