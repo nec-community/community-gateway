@@ -172,9 +172,9 @@ class Auction extends Component {
     if(this.props[title].length > 0) {
       switch(title) {
         case 'burnedNecData':
-          return `US $ ${formatNumber((this.props[title][this.props[title].length - 1].pv * ethPrice).toFixed(2))}`;
-        case 'deversifiNecEthData':
           return `US $ ${formatNumber((this.props[title][this.props[title].length - 1].pv * necPrice).toFixed(2))}`;
+        case 'deversifiNecEthData':
+          return `US $ ${formatNumber((this.props[title][this.props[title].length - 1].pv * ethPrice).toFixed(2))}`;
         default:
           return `US $ ${formatNumber((this.props[title][this.props[title].length - 1].pv * necPrice).toFixed(2))}`;
       }
