@@ -8,6 +8,7 @@ import {
   SELL_IN_AUCTION_START,
   FETCH_AUCTION_TRANSACTIONS,
   FETCH_ETH_PRICE,
+  FETCH_NEC_PRICE,
   FETCH_NEXT_AUCTION_DATE
 } from '../actions/actionTypes';
 
@@ -17,6 +18,7 @@ const INITIAL_STATE = {
   deversifiNecEthPriceData: [],
   nextAuctionEthData: [],
   necPrice: '',
+  ethPrice: '',
   nextPriceChange: '',
   nextAuctionDate: ''
 };
@@ -31,8 +33,7 @@ export default (state = INITIAL_STATE, action) => {
     case FETCH_BURNED_NEC:
       return {
         ...state,
-        burnedNecData: action.burnedNecData,
-        totalBurned: action.totalBurned
+        burnedNecData: action.burnedNecData
       };
     case FETCH_DEVERSIFI_NEC_ETH_DATA:
       return {
@@ -71,10 +72,15 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         auctionTransactions: action.auctionTransactions,
       };
-    case FETCH_ETH_PRICE:
+    case FETCH_NEC_PRICE:
       return {
         ...state,
         necPrice: action.necPrice
+      }
+    case FETCH_ETH_PRICE:
+      return {
+        ...state,
+        ethPrice: action.ethPrice
       }
     default:
       return state;

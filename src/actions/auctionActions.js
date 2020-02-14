@@ -8,6 +8,7 @@ import {
   SELL_IN_AUCTION_START,
   FETCH_AUCTION_TRANSACTIONS,
   FETCH_ETH_PRICE,
+  FETCH_NEC_PRICE,
   SELL_AND_BURN_NEC,
   FETCH_NEXT_AUCTION_DATE
 } from './actionTypes';
@@ -36,7 +37,6 @@ export const fetchBurnedNec = () => async dispatch => {
   const blockRange = await eth.getChartBlockRange(7);
   const burnedNec = [];
   let pastEvents = await engineContract.getPastEvents('AuctionClose', blockRange);
-  let burnedSum = 0;
 
   await Promise.all(pastEvents.map(async (event, index) => {
     const { timestamp } = await eth.getBlockByNumber(event.blockNumber);
@@ -48,13 +48,12 @@ export const fetchBurnedNec = () => async dispatch => {
     });
   }));
 
-  const extratedPv = pastEvents.map(event => event.returnValues.necBurned / 1000000000000000000);
   const orderedTransactions = burnedNec.sort((a, b) => new Date(a.name) - new Date(b.name));
 
   dispatch({
     type: FETCH_BURNED_NEC,
-    burnedNecData: orderedTransactions,
-    totalBurned: burnedNec.length ? extratedPv.reduce((current, next) => current + next) : 0 });
+    burnedNecData: _.uniqBy(_.orderBy(burnedNec, ['name'], ['asc']), 'name')
+  });
 };
 
 export async function getCirculatingNEC() {
@@ -192,10 +191,16 @@ export const fetchAuctionTransactions = data => async dispatch => {
   dispatch({ type: FETCH_AUCTION_TRANSACTIONS, auctionTransactions: transactionsList });
 };
 
-export const fetchEthPrice = () => async dispatch => {
+export const fetchNecPrice = () => async dispatch => {
   const necPrice = await eth.getNecPrice();
 
-  dispatch({ type: FETCH_ETH_PRICE, necPrice })
+  dispatch({ type: FETCH_NEC_PRICE, necPrice })
+}
+
+export const fetchEthPrice = () => async dispatch => {
+  const ethPrice = await eth.getEthPrice();
+
+  dispatch({ type: FETCH_ETH_PRICE, ethPrice })
 }
 
 export const sellAndBurn = (necAmount) => async (dispatch, getState) => {
