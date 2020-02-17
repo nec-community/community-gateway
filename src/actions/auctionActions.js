@@ -19,6 +19,7 @@ import { formatEth, formatNumber } from '../services/utils';
 import { notify, notifyError } from './notificationActions';
 import _ from 'lodash';
 import { openLogin } from './accountActions';
+import BN from 'bignumber.js'
 
 
 const web3 = new Web3();
@@ -205,7 +206,7 @@ export const fetchEthPrice = () => async dispatch => {
   dispatch({ type: FETCH_ETH_PRICE, ethPrice })
 }
 
-export const sellAndBurn = (necAmount) => async (dispatch, getState) => {
+export const sellAndBurn = (necAmount, auctionSummary) => async (dispatch, getState) => {
   if (!getState().account.accountType) return dispatch(openLogin())
 
   const userTokenBalance = getState().account.tokenBalance
@@ -222,8 +223,14 @@ export const sellAndBurn = (necAmount) => async (dispatch, getState) => {
     return notifyError(`You only have: ${userTokenBalance} NEC in your wallet`)(dispatch)
   }
 
+  const maxNec = formatEth(new BN(auctionSummary.remainingEth).div(auctionSummary.currentNecPrice))
+
+  if (necAmount > +maxNec) {
+    notify(`Your order will be reduced to sell ${maxNec} NEC (the max at this price)`)(dispatch)
+  }
+
   try {
-    await eth.sellAndBurn(necAmount, getState().account.accountType)
+    await eth.sellAndBurn(maxNec, getState().account.accountType)
     notify('You have sold NEC!', 'success')(dispatch)
     dispatch({ type: SELL_AND_BURN_NEC })
   } catch(err) {

@@ -147,12 +147,13 @@ class Auction extends Component {
   };
 
   sellTokens = async () => {
-    this.setState({ sellAndBurnLoading: true });
-    await this.props.sellInAuctionStart();
+    this.setState({ sellAndBurnLoading: true })
+    await this.props.sellInAuctionStart()
 
-    const { tokensForSell } = this.state;
-    await this.props.sellAndBurn(tokensForSell);
-    this.setState({ sellAndBurnLoading: false });
+    const { currentAuctionSummary } = this.props
+    const { tokensForSell } = this.state
+    await this.props.sellAndBurn(tokensForSell, currentAuctionSummary)
+    this.setState({ sellAndBurnLoading: false })
   }
 
   renderTabTileAmount = (title) => {
@@ -189,11 +190,9 @@ class Auction extends Component {
 
   calcTimestampPercentage = () => {
     const { nextPriceChange, startTimeSeconds, priceChangeLengthSeconds } = this.props;
-    console.log(nextPriceChange, startTimeSeconds, priceChangeLengthSeconds)
 
     const initialPercentage = 100 * nextPriceChange / priceChangeLengthSeconds;
 
-    console.log('timechange', initialPercentage)
     return Math.floor(100 - initialPercentage)
   }
 
@@ -307,7 +306,7 @@ class Auction extends Component {
                       NEC burned in Auction
                     </span>
                     <span className="current-auction__value">
-                      {formatNumber(currentAuctionSummary.purchasedNec)}
+                      {formatNumber(currentAuctionSummary.purchasedNec.toFixed(3))}
                     </span>
                   </div>
                   <div className="current-auction__card">
