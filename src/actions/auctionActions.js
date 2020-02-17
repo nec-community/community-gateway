@@ -48,8 +48,6 @@ export const fetchBurnedNec = () => async dispatch => {
     });
   }));
 
-  const orderedTransactions = burnedNec.sort((a, b) => new Date(a.name) - new Date(b.name));
-
   dispatch({
     type: FETCH_BURNED_NEC,
     burnedNecData: _.uniqBy(_.orderBy(burnedNec, ['name'], ['asc']), 'name')
@@ -110,7 +108,7 @@ const fetchedCurrentActionSummary = data => async dispatch => {
     let purchasedNec = 0
     let sumEth = 0
     let necAveragePrice = 'N/A'
-    console.log(transactions.length)
+
     if(transactions.length) {
       transactions.forEach(transaction => {
         purchasedNec = purchasedNec + +transaction.returnValues.amount
@@ -175,20 +173,26 @@ export const sellInAuctionStart = data => async dispatch => {
 export const fetchAuctionTransactions = data => async dispatch => {
   const engineContract = await eth.getEngineContract();
   const necPrice = await eth.getNecPrice();
+  const nec_eth = await eth.getNecPriceInEth();
   const blockRange = await eth.getChartBlockRange();
   const transactions = await engineContract.getPastEvents('Burn', blockRange);
 
-  const transactionsList = transactions.map(transaction => ({
-    blockNumber: transaction.blockNumber,
-    wallet_address: transaction.returnValues.burner,
-    nec: formatEth(transaction.returnValues.amount),
-    eth: (formatEth(transaction.returnValues.amount) / transaction.returnValues.price).toFixed(5),
-    price_nec_eth: ( 1 / transaction.returnValues.price).toFixed(5),
-    price_nec_usd: necPrice,
-    usd: (formatEth(transaction.returnValues.amount) * necPrice).toFixed(2),
+  const transactionsList = await Promise.all(transactions.map(async transaction => {
+    const { timestamp } = await eth.getBlockByNumber(transaction.blockNumber);
+
+    return {
+      timestamp,
+      blockNumber: transaction.blockNumber,
+      wallet_address: transaction.returnValues.burner,
+      nec: formatEth(transaction.returnValues.amount),
+      eth: (transaction.returnValues.amount / transaction.returnValues.price).toFixed(5),
+      price_nec_eth: nec_eth,
+      price_nec_usd: necPrice,
+      usd: (formatEth(transaction.returnValues.amount) * necPrice).toFixed(2),
+    }
   }));
 
-  dispatch({ type: FETCH_AUCTION_TRANSACTIONS, auctionTransactions: transactionsList });
+  dispatch({ type: FETCH_AUCTION_TRANSACTIONS, auctionTransactions: _.orderBy(transactionsList, ['timestamp'], ['desc']) });
 };
 
 export const fetchNecPrice = () => async dispatch => {
