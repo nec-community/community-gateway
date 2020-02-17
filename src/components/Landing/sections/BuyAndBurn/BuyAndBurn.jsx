@@ -74,12 +74,9 @@ function BuyAndBurn({ tradingVolume }) {
           ))}
         </div>
       </div>
-      <p className="landing__section-content buy-and-burn__content buy-and-burn__section-margin">
-        Stay tuned for the announcement of the first auction.
-      </p>
       <br />
       <p className="landing__section-content buy-and-burn__content buy-and-burn__section-margin">
-        The next auction will be in November.
+        Weekly auctions run on a continuous basis. Participate <Link to='/burn'>here</Link>
       </p>
       <br />
       <Link to="/whitepaper#page=17" className="landing__link">
