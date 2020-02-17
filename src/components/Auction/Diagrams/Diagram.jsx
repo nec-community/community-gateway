@@ -29,7 +29,7 @@ export default class Diagram extends Component {
           width={920}
           height={300}
           data={this.props.data}
-          margin={{ top: 20, right: 50, bottom: 30 }}
+          margin={{ top: 20, right: 50, bottom: 30, left: 15 }}
         >
           <CartesianGrid vertical={false} stroke="#000000" />
           <XAxis
