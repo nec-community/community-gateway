@@ -99,7 +99,7 @@ export const formatEth = number => {
     return number;
   }
 
-  return (number/10 ** 18).toFixed(3);
+  return (number/1000000000000000000).toFixed(3);
 }
 
 export const formatNumber = number => {
