@@ -230,7 +230,7 @@ class Auction extends Component {
               closeDescription={() => this.setState({ descriptionVisible: false })}
             />
           </div>
-          {currentAuctionSummary && (
+          {currentAuctionSummary && currentAuctionSummary.remainingEth > 0.01 && (
             <>
               <section className="summary">
                 <h3>Summary</h3>
@@ -356,7 +356,7 @@ class Auction extends Component {
               </thead>
               <tbody>
                 {auctionTransactions ?
-                  auctionTransactions.reverse().map((trxn, index) => (
+                  auctionTransactions.map((trxn, index) => (
                     <tr key={index}>
                       <td>{trxn.blockNumber}</td>
                       <td></td>
