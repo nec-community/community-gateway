@@ -81,10 +81,20 @@ class DAO extends Component {
               <br/>
               <a
                 className="side-badge"
+                href="https://alchemy.daostack.io/dao/0xe56b4d8d42b1c9ea7dda8a6950e3699755943de7"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Go to DAO
+              </a>
+              <br/>
+              <br/>
+              <a
+                className="side-badge"
                 href="#"
                 onClick={this.toggleTermsModal}
               >
-              Participate Now
+              Claim Reputation Now’
               </a>
               <TermsModal
                 isOpen={this.state.isTermsModalOpen}
@@ -98,7 +108,7 @@ class DAO extends Component {
                 target="_blank"
                 rel="noopener noreferrer"
                 >
-              Visit The necDAO Knowledge Base 
+              Visit The necDAO Knowledge Base
               </a>
             </div>
           </div>

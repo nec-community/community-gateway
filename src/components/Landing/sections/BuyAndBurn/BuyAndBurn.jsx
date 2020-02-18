@@ -28,14 +28,12 @@ function BuyAndBurn({ tradingVolume }) {
   return (
     <section className="landing__section">
       <p className="landing__section-content buy-and-burn__content buy-and-burn__section-margin">
-        The NEC supply will be reduced over time by applying a buy-and-burn model. Once a week, NEC
-        tokens will be purchased, using up to 50% of the revenues from DerversiFi trading fees, via
-        an open and transparent auction mechanism. The purchased NEC tokens will then be burnt.
+        The NEC supply will be reduced over time by applying a buy-and-burn model. Once a week, NEC tokens are purchased, using up to 50% of the revenues from DerversiFi trading fees, via an open and transparent auction mechanism.
       </p>
 
       <p className="landing__section-content buy-and-burn__content buy-and-burn__section-margin">
-        The precise revenue percentage used for this purchase will be dependent on the daily trading
-        volume (see below).
+        The purchased NEC tokens will then be burnt.
+        The precise revenue percentage used for this purchase will be dependent on the daily trading volume (see below).
       </p>
       <br />
       <div className="buy-and-burn__progress-bar-content">
@@ -76,12 +74,9 @@ function BuyAndBurn({ tradingVolume }) {
           ))}
         </div>
       </div>
-      <p className="landing__section-content buy-and-burn__content buy-and-burn__section-margin">
-        Stay tuned for the announcement of the first auction.
-      </p>
       <br />
       <p className="landing__section-content buy-and-burn__content buy-and-burn__section-margin">
-        The next auction will be in November.
+        Weekly auctions run on a continuous basis. Participate <Link to='/burn'>here</Link>
       </p>
       <br />
       <Link to="/whitepaper#page=17" className="landing__link">

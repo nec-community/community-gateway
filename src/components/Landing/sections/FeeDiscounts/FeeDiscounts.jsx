@@ -73,13 +73,7 @@ export default class FeeDiscounts extends Component {
     return (
       <section className="landing__section">
         <p className="landing__section-content fee-discounts__content">
-          Holders of Nectar enjoy benefits across the DeFi ecosystem, starting with DeversiFi, the
-          most comprehensive decentralised trading experience.
-          <br />
-          <br className="landing__linebreak" />
-          Nectar entitles its holders to to a 20% fee discount on trading volume proportional to
-          their NEC holdings.
-          <br />
+          Holders of Nectar enjoy benefits across the DeFi ecosystem, starting with DeversiFi, the most comprehensive decentralised trading experience.
           <br className="landing__linebreak" />
         </p>
         <div className="fee-discounts__calculator-content">
@@ -126,11 +120,7 @@ export default class FeeDiscounts extends Component {
         </div>
 
         <p className="landing__section-content fee-discount__section-margin">
-          The fee discount is applied on a rolling basis based on the user’s reference amount of NEC
-          (the average balance in the user’s address over the past 30 days).
-          <br />
-          Fee discounts are also available for users placing larger orders and reaching higher
-          30-day trading volume thresholds.
+        On top of the trading fee discounts earned for higher 30d trading volume, Nectar holders will be entitled to additional discounts of up to 20% depending on the amount of Nectar tokens that they hold
         </p>
         <a
           href="https://app.deversifi.com"

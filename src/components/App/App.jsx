@@ -68,9 +68,24 @@ class App extends Component {
               Traderboard
             </Link>
             <Link to="/whitepaper">Whitepaper</Link>
-            <Link to="/dao" onClick={this.clickLinkHandler}>
-              DAO
-            </Link>
+            <Link to="/burn">Weekly Auction</Link>
+            <div className="dropdown-wrapper">
+              <a>DAO</a>
+              <div>
+                <Link onClick={this.clickLinkHandler} to="/dao">
+                  About
+                </Link>
+                <a href="https://stake.nectar.community/#/" target="_blank">
+                  Reputation Claim
+                </a>
+                <a onClick={this.clickLinkHandler} href="https://alchemy.daostack.io/dao/0xe56b4d8d42b1c9ea7dda8a6950e3699755943de7" target="_blank">
+                  Go to DAO
+                </a>
+                <a onClick={this.clickLinkHandler} href="https://support.deversifi.com/en/knowledgebase/8-necdao" target="_blank">
+                  Knowledge Base
+                </a>
+              </div>
+            </div>
             <div className="dropdown-wrapper">
               <a>Token Listings</a>
               <div>
@@ -82,23 +97,6 @@ class App extends Component {
                 </Link>
                 <Link onClick={this.clickLinkHandler} to="/token-pool">
                   The Pool
-                </Link>
-              </div>
-            </div>
-            <div className="dropdown-wrapper">
-              <a>Proposals</a>
-              <div>
-                <Link onClick={this.clickLinkHandler} to="/delegate-votes">
-                  Delegate Votes
-                </Link>
-                <Link onClick={this.clickLinkHandler} to="/proposals">
-                  All Proposals
-                </Link>
-                <Link onClick={this.clickLinkHandler} to="/pending">
-                  Pending Proposals
-                </Link>
-                <Link onClick={this.clickLinkHandler} to="/submit">
-                  Submit a Proposal
                 </Link>
               </div>
             </div>

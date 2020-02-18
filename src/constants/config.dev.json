@@ -1,13 +1,15 @@
 {
   "network": 42,
-  "providerUrl": "https://kovan.infura.io/JFp9L4PjrgVxZzgx5rnZ",
+  "providerUrl": "https://kovan.infura.io/v3/d8c4c4f651ed4d3d9b3dcde50a37f2e8",
   "backendUrl": "http://139.59.146.81:3000",
   "defaultGasPrice": 20,
   "hiddenProposals": [1, 2, 3, 4],
+  "chartDuration": 7,
   "tokenListingManagerAdvanced": "0xf9795c887299414a8b1da2cad325a8a9992335dc",
   "proposalContract": "0xc6619f0bb2d70088236ca23554ed4f722242cb91",
   "simpleVoteContract": "0x0000000000000000000000000000000000000000",
-  "necTokenContract": "0x96da48216d5ed99f8e04f511b255edd743242574",
+  "necEngineContract": "0x2BDBeeB631c8Bc4b18208486667aE663F81f6014",
+  "necTokenContract": "0x68CEE0BBFe45E5aC0d6C34F19e57204094d4658a",
   "necTokenControllerContract": "0xc330aa14183a1962a187135d085e88b8b6e1d680",
   "klerosT2CR": "0x25dd2659a1430cdbd678615c7409164ae486c146",
   "klerosBadge": "0xd58bdd286e8155b6223e2a62932ae3e0a9a75759"
