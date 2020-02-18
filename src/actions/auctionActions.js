@@ -119,7 +119,7 @@ const fetchedCurrentActionSummary = data => async dispatch => {
       purchasedNec = purchasedNec / 1000000000000000000
       necAveragePrice = (sumEth / purchasedNec).toFixed(5)
     }
-    const currentNecPrice = (1000000000000000000/current.currentPrice).toFixed(5)
+    const currentNecPrice = (1000000000000000000/current.currentPrice).toFixed(7)
 
 
     dispatch({
@@ -129,7 +129,7 @@ const fetchedCurrentActionSummary = data => async dispatch => {
       priceChangeLengthSeconds: auctionLength / 35,
       currentAuctionSummary: {
         currentNecPrice: currentNecPrice,
-        nextNecPrice: (1000000000000000000/current.nextPrice).toFixed(5),
+        nextNecPrice: (1000000000000000000/current.nextPrice).toFixed(7),
         remainingEth: current.remainingEthAvailable,
         initialEth: current.initialEthAvailable,
         necAveragePrice: necAveragePrice,
