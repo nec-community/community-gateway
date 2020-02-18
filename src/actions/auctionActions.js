@@ -230,10 +230,11 @@ export const sellAndBurn = (necAmount, auctionSummary) => async (dispatch, getSt
 
   if (necAmount > +maxNec) {
     notify(`Your order will be reduced to sell ${maxNec} NEC (the max at this price)`)(dispatch)
+    necAmount = maxNec 
   }
 
   try {
-    await eth.sellAndBurn(maxNec, getState().account.accountType)
+    await eth.sellAndBurn(necAmount, getState().account.accountType)
     notify('You have sold NEC!', 'success')(dispatch)
     dispatch({ type: SELL_AND_BURN_NEC })
   } catch(err) {
