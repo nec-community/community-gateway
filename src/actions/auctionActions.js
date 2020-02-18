@@ -134,7 +134,6 @@ const fetchedCurrentActionSummary = data => async dispatch => {
       }
     });
   } catch(e) {
-    console.log(e)
     dispatch({
       type: FETCH_CURRENT_AUCTION_SUMMARY,
       currentAuctionSummary: null
