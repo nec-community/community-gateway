@@ -8,7 +8,7 @@
   "tokenListingManager": "0x29c317dCcC79ef77eF04BB7e9A852926050Bc92D",
   "proposalContract": "0xb24ed9d62d4c660faf56a4cddada06c88b2d5ddb",
   "simpleVoteContract": "0x7511576ab7adbcb466366C8cd3529FE2E4833c6E",
-  "necEngineContract": "0xe961D7f97D1308Cc2b316b028F155df56D062EC7",
+  "necEngineContract": "0xe96f714a38bC4B2c12daDa2aeaC08CFFAB50435E",
   "necTokenContract": "0xcc80c051057b774cd75067dc48f8987c4eb97a5e",
   "necTokenControllerContract": "0x0e55c54249f25f70d519b7fb1c20e3331e7ba76d",
   "klerosT2CR": "0xebcf3bca271b26ae4b162ba560e243055af0e679",
