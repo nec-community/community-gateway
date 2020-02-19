@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import eth from '../../services/ethereumService';
-import { formatNumber, formatToMinutes, formatEth } from '../../services/utils'
+import { formatNumber, formatEth } from '../../services/utils'
 import './Auction.scss';
 import Diagram from './Diagrams/Diagram';
 import Description from './Description';
@@ -204,7 +203,7 @@ class Auction extends Component {
   render() {
     const { activeTabIndex, tokensForSell, sellAndBurnLoading } = this.state;
     const ActiveTabComponent = TABS[activeTabIndex].Component;
-    const { currentAuctionSummary, nextPriceChange, auctionTransactions, necPrice } = this.props;
+    const { currentAuctionSummary, nextPriceChange, auctionTransactions, ethPrice } = this.props;
 
     return (
       <div className="auction">
@@ -268,17 +267,29 @@ class Auction extends Component {
                     <span className="current-auction__title">
                       Current Auction <br /> NEC Price
                     </span>
-                    <span className="current-auction__value">
-                      {currentAuctionSummary.currentNecPrice} <small>ETH</small>
-                    </span>
+                    <div>
+                      <span className="current-auction__value">
+                        {currentAuctionSummary.currentNecPrice} <small>ETH</small>
+                      </span>
+                      <small className="current-auction__usd">
+                        {`USD $ ${(currentAuctionSummary.currentNecPrice * ethPrice).toFixed(5)}`}
+                      </small>
+                    </div>
                   </div>
                   <div className="current-auction__card">
                     <span className="current-auction__title">
                       Next Price Change <br /> NEC Price
                     </span>
-                    <span className="current-auction__value">
-                      {currentAuctionSummary.nextNecPrice} <small>ETH</small>
-                    </span>
+                    <div>
+                      <span className="current-auction__value">
+                        {currentAuctionSummary.nextNecPrice} <small>ETH</small>
+                      </span>
+
+                      <small className="current-auction__usd">
+                        {`USD $ ${(currentAuctionSummary.nextNecPrice * ethPrice).toFixed(5)}`}
+                      </small>
+                    </div>
+
                   </div>
                 </div>
                 <div className="graphics__container">
@@ -318,9 +329,14 @@ class Auction extends Component {
                     <span className="current-auction__title">
                       Burned <br />average price
                     </span>
-                    <span className="current-auction__value">
-                      {currentAuctionSummary.necAveragePrice} <small>ETH</small>
-                    </span>
+                    <div>
+                      <span className="current-auction__value">
+                        {currentAuctionSummary.necAveragePrice} <small>ETH</small>
+                      </span>
+                      <small className="current-auction__usd">
+                        {`USD $ ${(currentAuctionSummary.necAveragePrice * ethPrice).toFixed(5)}`}
+                      </small>
+                    </div>
                   </div>
                 </div>
               </section>
