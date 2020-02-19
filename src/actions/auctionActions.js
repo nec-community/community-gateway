@@ -3,6 +3,7 @@ import {
   FETCH_BURNED_NEC,
   FETCH_DEVERSIFI_NEC_ETH_DATA,
   FETCH_NEXT_AUCTION_ETH_DATA,
+  FETCH_DEVERSIFI_NEC_USD_DATA,
   FETCH_CURRENT_AUCTION_SUMMARY,
   FETCH_AUCTION_INTERVAL_DATA,
   SELL_IN_AUCTION_START,
@@ -15,7 +16,7 @@ import {
 import Web3 from 'web3';
 import config from '../constants/config.json';
 import eth from '../services/ethereumService';
-import { formatEth, formatNumber } from '../services/utils';
+import { formatEth } from '../services/utils';
 import { notify, notifyError } from './notificationActions';
 import _ from 'lodash';
 import { openLogin } from './accountActions';
@@ -85,6 +86,17 @@ export async function getDeversifiNecEth() {
   })).reverse();
 
   return transactions;
+}
+
+export const fetchDeversifiNecUsd = () => async dispatch => {
+  const necEth = await eth.getNecUsd();
+
+  const transactions = necEth.slice(0,7).map((transaction, index) => ({
+    name: new Date(transaction[0]).toLocaleDateString(),
+    pv: transaction[2]
+  })).reverse();
+
+  dispatch({ type: FETCH_DEVERSIFI_NEC_USD_DATA, deversifiNecUsdData: transactions })
 }
 
 export const fetchCirculatingNec = () => async dispatch => {

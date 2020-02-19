@@ -38,6 +38,7 @@ export const FETCH_COMPETITIONS_BY_TAG = 'fetch_competitions_by_tag';
 export const FETCH_CIRCULATING_NEC_DATA = 'fetch_circulating_nec_data';
 export const FETCH_BURNED_NEC = 'fetch_burned_nec';
 export const FETCH_DEVERSIFI_NEC_ETH_DATA = 'fetch_deversifi_nec_eth_data';
+export const FETCH_DEVERSIFI_NEC_USD_DATA = 'fetch_deversifi_nec_usd_data';
 export const FETCH_NEXT_AUCTION_ETH_DATA = 'fetch_next_auction_eth_data';
 
 export const FETCH_CURRENT_AUCTION_SUMMARY = 'fetch_current_auction_summary';

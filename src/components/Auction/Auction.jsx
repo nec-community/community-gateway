@@ -3,17 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import eth from '../../services/ethereumService';
 import { formatNumber, formatToMinutes, formatEth } from '../../services/utils'
-import Web3 from 'web3';
 import './Auction.scss';
 import Diagram from './Diagrams/Diagram';
 import Description from './Description';
-import abis from '../../constants/abis.json';
-import config from '../../constants/config.json';
 import { convertToken } from '../../actions/traderAction';
 import {
   fetchCirculatingNec,
   fetchBurnedNec,
   fetchDeversifiNecEth,
+  fetchDeversifiNecUsd,
   fetchCurrentActionSummary,
   fetchAuctionIntervalData,
   sellInAuctionStart,
@@ -44,6 +42,12 @@ const TABS = [
     titleAmount: 140,
     Component: Diagram,
     title: 'deversifiNecEthData',
+  },
+  {
+    name: 'Deversifi NEC/USD Price',
+    Component: Diagram,
+    titleAmount: 140,
+    title: 'deversifiNecUsdData'
   }
 ];
 
@@ -91,6 +95,7 @@ class Auction extends Component {
     await this.props.fetchCirculatingNec();
     this.setState({ circulatingNecDataLoading: false });
     await this.props.fetchDeversifiNecEth();
+    await this.props.fetchDeversifiNecUsd();
     this.setState({ deversifiNecEthDataLoading: false });
     this.props.fetchCurrentActionSummary();
     this.props.fetchAuctionIntervalData();
@@ -391,6 +396,7 @@ const mapStateToProps = state => ({
   circulatingNecData: state.auction.circulatingNecData,
   burnedNecData: state.auction.burnedNecData,
   deversifiNecEthData: state.auction.deversifiNecEthData,
+  deversifiNecUsdData: state.auction.deversifiNecUsdData,
   nextAuctionEthData: state.auction.nextAuctionEthData,
   currentAuctionSummary: state.auction.currentAuctionSummary,
   auctionIntervalData: state.auction.auctionIntervalData,
@@ -408,6 +414,7 @@ export default connect(mapStateToProps, {
   fetchCirculatingNec,
   fetchBurnedNec,
   fetchDeversifiNecEth,
+  fetchDeversifiNecUsd,
   fetchCurrentActionSummary,
   fetchAuctionIntervalData,
   sellInAuctionStart,
