@@ -62,7 +62,8 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         currentAuctionSummary: action.currentAuctionSummary,
         nextPriceChange: action.nextPriceChange,
-        startTimeSeconds: action.startTimeSeconds
+        startTimeSeconds: action.startTimeSeconds,
+        priceChangeLengthSeconds: action.priceChangeLengthSeconds,
       };
     case FETCH_AUCTION_INTERVAL_DATA:
       return {

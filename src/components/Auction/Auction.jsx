@@ -151,12 +151,13 @@ class Auction extends Component {
   };
 
   sellTokens = async () => {
-    this.setState({ sellAndBurnLoading: true });
-    await this.props.sellInAuctionStart();
+    this.setState({ sellAndBurnLoading: true })
+    await this.props.sellInAuctionStart()
 
-    const { tokensForSell } = this.state;
-    await this.props.sellAndBurn(tokensForSell);
-    this.setState({ sellAndBurnLoading: false });
+    const { currentAuctionSummary } = this.props
+    const { tokensForSell } = this.state
+    await this.props.sellAndBurn(tokensForSell, currentAuctionSummary)
+    this.setState({ sellAndBurnLoading: false })
   }
 
   renderTabTileAmount = (title) => {
@@ -194,12 +195,9 @@ class Auction extends Component {
   }
 
   calcTimestampPercentage = () => {
-    const { nextPriceChange, startTimeSeconds } = this.props;
-    const timeStarted = new Date(startTimeSeconds);
-    const timeNow = new Date().getTime();
-    let timeLimit = new Date();
-    timeLimit.setSeconds(timeLimit.getSeconds() + nextPriceChange);
-    const initialPercentage = (timeNow - timeStarted) / ((timeLimit.getTime() - timeStarted) * 100);
+    const { nextPriceChange, startTimeSeconds, priceChangeLengthSeconds } = this.props;
+
+    const initialPercentage = 100 * nextPriceChange / priceChangeLengthSeconds;
 
     return Math.floor(100 - initialPercentage)
   }
@@ -326,7 +324,7 @@ class Auction extends Component {
                       NEC burned in Auction
                     </span>
                     <span className="current-auction__value">
-                      {formatNumber(currentAuctionSummary.purchasedNec)}
+                      {formatNumber(currentAuctionSummary.purchasedNec.toFixed(3))}
                     </span>
                   </div>
                   <div className="current-auction__card">
@@ -429,7 +427,8 @@ const mapStateToProps = state => ({
   ethPrice: state.auction.ethPrice,
   nextPriceChange: state.auction.nextPriceChange,
   startTimeSeconds: state.auction.startTimeSeconds,
-  nextAuctionDate: state.auction.nextAuctionDate
+  nextAuctionDate: state.auction.nextAuctionDate,
+  priceChangeLengthSeconds: state.auction.priceChangeLengthSeconds
 });
 
 export default connect(mapStateToProps, {

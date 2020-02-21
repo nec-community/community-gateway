@@ -20,6 +20,7 @@ import { formatEth } from '../services/utils';
 import { notify, notifyError } from './notificationActions';
 import _ from 'lodash';
 import { openLogin } from './accountActions';
+import BN from 'bignumber.js'
 
 
 const web3 = new Web3();
@@ -114,6 +115,7 @@ const fetchedCurrentActionSummary = data => async dispatch => {
 
   try {
     const current = await engineContract.methods.getCurrentAuction().call();
+    const auctionLength = await engineContract.methods.thawingDelay().call();
     const blockRange = await eth.getChartBlockRange();
     const transactions = await engineContract.getPastEvents('Burn', blockRange);
 
@@ -135,6 +137,7 @@ const fetchedCurrentActionSummary = data => async dispatch => {
       type: FETCH_CURRENT_AUCTION_SUMMARY,
       nextPriceChange: current.nextPriceChangeSeconds - Date.now() / 1000,
       startTimeSeconds: Number(current.startTimeSeconds),
+      priceChangeLengthSeconds: auctionLength / 35,
       currentAuctionSummary: {
         currentNecPrice: currentNecPrice,
         nextNecPrice: (1000000000000000000/current.nextPrice).toFixed(7),
@@ -217,7 +220,7 @@ export const fetchEthPrice = () => async dispatch => {
   dispatch({ type: FETCH_ETH_PRICE, ethPrice })
 }
 
-export const sellAndBurn = (necAmount) => async (dispatch, getState) => {
+export const sellAndBurn = (necAmount, auctionSummary) => async (dispatch, getState) => {
   if (!getState().account.accountType) return dispatch(openLogin())
 
   const userTokenBalance = getState().account.tokenBalance
@@ -232,6 +235,13 @@ export const sellAndBurn = (necAmount) => async (dispatch, getState) => {
 
   if (userTokenBalance < necAmount) {
     return notifyError(`You only have: ${userTokenBalance} NEC in your wallet`)(dispatch)
+  }
+
+  const maxNec = formatEth(new BN(auctionSummary.remainingEth).div(auctionSummary.currentNecPrice))
+
+  if (necAmount > +maxNec) {
+    notify(`Your order will be reduced to sell ${maxNec} NEC (the max at this price)`)(dispatch)
+    necAmount = maxNec 
   }
 
   try {
