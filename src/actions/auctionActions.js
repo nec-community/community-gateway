@@ -131,7 +131,6 @@ const fetchedCurrentActionSummary = data => async dispatch => {
     }
     const currentNecPrice = (1000000000000000000/current.currentPrice).toFixed(7)
 
-
     dispatch({
       type: FETCH_CURRENT_AUCTION_SUMMARY,
       nextPriceChange: current.nextPriceChangeSeconds - Date.now() / 1000,
@@ -188,7 +187,7 @@ export const fetchAuctionTransactions = data => async dispatch => {
   const blockRange = await eth.getChartBlockRange();
   const transactions = await engineContract.getPastEvents('Burn', blockRange);
 
-  const transactionsList = await Promise.all(transactions.map(async transaction => {
+  const transactionsList = await Promise.all(transactions.slice(0,20).map(async transaction => {
     const { timestamp } = await eth.getBlockByNumber(transaction.blockNumber);
 
     return {

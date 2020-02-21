@@ -366,6 +366,9 @@ class Auction extends Component {
           )}
           <div className="table__container">
             <h3>Transaction History</h3>
+            <h4 className="auction__subtitle">A full list of transactions is available on Etherscan
+              <a rel="noopener noreferrer" href="https://etherscan.io/address/0xe96f714a38bc4b2c12dada2aeac08cffab50435e#tokentxns" target="_blank">here</a>
+            </h4>
             <table>
               <thead>
                 <tr>
