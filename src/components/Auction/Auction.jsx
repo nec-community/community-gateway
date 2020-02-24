@@ -176,6 +176,8 @@ class Auction extends Component {
 
     if(this.props[title].length > 0) {
       switch(title) {
+        case 'deversifiNecUsdData':
+          return ''
         case 'burnedNecData':
           return `US $ ${formatNumber((this.props[title][this.props[title].length - 1].pv * necPrice).toFixed(2))}`;
         case 'deversifiNecEthData':
@@ -278,7 +280,7 @@ class Auction extends Component {
                   </div>
                   <div className="current-auction__card">
                     <span className="current-auction__title">
-                      Next Price Change <br /> NEC Price
+                      Next Price<br /> NEC Price
                     </span>
                     <div>
                       <span className="current-auction__value">
@@ -362,6 +364,9 @@ class Auction extends Component {
           )}
           <div className="table__container">
             <h3>Transaction History</h3>
+            <h4 className="auction__subtitle">A full list of transactions is available on Etherscan
+              <a rel="noopener noreferrer" href="https://etherscan.io/address/0xe96f714a38bc4b2c12dada2aeac08cffab50435e#tokentxns" target="_blank">here</a>
+            </h4>
             <table>
               <thead>
                 <tr>
