@@ -280,7 +280,7 @@ class Auction extends Component {
                   </div>
                   <div className="current-auction__card">
                     <span className="current-auction__title">
-                      Next Price Change <br /> NEC Price
+                      Next Price<br /> NEC Price
                     </span>
                     <div>
                       <span className="current-auction__value">

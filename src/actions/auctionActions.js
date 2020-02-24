@@ -193,6 +193,8 @@ export const fetchAuctionTransactions = data => async dispatch => {
   const transactionsList = await Promise.all(transactions.slice(0,20).map(async transaction => {
     const { timestamp } = await eth.getBlockByNumber(transaction.blockNumber);
 
+    const price_nec_usd = await eth.getNecUsdByTimestamp(timestamp * 1000);
+
     return {
       timestamp,
       blockNumber: transaction.blockNumber,
@@ -200,7 +202,7 @@ export const fetchAuctionTransactions = data => async dispatch => {
       nec: formatEth(transaction.returnValues.amount),
       eth: (transaction.returnValues.amount / transaction.returnValues.price).toFixed(5),
       price_nec_eth: nec_eth,
-      price_nec_usd: necPrice,
+      price_nec_usd,
       usd: (formatEth(transaction.returnValues.amount) * necPrice).toFixed(2),
     }
   }));
