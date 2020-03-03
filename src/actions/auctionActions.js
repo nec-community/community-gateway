@@ -36,7 +36,7 @@ export const fetchNextAuctionDate = () => async dispatch => {
 
 export const fetchBurnedNec = () => async dispatch => {
   const engineContract = eth.getEngineContract();
-  const blockRange = await eth.getChartBlockRange(7);
+  const blockRange = await eth.getChartBlockRange(30);
   const burnedNec = [];
   let pastEvents = await engineContract.getPastEvents('AuctionClose', blockRange);
 
@@ -243,7 +243,7 @@ export const sellAndBurn = (necAmount, auctionSummary) => async (dispatch, getSt
 
   if (necAmount > +maxNec) {
     notify(`Your order will be reduced to sell ${maxNec} NEC (the max at this price)`)(dispatch)
-    necAmount = maxNec 
+    necAmount = maxNec
   }
 
   try {
