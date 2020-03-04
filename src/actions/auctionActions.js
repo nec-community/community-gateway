@@ -36,7 +36,7 @@ export const fetchNextAuctionDate = () => async dispatch => {
 
 export const fetchBurnedNec = () => async dispatch => {
   const engineContract = eth.getEngineContract();
-  const blockRange = await eth.getChartBlockRange(7);
+  const blockRange = await eth.getChartBlockRange(30);
   const burnedNec = [];
   let pastEvents = await engineContract.getPastEvents('AuctionClose', blockRange);
 
@@ -186,7 +186,6 @@ export const sellInAuctionStart = data => async dispatch => {
 export const fetchAuctionTransactions = data => async dispatch => {
   const engineContract = await eth.getEngineContract();
   const necPrice = await eth.getNecPrice();
-  const nec_eth = await eth.getNecPriceInEth();
   const blockRange = await eth.getChartBlockRange();
   const transactions = await engineContract.getPastEvents('Burn', blockRange);
 
@@ -194,6 +193,7 @@ export const fetchAuctionTransactions = data => async dispatch => {
     const { timestamp } = await eth.getBlockByNumber(transaction.blockNumber);
 
     const price_nec_usd = await eth.getNecUsdByTimestamp(timestamp * 1000);
+    const price_nec_eth = await eth.getNecEthdByTimestamp(timestamp * 1000);
 
     return {
       timestamp,
@@ -201,7 +201,7 @@ export const fetchAuctionTransactions = data => async dispatch => {
       wallet_address: transaction.returnValues.burner,
       nec: formatEth(transaction.returnValues.amount),
       eth: (transaction.returnValues.amount / transaction.returnValues.price).toFixed(5),
-      price_nec_eth: nec_eth,
+      price_nec_eth,
       price_nec_usd,
       usd: (formatEth(transaction.returnValues.amount) * necPrice).toFixed(2),
     }
@@ -243,7 +243,7 @@ export const sellAndBurn = (necAmount, auctionSummary) => async (dispatch, getSt
 
   if (necAmount > +maxNec) {
     notify(`Your order will be reduced to sell ${maxNec} NEC (the max at this price)`)(dispatch)
-    necAmount = maxNec 
+    necAmount = maxNec
   }
 
   try {
