@@ -228,7 +228,7 @@ export const sellAndBurn = (necAmount, auctionSummary) => async (dispatch, getSt
 
   const userTokenBalance = getState().account.tokenBalance
 
-  if (necAmount < 1) {
+  if (Number(necAmount) < 1) {
     return notifyError('This is below the minimum you can sell')(dispatch)
   }
 
@@ -236,7 +236,7 @@ export const sellAndBurn = (necAmount, auctionSummary) => async (dispatch, getSt
     return notifyError('You first need nectar tokens in your wallet')(dispatch)
   }
 
-  if (userTokenBalance < necAmount) {
+  if (Number(userTokenBalance) < Number(necAmount)) {
     return notifyError(`You only have: ${userTokenBalance} NEC in your wallet`)(dispatch)
   }
 
