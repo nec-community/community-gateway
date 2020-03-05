@@ -44,6 +44,7 @@ export const fetchBurnedNec = () => async dispatch => {
     const { timestamp } = await eth.getBlockByNumber(event.blockNumber);
 
     burnedNec.push({
+      timestamp: new Date(timestamp * 1000),
       name: new Date(timestamp * 1000).toLocaleDateString(),
       pv: event.returnValues.necBurned / 1000000000000000000,
       amt: event.event,
@@ -52,7 +53,7 @@ export const fetchBurnedNec = () => async dispatch => {
 
   dispatch({
     type: FETCH_BURNED_NEC,
-    burnedNecData: _.uniqBy(_.orderBy(burnedNec, ['name'], ['asc']), 'name')
+    burnedNecData: _.uniqBy(_.orderBy(burnedNec, ['timestamp'], ['asc']), 'name')
   });
 };
 
