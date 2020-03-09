@@ -99,7 +99,7 @@ export const formatEth = number => {
     return number;
   }
 
-  return (number/1000000000000000000).toFixed(3);
+  return Number((number/1000000000000000000).toFixed(3));
 }
 
 export const formatNumber = number => {

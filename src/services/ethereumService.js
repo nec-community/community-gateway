@@ -62,6 +62,12 @@ const getNecEthdByTimestamp = async timeStamp => {
   return ticker[0][2];
 }
 
+const getEthUsdByTimestamp = async timeStamp => {
+  const tickerRes = await fetch(`https://api.deversifi.com/bfx/v2/candles/trade:1h:tETHUSD/hist?end=${timeStamp}&sort=-1&limit=1`)
+  const ticker = await tickerRes.json();
+  return ticker[0][2];
+}
+
 const getNecUsdByTimestamp = async timeStamp => {
   const tickerRes = await fetch(`https://api.deversifi.com/bfx/v2/candles/trade:1h:tNECUSD/hist?end=${timeStamp}&sort=-1&limit=1`)
   const ticker = await tickerRes.json();
@@ -775,5 +781,6 @@ export default {
   getNecEth,
   getNecUsd,
   getNecUsdByTimestamp,
-  getNecEthdByTimestamp
+  getNecEthdByTimestamp,
+  getEthUsdByTimestamp
 };
