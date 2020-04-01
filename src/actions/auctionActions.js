@@ -36,7 +36,7 @@ export const fetchNextAuctionDate = () => async dispatch => {
 
 export const fetchBurnedNec = () => async dispatch => {
   const engineContract = eth.getEngineContract();
-  const blockRange = await eth.getChartBlockRange(30);
+  const blockRange = await eth.getChartBlockRange(config.chartDuration);
   const burnedNec = [];
   let pastEvents = await engineContract.getPastEvents('AuctionClose', blockRange);
 
@@ -60,11 +60,11 @@ export const fetchBurnedNec = () => async dispatch => {
 export async function getCirculatingNEC() {
   const tokenContract = eth.getTokenContract();
   const blockRange = await eth.getChartBlockRange();
-  const blockDiff = Math.floor((blockRange.toBlock - blockRange.fromBlock) / 7);
+  const blockDiff = Math.floor((blockRange.toBlock - blockRange.fromBlock) / config.chartDuration);
   const circulatingNec = [];
 
   for(let block = blockRange.fromBlock; block <= blockRange.toBlock; block += blockDiff) {
-    const supply = await tokenContract.methods.totalSupplyAt(blockRange.fromBlock).call();
+    const supply = await tokenContract.methods.totalSupplyAt(block).call();
     const { timestamp } = await eth.getBlockByNumber(block);
 
     circulatingNec.push({
@@ -81,7 +81,7 @@ export async function getCirculatingNEC() {
 export async function getDeversifiNecEth() {
   const necEth = await eth.getNecEth();
 
-  const transactions = necEth.slice(0,7).map((transaction, index) => ({
+  const transactions = necEth.slice(0,config.chartDuration).map((transaction, index) => ({
     name: new Date(transaction[0]).toLocaleDateString(),
     pv: transaction[2]
   })).reverse();
@@ -92,7 +92,7 @@ export async function getDeversifiNecEth() {
 export const fetchDeversifiNecUsd = () => async dispatch => {
   const necEth = await eth.getNecUsd();
 
-  const transactions = necEth.slice(0,7).map((transaction, index) => ({
+  const transactions = necEth.slice(0,config.chartDuration).map((transaction, index) => ({
     name: new Date(transaction[0]).toLocaleDateString(),
     pv: transaction[2]
   })).reverse();
