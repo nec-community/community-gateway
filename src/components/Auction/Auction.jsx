@@ -25,7 +25,7 @@ import Loading from '../Loading';
 
 const TABS = [
   {
-    name: 'Circulating NEC',
+    name: 'Total NEC Supply',
     titleAmount: 100,
     Component: Diagram,
     title: 'circulatingNecData',
