@@ -25,7 +25,7 @@ import Loading from '../Loading';
 
 const TABS = [
   {
-    name: 'Circulating NEC',
+    name: 'Total NEC Supply',
     titleAmount: 100,
     Component: Diagram,
     title: 'circulatingNecData',
@@ -218,8 +218,8 @@ class Auction extends Component {
             <div className="overview__text">
               <p>
                 Once per week DeversiFi exchange trading fees that are pledged to NEC token holders
-                are auctioned. NEC holders can sell their NEC in exchange for the auctioned ETH. Any
-                NEC tokens sold in the auctions are burned. &nbsp;
+                are auctioned. NEC holders can sell their <b><a target="__blank" href="https://support.deversifi.com/en/docs/32-nectar-distribution-and-allocation">circulating NEC</a></b> in exchange for the auctioned ETH. Any
+                NEC sold in the auctions are burned. &nbsp;
                 <strong onClick={() => this.setState({ descriptionVisible: true })} className="overview__link">See details</strong>
               </p>
               <div className="overview__auction">
