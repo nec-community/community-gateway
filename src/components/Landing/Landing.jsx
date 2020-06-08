@@ -71,9 +71,9 @@ class Landing extends Component {
     })
       .then(res => res.json())
       .then(data => {
-        if (!isNaN(data?.TotalUSDValue))
+        if (!isNaN(data?.totalUSDVolume))
           this.setState({
-            tradingVolume: data?.TotalUSDValue,
+            tradingVolume: data?.totalUSDVolume,
           });
       })
       .catch(e => console.log('Error ', e));
