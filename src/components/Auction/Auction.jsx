@@ -321,7 +321,7 @@ class Auction extends Component {
                 <div className="current-auction">
                   <div className="current-auction__card">
                     <span className="current-auction__title">
-                      NEC burned in Auction
+                      Previous Auction <br />Burned NEC
                     </span>
                     <span className="current-auction__value">
                       {formatNumber(currentAuctionSummary.purchasedNec.toFixed(3))}
@@ -329,7 +329,7 @@ class Auction extends Component {
                   </div>
                   <div className="current-auction__card">
                     <span className="current-auction__title">
-                      Burned <br />average price
+                      Previous Auction <br />Average Price
                     </span>
                     <div>
                       <span className="current-auction__value">
