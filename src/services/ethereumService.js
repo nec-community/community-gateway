@@ -134,9 +134,6 @@ const getEngineContract = _address =>
 const getVotingTokenContract = _votingToken =>
   new window._web3.eth.Contract(abis.necTokenContract, _votingToken);
 
-const getControllerContract = () =>
-  new window._web3.eth.Contract(abis.necTokenControllerContract, config.necTokenControllerContract);
-
 const getLedgerTransport = async () => {
   if (!ledgerComm) {
     ledgerComm = await TransportU2F.create();
@@ -267,24 +264,13 @@ const signAndSendKeystore = async (contractCall, value = 0, gasPrice = config.de
     });
 };
 
-const totalPledgedFees = async () => {
-  const tokenContract = getTokenContract();
-  return tokenContract.methods.totalPledgedFees().call();
-};
-
+let cacheSupply
 const totalSupply = async () => {
-  const tokenContract = getTokenContract();
-  return tokenContract.methods.totalSupply().call();
-};
-
-const estimatePayout = async tokensToBurn => {
-  if (!totalFee) totalFee = await totalPledgedFees();
-  log(`Total fees on contract ${weiToEth(totalFee)}`);
-  if (!totalTokens) totalTokens = await totalSupply();
-  log(`Total NEC supply on contract ${weiToEth(totalTokens)}`);
-  const feeValueOfTokens = (totalFee * tokensToBurn) / totalTokens;
-  log(`Burning ${weiToEth(tokensToBurn)} tokens will pay out ${weiToEth(feeValueOfTokens)}`);
-  return Math.floor(feeValueOfTokens);
+  if (!cacheSupply) {
+    const tokenContract = getTokenContract();
+    cacheSupply = tokenContract.methods.totalSupply().call();
+  }
+  return cacheSupply
 };
 
 const getTokenBalance = async _account => {
@@ -294,25 +280,6 @@ const getTokenBalance = async _account => {
   return tokenContract.methods.balanceOf(account).call();
 };
 
-// dev
-const contribute = async () => {
-  const controllerContract = getControllerContract();
-  const account = await getAccount();
-  log(`Contributing from account ${account}`);
-  return controllerContract.methods.contributeForMakers(account).send({
-    value: window._web3.utils.toWei('0.01', 'ether'),
-    from: account,
-  });
-};
-
-// dev
-const authorize = async address => {
-  const controllerContract = getControllerContract();
-  const account = await getAccount();
-  return controllerContract.methods.authoriseMaker(address).send({
-    from: account,
-  });
-};
 
 const approveProposal = async (id, accountType) => {
   const proposalContract = getProposalContract();
@@ -684,21 +651,6 @@ const getNecPriceInEth = async () => {
   return ticker[6];
 }
 
-const calculateNecReward = async volume => {
-  if (!ethPrice) ethPrice = await getEthPrice();
-  log(`Eth price ${ethPrice}`);
-  const volumeFee = volume * 0.001; // Assume fee is 0.1%
-  const feeInEth = volumeFee / ethPrice;
-  log(`Volume fee in eth ${feeInEth}`);
-  if (!necConversionRate) {
-    const controllerContract = getControllerContract();
-    necConversionRate = await controllerContract.methods.getFeeToTokenConversion(1).call();
-  }
-  const necReward = necConversionRate * feeInEth;
-  log(`NEC reward ${necConversionRate * feeInEth}`);
-  return necReward;
-};
-
 const burnNec = async (necTokens, accountType) => {
   const tokenContract = getTokenContract();
   log(`Burning ${necTokens} NEC tokens`);
@@ -714,19 +666,11 @@ const burnNec = async (necTokens, accountType) => {
 const fetchData = async () => {
   ethPrice = await getEthPrice();
   necPrice = await getNecPrice();
-  const controllerContract = getControllerContract();
-  necConversionRate = await controllerContract.methods.getFeeToTokenConversion(1).call();
-  const tokenContract = getTokenContract();
-  burningEnabled = await tokenContract.methods.burningEnabled().call();
-  totalFee = toDecimal(weiToEth(await totalPledgedFees()), 2);
   totalTokens = toDecimal(weiToEth(await totalSupply()), 2);
   return {
     ethPrice,
     necPrice,
-    necConversionRate,
-    totalFee,
-    totalTokens,
-    burningEnabled,
+    totalTokens
   };
 };
 
@@ -743,7 +687,6 @@ export default {
   ethToWei,
   getTokenBalance,
   getVotingTokenBalance,
-  estimatePayout,
   submitProposal,
   getProposalDetails,
   getProposals,
