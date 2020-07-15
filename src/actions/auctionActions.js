@@ -24,7 +24,7 @@ import BN from 'bignumber.js'
 
 
 const web3 = new Web3();
-web3.setProvider(new web3.providers.HttpProvider(config.providerUrl));
+web3.setProvider(new web3.providers.HttpProvider(process.env.PROVIDER_URL || config.providerUrl));
 
 export const fetchNextAuctionDate = () => async dispatch => {
   const engineContract = eth.getEngineContract();

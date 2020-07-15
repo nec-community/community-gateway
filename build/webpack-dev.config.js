@@ -73,6 +73,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         env: '"development"',
+        PROVIDER_URL: JSON.stringify(process.env.PROVIDER_URL),
       },
     }),
     new webpack.NamedModulesPlugin(),
