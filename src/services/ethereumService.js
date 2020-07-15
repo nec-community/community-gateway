@@ -29,7 +29,7 @@ const setWeb3toMetamask = () => {
 };
 
 const setupWeb3 = () => {
-  window._web3 = new Web3(config.providerUrl);
+  window._web3 = new Web3(process.env.PROVIDER_URL || config.providerUrl);
 };
 
 const isMetamaskApproved = async () => {

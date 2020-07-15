@@ -4,7 +4,7 @@ import abis from '../constants/abis.json';
 import config from '../constants/config.json';
 
 const web3 = new Web3();
-web3.setProvider(new web3.providers.HttpProvider(config.providerUrl));
+web3.setProvider(new web3.providers.HttpProvider(process.env.PROVIDER_URL || config.providerUrl));
 
 const startFetching = () => ({
   type: FETCH_TRADERS_START,

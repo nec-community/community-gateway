@@ -79,6 +79,7 @@ module.exports = {
       'process.env': {
         env: '"production"',
         NODE_ENV: '"production"',
+        PROVIDER_URL: JSON.stringify(process.env.PROVIDER_URL),
       },
     }),
     new CopyWebpackPlugin([

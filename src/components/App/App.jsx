@@ -20,7 +20,7 @@ class App extends Component {
 
   componentWillMount() {
     // Set default provider & silently attempt to login with Metamask (don't display errors)
-    window._web3 = new Web3(config.providerUrl);
+    window._web3 = new Web3(process.env.PROVIDER_URL || config.providerUrl);
     this.props.loginMetamask(true);
     this.props.fetchEthfinexData();
     ReactGA.pageview(this.props.location.pathname);
