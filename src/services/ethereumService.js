@@ -700,7 +700,6 @@ export default {
   sellAndBurn,
   hasUserVoted,
   userBalanceOnProposal,
-  calculateNecReward,
   burnNec,
   fetchData,
   ledgerLogin,
