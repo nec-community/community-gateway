@@ -40,6 +40,7 @@ export const fetchBurnedNec = () => async dispatch => {
   const engineContract = eth.getEngineContract();
   const blockRange = await eth.getChartBlockRange(config.chartDuration);
   const burnedNec = [];
+  console.log(blockRange);
   let pastEvents = await engineContract.getPastEvents('AuctionClose', blockRange);
 
   await Promise.all(pastEvents.map(async (event, index) => {
