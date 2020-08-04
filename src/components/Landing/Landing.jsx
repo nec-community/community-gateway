@@ -14,7 +14,7 @@ const buttons = [
   { icon: 'buy', desc: 'Buy & Burn' },
   { icon: 'dao', desc: `DAO governance` },
   { icon: 'listings', desc: 'New listings' },
-  { icon: 'exchanges', desc: 'Ecosystem' },
+  { icon: 'exchanges', desc: 'Trade NEC' },
 ];
 
 const tabs = {
@@ -44,7 +44,7 @@ const tabsNames = [
   'Buy & Burn',
   'DAO governance',
   'New listings',
-  'Ecosystem',
+  'Trade NEC',
 ];
 
 class Landing extends Component {

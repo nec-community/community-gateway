@@ -100,9 +100,9 @@ class App extends Component {
                 </Link>
               </div>
             </div>
-            <Link onClick={this.clickLinkHandler} to="/faq">
+            <a onClick={this.clickLinkHandler} href="https://support.deversifi.com/en/knowledgebase/5-the-nectar-token" target="_blank">
               FAQ
-            </Link>
+            </a>
           </div>
         </nav>
 

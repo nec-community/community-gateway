@@ -14,9 +14,17 @@ export default function Ecosystem() {
           <img src="/images/landingIcons/bitfinex.svg" alt="" />
           <span className="visually-hidden">Bitfinex</span>
         </a>
-        <a href="https://www.deversifi.com/" target="_blank" rel="noopener noreferrer">
+        <a href="https://app.deversifi.com/" target="_blank" rel="noopener noreferrer">
           <img src="/images/landingIcons/DeversiFi.png" alt="" height="50" />
           <span className="visually-hidden">DeversiFi</span>
+        </a>
+        <a href="https://app.uniswap.org/" target="_blank" rel="noopener noreferrer">
+          <img src="/images/landingIcons/uniswap.svg" alt="" height="50" />
+          <span className="visually-hidden">Uniswap</span>
+        </a>
+        <a href="https://dex.ag/" target="_blank" rel="noopener noreferrer">
+          <img src="/images/landingIcons/dexag.svg" alt="" height="50" />
+          <span className="visually-hidden">Dex.ag</span>
         </a>
       </div>
     </section>

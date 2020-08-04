@@ -73,7 +73,7 @@ export default class FeeDiscounts extends Component {
     return (
       <section className="landing__section">
         <p className="landing__section-content fee-discounts__content">
-          Holders of Nectar enjoy benefits across the DeFi ecosystem, starting with DeversiFi, the most comprehensive decentralised trading experience.
+          As a Nectar holder, you can capitalise on many benefits in our ecosystem. One of these is trading fee discounts on the fastest, most-liquid self-custodial exchange in existence today, DeversiFi. Calculate how much you will save below: 
           <br className="landing__linebreak" />
         </p>
         <div className="fee-discounts__calculator-content">
