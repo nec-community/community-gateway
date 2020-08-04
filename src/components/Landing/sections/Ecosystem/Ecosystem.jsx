@@ -18,6 +18,8 @@ export default function Ecosystem() {
           <img src="/images/landingIcons/DeversiFi.png" alt="" height="50" />
           <span className="visually-hidden">DeversiFi</span>
         </a>
+      </div>
+      <div className="exchanges__links-wrapper">
         <a href="https://app.uniswap.org/" target="_blank" rel="noopener noreferrer">
           <img src="/images/landingIcons/uniswap.svg" alt="" height="50" />
           <span className="visually-hidden">Uniswap</span>

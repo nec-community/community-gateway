@@ -269,6 +269,7 @@ class Traderboard extends Component {
               <a href="https://deversifi.com" target="_blank">
                 DeversiFi
               </a>
+              {' '} (returning soon)
             </h3>
             <div className="info__block">
               <div className="left__part">
