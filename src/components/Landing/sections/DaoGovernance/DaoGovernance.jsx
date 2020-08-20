@@ -7,10 +7,10 @@ export default function DaoGovernance() {
   return (
     <section className="landing__section">
       <p className="landing__section-content">
-        The future of Nectar is completely in the hands of its holders.
+        The direction of Nectar is firmly in the hands of Nectar holders.
         <br />
         <br />
-        Enabled by the launch of the Nectar DAO (Decentralised Autonomous Organisation), Nectar holders have control over the future of the Nectar token and 17,000 ETH, in what is one of the largest DAOs in existence.
+        Through the necDAO, NEC holders can govern the utility of the Nectar token itself, but they’re also able to control how necDAO’s 17,000 ETH are allocated in order to drive DeversiFi volume, adoption and other DeversiFi or Nectar relevant proposals.
         <br />
         DeversiFi is committed to providing specified fee discounts to Nectar token holders and to buying and burning tokens as specified in the Buy and Burn program.  DeversiFi will continue to build, develop and improve the DeversiFi portal. However, all future decisions concerning Nectar must be decided and implemented by the necDAO.
       </p>

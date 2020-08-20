@@ -6,9 +6,7 @@ export default function Nec() {
     <section className="landing__section">
       <h1 className="nec__header">Welcome to the home of Nectar</h1>
       <p className="landing__section-content nec__content">
-        The Nectar token (NEC) is a governance and loyalty token for decentralised exchanges.
-        Holders of the token can participate in governance and access benefits on DeversiFi - a high
-        speed exchange where customers always keep control of their assets.
+        Nectar ($NEC) is a deflationary governance and utility token serving the DeversiFi exchange. Holders of $NEC enjoy voting rights in necDAO, trading fee discounts on DeversiFi, and a host of ever-improving features designed to boost the utility, adoption and value of $NEC, DeversiFi and the wider ecosystem. DeversiFi is a professional-grade, self-custodial exchange built for serious traders.
       </p>
     </section>
   );
