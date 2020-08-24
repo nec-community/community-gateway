@@ -5,15 +5,17 @@ import { withRouter } from 'react-router-dom';
 import { countWheels } from './scrollHelper';
 
 import CircleButton from './CircleButton';
-import { Nec, FeeDiscounts, BuyAndBurn, DaoGovernance, NewListings, Ecosystem } from './sections';
+import { Nec, FeeDiscounts, BuyAndBurn, DaoGovernance, Neconomics, Ecosystem } from './sections';
 
 import './Landing.scss';
+
+import necLogo from '../App/assets/neclogo.svg';
 
 const buttons = [
   { icon: 'fee', desc: 'Fee discounts' },
   { icon: 'buy', desc: 'Buy & Burn' },
   { icon: 'dao', desc: `DAO governance` },
-  { icon: 'listings', desc: 'New listings' },
+  { icon: 'neconomics', desc: 'Neconomics' },
   { icon: 'exchanges', desc: 'Trade NEC' },
 ];
 
@@ -30,8 +32,8 @@ const tabs = {
   dao: {
     component: DaoGovernance,
   },
-  listings: {
-    component: NewListings,
+  neconomics: {
+    component: Neconomics,
   },
   exchanges: {
     component: Ecosystem,
@@ -43,7 +45,7 @@ const tabsNames = [
   'Fee discounts',
   'Buy & Burn',
   'DAO governance',
-  'New listings',
+  'Neconomics',
   'Trade NEC',
 ];
 
@@ -105,7 +107,7 @@ class Landing extends Component {
         activeTab: tabsArray[nextIndex],
         isScrollBlocked: true,
       },
-      this.unblockScroll
+      this.unblockScroll,
     );
   };
 
@@ -145,7 +147,7 @@ class Landing extends Component {
         this.setState({
           isScrollBlocked: false,
         }),
-      1000
+      500,
     );
   };
 
@@ -165,7 +167,7 @@ class Landing extends Component {
         activeTab: name,
         isScrollBlocked: true,
       },
-      this.unblockScroll
+      this.unblockScroll,
     );
   };
 
@@ -179,54 +181,10 @@ class Landing extends Component {
 
     return (
       <div className="landing__wrapper">
-        <div className="landing__background">
-          {tabsArray.map(tab => (
-            <picture key={tab}>
-              <source
-                srcSet={`/images/landingBackgrounds/${
-                  tab === 'listings' ? 'fee' : tab
-                }-bg@2x.png 2x`}
-              />
-              <img
-                src={`/images/landingBackgrounds/${tab === 'listings' ? 'fee' : tab}-bg.png`}
-                alt=""
-                className={`landing__background-image ${
-                  tab === activeTab ? 'landing__background-image--active' : ''
-                }`}
-              />
-            </picture>
-          ))}
-        </div>
+        <div className="landing__background" />
         <div className="landing__left-column" />
         <div className="landing__central-column">
-          <div className="landing__central-column-borders" />
           <ActiveTabComponent tradingVolume={activeTab === 'buy' ? tradingVolume : null} />
-          <div className="landing__central-column-borders landing__central-column-borders--bottom">
-            {currentPage < tabsNames.length - 1 ? (
-              <div className="central-column-borders__wrapper">
-                <img
-                  className="central-column-borders__badge"
-                  src="/images/landingIcons/badge.svg"
-                  alt=""
-                />
-                <span className="central-column-borders__text">
-                  {`${currentPage + 1} / ${pageNumber - 1} - ${tabsNames[currentPage + 1]}`}
-                </span>
-              </div>
-            ) : null}
-            {currentPage > 0 ? (
-              <div className="central-column-borders__wrapper">
-                <img
-                  className="central-column-borders__badge central-column-borders__badge--invert"
-                  src="/images/landingIcons/badge.svg"
-                  alt=""
-                />
-                <span className="central-column-borders__text">
-                  {`${currentPage - 1} / ${pageNumber - 1} - ${tabsNames[currentPage - 1]}`}
-                </span>
-              </div>
-            ) : null}
-          </div>
         </div>
         <div className="landing__right-column">
           <div className="right-column__circle right-column__circle-1">
@@ -250,7 +208,7 @@ class Landing extends Component {
                     }`}
                     onClick={this.onCircleButtonClick}
                   >
-                    NEC
+                    <img src={necLogo} alt="logo" />
                   </button>
                 </div>
               </div>

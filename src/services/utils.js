@@ -99,14 +99,14 @@ export const formatEth = number => {
     return number;
   }
 
-  return Number((number/1000000000000000000).toFixed(3));
-}
+  return Number((number / 1000000000000000000).toFixed(3));
+};
 
 export const formatNumber = number => {
   if (number === '0' || !number) return 0;
 
   if (number < 1) {
-    return Number(number).toFixed(5)
+    return Number(number).toFixed(5);
   } else if (number < 1000) {
     return number;
   } else if (number < 1000000) {
@@ -122,8 +122,13 @@ export const formatNumber = number => {
     const fixedNumber = Number(newNumber).toFixed(2);
     return `${fixedNumber}B`;
   }
-}
+};
 
 export const formatToMinutes = time => {
-  return `${Math.floor(time / 60)} mins`
-}
+  return `${Math.floor(time / 60)} mins`;
+};
+
+export const numberWithCommas = n => {
+  const parts = n.toString().split('.');
+  return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};

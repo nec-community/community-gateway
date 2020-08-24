@@ -1,3 +1,5 @@
+@import "../../../../common/variables";
+
 .fee-discounts__content {
   padding-bottom: 60px;
 
@@ -8,53 +10,59 @@
 
 .fee-discounts__calculator-content {
   display: flex;
+  z-index: 1;
   flex-direction: column;
   align-items: center;
-  padding: 35px 20px;
-  margin-bottom: 27px;
-  mix-blend-mode: normal;
-  border: 1px solid rgba(#ffffff, 0.2);
+  background: rgba(40, 50, 74, 0.5);
+  border-radius: 6px;
+  padding: 24px;
+  margin-bottom: 48px;
   box-sizing: border-box;
+  width: 445px;
 }
 
 .fee-discounts__calculator {
   display: flex;
-  align-items: center;
-  margin-bottom: 25px;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 41px;
 }
 
 .fee-discounts__input {
-  width: 230px;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 32px;
-  border: none;
-  border-bottom: 1px solid #4d5475;
-  color: #ffffff;
-  background-color: transparent;
-  transition: 0.2s;
-}
-
-.fee-discounts__input:focus {
+  background-color: $input-color;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  border: 0;
   outline: none;
-  border-bottom: 1px solid #ffffff;
-  transition: 0.2s;
+  padding: 16px;
+  height: 56px;
+  width: 180px;
+
+  color: $primary-text;
 }
 
 .fee-discounts__label,
 .fee-discounts__receive-label-bottom {
-  margin-bottom: 20px;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 16px;
+  margin-bottom: 4px;
+  font-family: $font-sen;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 150%;
   text-transform: uppercase;
 }
 
 .fee-discounts__receive-label-bottom {
-  margin: unset;
+  position: absolute;
+  bottom: -24px;
+  margin: 0;
+  color: $secondary-text;
+  font-size: 14px;
+  text-transform: lowercase;
+  opacity: 0.9;
 }
 
 .fee-discounts__input-content {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -65,27 +73,6 @@
 
 .fee-discounts__input-nec {
   position: relative;
-
-  &.right {
-    padding-bottom: 16px;
-  }
-}
-
-.fee-discounts__input-nec.right input {
-  padding-right: 66px;
-  text-align: start;
-}
-
-.fee-discounts__input-nec::after {
-  position: absolute;
-  top: 50%;
-  content: 'NEC';
-  font-size: 26px;
-  transform: translateY(calc(-50% - 8px));
-}
-
-.fee-discounts__input-nec.right::after {
-  right: 5px;
 }
 
 .fee-discounts__input-percent {
@@ -93,30 +80,24 @@
 }
 
 .fee-discounts__input-percent.right input {
-  padding-right: 65px;
-  text-align: start;
+  //padding-right: 65px;
+  //text-align: start;
 }
 
-.fee-discounts__input-percent::after {
+.fee-discounts__input-percent::after,
+.fee-discounts__input-nec::after {
   position: absolute;
+  right: 0;
   top: 50%;
+  font-family: $font-sen;
   content: 'USD';
-  font-size: 26px;
-  font-weight: 500;
-  transform: translate(5px, -50%);
+  font-size: 16px;
+  font-weight: normal;
+  transform: translate(-16px, -50%);
 }
 
-.fee-discounts__input-percent.right::after {
-  right: 5px;
-}
-
-.fee-discounts__arrows {
-  align-self: flex-end;
-  margin: 0 35px 6px;
-}
-
-.trading {
-  margin-top: 8px !important;
+.fee-discounts__input-nec::after {
+  content: 'NEC';
 }
 
 .fee-discounts__link:hover {
@@ -124,15 +105,17 @@
 }
 
 .fee-discounts__receive-usd {
-  width: 200px;
-  padding: 5px 65px 5px 0;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 32px;
+  box-sizing: border-box;
+  width: 180px;
+  padding: 16px;
+  font-weight: normal;
+  font-size: 16px;
+  font-family: $font-sen;
+  line-height: 24px;
   border: none;
-  border-bottom: 1px solid #4d5475;
-  color: #ffffff;
-  background: transparent;
+  color: $primary-text;
+  background-color: $input-color;
+  border-radius: 4px;
   transition: all 0.2s;
 }
 

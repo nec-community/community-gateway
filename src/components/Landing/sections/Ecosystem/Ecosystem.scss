@@ -1,10 +1,13 @@
 .exchanges__links-wrapper {
   display: flex;
-  align-items: center;
-  margin-top: 16px;
-  max-width: 100%;
+  flex-direction: column;
+  margin-top: 34px;
 
-  & > *:not(:last-child) {
-    margin-right: 45px;
+  & > * {
+    margin-bottom: 30px;
+
+    img {
+      max-height: 32px;
+    }
   }
 }

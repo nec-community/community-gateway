@@ -1,4 +1,4 @@
-$violet: #6326ff;
+@import "../../../common/variables";
 
 .right-column__circle-button {
   position: absolute;
@@ -17,11 +17,11 @@ $violet: #6326ff;
 
   &:hover .circle-button__icon,
   &:focus .circle-button__icon {
-    background-color: $violet;
+    background-color: $violet-active;
   }
 
   &-fee {
-    top: 0;
+    top: -71px;
     left: 50%;
     transform: translate(-50%, -42px);
 
@@ -31,7 +31,7 @@ $violet: #6326ff;
     }
 
     &--active .circle-button__icon {
-      background-color: $violet;
+      background-color: $violet-active;
       transform: scale(1.1);
     }
 
@@ -41,18 +41,18 @@ $violet: #6326ff;
       }
     }
 
-    @media (max-height: 900px) {
-      transform: translate(-50%, -125px);
-    }
-
-    @media (max-height: 800px), (max-width: 1280px) {
-      transform: translate(-50%, -160px);
-    }
+    //@media (max-height: 900px) {
+    //  transform: translate(-50%, -125px);
+    //}
+    //
+    //@media (max-height: 800px), (max-width: 1280px) {
+    //  transform: translate(-50%, -160px);
+    //}
   }
 
   &-exchanges {
-    top: 133px;
-    left: 0;
+    top: 23px;
+    left: -49px;
     transform: translateX(-50%);
 
     &--active .circle-button__name {
@@ -61,32 +61,32 @@ $violet: #6326ff;
     }
 
     &--active .circle-button__icon {
-      background-color: $violet;
+      background-color: $violet-active;
       transform: scale(1.1);
     }
 
     @media (max-height: 1024px) {
-      top: 105px;
+      //top: 105px;
 
       &--active .circle-button__name {
         font-size: 18px;
       }
     }
 
-    @media (max-height: 900px) {
-      top: 85px;
-      transform: translateX(-100%);
-    }
-
-    @media (max-height: 800px), (max-width: 1280px) {
-      top: 25px;
-      transform: translateX(-125%);
-    }
+    //@media (max-height: 900px) {
+    //  top: 85px;
+    //  transform: translateX(-100%);
+    //}
+    //
+    //@media (max-height: 800px), (max-width: 1280px) {
+    //  top: 25px;
+    //  transform: translateX(-125%);
+    //}
   }
 
-  &-listings {
-    top: 364px;
-    left: 18px;
+  &-neconomics {
+    top: 283px;
+    left: -60px;
 
     &--active .circle-button__name {
       font-size: 20px;
@@ -94,32 +94,32 @@ $violet: #6326ff;
     }
 
     &--active .circle-button__icon {
-      background-color: $violet;
+      background-color: $violet-active;
       transform: scale(1.1);
     }
 
     @media (max-height: 1024px) {
-      top: 310px;
+      //top: 310px;
 
       &--active .circle-button__name {
         font-size: 18px;
       }
     }
 
-    @media (max-height: 900px) {
-      top: 330px;
-      left: -15px;
-    }
-
-    @media (max-height: 800px), (max-width: 1280px) {
-      top: 270px;
-      left: -75px;
-    }
+    //@media (max-height: 900px) {
+    //  top: 330px;
+    //  left: -15px;
+    //}
+    //
+    //@media (max-height: 800px), (max-width: 1280px) {
+    //  top: 270px;
+    //  left: -75px;
+    //}
   }
 
   &-dao {
-    top: 364px;
-    right: 18px;
+    top: 202px;
+    right: -40px;
 
     &--active .circle-button__name {
       font-size: 20px;
@@ -127,32 +127,32 @@ $violet: #6326ff;
     }
 
     &--active .circle-button__icon {
-      background-color: $violet;
+      background-color: $violet-active;
       transform: scale(1.1);
     }
 
     @media (max-height: 1024px) {
-      top: 310px;
+      //top: 310px;
 
       &--active .circle-button__name {
         font-size: 18px;
       }
     }
 
-    @media (max-height: 900px) {
-      top: 330px;
-      right: -15px;
-    }
-
-    @media (max-height: 800px), (max-width: 1280px) {
-      top: 270px;
-      right: -75px;
-    }
+    //@media (max-height: 900px) {
+    //  top: 330px;
+    //  right: -15px;
+    //}
+    //
+    //@media (max-height: 800px), (max-width: 1280px) {
+    //  top: 270px;
+    //  right: -75px;
+    //}
   }
 
   &-buy {
-    top: 133px;
-    right: 0;
+    top: 10px;
+    right: -45px;
     transform: translateX(50%);
 
     &--active .circle-button__name {
@@ -161,27 +161,27 @@ $violet: #6326ff;
     }
 
     &--active .circle-button__icon {
-      background-color: $violet;
+      background-color: $violet-active;
       transform: scale(1.1);
     }
 
     @media (max-height: 1024px) {
-      top: 105px;
+      //top: 105px;
 
       &--active .circle-button__name {
         font-size: 18px;
       }
     }
 
-    @media (max-height: 900px) {
-      top: 85px;
-      transform: translateX(100%);
-    }
-
-    @media (max-height: 800px), (max-width: 1280px) {
-      top: 25px;
-      transform: translateX(125%);
-    }
+    //@media (max-height: 900px) {
+    //  top: 85px;
+    //  transform: translateX(100%);
+    //}
+    //
+    //@media (max-height: 800px), (max-width: 1280px) {
+    //  top: 25px;
+    //  transform: translateX(125%);
+    //}
   }
 
   &-nec {
@@ -191,8 +191,10 @@ $violet: #6326ff;
 
 .circle-button__name {
   text-transform: capitalize;
+  font-family: $font-sen;
   max-width: 110px;
   font-size: 14px;
+  font-weight: normal;
   transition: all 0.5s;
 }
 
@@ -201,11 +203,11 @@ $violet: #6326ff;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100px;
-  height: 100px;
-  margin-bottom: 16px;
+  width: 84px;
+  height: 84px;
+  margin-bottom: 10px;
   border-radius: 50%;
-  background-color: #2b1284;
+  background-color: $violet-inactive;
   transition: all 0.5s;
 }
 

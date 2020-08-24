@@ -1,4 +1,8 @@
 .whitepaper {
-  padding: 100px 0 100px 0;
+  padding: 52px 0 0 0;
 
+  .whitepaper__document {
+    display: flex;
+    justify-content: center;
+  }
 }

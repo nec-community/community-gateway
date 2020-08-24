@@ -5,8 +5,12 @@ import './WhitePaper.scss';
 export default ({ location }) => (
   <div className="whitepaper">
     <div className="container">
-      <h1>Whitepaper</h1>
-      <embed src={pdf + location.hash} width="100%" height="800" frameBorder="0" allowFullScreen />
+      <div className="section__title">
+        <span>Whitepaper</span>
+      </div>
+      <div className="whitepaper__document">
+        <embed src={pdf + location.hash} width="700px" height="800" frameBorder="0" allowFullScreen />
+      </div>
     </div>
   </div>
 );
