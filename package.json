@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/ethfinex/community-gateway",
-  "author": "Nikola Vukovic <nvukovic@decenter.com>",
+  "author": "DeversiFi",
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server --history-api-fallback --compress --config ./build/webpack-dev.config.js --host=0.0.0.0",
@@ -23,6 +23,7 @@
     "@babel/runtime": "^7.3.4",
     "@ledgerhq/hw-app-eth": "4.41.1",
     "@ledgerhq/hw-transport-u2f": "4.41.1",
+    "animated-number-react": "^0.1.1",
     "babel-loader": "^8.0.5",
     "bignumber.js": "^9.0.0",
     "buffer": "^5.1.0",

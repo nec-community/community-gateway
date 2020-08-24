@@ -13,7 +13,7 @@ html {
   font-size: 62.5%;
   min-height: 100%;
   width: 100%;
-  background-color: $color1;
+  background: linear-gradient(4.5deg, #040E14 19.19%, #061824 88.66%);
   color: white;
 }
 
@@ -25,30 +25,48 @@ body {
 }
 
 nav {
-  position: absolute;
-  width: 100%;
+  max-width: 1440px;
+  padding: 0 64px;
+  height: 70px;
+  display: flex;
+  align-items: center;
   transition: 0.2s background-color;
-  padding: 15px 20px 0;
   font-weight: 300;
   z-index: 10000;
+  box-sizing: border-box;
+
+  .logo {
+    max-height: 30px;
+  }
 
   @media screen and (min-width: 1080px) {
-    display: flex;
     justify-content: space-between;
   }
 
-  @media (min-width: 1360px) {
-    padding: 30px 40px 0;
-  }
-
   .nav-links {
+    a {
+      margin-right: 32px;
+      color: $secondary-text;
+      font-size: 17px;
+      font-family: $font-sen;
+      font-weight: normal;
+
+      &.is-active {
+        color: $primary-text;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
     .dropdown-wrapper {
       display: inline-block;
       position: relative;
       padding-right: 10px;
       > a {
         // color: $color4;
-        color: #fff;
+        color: $secondary-text;
         position: relative;
         padding-right: 20px;
         &:before,
@@ -59,9 +77,9 @@ nav {
           //transition: .2s;
           width: 9px;
           right: 0;
-          top: 19px;
+          top: 10px;
           // border-bottom: 1px solid $color4;
-          border-bottom: 1px solid #fff;
+          border-bottom: 1px solid $secondary-text;
           transform: rotate(-45deg);
         }
         &:before {
@@ -72,15 +90,18 @@ nav {
       > div {
         display: none;
         position: absolute;
-        background-color: $color1;
-        box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.4);
+        padding: 16px;
+        background-color: $component-background;
+        //box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.4);
         min-width: 100%;
-        width: 170px;
+        width: 200px;
         text-align: right;
         right: 0;
+        z-index: 2;
         a {
           display: block;
           line-height: 1em;
+          margin: 0 0 8px 0;
         }
       }
       &:hover {
@@ -122,10 +143,7 @@ nav {
     }
   }
   a {
-    padding: 10px;
-    // color: $color4;
     color: #fff;
-    line-height: 48px;
     text-decoration: none;
     cursor: pointer;
     transition: opacity 0.3s;
@@ -174,8 +192,24 @@ nav {
 }
 
 footer {
-  background-color: $color2;
-  padding: 40px 0;
+  background-color: #0F121B;
+  padding: 37px 0 87px 0;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+
+    img {
+      max-height: 32px;
+    }
+  }
+
+  .copyright {
+    font-family: $font-sen;
+    font-size: 14px;
+    line-height: 140%;
+    color: $secondary-text;
+  }
 }
 
 .logo-wrapper {

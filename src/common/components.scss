@@ -1,6 +1,8 @@
+@import "variables";
+
 .container {
   width: 100%;
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0 30px;
 }
@@ -97,4 +99,48 @@
   background-color: rgba(white, .05);
   font-weight: 300;
   margin: 0;
+}
+
+.separator-s {
+  display: inline-block;
+  background-color: $dark-gray;
+  width: 1px;
+  height: 40px;
+  margin: 0 24px;
+}
+
+.link__primary {
+  color: #FF8800;
+  margin-bottom: 24px;
+}
+
+.button__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32px;
+
+  :first-child {
+    margin-right: 30px;
+  }
+}
+
+.button__primary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 255px;
+  height: 48px;
+
+  background-color: $violet-active;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 140%;
+  text-decoration: none;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: rgba($violet-active, 0.8);
+  }
 }

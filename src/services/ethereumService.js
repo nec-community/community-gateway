@@ -1,15 +1,16 @@
 import TransportU2F from '@ledgerhq/hw-transport-u2f';
+import BN from 'bignumber.js';
 import Eth from '@ledgerhq/hw-app-eth';
 import Tx from 'ethereumjs-tx';
 import Web3 from 'web3';
 import config from '../constants/config.json';
 import abis from '../constants/abis.json';
-import { log, toDecimal } from './utils';
+import { log, numberWithCommas, toDecimal } from './utils';
 import grenache from './grenacheService';
 import keystore from './keystoreService';
 
 let ledgerComm;
-const defaultPath = "44'/60'/0'/0";
+const defaultPath = '44\'/60\'/0\'/0';
 let ledgerPath = defaultPath;
 
 let ethPrice;
@@ -54,31 +55,31 @@ const getNecEth = async () => {
   const tickerRes = await fetch('https://api.deversifi.com/bfx/v2/candles/trade:1D:tNECETH/hist');
   const ticker = await tickerRes.json();
   return ticker;
-}
+};
 
 const getNecEthdByTimestamp = async timeStamp => {
-  const tickerRes = await fetch(`https://api.deversifi.com/bfx/v2/candles/trade:1h:tNECETH/hist?end=${timeStamp}&sort=-1&limit=1`)
+  const tickerRes = await fetch(`https://api.deversifi.com/bfx/v2/candles/trade:1h:tNECETH/hist?end=${timeStamp}&sort=-1&limit=1`);
   const ticker = await tickerRes.json();
   return ticker[0][2];
-}
+};
 
 const getEthUsdByTimestamp = async timeStamp => {
-  const tickerRes = await fetch(`https://api.deversifi.com/bfx/v2/candles/trade:1h:tETHUSD/hist?end=${timeStamp}&sort=-1&limit=1`)
+  const tickerRes = await fetch(`https://api.deversifi.com/bfx/v2/candles/trade:1h:tETHUSD/hist?end=${timeStamp}&sort=-1&limit=1`);
   const ticker = await tickerRes.json();
   return ticker[0][2];
-}
+};
 
 const getNecUsdByTimestamp = async timeStamp => {
-  const tickerRes = await fetch(`https://api.deversifi.com/bfx/v2/candles/trade:1h:tNECUSD/hist?end=${timeStamp}&sort=-1&limit=1`)
+  const tickerRes = await fetch(`https://api.deversifi.com/bfx/v2/candles/trade:1h:tNECUSD/hist?end=${timeStamp}&sort=-1&limit=1`);
   const ticker = await tickerRes.json();
   return ticker[0][2];
-}
+};
 
 const getNecUsd = async () => {
   const tickerRes = await fetch('https://api.deversifi.com/bfx/v2/candles/trade:1D:tNECUSD/hist?limit=7');
   const ticker = await tickerRes.json();
   return ticker;
-}
+};
 
 const getBalance = async _account => {
   const account = _account || (await getAccount());
@@ -110,7 +111,6 @@ const getChartBlockRange = async days => {
   const fromBlock = Math.floor(toBlock - blocksInDays);
   return { fromBlock, toBlock };
 };
-
 
 const getBlockByNumber = block => window._web3.eth.getBlock(block);
 
@@ -264,13 +264,13 @@ const signAndSendKeystore = async (contractCall, value = 0, gasPrice = config.de
     });
 };
 
-let cacheSupply
+let cacheSupply;
 const totalSupply = async () => {
   if (!cacheSupply) {
     const tokenContract = getTokenContract();
     cacheSupply = tokenContract.methods.totalSupply().call();
   }
-  return cacheSupply
+  return cacheSupply;
 };
 
 const getTokenBalance = async _account => {
@@ -279,7 +279,6 @@ const getTokenBalance = async _account => {
   const tokenContract = getTokenContract();
   return tokenContract.methods.balanceOf(account).call();
 };
-
 
 const approveProposal = async (id, accountType) => {
   const proposalContract = getProposalContract();
@@ -307,7 +306,7 @@ const submitProposal = async (duration, hash, accountType) => {
   const proposalContract = getProposalContract();
   const contractCall = proposalContract.methods.addProposal(
     duration,
-    window._web3.utils.toHex(hash)
+    window._web3.utils.toHex(hash),
   );
   if (accountType === 'ledger') return signAndSendLedger(contractCall);
   if (accountType === 'keystore') return signAndSendKeystore(contractCall);
@@ -346,7 +345,7 @@ const voteTokens = async (tokenId, amount, accountType) => {
   const contractCall = tokenProposalContract.methods.vote(
     activeProposal,
     tokenId,
-    ethToWei(amount)
+    ethToWei(amount),
   );
   if (accountType === 'ledger') return signAndSendLedger(contractCall);
   if (accountType === 'keystore') return signAndSendKeystore(contractCall);
@@ -357,30 +356,30 @@ const voteTokens = async (tokenId, amount, accountType) => {
 };
 
 const sellAndBurn = async (amount, accountType) => {
-  const account = await getAccount()
+  const account = await getAccount();
 
-  const engineContract = getEngineContract()
-  const nectarContract = getTokenContract()
-  const allowance = await nectarContract.methods.allowance(account, engineContract._address).call()
+  const engineContract = getEngineContract();
+  const nectarContract = getTokenContract();
+  const allowance = await nectarContract.methods.allowance(account, engineContract._address).call();
   if (+allowance < +ethToWei(amount)) {
     const approveCall = nectarContract.methods.approve(
       engineContract._address,
-      '10000000000000000000000000000000')
-    if (accountType === 'ledger') await signAndSendLedger(approveCall)
-    if (accountType === 'keystore') await signAndSendKeystore(approveCall)
-    if (accountType === 'metamask') await approveCall.send({from: account})
+      '10000000000000000000000000000000');
+    if (accountType === 'ledger') await signAndSendLedger(approveCall);
+    if (accountType === 'keystore') await signAndSendKeystore(approveCall);
+    if (accountType === 'metamask') await approveCall.send({ from: account });
   }
 
   const contractCall = engineContract.methods.sellAndBurnNec(
-    ethToWei(amount)
-  )
-  if (accountType === 'ledger') return signAndSendLedger(contractCall)
-  if (accountType === 'keystore') return signAndSendKeystore(contractCall)
+    ethToWei(amount),
+  );
+  if (accountType === 'ledger') return signAndSendLedger(contractCall);
+  if (accountType === 'keystore') return signAndSendKeystore(contractCall);
 
   return contractCall.send({
     from: account,
-  })
-}
+  });
+};
 
 const hasUserVoted = async (proposalId, address) => {
   if (!address) return false;
@@ -573,7 +572,7 @@ const becomeDelegate = async (storageHash, accountType) => {
   const advancedTokenProposalContract = getAdvancedTokenProposalContract();
   log(storageHash, web3.fromAscii(storageHash));
   const contractCall = advancedTokenProposalContract.methods.registerAsDelegate(
-    window._web3.utils.toHex(storageHash)
+    window._web3.utils.toHex(storageHash),
   );
   if (accountType === 'ledger') return signAndSendLedger(contractCall);
   if (accountType === 'keystore') return signAndSendKeystore(contractCall);
@@ -649,7 +648,7 @@ const getNecPriceInEth = async () => {
   const tickerRes = await fetch('https://api.deversifi.com/bfx/v2/ticker/tNECETH');
   const ticker = await tickerRes.json();
   return ticker[6];
-}
+};
 
 const burnNec = async (necTokens, accountType) => {
   const tokenContract = getTokenContract();
@@ -670,7 +669,33 @@ const fetchData = async () => {
   return {
     ethPrice,
     necPrice,
-    totalTokens
+    totalTokens,
+  };
+};
+
+const getNeconomicsData = async () => {
+  const necPrice = await getNecPrice();
+  const _totalSupply = window._web3.utils.fromWei(await totalSupply(), 'ether');
+  const bfxTotal = window._web3.utils.fromWei(
+    await getTokenBalance('0x567b2dd0fb4e9381d0752d2bf0b7f7f9e01af47d'),
+  );
+  const dvfTotal = window._web3.utils.fromWei(
+    await getTokenBalance('0xfceb04c697a7708776c3936760ae256eb92046f5'),
+  );
+  const necDaoTotal = window._web3.utils.fromWei(
+    await getTokenBalance('0xDa490e9acc7f7418293CFeA1FF2085c60d573626'),
+  );
+  const circulatingSupply = new BN(_totalSupply)
+    .minus(bfxTotal)
+    .minus(dvfTotal)
+    .minus(necDaoTotal)
+    .toString();
+  const marketCap = new BN(circulatingSupply).multipliedBy(necPrice).toString();
+  return {
+    necPrice,
+    totalSupply: parseInt(_totalSupply, 10),
+    marketCap: parseInt(marketCap, 10),
+    circulatingSupply: parseInt(circulatingSupply, 10),
   };
 };
 
@@ -724,5 +749,6 @@ export default {
   getNecUsd,
   getNecUsdByTimestamp,
   getNecEthdByTimestamp,
-  getEthUsdByTimestamp
+  getEthUsdByTimestamp,
+  getNeconomicsData,
 };

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { NavLink, Link, withRouter } from 'react-router-dom';
 import Web3 from 'web3';
 import ReactGA from 'react-ga';
 import config from '../../constants/config.json';
@@ -9,6 +9,9 @@ import Routes from '../../routes';
 import Login from '../../components/Login/Login';
 import { loginMetamask, fetchEthfinexData } from '../../actions/accountActions';
 import './App.scss';
+
+import dvfLogo from './assets/deversifi-logo-dark.png';
+import necLogo from './assets/neclogo.svg';
 
 class App extends Component {
   constructor() {
@@ -48,59 +51,83 @@ class App extends Component {
           </div>
         </div>
         <nav className={`${this.state.open ? 'open' : ''}`}>
-          <a
-            target="_blank"
-            href="https://www.deversifi.com"
-            rel="noopener noreferrer"
-            className="logo"
-          >
-            <img src="/images/new-logo-wh.svg" alt="" height="40" />
-          </a>
+          <div className="logos">
+            <a href="https://www.deversifi.com" target="_blank" rel="noopener noreferrer">
+              <img className="logo" src={dvfLogo} alt="" />
+            </a>
+            <div className="separator-s" />
+            <a target="_blank" href="https://www.deversifi.com" rel="noopener noreferrer">
+              <img className="logo" src={necLogo} alt="" height="40" />
+            </a>
+          </div>
 
           <div className="menu-opener-wrapper">
             <a onClick={() => this.setState({ open: !this.state.open })}>|||</a>
           </div>
           <div className="nav-links">
-            <Link to="/" onClick={this.clickLinkHandler}>
+            <NavLink exact activeClassName="is-active" to="/" onClick={this.clickLinkHandler}>
               Home
-            </Link>
-            <Link to="/traderboard" onClick={this.clickLinkHandler}>
-              Traderboard
-            </Link>
-            <Link to="/whitepaper">Whitepaper</Link>
-            <Link to="/burn">Weekly Auction</Link>
+            </NavLink>
+            {/*<NavLink activeClassName="is-active" to="/traderboard" onClick={this.clickLinkHandler}>*/}
+            {/*Traderboard*/}
+            {/*</NavLink>*/}
+            <NavLink activeClassName="is-active" to="/whitepaper">
+              Whitepaper
+            </NavLink>
+            <NavLink activeClassName="is-active" to="/burn">
+              Weekly Auction
+            </NavLink>
             <div className="dropdown-wrapper">
               <a>DAO</a>
               <div>
                 <Link onClick={this.clickLinkHandler} to="/dao">
                   About
                 </Link>
-                <a href="https://stake.nectar.community/#/" target="_blank">
+                <a
+                  href="https://stake.nectar.community/#/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Reputation Claim
                 </a>
-                <a onClick={this.clickLinkHandler} href="https://alchemy.daostack.io/dao/0xe56b4d8d42b1c9ea7dda8a6950e3699755943de7" target="_blank">
+                <a
+                  onClick={this.clickLinkHandler}
+                  href="https://alchemy.daostack.io/dao/0xe56b4d8d42b1c9ea7dda8a6950e3699755943de7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Go to DAO
                 </a>
-                <a onClick={this.clickLinkHandler} href="https://support.deversifi.com/en/knowledgebase/8-necdao" target="_blank">
+                <a
+                  onClick={this.clickLinkHandler}
+                  href="https://support.deversifi.com/en/knowledgebase/8-necdao"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Knowledge Base
                 </a>
               </div>
             </div>
-            <div className="dropdown-wrapper">
-              <a>Token Listings</a>
-              <div>
-                <Link onClick={this.clickLinkHandler} to="/tokens">
-                  About
-                </Link>
-                <Link onClick={this.clickLinkHandler} to="/token-leaderboard">
-                  Leaderboard
-                </Link>
-                <Link onClick={this.clickLinkHandler} to="/token-pool">
-                  The Pool
-                </Link>
-              </div>
-            </div>
-            <a onClick={this.clickLinkHandler} href="https://support.deversifi.com/en/knowledgebase/5-the-nectar-token" target="_blank">
+            {/*<div className="dropdown-wrapper">*/}
+            {/*<a>Token Listings</a>*/}
+            {/*<div>*/}
+            {/*<Link onClick={this.clickLinkHandler} to="/tokens">*/}
+            {/*About*/}
+            {/*</Link>*/}
+            {/*<Link onClick={this.clickLinkHandler} to="/token-leaderboard">*/}
+            {/*Leaderboard*/}
+            {/*</Link>*/}
+            {/*<Link onClick={this.clickLinkHandler} to="/token-pool">*/}
+            {/*The Pool*/}
+            {/*</Link>*/}
+            {/*</div>*/}
+            {/*</div>*/}
+            <a
+              onClick={this.clickLinkHandler}
+              href="https://support.deversifi.com/en/knowledgebase/5-the-nectar-token"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               FAQ
             </a>
           </div>
@@ -114,10 +141,15 @@ class App extends Component {
             <footer>
               <div className="container">
                 <div className="logo-wrapper">
-                  <img src="/images/new-logo-wh.svg" alt="" />
-                  <span>Nectar.community</span>
+                  <a href="https://www.deversifi.com" target="_blank" rel="noopener noreferrer">
+                    <img className="logo" src={dvfLogo} alt="" />
+                  </a>
+                  <div className="separator-s" />
+                  <a target="_blank" href="https://www.deversifi.com" rel="noopener noreferrer">
+                    <img className="logo" src={necLogo} alt="" height="40" />
+                  </a>
                 </div>
-                <p className="copyright">Copyright DeversiFi</p>
+                <p className="copyright">Copyright @ 2020 DeversiFi</p>
               </div>
             </footer>
           </>
@@ -153,5 +185,5 @@ export default connect(
   {
     loginMetamask,
     fetchEthfinexData,
-  }
+  },
 )(withRouter(App));

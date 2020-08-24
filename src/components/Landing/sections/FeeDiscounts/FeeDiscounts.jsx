@@ -72,9 +72,13 @@ export default class FeeDiscounts extends Component {
 
     return (
       <section className="landing__section">
-        <p className="landing__section-content fee-discounts__content">
-          As a Nectar holder, you can capitalise on many benefits in our ecosystem. One of these is trading fee discounts on the fastest, most-liquid self-custodial exchange in existence today, DeversiFi. Calculate how much you will save below: 
-          <br className="landing__linebreak" />
+        <div className="section__title">
+          <span>Fee discounts</span>
+        </div>
+        <p className="landing__section-content secondary">
+          As a Nectar holder, you can capitalise on many benefits in our ecosystem. One of these is
+          trading fee discounts on the fastest, most-liquid self-custodial exchange in existence
+          today, DeversiFi. Calculate how much you will save below:
         </p>
         <div className="fee-discounts__calculator-content">
           <div className="fee-discounts__calculator">
@@ -93,9 +97,6 @@ export default class FeeDiscounts extends Component {
                 />
               </div>
             </div>
-            <div className="fee-discounts__arrows">
-              <img src="/images/landingIcons/icon-arrows.svg" alt="" />
-            </div>
             <div className="fee-discounts__input-content">
               <label htmlFor="discount" className="fee-discounts__label">
                 Receive 20% Fee discount ON
@@ -106,27 +107,29 @@ export default class FeeDiscounts extends Component {
               >
                 <p className="fee-discount__receive-text">{this.abbreviateNumber(finalValue, 2)}</p>
               </div>
-              <p className="fee-discounts__receive-label-bottom">30-day Trading volume</p>
+              <p className="fee-discounts__receive-label-bottom">30-day trading volume</p>
             </div>
           </div>
           <a
             href="https://app.deversifi.com"
             rel="noopener noreferrer"
             target="_blank"
-            className="landing__link"
+            className="landing__link_button"
           >
             View fee calculation table
           </a>
         </div>
 
-        <p className="landing__section-content fee-discount__section-margin">
-        On top of the trading fee discounts earned for higher 30d trading volume, Nectar holders will be entitled to additional discounts of up to 20% depending on the amount of Nectar tokens that they hold
+        <p className="landing__section-content hidden__small">
+          On top of the trading fee discounts earned for higher 30d trading volume, Nectar holders
+          will be entitled to additional discounts of up to 20% depending on the amount of Nectar
+          tokens that they hold
         </p>
         <a
           href="https://app.deversifi.com"
           rel="noopener noreferrer"
           target="_blank"
-          className="new-listings__link trading"
+          className="button__primary"
         >
           Start Trading
         </a>
