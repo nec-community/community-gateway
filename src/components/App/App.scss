@@ -75,23 +75,12 @@ nav {
         // color: $color4;
         color: $secondary-text;
         position: relative;
-        padding-right: 20px;
-        &:before,
         &:after {
-          content: '';
+          content: url("/images/landingIcons/arrow-bottom.svg");
           display: block;
           position: absolute;
-          //transition: .2s;
-          width: 9px;
-          right: 0;
-          top: 10px;
-          // border-bottom: 1px solid $color4;
-          border-bottom: 1px solid $secondary-text;
-          transform: rotate(-45deg);
-        }
-        &:before {
-          margin-right: 6px;
-          transform: rotate(45deg);
+          right: -15px;
+          top: -2px;
         }
       }
       > div {
@@ -114,13 +103,6 @@ nav {
       &:hover {
         > div {
           display: block;
-        }
-        > a {
-          color: white;
-        }
-        > a:after,
-        > a:before {
-          border-color: white;
         }
       }
     }
