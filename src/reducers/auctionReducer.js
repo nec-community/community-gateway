@@ -19,10 +19,11 @@ const INITIAL_STATE = {
   deversifiNecEthPriceData: [],
   nextAuctionEthData: [],
   deversifiNecUsdData: [],
+  deversifiNecEthData: [],
   necPrice: '',
   ethPrice: '',
   nextPriceChange: '',
-  nextAuctionDate: ''
+  nextAuctionDate: '',
 };
 
 export default (state = INITIAL_STATE, action) => {

@@ -2,20 +2,19 @@
 
 .auction {
   margin: auto;
-  padding: 100px 0 50px;
+  padding: 50px 0 80px;
+
+  .live {
+    background-color: #fff;
+    padding: 80px 0;
+
+    section {
+      margin: 0;
+    }
+  }
 
   .container {
     height: 100%;
-    h1,
-    p,
-    a,
-    ul {
-      margin: 0;
-    }
-    h3 {
-      font-weight: 500;
-      margin: 0;
-    }
 
     .little__text {
       font-size: 14px;
@@ -25,9 +24,8 @@
   }
 
   &__subtitle {
-    margin-top: -36px;
-    margin-bottom: 42px;
-    font-weight: 400;
+    margin-top: 8px;
+    max-width: initial !important;
 
     a {
       padding-left: 4px;
@@ -45,17 +43,35 @@
       }
     }
 
-    &__description {
-      background: #1E1D2E;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      padding: 32px;
-      margin: 42px 0;
+    .overview__auction {
+      background: rgba(#28324A, 0.5);
+      border-radius: 6px;
+      padding: 24px;
+      width: 540px;
 
       p {
-        font-weight: 300;
-        font-size: 20px;
-        line-height: 36px;
-        margin-bottom: 16px;
+        font-family: $font-sen;
+        font-size: 18px;
+        line-height: 150%;
+        color: $primary-text;
+        margin: 0 0 24px 0;
+
+        &:last-child {
+          margin: 0;
+        }
+
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+
+    &__description {
+      background: rgba(#28324A, 0.5);
+      padding: 24px;
+      margin: 34px 0;
+      p {
+        max-width: initial;
       }
     }
 
@@ -82,31 +98,10 @@
     }
 
 
-    .overview__text {
+    .overview {
       display: flex;
-      width: 100%;
-      margin-top: 75px;
-      font-weight: 300;
-      font-size: 20px;
-      line-height: 36px;
-
-      p {
-        max-width: 600px;
-      }
-
-      .overview__auction {
-        margin-left: 80px;
-        font-size: 36px;
-        font-weight: 300;
-
-        p:first-child {
-          margin-bottom: 22px;
-        }
-
-        .auction__status {
-          color: #77af8f;
-        }
-      }
+      align-items: flex-start;
+      justify-content: space-between;
     }
   }
 
@@ -114,26 +109,18 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-top: 60px;
-    padding: 20px 0;
-    border-top: 1px solid #4e5569;
-
-    h3 {
-      margin-bottom: 25px;
-      font-weight: 500;
-      font-size: 32px;
-      line-height: 52px;
-    }
+    margin-top: 100px;
 
     .tabs {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       width: 100%;
       list-style: none;
       padding: 0;
+      margin: 0;
 
       li {
-        margin-right: 13px;
+        margin-right: 16px;
 
         &:last-child {
           margin-right: 0;
@@ -141,48 +128,66 @@
       }
 
       .active__tab {
-        height: 155px;
-        background: #535b8c;
-        padding: 30px 15px;
+        box-sizing: border-box;
+        height: 185px;
+        width: 350px;
+        background: rgba($component-background, 0.5);
+        padding: 24px;
+        color: $primary-text;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
       }
 
       button {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        width: 220px;
-        height: 125px;
-        padding: 15px;
-        color: #fffcfc;
-        font-weight: 400;
-        background-color: #1e1d2e;
-        border: none;
+        background: #04121C;
+        border: 1px solid #172334;
+        box-sizing: border-box;
+        border-radius: 6px;
+        width: 350px;
+        height: 161px;
+        padding: 24px;
+        color: rgba($primary-text, 0.7);
+        font-weight: normal;
         outline: none;
         cursor: pointer;
+        font-family: $font-sen;
 
-        p {
-          font-size: 14px;
-          line-height: 20px;
+        .tab__title {
+          font-size: 18px;
+          margin: 0;
+          font-family: $font-sen;
         }
 
         span {
-          font-size: 36px;
-          line-height: 44px;
+          font-family: $font-sen;
+          font-size: 40px;
+          line-height: 140%;
+
+          &:last-child {
+            color: rgba($secondary-text, 0.7);
+          }
         }
       }
     }
 
     .diagram__container {
       width: 100%;
-      height: 400px;
-      padding: 20px 25px;
-      background: linear-gradient(180deg, #525b8c 30.73%, #2d3561 100%);
+      height: 496px;
+      padding: 34px 24px;
+      background: rgba($component-background, 0.5);
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+      border-bottom-left-radius: 6px;
 
       .diagram__label {
-        margin-bottom: 50px;
-        font-weight: 400;
-        font-size: 20px;
-        line-height: 24px;
+        font-family: $font-sen;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 140%;
+        margin: 0 0 24px 0;
       }
     }
 
@@ -197,22 +202,39 @@
 
       .graphics-item__container {
         position: relative;
-        width: 460px;
-        height: 400px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px 25px;
-        background: linear-gradient(180deg, #525b8c 30.73%, #2d3561 100%);
+        box-sizing: border-box;
+        width: 540px;
+        height: 245px;
+        padding: 24px 24px 50px 24px;
+        background: rgba($secondary-text, 0.2);
       }
 
       .graphic__label {
-        position: absolute;
-        top: 10px;
-        left: 15px;
-        font-size: 20px;
-        line-height: 24px;
+        font-family: $font-sen;
         font-weight: bold;
+        font-size: 24px;
+        line-height: 140%;
+        color: $dark-text;
+        margin: 0;
+      }
+
+      .graphic__text {
+        font-family: $font-montserrat;
+        font-weight: bold;
+        font-size: 40px;
+        line-height: 140%;
+        color: $dark-text;
+
+        span {
+          font-size: 24px;
+          font-weight: normal;
+
+          &.split {
+            font-weight: normal;
+            font-size: 40px;
+            margin: 0 5px;
+          }
+        }
       }
 
       .first__circle {
@@ -241,22 +263,23 @@
 
       .single-chart {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
+        align-items: center;
       }
 
       .circular-chart {
-        height: 250px;
+        height: 144px;
       }
 
       .circle-bg {
         fill: none;
-        stroke: rgba(95, 245, 252, 0.2);
-        stroke-width: 2;
+        stroke: rgba(#FCAE16, 0.3);
+        stroke-width: 5;
       }
 
       .circle {
         fill: none;
-        stroke-width: 3;
+        stroke-width: 5;
         stroke-linecap: round;
         animation: progress 1s ease-out forwards;
       }
@@ -268,7 +291,7 @@
       }
 
       .circular-chart.color .circle {
-        stroke: #5ff5fc;
+        stroke: #FCAE16;
       }
 
       .text {
@@ -320,36 +343,53 @@
     }
 
     &__card {
-      width: 460px;
+      width: 540px;
+      box-sizing: border-box;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 16px;
-      background: #1E1D2E;
+      flex-direction: column;
+      padding: 24px 24px 34px 24px;
+      background: rgba($secondary-text, 0.2);
+      border-radius: 6px;
+
+      & > div {
+        display: flex;
+        justify-content: space-between;
+      }
     }
 
     &__title {
-      font-size: 20px;
-      line-height: 24px;
-      color: #FFFCFC;
+      display: flex;
+      align-items: center;
+      font-family: $font-sen;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 150%;
+      color: $dark-text;
     }
 
     &__usd {
-      font-size: 14px;
-      line-height: 22px;
-      display: block;
+      font-family: $font-sen;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 150%;
+      color: $secondary-text;
     }
 
 
     &__value {
-      font-weight: bold;
-      font-size: 36px;
-      line-height: 44px;
-      color: #FFFCFC;
+      font-family: $font-montserrat;
+      font-weight: normal;
+      font-size: 40px;
+      line-height: 140%;
+      text-align: right;
+      color: $dark-text;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      max-width: 330px;
 
       small {
-        font-size: 16px;
-        line-height: 22px;
+        font-size: 22px;
       }
     }
   }
@@ -389,28 +429,49 @@
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    height: 180px;
-    margin-top: 45px;
-    padding: 40px 50px;
-    border: 1px solid #4e5569;
-    font-weight: 300;
-    font-size: 24px;
+    height: 245px;
+    margin-top: 82px;
+    padding: 95px 67px;
+    background: linear-gradient(4.5deg, #040E14 19.19%, #061824 88.66%);
+    border-radius: 6px;
+    font-size: 40px;
 
     .input__container {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: 230px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+      height: 56px;
+      width: 306px;
+      background-color: rgba(#A9ABCB, 0.1);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+      padding: 10px 24px;
+      box-sizing: border-box;
+      margin: 0 24px;
+
+      span {
+        color: $secondary-text;
+        font-size: 30px;
+        font-family: $font-sen;
+      }
+
+      p {
+        max-width: 190px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 30px;
+        font-family: $font-sen;
+      }
 
       input {
         height: 32px;
-        max-width: 140px;
+        max-width: 180px;
         padding: 0;
         border: 0 none;
-        background-color: inherit;
-        color: #ffffff;
-        font-size: 24px;
+        background-color: transparent;
+        color: $primary-text;
+        font-size: 30px;
+        font-family: $font-sen;
 
         &:focus {
           outline: none;
@@ -419,20 +480,7 @@
     }
 
     button {
-      width: 144px;
-      height: 50px;
-      margin-left: 30px;
-      background: #757891;
-      mix-blend-mode: normal;
-      font-weight: 500;
-      font-size: 18px;
-      line-height: 16px;
-      text-align: center;
-      letter-spacing: 0.3px;
-      color: #ffffff;
-      border: none;
-      outline: none;
-      cursor: pointer;
+      width: 147px;
 
       &:disabled {
         opacity: 0.8;
@@ -444,14 +492,6 @@
   .table {
     &__container {
       margin-top: 58px;
-
-      h3 {
-        font-weight: 500;
-        font-size: 30px;
-        line-height: 52px;
-        margin-top: 0;
-        margin-bottom: 42px;
-      }
     }
 
     &__loading {
@@ -496,7 +536,4 @@
 }
 
 .summary {
-  h3 {
-    margin-bottom: 24px;
-  }
 }
