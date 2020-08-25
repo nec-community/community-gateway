@@ -22,7 +22,7 @@ let burningEnabled;
 
 const setWeb3toMetamask = () => {
   if (window.ethereum) {
-    return (window._web3 = new Web3(ethereum));
+    return (window._web3 = new Web3(window.ethereum));
   } else if (window.web3) {
     return (window._web3 = new Web3(web3.currentProvider));
   }

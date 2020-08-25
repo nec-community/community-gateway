@@ -2,9 +2,8 @@
 
 .container {
   width: 100%;
-  max-width: 1100px;
+  max-width: 1110px;
   margin: 0 auto;
-  padding: 0 30px;
 }
 
 .notification-wrapper {
@@ -110,7 +109,7 @@
 }
 
 .link__primary {
-  color: #FF8800;
+  color: #FCAE16;
   margin-bottom: 24px;
 }
 
@@ -131,6 +130,7 @@
   align-items: center;
   width: 255px;
   height: 48px;
+  color: $primary-text;
 
   background-color: $violet-active;
   border-radius: 4px;
@@ -139,8 +139,42 @@
   line-height: 140%;
   text-decoration: none;
   transition: background-color 0.3s;
+  cursor: pointer;
+  border: none;
+  outline: none;
 
   &:hover {
     background-color: rgba($violet-active, 0.8);
+  }
+}
+
+.text__secondary {
+  font-family: $font-sen;
+  color: $secondary-text;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 28px;
+  margin-bottom: 24px;
+  max-width: 445px;
+
+  a {
+    color: #FCAE16;
+  }
+}
+
+.title__secondary {
+  font-family: $font-sen;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 140%;
+  color: $primary-text;
+  margin: 0 0 32px 0;
+
+  &.no__margin {
+    margin: 0;
+  }
+
+  &.dark {
+    color: $dark-text;
   }
 }

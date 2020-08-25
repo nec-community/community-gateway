@@ -126,13 +126,37 @@ class Auction extends Component {
     hours = hours < 10 ? `0${hours}` : hours;
     minutes = minutes < 10 ? `0${minutes}` : minutes;
 
-    if (days == 0 && hours == 0) {
-      return `${minutes}m`;
+    if (days === 0 && hours === 0) {
+      return (
+        <>
+          {minutes}
+          <span>m</span>
+        </>
+      );
     }
-    if (days == 0) {
-      return `${hours}h ${minutes}m`;
+    if (days === 0) {
+      return (
+        <>
+          {hours}
+          <span>h</span>
+          <span className="split">:</span>
+          {minutes}
+          <span>m</span>
+        </>
+      );
     }
-    return `${days}d ${hours}h ${minutes}m`;
+    return (
+      <>
+        {days}
+        <span>d</span>
+        <span className="split">:</span>
+        {hours}
+        <span>h</span>
+        <span className="split">:</span>
+        {minutes}
+        <span>m</span>
+      </>
+    );
   };
 
   formatTimeNextAuction = () => {
@@ -179,11 +203,11 @@ class Auction extends Component {
         case 'deversifiNecUsdData':
           return '';
         case 'burnedNecData':
-          return `US $ ${formatNumber((this.props[title][this.props[title].length - 1].pv * necPrice).toFixed(2))}`;
+          return `US $${formatNumber((this.props[title][this.props[title].length - 1].pv * necPrice).toFixed(2))}`;
         case 'deversifiNecEthData':
-          return `US $ ${formatNumber((this.props[title][this.props[title].length - 1].pv * ethPrice).toFixed(2))}`;
+          return `US $${formatNumber((this.props[title][this.props[title].length - 1].pv * ethPrice).toFixed(2))}`;
         default:
-          return `US $ ${formatNumber((this.props[title][this.props[title].length - 1].pv * necPrice).toFixed(2))}`;
+          return `US $${formatNumber((this.props[title][this.props[title].length - 1].pv * necPrice).toFixed(2))}`;
       }
     }
   };
@@ -211,28 +235,36 @@ class Auction extends Component {
       <div className="auction">
         <div className="container">
           <div className="overview">
-            <div className="overview__header">
-              <h1>necBurn</h1>
-              <p>Overview of NEC Auctions</p>
+            <div className="section__title">
+              <span>Weekly Auction</span>
             </div>
-            <div className="overview__text">
-              <p>
-                Once per week DeversiFi exchange trading fees that are pledged to NEC token holders
-                are auctioned. NEC holders can sell their <b><a target="__blank"
-                                                                href="https://support.deversifi.com/en/docs/32-nectar-distribution-and-allocation">circulating
-                NEC</a></b> in exchange for the auctioned ETH. Any
-                NEC sold in the auctions are burned. &nbsp;
-                <strong onClick={() => this.setState({ descriptionVisible: true })}
-                        className="overview__link">See details</strong>
-              </p>
+            <div className="overview">
+              <div>
+                <p className="text__secondary">
+                  Once per week DeversiFi exchange trading fees that are pledged to NEC token
+                  holders
+                  are auctioned. NEC holders can sell their <a target="__blank"
+                                                               href="https://support.deversifi.com/en/docs/32-nectar-distribution-and-allocation">circulating
+                  NEC</a> in exchange for the auctioned ETH. Any NEC sold in the auctions are
+                  burned. &nbsp;
+                </p>
+                <div
+                  onClick={() => this.setState({ descriptionVisible: true })}
+                  className="button__primary"
+                >
+                  See details
+                </div>
+              </div>
               <div className="overview__auction">
                 <p>
                   Auction: <span
                   className="auction__status">{this.props.nextAuctionDate > 0 ? 'live' : 'closed'}</span>
                 </p>
-                <p className="little__text">Next auction start</p>
-                <p>{this.timeCountdown(this.props.nextAuctionDate)}</p>
-                <p className="little__text">{this.formatTimeNextAuction()}</p>
+                <p>
+                  Next auction starts
+                  in: {this.timeCountdown(this.props.nextAuctionDate)}, {this.formatTimeNextAuction()}
+                </p>
+                {/*<p></p>*/}
               </div>
             </div>
             <Description
@@ -240,10 +272,13 @@ class Auction extends Component {
               closeDescription={() => this.setState({ descriptionVisible: false })}
             />
           </div>
-          {currentAuctionSummary && currentAuctionSummary.remainingEth > 0.01 && (
-            <>
+        </div>
+        {/*{currentAuctionSummary && currentAuctionSummary.remainingEth > 0.01 && (*/}
+        {currentAuctionSummary && (
+          <>
+            <div className="container">
               <section className="summary">
-                <h3>Summary</h3>
+                <h3 className="title__secondary">Summary</h3>
                 <ul className="tabs">
                   {TABS.map((tab, index) => (
                     <li key={tab.name}>
@@ -251,7 +286,7 @@ class Auction extends Component {
                         className={`tab__button ${index === activeTabIndex ? 'active__tab' : null}`}
                         onClick={() => this.onTabClick(index)}
                       >
-                        <p>{tab.name}</p>
+                        <p className="tab__title">{tab.name}</p>
                         <span>
                           {this.state[`${this.props[tab.title]}Loading`] ?
                             <Loading /> : this.renderTabTileAmount(tab.title)}
@@ -267,115 +302,128 @@ class Auction extends Component {
                   data={this.props[TABS[activeTabIndex].title]}
                 />
               </section>
-
-              <section>
-                <h3 className="current-auction__header">Current Auction - live</h3>
-                <div className="current-auction">
-                  <div className="current-auction__card">
-                    <span className="current-auction__title">
-                      Current Auction <br /> NEC Price
-                    </span>
-                    <div>
-                      <span className="current-auction__value">
-                        {currentAuctionSummary.currentNecPrice}
-                        <small>ETH</small>
-                      </span>
-                      <small className="current-auction__usd">
-                        {`USD $ ${(currentAuctionSummary.currentNecPrice * ethPrice).toFixed(5)}`}
-                      </small>
+            </div>
+            <div className="live">
+              <div className="container">
+                <section>
+                  <h3 className="title__secondary dark">Current Auction - live</h3>
+                  <div className="current-auction">
+                    <div className="current-auction__card">
+                      <div>
+                        <div className="current-auction__title">
+                          Current Auction
+                        </div>
+                        <div className="current-auction__value">
+                          {currentAuctionSummary.currentNecPrice}
+                          <small>ETH</small>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="current-auction__title">
+                          NEC Price
+                        </div>
+                        <div className="current-auction__usd">
+                          {`USD $${(currentAuctionSummary.currentNecPrice * ethPrice).toFixed(5)}`}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="current-auction__card">
+                      <div>
+                        <div className="current-auction__title">
+                          Next Price
+                        </div>
+                        <div className="current-auction__value">
+                          {currentAuctionSummary.nextNecPrice}
+                          <small>ETH</small>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="current-auction__title">
+                          NEC Price
+                        </div>
+                        <div className="current-auction__usd">
+                          {`USD $${(currentAuctionSummary.nextNecPrice * ethPrice).toFixed(5)}`}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="current-auction__card">
-                    <span className="current-auction__title">
-                      Next Price<br /> NEC Price
-                    </span>
-                    <div>
-                      <span className="current-auction__value">
-                        {currentAuctionSummary.nextNecPrice}
-                        <small>ETH</small>
-                      </span>
-
-                      <small className="current-auction__usd">
-                        {`USD $ ${(currentAuctionSummary.nextNecPrice * ethPrice).toFixed(5)}`}
-                      </small>
-                    </div>
-
+                  <div className="graphics__container">
+                    <Circle
+                      percentage={this.calcTimestampPercentage()}
+                      title="Next price change"
+                      text={this.timeCountdown(nextPriceChange)}
+                    />
+                    <Circle
+                      percentage={this.calcEthPercentage()}
+                      title="ETH Remaining"
+                      text={
+                        <div>
+                          {formatEth(currentAuctionSummary.remainingEth)}&nbsp;
+                          <span>of</span>&nbsp;
+                          {formatEth(currentAuctionSummary.initialEth)}
+                        </div>
+                      }
+                    />
                   </div>
-                </div>
-                <div className="graphics__container">
-                  <Circle
-                    percentage={this.calcTimestampPercentage()}
-                    title="Next price change"
+                  {/*<div className="current-auction">*/}
+                  {/*<div className="current-auction__card">*/}
+                  {/*<span className="current-auction__title">*/}
+                  {/*30 Day <br />Burned NEC*/}
+                  {/*</span>*/}
+                  {/*<span className="current-auction__value">*/}
+                  {/*{formatNumber(currentAuctionSummary.purchasedNec.toFixed(3))}*/}
+                  {/*</span>*/}
+                  {/*</div>*/}
+                  {/*<div className="current-auction__card">*/}
+                  {/*<span className="current-auction__title">*/}
+                  {/*30 Day Average<br />Auction Price*/}
+                  {/*</span>*/}
+                  {/*<div>*/}
+                  {/*<span className="current-auction__value">*/}
+                  {/*{currentAuctionSummary.necAveragePrice} <small>ETH</small>*/}
+                  {/*</span>*/}
+                  {/*<small className="current-auction__usd">*/}
+                  {/*{`USD $ ${(currentAuctionSummary.necAveragePrice * ethPrice).toFixed(5)}`}*/}
+                  {/*</small>*/}
+                  {/*</div>*/}
+                  {/*</div>*/}
+                  {/*</div>*/}
+                </section>
+                <div className="sell__tokens">
+                  <span>Sell</span>
+                  <div className="input__container">
+                    <input value={tokensForSell} onChange={this.changeInputValue} />
+                    <span>NEC</span>
+                  </div>
+                  <span>for</span>
+                  <div className="input__container">
+                    <p>{(currentAuctionSummary.currentNecPrice * this.state.tokensForSell).toFixed(5)}</p>
+                    <span>ETH</span>
+                  </div>
+                  <button
+                    className="button__primary"
+                    onClick={this.sellTokens}
+                    disabled={!this.state.tokensForSell || this.state.tokensForSell < 0 || sellAndBurnLoading}
                   >
-                    <text x="18" y="20" className="chart-title">
-                      {this.timeCountdown(nextPriceChange)}
-                    </text>
-                  </Circle>
-                  <Circle
-                    percentage={this.calcEthPercentage()}
-                    title="ETH Remaining"
-                  >
-                    <text x="18" y="10" className="chart-title">
-                      <tspan x="18" dy="1.2em">
-                        {formatEth(currentAuctionSummary.remainingEth)}
-                      </tspan>
-                      <tspan x="18" dy="1.2em">of</tspan>
-                      <tspan x="18" dy="1.2em">
-                        {formatEth(currentAuctionSummary.initialEth)}
-                      </tspan>
-                    </text>
-                  </Circle>
+                    {sellAndBurnLoading ? <Loading /> : 'Sell'}
+                  </button>
                 </div>
-                {/*<div className="current-auction">*/}
-                {/*<div className="current-auction__card">*/}
-                {/*<span className="current-auction__title">*/}
-                {/*30 Day <br />Burned NEC*/}
-                {/*</span>*/}
-                {/*<span className="current-auction__value">*/}
-                {/*{formatNumber(currentAuctionSummary.purchasedNec.toFixed(3))}*/}
-                {/*</span>*/}
-                {/*</div>*/}
-                {/*<div className="current-auction__card">*/}
-                {/*<span className="current-auction__title">*/}
-                {/*30 Day Average<br />Auction Price*/}
-                {/*</span>*/}
-                {/*<div>*/}
-                {/*<span className="current-auction__value">*/}
-                {/*{currentAuctionSummary.necAveragePrice} <small>ETH</small>*/}
-                {/*</span>*/}
-                {/*<small className="current-auction__usd">*/}
-                {/*{`USD $ ${(currentAuctionSummary.necAveragePrice * ethPrice).toFixed(5)}`}*/}
-                {/*</small>*/}
-                {/*</div>*/}
-                {/*</div>*/}
-                {/*</div>*/}
-              </section>
-              <div className="sell__tokens">
-                <span>SELL</span>
-                <div className="input__container">
-                  <input value={tokensForSell} onChange={this.changeInputValue} />
-                  <span>NEC</span>
-                </div>
-                <span>FOR</span>
-                <div className="input__container">
-                  <p>{(currentAuctionSummary.currentNecPrice * this.state.tokensForSell).toFixed(5)}</p>
-                  <span>ETH</span>
-                </div>
-                <button
-                  onClick={this.sellTokens}
-                  disabled={!this.state.tokensForSell || this.state.tokensForSell < 0 || sellAndBurnLoading}
-                >
-                  {sellAndBurnLoading ? <Loading /> : 'SELL'}
-                </button>
               </div>
-            </>
-          )}
+            </div>
+          </>
+        )}
+        <div className="container">
           <div className="table__container">
-            <h3>Transaction History</h3>
-            <h4 className="auction__subtitle">A full list of transactions is available on Etherscan
-              <a rel="noopener noreferrer"
-                 href="https://etherscan.io/address/0x2bd9baedf2c6fc4b86c725857ae156cb43fccba6#tokentxns"
-                 target="_blank">here</a>
+            <h3 className="title__secondary no__margin">Transaction History</h3>
+            <h4 className="auction__subtitle text__secondary">
+              A full list of transactions is available on
+              <a
+                rel="noopener noreferrer"
+                href="https://etherscan.io/address/0x2bd9baedf2c6fc4b86c725857ae156cb43fccba6#tokentxns"
+                target="_blank"
+              >
+                Etherscan here
+              </a>
             </h4>
             {/*<table>*/}
             {/*<thead>*/}
@@ -414,13 +462,10 @@ class Auction extends Component {
 }
 
 Auction.propTypes = {
-  fetchCirculatingNec: PropTypes.func.isRequired,
-  fetchBurnedNec: PropTypes.func.isRequired,
+  nextAuctionDate: PropTypes.func.isRequired,
   fetchDeversifiNecEth: PropTypes.func.isRequired,
   fetchCurrentActionSummary: PropTypes.func.isRequired,
-  fetchAuctionIntervalData: PropTypes.func.isRequired,
   sellInAuctionStart: PropTypes.func.isRequired,
-  fetchAuctionTransactions: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

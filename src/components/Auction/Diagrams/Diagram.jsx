@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import '../Auction.scss';
-import { formatNumber } from '../../../services/utils'
+import { formatNumber } from '../../../services/utils';
 
 export function renderTooltip({ active, payload }) {
   if (!active) {
@@ -31,22 +31,27 @@ export default class Diagram extends Component {
           data={this.props.data}
           margin={{ top: 20, right: 50, bottom: 30, left: 15 }}
         >
-          <CartesianGrid vertical={false} stroke="#000000" />
+          <CartesianGrid vertical={false} stroke="#313B55" />
           <XAxis
-            tick={{ stroke: '#ffffff' }}
-            stroke="#000000"
+            tick={{ stroke: '#A9ABCBB3' }}
+            stroke="#313B55"
             axisLine={false}
             tickMargin={10}
             tickLine={false}
             dataKey="name"
           />
-          <YAxis tickFormatter={formatNumber}
-            tick={{ stroke: '#ffffff' }} stroke="#000000" axisLine={false} tickMargin={10} />
+          <YAxis
+            tickFormatter={formatNumber}
+            tick={{ stroke: '#A9ABCBB3' }}
+            stroke="#313B55"
+            axisLine={false}
+            tickMargin={10}
+          />
           <Tooltip content={renderTooltip} wrapperStyle={{ top: -60, left: -50 }} />
           <Line
             type="monotone"
             dataKey="pv"
-            stroke="#5FF5FC"
+            stroke="#FCAE16"
             activeDot={{ r: 8 }}
             strokeWidth={5}
           />
