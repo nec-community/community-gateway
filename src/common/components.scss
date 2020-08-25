@@ -157,8 +157,38 @@
   margin-bottom: 24px;
   max-width: 445px;
 
+  &.auto {
+    max-width: initial;
+  }
+
   a {
     color: #FCAE16;
+  }
+}
+
+.text__small {
+  font-family: $font-sen;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 32px;
+  color: $secondary-text;
+
+  a {
+    color: #FCAE16;
+  }
+
+  strong, b {
+    font-weight: bold;
+    color: $primary-text;
+  }
+
+  &.dark {
+    color: $dark-text;
+
+    strong, b {
+      color: $dark-text;
+    }
   }
 }
 
@@ -176,5 +206,55 @@
 
   &.dark {
     color: $dark-text;
+  }
+}
+
+.title__subtitle {
+  font-family: $font-sen;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 140%;
+  color: $primary-text;
+  margin:0 0 8px 0;
+
+  &.dark {
+    color: $dark-text;
+  }
+}
+
+.text__list {
+  list-style: none;
+
+  li {
+    position: relative;
+    font-family: $font-sen;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: $secondary-text;
+    margin-bottom: 24px;
+
+    a {
+      color: #FCAE16;
+    }
+
+    &::before {
+      position: absolute;
+      top: 8px;
+      left: -24px;
+      content: " ";
+      display: block;
+      border-radius: 100%;
+      width: 8px;
+      height: 8px;
+      background: #FCAE16;
+      margin-right: 16px;
+    }
+  }
+
+  &.dark {
+    li {
+      color: $dark-text;
+    }
   }
 }
