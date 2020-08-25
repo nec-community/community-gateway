@@ -39,6 +39,12 @@
       opacity: 0.7;
     }
   }
+
+  @media all and (max-width: 768px) {
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+  }
 }
 
 .landing__dots {
