@@ -271,3 +271,24 @@
     }
   }
 }
+
+.learn__more {
+  position: fixed;
+  bottom: 8px;
+  color: $secondary-text;
+  left: 0;
+  right: 0;
+  text-align: center;
+  div {
+    font-family: $font-sen;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    &::before {
+      content: url('/images/landingIcons/arrow-bottom.svg');
+      position: relative;
+      bottom: 2px;
+      margin-right: 20px;
+    }
+  }
+}

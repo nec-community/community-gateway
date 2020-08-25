@@ -236,6 +236,14 @@ class Landing extends Component {
             <TwitterIcon />
           </a>
         </div>
+        {
+          activeTab === 'nec' &&
+          <div className="learn__more">
+            <div>
+              Learn more
+            </div>
+          </div>
+        }
         <div className="landing__background" />
         <div className="landing__left-column" />
         <div className="landing__central-column">
