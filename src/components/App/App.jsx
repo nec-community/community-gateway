@@ -56,9 +56,9 @@ class App extends Component {
               <img className="logo" src={dvfLogo} alt="" />
             </a>
             <div className="separator-s" />
-            <a target="_blank" href="https://www.deversifi.com" rel="noopener noreferrer">
+            <Link to="/" rel="noopener noreferrer">
               <img className="logo" src={necLogo} alt="" height="40" />
-            </a>
+            </Link>
           </div>
 
           <div className="menu-opener-wrapper">

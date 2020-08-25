@@ -9,13 +9,28 @@
     justify-content: space-between;
     padding-bottom: 108px;
 
+    @media all and (max-width: 868px) {
+      flex-direction: column;
+    }
+
     & > div:first-child {
       width: 635px;
+
+      @media all and (max-width: 868px) {
+        width: auto;
+      }
     }
     & > div:last-child {
       padding-top: 80px;
+      @media all and (max-width: 868px) {
+        text-align: center;
+      }
       img {
         max-height: 445px;
+
+        @media all and (max-width: 868px) {
+          max-height: 150px;
+        }
       }
     }
   }

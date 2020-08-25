@@ -4,6 +4,10 @@
   width: 100%;
   max-width: 1110px;
   margin: 0 auto;
+
+  @media all and (max-width: 868px) {
+    max-width: 90%;
+  }
 }
 
 .notification-wrapper {
@@ -121,6 +125,15 @@
 
   :first-child {
     margin-right: 30px;
+  }
+
+  @media all and (max-width: 868px) {
+    flex-direction: column;
+
+    :first-child {
+      margin-right: 0;
+      margin-bottom: 16px;
+    }
   }
 }
 

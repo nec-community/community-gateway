@@ -5,6 +5,8 @@ import { withRouter } from 'react-router-dom';
 import { countWheels } from './scrollHelper';
 
 import CircleButton from './CircleButton';
+import TwitterIcon from '../../constants/images/landingIcons/twitter';
+import DiscordIcon from '../../constants/images/landingIcons/discord';
 import { Nec, FeeDiscounts, BuyAndBurn, DaoGovernance, Neconomics, Ecosystem } from './sections';
 
 import './Landing.scss';
@@ -54,6 +56,7 @@ class Landing extends Component {
     activeTab: 'nec',
     isScrollBlocked: false,
     tradingVolume: 0,
+    ts: 0,
   };
 
   controller = new AbortController();
@@ -61,9 +64,15 @@ class Landing extends Component {
   componentDidMount() {
     const { history } = this.props;
 
-    window.addEventListener('wheel', this.slideContent, {
-      passive: false,
-    });
+    if ('ontouchstart' in window) {
+      window.addEventListener('touchstart', this.handleMobilePos);
+      window.addEventListener('touchend', this.handleMobileScroll);
+    } else {
+      window.addEventListener('wheel', this.slideContent, {
+        passive: false,
+      });
+    }
+
     this.unlistenHistoryChange = history.listen(this.historyChange);
 
     fetch('https://api.deversifi.com/v1/trading/r/last24HoursVolume', {
@@ -82,11 +91,22 @@ class Landing extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('wheel', this.slideContent);
+    if ('ontouchstart' in window) {
+      window.removeEventListener('touchstart', this.handleMobilePos);
+      window.removeEventListener('touchend', this.handleMobileScroll);
+    } else {
+      window.removeEventListener('wheel', this.slideContent);
+    }
     this.unlistenHistoryChange();
     clearTimeout(this.blockerTimeout);
     this.controller.abort();
   }
+
+  handleMobilePos = e => {
+    this.setState({
+      ts: e.touches[0].clientY,
+    });
+  };
 
   setActiveTabByScroll = changer => {
     const { activeTab } = this.state;
@@ -137,8 +157,22 @@ class Landing extends Component {
     }
   };
 
+  handleMobileScroll = e => {
+    const te = e.changedTouches[0].clientY;
+    if (this.state.ts > te + 5) {
+      this.setActiveTabByScroll(1);
+    } else if (this.state.ts < te - 5) {
+      this.setActiveTabByScroll(-1);
+    }
+  };
+
   historyChange = () => {
-    window.removeEventListener('wheel', this.slideContent);
+    if ('ontouchstart' in window) {
+      window.removeEventListener('touchstart', this.handleMobilePos);
+      window.removeEventListener('touchend', this.handleMobileScroll);
+    } else {
+      window.removeEventListener('wheel', this.slideContent);
+    }
   };
 
   unblockScroll = () => {
@@ -147,7 +181,7 @@ class Landing extends Component {
         this.setState({
           isScrollBlocked: false,
         }),
-      500,
+      750,
     );
   };
 
@@ -174,13 +208,34 @@ class Landing extends Component {
   render() {
     const { activeTab, tradingVolume } = this.state;
 
-    const tabsArray = Object.keys(tabs);
+    // const tabsArray = Object.keys(tabs);
     const ActiveTabComponent = tabs[activeTab].component;
-    const pageNumber = tabsArray.length;
-    const currentPage = tabsArray.findIndex(tab => tab === activeTab);
+    // const pageNumber = tabsArray.length;
+    // const currentPage = tabsArray.findIndex(tab => tab === activeTab);
 
     return (
       <div className="landing__wrapper">
+        <div className="landing__dots">
+          {Object.keys(tabs).map(tab => (
+            <div className={`${tab === activeTab ? 'active' : ''} dot`} />
+          ))}
+        </div>
+        <div className="landing__social">
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <DiscordIcon />
+          </a>
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <TwitterIcon />
+          </a>
+        </div>
         <div className="landing__background" />
         <div className="landing__left-column" />
         <div className="landing__central-column">
@@ -205,7 +260,7 @@ class Landing extends Component {
                     name="nec"
                     className={`right-column__circle-button right-column__circle-central-button ${
                       activeTab === 'nec' ? `right-column__circle-central-button--active` : ''
-                    }`}
+                      }`}
                     onClick={this.onCircleButtonClick}
                   >
                     <img src={necLogo} alt="logo" />
