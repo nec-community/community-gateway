@@ -23,6 +23,7 @@ class Login extends Component {
       fileError: '',
       ledgerAccounts: [],
       ledgerPage: 0,
+      decrypting: false,
     };
 
     this.switch = this.switch.bind(this);
@@ -40,7 +41,7 @@ class Login extends Component {
       },
       () => {
         if (slug === 'ledger') this.ledgerList();
-      }
+      },
     );
   }
 
@@ -50,6 +51,7 @@ class Login extends Component {
     this.setState({
       fileName: inputFile.name,
       fileError: '',
+      decrypting: true,
     });
     fileReader.onload = () => {
       const keystoreJson = fileReader.result;
@@ -57,6 +59,7 @@ class Login extends Component {
         const passReq = keystoreService.isKeystorePassRequired(keystoreJson);
         this.setState({
           passReq,
+          decrypting: false,
         });
         if (!passReq) this.props.loginKeystore(keystoreJson);
         else if (this.pass.value) this.props.loginKeystore(keystoreJson, this.pass.value);
@@ -64,6 +67,7 @@ class Login extends Component {
         this.setState({
           fileName: inputFile.name,
           fileError: err.message,
+          decrypting: false,
         });
       }
     };
@@ -82,6 +86,7 @@ class Login extends Component {
   }
 
   render() {
+    const { decrypting } = this.state;
     return (
       <div>
         <div className="login-fab" onClick={this.props.openLogin}>
@@ -115,8 +120,10 @@ class Login extends Component {
               <div className="login-input-wrapper">
                 {this.state.shown === 'ledger' && (
                   <div className="ledger-login-wrapper">
-                    <h2>This is a recommended way to access your wallet</h2>
-                    <p>Connect your Ledger, unlock it and open the Ethereum app.</p>
+                    <h2 className="title__subtitle">This is a recommended way to access your
+                      wallet</h2>
+                    <p className="text__small">Connect your Ledger, unlock it and open the Ethereum
+                      app.</p>
                     <label>
                       Path:
                       <input
@@ -127,52 +134,56 @@ class Login extends Component {
                         defaultValue="44'/60'/0'"
                       />
                     </label>
-                    <button onClick={() => this.ledgerList()}>Connect Ledger</button>
+                    <button className="button__primary" onClick={() => this.ledgerList()}>Connect
+                      Ledger
+                    </button>
                     <table cellSpacing={0}>
                       <tbody>
-                        <tr className="meta-row">
-                          <th>Address</th>
-                          <th>ETH Balance</th>
-                          <th>NEC Balance</th>
+                      <tr className="meta-row">
+                        <th>Address</th>
+                        <th>ETH Balance</th>
+                        <th>NEC Balance</th>
+                      </tr>
+                      {this.state.ledgerAccounts.map(acc => (
+                        <tr key={acc.address} onClick={() => this.props.loginLedger(acc.path)}>
+                          <td>{acc.address}</td>
+                          <td>{acc.balance}</td>
+                          <td>{acc.NECbalance}</td>
                         </tr>
-                        {this.state.ledgerAccounts.map(acc => (
-                          <tr key={acc.address} onClick={() => this.props.loginLedger(acc.path)}>
-                            <td>{acc.address}</td>
-                            <td>{acc.balance}</td>
-                            <td>{acc.NECbalance}</td>
-                          </tr>
-                        ))}
-                        <tr className="meta-row">
-                          <td colSpan={3}>
-                            <div className="pagination">
-                              <a onClick={() => this.paginateLedger(1)}>More accounts</a>
-                              {this.state.ledgerPage > 0 && (
-                                <a onClick={() => this.paginateLedger(-1)}>Previous accounts</a>
-                              )}
-                            </div>
-                          </td>
-                        </tr>
+                      ))}
+                      <tr className="meta-row">
+                        <td colSpan={3}>
+                          <div className="pagination">
+                            <a onClick={() => this.paginateLedger(1)}>More accounts</a>
+                            {this.state.ledgerPage > 0 && (
+                              <a onClick={() => this.paginateLedger(-1)}>Previous accounts</a>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
                       </tbody>
                     </table>
                   </div>
                 )}
                 {this.state.shown === 'metamask' && (
                   <div className="metamask-login-wrapper">
-                    <h2>This is a recommended way to access your wallet</h2>
-                    <p>
+                    <h2 className="title__subtitle">This is a recommended way to access your
+                      wallet</h2>
+                    <p className="text__small">
                       MetaMask is a browser extension that allows you to access your wallet quickly,
                       safely & easily. It is more secure because you never enter your private key on
                       a website. It protects you from phishing & malicious websites.
                     </p>
-                    <button onClick={() => this.props.loginMetamask(false)}>
+                    <button className="button__primary"
+                            onClick={() => this.props.loginMetamask(false)}>
                       Connect Metamask
                     </button>
                   </div>
                 )}
                 {this.state.shown === 'keystore' && (
                   <div className="keystore-login-wrapper">
-                    <h2>This is not a recommended way to access your wallet</h2>
-                    <p>Uploading your private key to a website might be dangerous.</p>
+                    <h2 className="title__subtitle">This is not a recommended way to access your wallet</h2>
+                    <p className="text__small">Uploading your private key to a website might be dangerous.</p>
                     <input
                       className="hidden"
                       type="file"
@@ -182,7 +193,8 @@ class Login extends Component {
                       }}
                       onChange={this.readKeystore}
                     />
-                    <label htmlFor="fileinput">{this.state.fileName || 'Pick Keystore file'}</label>
+                    <label className="button__primary"
+                           htmlFor="fileinput">{this.state.fileName || 'Pick Keystore file'}</label>
                     {this.state.passReq && (
                       <div>
                         <input
@@ -195,7 +207,9 @@ class Login extends Component {
                       </div>
                     )}
                     {this.state.passReq && (
-                      <button onClick={this.readKeystore}>Connect via Keystore</button>
+                      <button disabled={decrypting} className="button__primary" onClick={this.readKeystore}>
+                        {decrypting ? 'Decrypting' : 'Connect via Keystore'}
+                      </button>
                     )}
                     {this.state.fileError && <p className="error">{this.state.fileError}</p>}
                   </div>
@@ -234,5 +248,5 @@ export default connect(
     ledgerListAddresses,
     openLogin,
     closeLogin,
-  }
+  },
 )(Login);

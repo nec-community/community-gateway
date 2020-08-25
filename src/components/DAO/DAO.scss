@@ -126,6 +126,10 @@
   }
   .important-dates-wrapper {
     width: 540px;
+
+    @media all and (max-width: 868px) {
+      width: auto;
+    }
     div {
       font-family: $font-sen;
       font-weight: bold;
