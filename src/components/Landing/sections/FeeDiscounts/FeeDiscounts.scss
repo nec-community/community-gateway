@@ -19,6 +19,9 @@
   margin-bottom: 48px;
   box-sizing: border-box;
   width: 445px;
+  @media all and (max-width: 868px) {
+    width: 100%;
+  }
 }
 
 .fee-discounts__calculator {
@@ -26,6 +29,9 @@
   justify-content: space-between;
   width: 100%;
   margin-bottom: 41px;
+  @media all and (max-width: 868px) {
+    flex-direction: column;
+  }
 }
 
 .fee-discounts__input {
@@ -39,6 +45,10 @@
   width: 180px;
 
   color: $primary-text;
+
+  @media all and (max-width: 868px) {
+    width: 100%;
+  }
 }
 
 .fee-discounts__label,
@@ -117,6 +127,10 @@
   background-color: $input-color;
   border-radius: 4px;
   transition: all 0.2s;
+
+  @media all and (max-width: 868px) {
+    width: 100%;
+  }
 }
 
 .fee-discount__receive-text {

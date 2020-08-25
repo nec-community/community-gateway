@@ -13,6 +13,9 @@
   justify-content: space-between;
   width: 460px;
   margin-bottom: 16px;
+  @media all and (max-width: 868px) {
+    width: 100%;
+  }
 }
 
 .buy-and-burn__title {
@@ -48,6 +51,9 @@
   height: 24px;
   background-color: #2f3864;
   border-radius: 4px;
+  @media all and (max-width: 868px) {
+    width: 100%;
+  }
 }
 
 .buy-and-burn__labels {
@@ -55,6 +61,9 @@
   width: 460px;
   height: 24px;
   margin: 10px 0;
+  @media all and (max-width: 868px) {
+    width: 100%;
+  }
   div {
     flex: 1;
     position: relative;

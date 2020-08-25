@@ -10,11 +10,11 @@ export default function DaoGovernance() {
       <p className="landing__section-content hidden__small">
         The direction of Nectar is firmly in the hands of Nectar holders.
       </p>
-      <div className="landing__section-content">
+      <p className="landing__section-content">
         Through the necDAO, NEC holders can govern the utility of the Nectar token itself, but
         they’re also able to control how necDAO’s 17,000 ETH are allocated in order to drive
         DeversiFi volume, adoption and other DeversiFi or Nectar relevant proposals.
-      </div>
+      </p>
       <p className="landing__section-content hidden__small">
         DeversiFi is committed to providing specified fee discounts to Nectar token holders and to
         buying and burning tokens as specified in the Buy and Burn program. DeversiFi will continue

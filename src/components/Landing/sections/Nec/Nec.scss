@@ -25,4 +25,8 @@
       opacity: 0.3;
     }
   }
+
+  @media all and (max-width: 868px) {
+    font-size: 38px;
+  }
 }

@@ -1,7 +1,6 @@
 @import '../../common/text';
 @import '../../common/components';
 @import '../../common/variables';
-
 @import '../../common/header-desc-container';
 
 * {
@@ -15,6 +14,7 @@ html {
   width: 100%;
   background: linear-gradient(4.5deg, #040E14 19.19%, #061824 88.66%);
   color: white;
+  overscroll-behavior: none;
 }
 
 body {
@@ -22,6 +22,7 @@ body {
   padding: 0;
   font-size: $font-size-regular;
   font-family: Arial, sans-serif;
+  overscroll-behavior: none;
 }
 
 nav {
@@ -30,10 +31,16 @@ nav {
   height: 70px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   transition: 0.2s background-color;
   font-weight: 300;
   z-index: 10000;
   box-sizing: border-box;
+
+  .logos {
+    display: flex;
+    align-items: center;
+  }
 
   .logo {
     max-height: 30px;
@@ -123,7 +130,8 @@ nav {
       > div {
         display: block !important;
         text-align: right;
-        padding: 0 16px !important;
+        margin-bottom: 16px;
+        margin-right: 0;
       }
       .dropdown-wrapper > div {
         position: relative;
@@ -134,11 +142,22 @@ nav {
     }
   }
   @media screen and (max-width: 1079px) {
+    padding: 0 24px;
     &.open {
-      background-color: $color1;
-      box-shadow: 0 0 5px 5px rgba($color2, 0.7);
+      background-color: $component-background;
       .nav-links {
+        background-color: $component-background;
+        padding: 24px;
+        z-index: 10000;
+        top: 70px;
+        left: 0;
+        width: 100vw;
+        position: fixed;
         display: block !important;
+      }
+
+      .dropdown-wrapper {
+        padding: 0;
       }
     }
   }

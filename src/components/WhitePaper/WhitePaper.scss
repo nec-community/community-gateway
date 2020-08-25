@@ -5,4 +5,10 @@
     display: flex;
     justify-content: center;
   }
+
+  @media all and (max-width: 868px) {
+    embed {
+      width: auto !important;
+    }
+  }
 }

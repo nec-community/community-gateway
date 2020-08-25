@@ -3,18 +3,69 @@
 .landing__wrapper {
   display: grid;
   grid-template-columns: 155px 36% 1fr;
-  height: 100vh;
-  max-height: 100vh;
+  height: calc(100vh - 70px);
   font-size: 16px;
   overflow: hidden;
 
-  @media all and (max-height: 900px) {
+  @media all and (max-height: 900px) and (min-width: 768px) {
     grid-template-columns: 165px 36% 1fr;
+  }
+
+  @media all and (max-height: 900px) and (max-width: 768px) {
+    grid-template-columns: 0 1fr 0;
+  }
+
+  @media all and (min-height: 900px) and (max-width: 768px) {
+    grid-template-columns: 0 1fr 0;
   }
 
   //@media (max-width: 1280px) {
   //  grid-template-columns: 88px 45% 1fr;
   //}
+}
+
+.landing__social {
+  position: fixed;
+  z-index: 1;
+  top: 76px;
+  right: 64px;
+
+  a {
+    cursor: pointer;
+    margin-left: 16px;
+    transition: opacity 0.3s;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+.landing__dots {
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  bottom: 0;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @media all and (max-width: 868px) {
+    display: none;
+  }
+
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 100%;
+    margin-bottom: 8px;
+    background-color: rgba($violet-active, 0.5);
+
+    &.active {
+      background-color: $primary-text;
+    }
+  }
 }
 
 .landing__background {
@@ -93,11 +144,11 @@
     background: linear-gradient(45deg, #FF8800 0%, #E2A907 100%);
     padding: 1px;
     width: 100%;
-    height:100%;
+    height: 100%;
     top: -1px;
     left: -1px;
-    position:absolute;
-    z-index:-1;
+    position: absolute;
+    z-index: -1;
   }
 }
 
@@ -139,11 +190,10 @@
 }
 
 .landing__central-column {
-  padding: 0 0 71px 0;
   display: flex;
-
-  @media all and (max-height: 900px) {
-    padding: 0 0 97px 0;
+  @media all and (max-width: 768px) {
+    max-width: 90%;
+    margin: 0 auto;
   }
 }
 
@@ -192,7 +242,15 @@
 
   @media all and (max-height: 900px) {
     align-self: flex-start;
-    padding-top: 20px;
+    padding-top: 24px;
+  }
+  @media all and (max-width: 868px) {
+    padding-top: 24px;
+    align-items: center;
+
+    &.left-aligned {
+      align-items: flex-start;
+    }
   }
 }
 
@@ -242,6 +300,10 @@
     margin: 0;
   }
 
+  @media all and (max-width: 768px) {
+    max-width: initial;
+  }
+
   &.primary {
     font-family: $font-sen;
     font-weight: bold;
@@ -273,6 +335,10 @@
   justify-content: center;
   align-items: center;
   padding: 0 0 71px 0;
+
+  @media all and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .right-column__circle {

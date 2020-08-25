@@ -30,7 +30,7 @@ class Neconomics extends React.Component {
     const { necPrice, totalSupply, marketCap, circulatingSupply } = this.state;
 
     return (
-      <section className="landing__section">
+      <section className="landing__section left-aligned">
         <div className="section__title">
           <span>Neconomics</span>
         </div>
