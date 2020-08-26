@@ -221,29 +221,18 @@ class Landing extends Component {
           ))}
         </div>
         <div className="landing__social">
-          <a
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://discord.gg/NqsS3a" target="_blank" rel="noopener noreferrer">
             <DiscordIcon />
           </a>
-          <a
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="http://www.twitter.com/deversifi" target="_blank" rel="noopener noreferrer">
             <TwitterIcon />
           </a>
         </div>
-        {
-          activeTab === 'nec' &&
+        {activeTab === 'nec' && (
           <div className="learn__more">
-            <div>
-              Learn more
-            </div>
+            <div>Learn more</div>
           </div>
-        }
+        )}
         <div className="landing__background" />
         <div className="landing__left-column" />
         <div className="landing__central-column">
