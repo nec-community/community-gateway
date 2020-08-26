@@ -25,6 +25,10 @@ export default function Ecosystem() {
           <img src="/images/landingIcons/uniswap.svg" alt="" height="50" />
           <span className="visually-hidden">Uniswap</span>
         </a>
+        <a href="https://balancer.finance/" target="_blank" rel="noopener noreferrer">
+          <img src="/images/landingIcons/balancer.png" alt="" height="50" />
+          <span className="visually-hidden">Balancer</span>
+        </a>
         <a href="https://dex.ag/" target="_blank" rel="noopener noreferrer">
           <img src="/images/landingIcons/dexag.svg" alt="" height="50" />
           <span className="visually-hidden">Dex.ag</span>
