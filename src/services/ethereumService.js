@@ -677,7 +677,7 @@ const getNeconomicsData = async () => {
   const necPrice = await getNecPrice();
   const _totalSupply = window._web3.utils.fromWei(await totalSupply(), 'ether');
   const bfxTotal = window._web3.utils.fromWei(
-    await getTokenBalance('0x2fe43a28aD82a7fc5422Ab8e9EA4efdEB1655F41'),
+    await getTokenBalance('0x567b2dd0fb4e9381d0752d2bf0b7f7f9e01af47d'),
   );
   const dvfTotal = window._web3.utils.fromWei(
     await getTokenBalance('0xfceb04c697a7708776c3936760ae256eb92046f5'),
