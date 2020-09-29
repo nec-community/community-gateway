@@ -224,7 +224,7 @@ class Landing extends Component {
           <a href="https://discord.gg/zW3FrNx" target="_blank" rel="noopener noreferrer">
             <DiscordIcon />
           </a>
-          <a href="http://www.twitter.com/deversifi" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.twitter.com/deversifi" target="_blank" rel="noopener noreferrer">
             <TwitterIcon />
           </a>
         </div>
