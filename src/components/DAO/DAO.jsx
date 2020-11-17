@@ -99,7 +99,7 @@ class DAO extends Component {
               />
               <a
                 className="side-link"
-                href="https://support.deversifi.com/en/knowledgebase/8-necdao"
+                href="https://support.deversifi.com/en/category/necdao-z56dk/"
                 target="_blank"
                 rel="noopener noreferrer"
               >

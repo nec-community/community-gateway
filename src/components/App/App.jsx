@@ -100,7 +100,7 @@ class App extends Component {
                 </a>
                 <a
                   onClick={this.clickLinkHandler}
-                  href="https://support.deversifi.com/en/knowledgebase/8-necdao"
+                  href="https://support.deversifi.com/en/category/necdao-z56dk/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
