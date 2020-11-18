@@ -243,9 +243,15 @@ class Auction extends Component {
                 <p className="text__secondary">
                   Once per week DeversiFi exchange trading fees that are pledged to NEC token
                   holders
-                  are auctioned. NEC holders can sell their <a target="__blank"
-                                                               href="https://support.deversifi.com/en/docs/32-nectar-distribution-and-allocation">circulating
-                  NEC</a> in exchange for the auctioned ETH. Any NEC sold in the auctions are
+                  are auctioned. NEC holders can sell their&nbsp;
+                  <a
+                    target="__blank"
+                    href="https://support.deversifi.com/en/article/deversifi-nectar-distribution-and-allocation-ca0dwz/"
+                    rel="noopener noreferrer"
+                  >
+                    circulating NEC
+                  </a>
+                  &nbsp;in exchange for the auctioned ETH. Any NEC sold in the auctions are
                   burned. &nbsp;
                 </p>
                 <div
