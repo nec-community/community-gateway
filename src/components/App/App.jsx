@@ -65,71 +65,69 @@ class App extends Component {
             <a onClick={() => this.setState({ open: !this.state.open })}>|||</a>
           </div>
           <div className="nav-links">
-            <NavLink exact activeClassName="is-active" to="/" onClick={this.clickLinkHandler}>
-              Home
-            </NavLink>
-            {/*<NavLink activeClassName="is-active" to="/traderboard" onClick={this.clickLinkHandler}>*/}
-            {/*Traderboard*/}
-            {/*</NavLink>*/}
-            <NavLink activeClassName="is-active" to="/whitepaper">
-              Whitepaper
-            </NavLink>
-            <NavLink activeClassName="is-active" to="/burn">
-              Weekly Auction
-            </NavLink>
-            <div className="dropdown-wrapper">
-              <a>DAO</a>
-              <div>
-                <Link onClick={this.clickLinkHandler} to="/dao">
-                  About
-                </Link>
-                <a
-                  href="https://stake.nectar.community/#/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Reputation Claim
-                </a>
-                <a
-                  onClick={this.clickLinkHandler}
-                  href="https://alchemy.daostack.io/dao/0xe56b4d8d42b1c9ea7dda8a6950e3699755943de7"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Go to DAO
-                </a>
-                <a
-                  onClick={this.clickLinkHandler}
-                  href="https://support.deversifi.com/en/category/necdao-z56dk/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Knowledge Base
-                </a>
+            <div className="links">
+              <NavLink exact activeClassName="is-active" to="/" onClick={this.clickLinkHandler}>
+                Home
+              </NavLink>
+              {/*<NavLink activeClassName="is-active" to="/traderboard" onClick={this.clickLinkHandler}>*/}
+              {/*Traderboard*/}
+              {/*</NavLink>*/}
+              <NavLink activeClassName="is-active" to="/whitepaper">
+                Whitepaper
+              </NavLink>
+              <NavLink activeClassName="is-active" to="/burn">
+                Weekly Auction
+              </NavLink>
+              <div className="dropdown-wrapper">
+                <a>DAO</a>
+                <div>
+                  <Link onClick={this.clickLinkHandler} to="/dao">
+                    About
+                  </Link>
+                  <a
+                    href="https://stake.nectar.community/#/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Reputation Claim
+                  </a>
+                  <a
+                    onClick={this.clickLinkHandler}
+                    href="https://alchemy.daostack.io/dao/0xe56b4d8d42b1c9ea7dda8a6950e3699755943de7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Go to DAO
+                  </a>
+                  <a
+                    onClick={this.clickLinkHandler}
+                    href="https://support.deversifi.com/en/category/necdao-z56dk/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Knowledge Base
+                  </a>
+                </div>
               </div>
+              <a
+                onClick={this.clickLinkHandler}
+                href="https://support.deversifi.com/en/knowledgebase/5-the-nectar-token"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                FAQ
+              </a>
             </div>
-            {/*<div className="dropdown-wrapper">*/}
-            {/*<a>Token Listings</a>*/}
-            {/*<div>*/}
-            {/*<Link onClick={this.clickLinkHandler} to="/tokens">*/}
-            {/*About*/}
-            {/*</Link>*/}
-            {/*<Link onClick={this.clickLinkHandler} to="/token-leaderboard">*/}
-            {/*Leaderboard*/}
-            {/*</Link>*/}
-            {/*<Link onClick={this.clickLinkHandler} to="/token-pool">*/}
-            {/*The Pool*/}
-            {/*</Link>*/}
-            {/*</div>*/}
-            {/*</div>*/}
-            <a
-              onClick={this.clickLinkHandler}
-              href="https://support.deversifi.com/en/knowledgebase/5-the-nectar-token"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              FAQ
-            </a>
+            <div className="ctas">
+              <a
+                className="nav-button"
+                href="https://beehive.nectar.community/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Earn NEC rewards
+              </a>
+            </div>
           </div>
         </nav>
 

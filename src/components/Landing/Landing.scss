@@ -1,6 +1,8 @@
 @import "../../common/variables";
 
 .landing__wrapper {
+  max-width: 1440px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 155px 36% 1fr;
   height: calc(100vh - 70px);

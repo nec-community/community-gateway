@@ -27,6 +27,7 @@ body {
 
 nav {
   max-width: 1440px;
+  margin: 0 auto;
   padding: 0 64px;
   height: 70px;
   display: flex;
@@ -51,12 +52,31 @@ nav {
   }
 
   .nav-links {
+    width: 100%;
+    display: flex;
+
+    .links {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @media all and (max-width: 1079px) {
+        flex-direction: column;
+      }
+    }
+
     a {
       margin-right: 32px;
       color: $secondary-text;
       font-size: 17px;
       font-family: $font-sen;
       font-weight: normal;
+
+      @media all and (max-width: 1079px) {
+        margin-bottom: 16px;
+        margin-right: 0;
+      }
 
       &.is-active {
         color: $primary-text;
@@ -65,6 +85,24 @@ nav {
       &:last-child {
         margin-right: 0;
       }
+    }
+
+    .nav-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(315deg, #FF8800 8.75%, #E2A907 100%);
+      border-radius: 4px;
+      height: 40px;
+      padding: 0 16px;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      font-family: $font-sen;
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 28px;
+      color: #FFFFFF;
     }
 
     .dropdown-wrapper {
@@ -108,18 +146,15 @@ nav {
     }
     @media screen and (max-width: 1079px) {
       display: none;
-      > a,
-      > div {
-        display: block !important;
-        text-align: right;
-        margin-bottom: 16px;
-        margin-right: 0;
+      .dropdown-wrapper {
+        text-align: center;
       }
       .dropdown-wrapper > div {
         position: relative;
         display: block;
         box-shadow: none;
         padding-right: 12px;
+        text-align: center;
       }
     }
   }
