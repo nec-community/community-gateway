@@ -1,0 +1,548 @@
+@import '../../common/variables';
+
+.auction {
+  margin: auto;
+  padding: 50px 0 80px;
+
+  .live {
+    background-color: #fff;
+    padding: 80px 0;
+
+    section {
+      margin: 0;
+    }
+  }
+
+  .container {
+    height: 100%;
+
+    .little__text {
+      font-size: 14px;
+      line-height: 17px;
+      margin-bottom: 4px;
+    }
+  }
+
+  &__subtitle {
+    margin-top: 8px;
+    max-width: initial !important;
+
+    a {
+      padding-left: 4px;
+    }
+  }
+
+  .overview {
+    .overview__header {
+      font-weight: 500;
+      font-size: 40px;
+      line-height: 52px;
+
+      p {
+        font-weight: 400;
+      }
+    }
+
+    .overview__auction {
+      background: rgba(#28324A, 0.5);
+      border-radius: 6px;
+      padding: 24px;
+      width: 540px;
+
+      @media all and (max-width: 868px) {
+        margin-top: 24px;
+        width: auto;
+      }
+
+      p {
+        font-family: $font-sen;
+        font-size: 18px;
+        line-height: 150%;
+        color: $primary-text;
+        margin: 0 0 24px 0;
+
+        &:last-child {
+          margin: 0;
+        }
+
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+
+    &__description {
+      background: rgba(#28324A, 0.5);
+      padding: 24px;
+      margin: 34px 0;
+      p {
+        max-width: initial;
+      }
+    }
+
+    &__close {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 60px;
+
+      button {
+        border: 1px solid #FFFFFF;
+        background: transparent;
+        font-size: 12px;
+        line-height: 30px;
+        letter-spacing: 0.02em;
+        color: #FFFFFF;
+        width: 159px;
+        height: 45px;
+        cursor: pointer;
+      }
+    }
+
+    .overview__link {
+      cursor: pointer;
+    }
+
+
+    .overview {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      @media all and (max-width: 868px) {
+        flex-direction: column;
+      }
+    }
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 100px;
+
+    .tabs {
+      display: flex;
+      align-items: flex-start;
+      width: 100%;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-right: 16px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      .active__tab {
+        box-sizing: border-box;
+        height: 185px;
+        width: 350px;
+        background: rgba($component-background, 0.5);
+        padding: 24px;
+        color: $primary-text;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+
+      button {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: #04121C;
+        border: 1px solid #172334;
+        box-sizing: border-box;
+        border-radius: 6px;
+        width: 350px;
+        height: 161px;
+        padding: 24px;
+        color: rgba($primary-text, 0.7);
+        font-weight: normal;
+        outline: none;
+        cursor: pointer;
+        font-family: $font-sen;
+
+        .tab__title {
+          font-size: 18px;
+          margin: 0;
+          font-family: $font-sen;
+        }
+
+        span {
+          font-family: $font-sen;
+          font-size: 40px;
+          line-height: 140%;
+
+          &:last-child {
+            color: rgba($secondary-text, 0.7);
+          }
+        }
+      }
+    }
+
+    .diagram__container {
+      width: 100%;
+      height: 496px;
+      padding: 34px 24px;
+      background: rgba($component-background, 0.5);
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+      border-bottom-left-radius: 6px;
+
+      .diagram__label {
+        font-family: $font-sen;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 140%;
+        margin: 0 0 24px 0;
+      }
+    }
+
+    .graphics__container {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+
+      &:first-child {
+        margin-right: 15px;
+      }
+
+      .graphics-item__container {
+        position: relative;
+        box-sizing: border-box;
+        width: 540px;
+        height: 245px;
+        padding: 24px 24px 50px 24px;
+        background: rgba($secondary-text, 0.2);
+      }
+
+      .graphic__label {
+        font-family: $font-sen;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 140%;
+        color: $dark-text;
+        margin: 0;
+      }
+
+      .graphic__text {
+        font-family: $font-montserrat;
+        font-weight: bold;
+        font-size: 40px;
+        line-height: 140%;
+        color: $dark-text;
+
+        span {
+          font-size: 24px;
+          font-weight: normal;
+
+          &.split {
+            font-weight: normal;
+            font-size: 40px;
+            margin: 0 5px;
+          }
+        }
+      }
+
+      .first__circle {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 275px;
+        height: 275px;
+        border-radius: 50%;
+        border: 10px solid rgba(95, 245, 252, 0.2);
+        font-weight: 400;
+
+        p {
+          font-size: 52px;
+          line-height: 63px;
+          margin-bottom: 15px;
+        }
+
+        span {
+          font-size: 16px;
+          line-height: 22px;
+        }
+      }
+
+      .single-chart {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .circular-chart {
+        height: 144px;
+      }
+
+      .circle-bg {
+        fill: none;
+        stroke: rgba(#FCAE16, 0.3);
+        stroke-width: 5;
+      }
+
+      .circle {
+        fill: none;
+        stroke-width: 5;
+        stroke-linecap: round;
+        animation: progress 1s ease-out forwards;
+      }
+
+      @keyframes progress {
+        0% {
+          stroke-dasharray: 0 100;
+        }
+      }
+
+      .circular-chart.color .circle {
+        stroke: #FCAE16;
+      }
+
+      .text {
+        fill: #ffffff;
+        font-size: 2px;
+        text-anchor: middle;
+      }
+
+      .chart-title {
+        font-size: 4px;
+        text-anchor: middle;
+        fill: #ffffff;
+      }
+    }
+
+    .tooltip__container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 80px;
+      height: 30px;
+      font-size: 14px;
+      line-height: 17px;
+      color: #ffffff;
+      background-color: #1e1c2c;
+
+      .tooltip__triangle {
+        position: absolute;
+        top: 27px;
+        left: calc(50% - 40);
+        width: 0;
+        height: 0;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-top: 10px solid #1e1c2c;
+      }
+    }
+  }
+
+  .current-auction {
+    display: flex;
+    justify-content: space-between;
+
+    &__header {
+      font-weight: 500;
+      font-size: 30px;
+      line-height: 52px;
+      margin-bottom: 32px !important;
+    }
+
+    &__card {
+      width: 540px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      padding: 24px 24px 34px 24px;
+      background: rgba($secondary-text, 0.2);
+      border-radius: 6px;
+
+      & > div {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    &__title {
+      display: flex;
+      align-items: center;
+      font-family: $font-sen;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 150%;
+      color: $dark-text;
+    }
+
+    &__usd {
+      font-family: $font-sen;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 150%;
+      color: $secondary-text;
+    }
+
+
+    &__value {
+      font-family: $font-montserrat;
+      font-weight: normal;
+      font-size: 40px;
+      line-height: 140%;
+      text-align: right;
+      color: $dark-text;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      max-width: 330px;
+
+      small {
+        font-size: 22px;
+      }
+    }
+  }
+
+  .current-auction__info {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 125px;
+    margin-top: 40px;
+    color: #fffcfc;
+    font-weight: 400;
+    background-color: #1e1d2e;
+  }
+
+  .info__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25%;
+    height: 100%;
+    padding: 15px 20px;
+
+    p {
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    span {
+      font-size: 36px;
+      line-height: 44px;
+    }
+  }
+
+  .sell__tokens {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 245px;
+    margin-top: 82px;
+    padding: 95px 67px;
+    background: linear-gradient(4.5deg, #040E14 19.19%, #061824 88.66%);
+    border-radius: 6px;
+    font-size: 40px;
+
+    .input__container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 56px;
+      width: 306px;
+      background-color: rgba(#A9ABCB, 0.1);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+      padding: 10px 24px;
+      box-sizing: border-box;
+      margin: 0 24px;
+
+      span {
+        color: $secondary-text;
+        font-size: 30px;
+        font-family: $font-sen;
+      }
+
+      p {
+        max-width: 190px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 30px;
+        font-family: $font-sen;
+      }
+
+      input {
+        height: 32px;
+        max-width: 180px;
+        padding: 0;
+        border: 0 none;
+        background-color: transparent;
+        color: $primary-text;
+        font-size: 30px;
+        font-family: $font-sen;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    button {
+      width: 147px;
+
+      &:disabled {
+        opacity: 0.8;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .table {
+    &__container {
+      margin-top: 58px;
+    }
+
+    &__loading {
+      width: 100%;
+      margin: 30px 0;
+      display: flex;
+      justify-content: center;
+    }
+
+  }
+
+  table {
+    display: block;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 940px;
+    font-weight: 400;
+    text-align: left;
+
+    thead {
+      th {
+        display: flex;
+        align-items: center;
+        font-size: 10px;
+      }
+    }
+
+    tr {
+      display: grid;
+      grid-template-columns: 120px 80px 350px 80px 60px 100px 90px 50px;
+      height: 60px;
+      text-transform: uppercase;
+      border-bottom: 1px solid hsla(0, 0%, 86.7%, 0.2);
+
+      td {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.summary {
+}

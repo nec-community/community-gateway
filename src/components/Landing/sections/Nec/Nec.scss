@@ -1,0 +1,32 @@
+@import "../../../../common/variables";
+
+.nec__header {
+  margin: 0 0 32px;
+  font-weight: normal;
+  font-size: 48px;
+  line-height: 140%;
+  font-family: $font-montserrat;
+
+  span {
+    display: inline-block;
+    position: relative;
+    font-weight: bold;
+
+    &::after {
+      content: " ";
+      position: absolute;
+      z-index: -1;
+      height: 32px;
+      width: calc(100% + 20px);
+      bottom: 6px;
+      right: -10px;
+      display: block;
+      background: #FCAE16;
+      opacity: 0.3;
+    }
+  }
+
+  @media all and (max-width: 868px) {
+    font-size: 38px;
+  }
+}

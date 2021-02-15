@@ -1,0 +1,86 @@
+@import "../../../../common/variables";
+
+.buy-and-burn__bold-text {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 22px;
+  color: #ffffff;
+}
+
+.buy-and-burn__progress-bar-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 460px;
+  margin-bottom: 16px;
+  @media all and (max-width: 868px) {
+    width: 100%;
+  }
+}
+
+.buy-and-burn__title {
+  color: $secondary-text;
+  font-family: $font-sen;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 24px;
+  opacity: 0.9;
+}
+
+.buy-and-burn__progress-bar-title-up {
+  display: flex;
+  flex-direction: column;
+
+  &--right {
+    align-items: flex-end;
+  }
+}
+
+.buy-and-burn__amount-right,
+.buy-and-burn__amount-left {
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 140%;
+  font-family: $font-montserrat;
+  color: #ffffff;
+}
+
+.buy-and-burn__progress-bar {
+  position: relative;
+  width: 460px;
+  height: 24px;
+  background-color: #2f3864;
+  border-radius: 4px;
+  @media all and (max-width: 868px) {
+    width: 100%;
+  }
+}
+
+.buy-and-burn__labels {
+  display: flex;
+  width: 460px;
+  height: 24px;
+  margin: 10px 0;
+  @media all and (max-width: 868px) {
+    width: 100%;
+  }
+  div {
+    flex: 1;
+    position: relative;
+
+    span {
+      position: absolute;
+      text-align: center;
+      width: 53px;
+      right: -26px;
+    }
+  }
+}
+
+.buy-and-burn__current-progress {
+  position: absolute;
+  height: 24px;
+  width: 0%;
+  background: linear-gradient(315deg, #FF8800 8.75%, #E2A907 100%);
+  border-radius: 6px;
+}

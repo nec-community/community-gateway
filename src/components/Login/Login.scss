@@ -1,0 +1,195 @@
+@import "../../common/variables";
+
+.login-fab {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  height: 80px;
+  width: 80px;
+  border-radius: 80px;
+  background: rgba($component-background, 0.7);
+  cursor: pointer;
+  line-height: 11px;
+  font-size: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  transition: all .2s;
+  z-index: 1000;
+  font-family: $font-sen;
+  &:hover {
+    background-color: rgba($component-background, 1);
+  }
+  &:active {
+    background-color: darken($color4, 8%);
+  }
+}
+
+.login-wrapper {
+  position: fixed;
+  width: 100%;
+  padding: 80px 140px;
+  top: 0;
+  left: 0;
+  z-index: 300;
+  max-height: 100vh;
+  overflow: auto;
+  @media screen and (max-width: 1100px) {
+    padding: 40px;
+  }
+  .login-inner-wrapper {
+    background-color: $component-background;
+    border-radius: 5px;
+    padding: 30px;
+    position: relative;
+    .close-button {
+      display: block;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: url('/images/x.svg') 100% center no-repeat;
+      height: 34px;
+      width: 34px;
+      border: 0;
+      outline: 0;
+      cursor: pointer;
+    }
+    .nav {
+      border-bottom: 1px solid $color4;
+      display: flex;
+      justify-content: space-around;
+      max-width: 600px;
+      margin: auto;
+      @media screen and (max-width: 767px) {
+        flex-direction: column;
+        text-align: center;
+        border: 0;
+        a {
+          margin: 0 !important;
+        }
+      }
+      a {
+        display: inline-block;
+        line-height: 60px;
+        font-size: 25px;
+        letter-spacing: 0.02em;
+        font-family: $font-sen;
+        color: rgba($secondary-text, 0.7);
+        cursor: pointer;
+        transition: .2s color;
+        border-bottom: 6px solid transparent;
+        margin: 0 40px -3px 0;
+        &:hover {
+          color: white;
+        }
+        &.active {
+          font-weight: bold;
+          color: white;
+          border-color: white;
+          &:before {
+            background-color: white;
+          }
+        }
+      }
+    }
+    .login-input-wrapper {
+      padding: 50px 20px;
+      text-align: center;
+      > div {
+        max-width: 500px;
+        margin: auto;
+      }
+
+      button {
+        margin: 30px auto;
+      }
+      input[type="text"],
+      input[type="password"] {
+        font-family: $font-sen;
+        margin-left: 10px;
+        border: 0;
+        color: $primary-text;
+        font-size: 16px;
+        outline: none;
+        width: 200px;
+        background-color: rgba($secondary-text, 0.1);
+        border-radius: 6px;
+        height: 56px;
+        padding: 16px;
+        box-sizing: border-box;
+        &::placeholder {
+          color: rgba(white, .5);
+        }
+      }
+      .keystore-login-wrapper {
+        input[type="file"] {
+          display: none;
+        }
+        label {
+          margin: 30px auto;
+          width: auto;
+        }
+        .error {
+          background-color: #d33133;
+          color: white;
+          padding: 10px;
+        }
+      }
+      .ledger-login-wrapper {
+        max-width: 700px;
+        h2 {
+          max-width: 500px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        table {
+          margin: 0 auto;
+          width: 100%;
+          max-width: 600px;
+        }
+        th {
+          font-weight: normal;
+          border-bottom: 1px solid $color1;
+          padding: 10px 5px;
+          font-family: $font-sen;
+          &:first-child {
+            padding-left: 0;
+            text-align: left;
+          }
+        }
+        td {
+          padding: 5px 5px;
+          font-family: $font-sen;
+          &:first-child {
+            text-align: left;
+          }
+        }
+        tr{
+          cursor: pointer;
+          &:nth-child(2n + 3) {
+            background-color: $color1;
+          }
+          &:hover {
+            background-color: lighten($color1, 5%);
+          }
+        }
+        .meta-row {
+          background-color: transparent !important;
+          cursor: default;
+          .pagination {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            padding-top: 10px;
+            a {
+              font-family: $font-sen;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}

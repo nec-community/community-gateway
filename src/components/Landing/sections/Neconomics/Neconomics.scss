@@ -1,0 +1,25 @@
+@import "../../../../common/variables";
+
+.neconomics__section {
+  .separator {
+    background: linear-gradient(90deg, #FF8800 8.75%, #E2A907 100%);
+    height: 3px;
+    width: 60px;
+    margin-bottom: 24px;
+  }
+
+
+  .main__text {
+    font-family: $font-montserrat;
+    font-weight: bold;
+    font-size: 40px;
+    line-height: 140%;
+  }
+
+  .side__text {
+    font-family: $font-montserrat;
+    font-size: 18px;
+    line-height: 140%;
+  }
+  margin-bottom: 24px;
+}

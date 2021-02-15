@@ -1,0 +1,23 @@
+
+
+.terms-content {
+  ol {
+   counter-reset: section;
+   list-style-type: none;
+   text-indent: -10px;
+
+   li::before {
+    counter-increment: section;
+    content: counters(section,".") " ";
+    font-weight: bold;
+   }
+   li {
+     padding-right: .6em;
+     margin-bottom: 10px;
+   }
+  }
+  p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px !important ;
+  }
+}

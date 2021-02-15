@@ -1,0 +1,90 @@
+@import "../../common/variables";
+
+.trading-reward-wrapper {
+  padding: 100px 0;
+
+  h2 {
+    font-size: 48px;
+    margin: 0;
+    @media screen and (max-width: 1365px) {
+      font-size: 40px;
+    }
+    @media screen and (max-width: 767px) {
+      font-size: 32px;
+    }
+  }
+
+  .calculator-desc {
+    display: flex;
+    @media screen and (min-width: 600px) {
+      margin-top: 40px;
+      padding-left: 50px;
+    }
+
+
+    .line-indent {
+      height: 1px;
+      background: #fff;
+      width: 36px;
+      position: relative;
+      top: 10px;
+      @media screen and (max-width: 767px) {
+        display: none;
+      }
+    }
+
+    p {
+      font-weight: normal;
+      line-height: 23px;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+      width: 350px;
+      @media screen and (max-width: 767px) {
+        line-height: 19px;
+        font-size: 12px;
+      }
+      @media screen and (min-width: 600px) {
+        margin: 0 50px 25px 50px;
+      }
+    }
+  }
+  h3 {
+    font-weight: bold;
+    font-size: 30px;
+    color: $color4;
+    width: 610px;
+    line-height: 20px;
+    margin: 100px 0;
+    float: right;
+    @media screen and (max-width: 767px) {
+      float: none;
+      width: auto;
+      line-height: 45px;
+      input {
+        margin: 0 !important;
+      }
+      div {
+        text-align: left;
+      }
+    }
+    input {
+      margin: 10px 10px 10px 0;
+      padding: 0 3px;
+      width: 80px;
+      background: transparent;
+      border: 0;
+      font-weight: bold;
+      font-size: 30px;
+      color: white;
+      text-align: center;
+      outline: none;
+      border-bottom: 2px solid transparent;
+      &:focus {
+        border-color: $color4;
+      }
+    }
+    b {
+      color: white;
+    }
+  }
+}

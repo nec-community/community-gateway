@@ -1,0 +1,14 @@
+.whitepaper {
+  padding: 52px 0 0 0;
+
+  .whitepaper__document {
+    display: flex;
+    justify-content: center;
+  }
+
+  @media all and (max-width: 868px) {
+    embed {
+      width: auto !important;
+    }
+  }
+}

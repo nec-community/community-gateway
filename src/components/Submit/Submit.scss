@@ -1,0 +1,100 @@
+@import "../../common/variables";
+
+.submit-proposal {
+  padding: 10px 0 0;
+  h1 {
+    font-size: 70px;
+    margin: 100px 0 50px;
+    font-weight: 300;
+  }
+  .error {
+    text-align: center;
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #d33133;
+    color: white;
+  }
+}
+
+.form-wrapper {
+  background-color: $color4;
+  padding: 100px 0;
+  .form-container {
+    max-width: 700px;
+    padding: 0 30px;
+    margin: auto;
+  }
+  label {
+    display: block;
+    margin: 30px 0;
+    font-size: 16px;
+    font-weight: 300;
+  }
+  input {
+    margin-left: 40px;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid white;
+    color: white;
+    font-size: 16px;
+    font-weight: 300;
+    outline: none;
+    padding: 5px;
+  }
+  input[type="text"] {
+    width: 100%;
+    margin: 0;
+    padding: 10px 0;
+    &::placeholder {
+      color: rgba(white, .5);
+    }
+  }
+  textarea {
+    display: block;
+    margin: 10px 0;
+    width: 100%;
+    min-height: 200px;
+    resize: vertical;
+    padding: 10px 0;
+    line-height: 1.4em;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid white;
+    color: white;
+    font-size: 16px;
+    font-weight: 300;
+    outline: none;
+    &::placeholder {
+      color: rgba(white, .5);
+    }
+  }
+  input[type="email"] {
+    width: 250px;
+  }
+  .submit-wrapper {
+    text-align: right;
+    padding: 50px 0 0;
+    button {
+      margin: 10px 0;
+      width: 200px;
+      height: 50px;
+      border: 0;
+      outline: 0;
+      background: #041824;
+      box-shadow: 0 0 100px rgba(0, 0, 0, 0.38);
+      font-size: 14px;
+      letter-spacing: 0.02em;
+      color: #FFFFFF;
+      cursor: pointer;
+      transition: all .2s;
+      &:hover {
+        background: lighten(#041824, 2%);
+        box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
+      }
+      &:disabled {
+        background: #0e1c24 !important;
+        color: gray;
+      }
+    }
+  }
+}

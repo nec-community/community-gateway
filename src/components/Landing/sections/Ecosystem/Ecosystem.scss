@@ -1,0 +1,13 @@
+.exchanges__links-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 34px;
+
+  & > * {
+    margin-bottom: 30px;
+
+    img {
+      max-height: 32px;
+    }
+  }
+}
