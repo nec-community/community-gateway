@@ -7,14 +7,13 @@ import { countWheels } from './scrollHelper';
 import CircleButton from './CircleButton';
 import TwitterIcon from '../../constants/images/landingIcons/twitter';
 import DiscordIcon from '../../constants/images/landingIcons/discord';
-import { Nec, FeeDiscounts, BuyAndBurn, DaoGovernance, Neconomics, Ecosystem } from './sections';
+import { Nec, BuyAndBurn, DaoGovernance, Neconomics, Ecosystem } from './sections';
 
 import './Landing.scss';
 
 import necLogo from '../App/assets/neclogo.svg';
 
 const buttons = [
-  { icon: 'fee', desc: 'Fee discounts' },
   { icon: 'buy', desc: 'Buy & Burn' },
   { icon: 'dao', desc: `DAO governance` },
   { icon: 'neconomics', desc: 'Neconomics' },
@@ -24,9 +23,6 @@ const buttons = [
 const tabs = {
   nec: {
     component: Nec,
-  },
-  fee: {
-    component: FeeDiscounts,
   },
   buy: {
     component: BuyAndBurn,
@@ -44,7 +40,6 @@ const tabs = {
 
 const tabsNames = [
   'Welcome',
-  'Fee discounts',
   'Buy & Burn',
   'DAO governance',
   'Neconomics',

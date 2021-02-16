@@ -71,9 +71,6 @@ class App extends Component {
               <NavLink activeClassName="is-active" to="/whitepaper">
                 Whitepaper
               </NavLink>
-              <NavLink activeClassName="is-active" to="/burn">
-                Weekly Auction
-              </NavLink>
               <div className="dropdown-wrapper">
                 <a>DAO</a>
                 <div>
@@ -113,7 +110,7 @@ class App extends Component {
                     <img className="logo" src={necLogo} alt="" height="40" />
                   </a>
                 </div>
-                <p className="copyright">Nectar.community is open-source! Contribute on
+                <p className="copyright">Nectar.community is open-source! Contribute on &nbsp;
                   <a href="_blank" href="https://github.com/nec-community/community-gateway" rel ="noopener noreferrer">Github</a>
                 </p>
               </div>
