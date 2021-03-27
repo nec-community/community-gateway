@@ -7,14 +7,13 @@ import { countWheels } from './scrollHelper';
 import CircleButton from './CircleButton';
 import TwitterIcon from '../../constants/images/landingIcons/twitter';
 import DiscordIcon from '../../constants/images/landingIcons/discord';
-import { Nec, BuyAndBurn, DaoGovernance, Neconomics, Ecosystem } from './sections';
+import { Nec, DaoGovernance, Neconomics, Ecosystem } from './sections';
 
 import './Landing.scss';
 
 import necLogo from '../App/assets/neclogo.svg';
 
 const buttons = [
-  { icon: 'buy', desc: 'Buy & Burn' },
   { icon: 'dao', desc: `DAO governance` },
   { icon: 'neconomics', desc: 'Neconomics' },
   { icon: 'exchanges', desc: 'Trade NEC' },
@@ -23,9 +22,6 @@ const buttons = [
 const tabs = {
   nec: {
     component: Nec,
-  },
-  buy: {
-    component: BuyAndBurn,
   },
   dao: {
     component: DaoGovernance,
@@ -40,7 +36,6 @@ const tabs = {
 
 const tabsNames = [
   'Welcome',
-  'Buy & Burn',
   'DAO governance',
   'Neconomics',
   'Trade NEC',
@@ -219,7 +214,7 @@ class Landing extends Component {
           <a href="https://discord.gg/zW3FrNx" target="_blank" rel="noopener noreferrer">
             <DiscordIcon />
           </a>
-          <a href="https://www.twitter.com/deversifi" target="_blank" rel="noopener noreferrer">
+          <a href="https://twitter.com/necdao" target="_blank" rel="noopener noreferrer">
             <TwitterIcon />
           </a>
         </div>
