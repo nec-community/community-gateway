@@ -68,9 +68,6 @@ class App extends Component {
               {/*<NavLink activeClassName="is-active" to="/traderboard" onClick={this.clickLinkHandler}>*/}
               {/*Traderboard*/}
               {/*</NavLink>*/}
-              <NavLink activeClassName="is-active" to="/whitepaper">
-                Whitepaper
-              </NavLink>
               <div className="dropdown-wrapper">
                 <a>DAO</a>
                 <div>
